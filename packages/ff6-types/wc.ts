@@ -322,3 +322,57 @@ export const DRAGON_BIT: Record<FF6Dragon, CheckBit> = {
   redDragon: new CheckBit("redDragon", "redDragon", 149),
   whiteDragon: new CheckBit("whiteDragon", "whiteDragon", 150),
 };
+
+export const characterChecks: Record<FF6Character, Array<FF6Event>> = {
+  terra: ["leteRiver", "sealedGate", "whelk", "ramuh", "mobliz"],
+  locke: ["tunnelArmor", "narsheWeaponShop1", "phoenixCave"],
+  cyan: ["doma", "nightmare1", "nightmare2", "nightmare3", "mtZozo"],
+  shadow: [
+    "gauManor",
+    "floatingContinent1",
+    "floatingContinent2",
+    "floatingContinent3",
+    "veldtCave",
+  ],
+  edgar: ["figaroCastleEngineRoom", "ancientCastle", "figaroThrone"],
+  sabin: [
+    "barenFalls",
+    "imperialCamp",
+    "mtKoltz",
+    "phantomTrain",
+    "collapsingHouse",
+  ],
+  celes: ["operaHouse", "chainedCeles", "magitek1", "magitek2", "magitek3"],
+  strago: ["burningHouse", "ebotsRock", "fanaticsTower1"],
+  relm: ["esperMountain", "owzersMansion"],
+  setzer: ["darill", "kohligen"],
+  mog: ["loneWolf1"],
+  gau: ["veldt", "serpentTrench"],
+  gogo: ["zoneEater"],
+  umaro: ["umarosCave"],
+};
+
+export const characterNames = Object.keys(
+  characterChecks
+) as Array<FF6Character>;
+
+export const characterPalettesByKey: Record<FF6Character, number> = {
+  terra: 2,
+  locke: 1,
+  cyan: 4,
+  shadow: 4,
+  edgar: 0,
+  sabin: 0,
+  celes: 0,
+  strago: 3,
+  relm: 3,
+  setzer: 4,
+  mog: 5,
+  gau: 4,
+  gogo: 1,
+  umaro: 5,
+};
+
+export const characterPalettes = characterNames.map(
+  (z) => characterPalettesByKey[z]
+);

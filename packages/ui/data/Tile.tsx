@@ -20,6 +20,8 @@ export class Tile {
 
   public readonly palette: Palette;
 
+  public readonly rgb: Array<number> = [];
+
   constructor(bytes: Array<number>, palette: Palette) {
     if (bytes.length !== 32) {
       throw new Error("Tile bytes array must be 32 length");
@@ -66,6 +68,7 @@ export class Tile {
           y,
           value,
         });
+        this.rgb.push(this.palette.colors[value]);
       }
     }
   }

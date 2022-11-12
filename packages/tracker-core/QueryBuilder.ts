@@ -1,8 +1,8 @@
 import { getLogger, Logger } from "loglevel";
 import { QueryResultType, Query } from "./Query";
-import { QUsb2SnesSession } from "./QUsb2SnesSession";
+import { SnesSession } from "./SnesSession";
 
-type AnySession = QUsb2SnesSession;
+type AnySession = SnesSession;
 
 export class QueryBuilder {
   private readonly session: AnySession;
@@ -11,10 +11,6 @@ export class QueryBuilder {
   constructor(_session: AnySession) {
     this.session = _session;
     this.logger = getLogger("QueryBuilder");
-  }
-
-  public async connect(): Promise<void> {
-    await this.session.connect();
   }
 
   /**

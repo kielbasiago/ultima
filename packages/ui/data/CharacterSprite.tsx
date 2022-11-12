@@ -1,4 +1,4 @@
-import { Tile } from "../data/Tile";
+import { Tile } from "./Tile";
 
 export class CharacterSprite {
   public readonly id: number;

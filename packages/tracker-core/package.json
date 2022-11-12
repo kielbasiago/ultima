@@ -1,5 +1,5 @@
 {
-  "name": "@ff6wc/ui",
+  "name": "@ff6wc/tracker-core",
   "version": "0.0.0",
   "main": "./index.tsx",
   "types": "./index.tsx",
@@ -11,11 +11,18 @@
     "@ff6wc/eslint-config-custom": "workspace:*",
     "@ff6wc/tsconfig": "workspace:*",
     "@types/lodash": "4.14.188",
+    "@types/promise-queue": "2.2.0",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
+    "@types/websocket": "1.0.5",
     "eslint": "^7.32.0",
     "lodash": "4.17.21",
-    "react": "^18.2.0",
+    "loglevel": "1.8.1",
     "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "@types/node": "^17.0.12",
+    "promise-queue": "2.2.5",
+    "websocket": "1.0.34"
   }
 }

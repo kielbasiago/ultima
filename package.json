@@ -1,5 +1,5 @@
 {
-  "name": "tracker",
+  "name": "@ff6wc/tracker",
   "version": "0.0.0",
   "private": true,
   "workspaces": [
@@ -13,7 +13,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "eslint-config-custom": "workspace:*",
+    "@ff6wc/eslint-config-custom": "workspace:*",
     "prettier": "latest",
     "turbo": "latest"
   },

@@ -1,5 +1,5 @@
 {
-  "name": "tsconfig",
+  "name": "@ff6wc/tsconfig",
   "version": "0.0.0",
   "private": true,
   "files": [

@@ -1,0 +1,10 @@
+{
+  "extends": "@ff6wc/tsconfig/base.json",
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules"],
+  "compilerOptions": {
+      "target": "esnext",
+      "lib": ["dom", "dom.iterable", "esnext"],
+      "jsx": "react-jsx"
+  },
+}

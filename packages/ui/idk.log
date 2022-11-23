@@ -1,0 +1,792 @@
+
+> @ff6wc/ui@0.0.0 storybook /home/nolanlocke/dev/ultima/packages/ui
+> storybook dev
+
+@storybook/cli v7.0.0-alpha.52
+
+info => Loading presets
+info => Loading presets
+info => Loading presets
+info => Starting manager..
+info => Using implicit CSS loaders
+info => Using default Webpack5 setup
+webpack built preview b10e87785182f3e7bd7e in 2506ms
+WARN Force closed manager build
+WARN Force closed preview build
+info => Loading presets
+ModuleBuildError: Module build failed (from ../../node_modules/.pnpm/babel-loader@8.3.0_npabyccmuonwo2rku4k53xo3hi/node_modules/babel-loader/lib/index.js):
+SyntaxError: /home/nolanlocke/dev/ultima/packages/ui/Button/Button.stories.tsx: Support for the experimental syntax 'jsx' isn't currently enabled (6:10):
+
+  4 | };
+  5 | export const Default = () => {
+> 6 |   return <Button></Button>;
+    |          ^
+  7 | };
+  8 | Default.parameters = {
+  9 |   ...Default.parameters,
+
+Add @babel/preset-react (https://github.com/babel/babel/tree/main/packages/babel-preset-react) to the 'presets' section of your Babel config to enable transformation.
+If you want to leave it as-is, add @babel/plugin-syntax-jsx (https://github.com/babel/babel/tree/main/packages/babel-plugin-syntax-jsx) to the 'plugins' section to enable parsing.
+    at instantiate (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:66:32)
+    at constructor (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:357:12)
+    at Parser.raise (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:3298:19)
+    at Parser.expectOnePlugin (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:3347:18)
+    at Parser.parseExprAtom (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:11284:16)
+    at Parser.parseExprSubscripts (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:10947:23)
+    at Parser.parseUpdate (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:10929:21)
+    at Parser.parseMaybeUnary (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:10901:23)
+    at Parser.parseMaybeUnaryOrPrivate (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:10736:61)
+    at Parser.parseExprOps (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:10741:23)
+    at Parser.parseMaybeConditional (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:10718:23)
+    at Parser.parseMaybeAssign (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:10679:21)
+    at Parser.parseExpressionBase (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:10633:23)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:10629:39
+    at Parser.allowInAnd (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:12356:16)
+    at Parser.parseExpression (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:10629:17)
+    at Parser.parseReturnStatement (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:13001:28)
+    at Parser.parseStatementContent (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:12663:21)
+    at Parser.parseStatement (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:12625:17)
+    at Parser.parseBlockOrModuleBlockBody (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:13191:25)
+    at Parser.parseBlockBody (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:13184:10)
+    at Parser.parseBlock (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:13172:10)
+    at Parser.parseFunctionBody (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:12020:24)
+    at Parser.parseArrowExpression (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:11995:10)
+    at Parser.parseParenAndDistinguishExpression (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:11568:12)
+    at Parser.parseExprAtom (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:11214:21)
+    at Parser.parseExprSubscripts (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:10947:23)
+    at Parser.parseUpdate (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:10929:21)
+    at Parser.parseMaybeUnary (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:10901:23)
+    at Parser.parseMaybeUnaryOrPrivate (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:10736:61)
+    at Parser.parseExprOps (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:10741:23)
+    at Parser.parseMaybeConditional (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:10718:23)
+    at Parser.parseMaybeAssign (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:10679:21)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:10649:39
+    at Parser.allowInAnd (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:12356:16)
+    at Parser.parseMaybeAssignAllowIn (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:10649:17)
+    at Parser.parseVar (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:13264:91)
+    at Parser.parseVarStatement (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:13102:10)
+    at Parser.parseStatementContent (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:12694:21)
+    at Parser.parseStatement (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:12625:17)
+    at Parser.parseExportDeclaration (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:13848:17)
+    at Parser.maybeParseExportDeclaration (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:13802:31)
+    at Parser.parseExport (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:13724:29)
+    at Parser.parseStatementContent (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:12724:25)
+    at Parser.parseStatement (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:12625:17)
+    at Parser.parseBlockOrModuleBlockBody (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:13191:25)
+    at Parser.parseBlockBody (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:13184:10)
+    at Parser.parseProgram (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:12542:10)
+    at Parser.parseTopLevel (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:12532:25)
+    at Parser.parse (/home/nolanlocke/dev/ultima/node_modules/.pnpm/@babel+parser@7.20.3/node_modules/@babel/parser/lib/index.js:14330:10)
+    at processResult (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModule.js:489:23)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModule.js:567:9
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/loader-runner@4.3.0/node_modules/loader-runner/lib/LoaderRunner.js:361:14
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/loader-runner@4.3.0/node_modules/loader-runner/lib/LoaderRunner.js:227:14
+    at context.callback (/home/nolanlocke/dev/ultima/node_modules/.pnpm/loader-runner@4.3.0/node_modules/loader-runner/lib/LoaderRunner.js:116:16)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/babel-loader@8.3.0_npabyccmuonwo2rku4k53xo3hi/node_modules/babel-loader/lib/index.js:67:108
+ModuleNotFoundError: Module not found: Error: Can't resolve 'lodash/startCase' in '/home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/@storybook/csf/dist'
+Did you mean 'startCase.js'?
+BREAKING CHANGE: The request 'lodash/startCase' failed to resolve only because it was resolved as fully specified
+(probably because the origin is strict EcmaScript Module, e. g. a module with javascript mimetype, a '*.mjs' file, or a '*.js' file where the package.json contains '"type": "module"').
+The extension in the request is mandatory for it to be fully specified.
+Add the extension to the request.
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1293:33
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:618:18
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:10:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:180:20
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:9:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:308:20
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:60:14
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:511:26
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:665:15
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:771:9
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:3005:13
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:692:24
+    at finishResolved (/home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/Resolver.js:136:14)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/Resolver.js:195:20
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/Resolver.js:253:18
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:27:1)
+    at done (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/cache/ResolverCachePlugin.js:216:23)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/cache/ResolverCachePlugin.js:133:28
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/HookWebpackError.js:35:5
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:15:1)
+    at Cache.store (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Cache.js:56:22)
+    at ItemCacheFacade.store (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/CacheFacade.js:62:17)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/cache/ResolverCachePlugin.js:127:25
+    at jobDone (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FileSystemInfo.js:1579:9)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FileSystemInfo.js:1840:15
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/util/AsyncQueue.js:240:9
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:6:1)
+    at AsyncQueue._handleResult (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/util/AsyncQueue.js:215:23)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/util/AsyncQueue.js:204:16
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FileSystemInfo.js:2357:18
+    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)
+resolve 'lodash/startCase' in '/home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/@storybook/csf/dist'
+  Parsed request is a module
+  using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/@storybook/csf/package.json (relative path: ./dist)
+    Field 'browser' doesn't contain a valid alias configuration
+    resolve as module
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/@storybook/csf/dist/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/@storybook/csf/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/@storybook/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules
+        existing directory /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/lodash
+          using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/lodash/package.json (relative path: .)
+            using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/lodash/package.json (relative path: ./startCase)
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/lodash/startCase doesn't exist
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules
+        existing directory /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash
+          using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: .)
+            using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: ./startCase)
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/startCase doesn't exist
+      /home/nolanlocke/dev/ultima/node_modules/node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules
+        /home/nolanlocke/dev/ultima/node_modules/lodash doesn't exist
+      /home/nolanlocke/dev/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/node_modules doesn't exist or is not a directory
+      /home/node_modules doesn't exist or is not a directory
+      /node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/.local/share/pnpm/global/5/.pnpm/node_modules
+        /home/nolanlocke/.local/share/pnpm/global/5/.pnpm/node_modules/lodash doesn't exist
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules
+        existing directory /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash
+          using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: .)
+            using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: ./startCase)
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/startCase doesn't exist
+ModuleNotFoundError: Module not found: Error: Can't resolve 'lodash/isEqual' in '/home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/@storybook/csf/dist'
+Did you mean 'isEqual.js'?
+BREAKING CHANGE: The request 'lodash/isEqual' failed to resolve only because it was resolved as fully specified
+(probably because the origin is strict EcmaScript Module, e. g. a module with javascript mimetype, a '*.mjs' file, or a '*.js' file where the package.json contains '"type": "module"').
+The extension in the request is mandatory for it to be fully specified.
+Add the extension to the request.
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1293:33
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:618:18
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:10:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:180:20
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:9:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:308:20
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:60:14
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:511:26
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:665:15
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:771:9
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:3005:13
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:692:24
+    at finishResolved (/home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/Resolver.js:136:14)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/Resolver.js:195:20
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/Resolver.js:253:18
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:27:1)
+    at done (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/cache/ResolverCachePlugin.js:216:23)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/cache/ResolverCachePlugin.js:133:28
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/HookWebpackError.js:35:5
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:15:1)
+    at Cache.store (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Cache.js:56:22)
+    at ItemCacheFacade.store (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/CacheFacade.js:62:17)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/cache/ResolverCachePlugin.js:127:25
+    at jobDone (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FileSystemInfo.js:1579:9)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FileSystemInfo.js:1840:15
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/util/AsyncQueue.js:240:9
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:6:1)
+    at AsyncQueue._handleResult (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/util/AsyncQueue.js:215:23)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/util/AsyncQueue.js:204:16
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FileSystemInfo.js:2357:18
+    at process.processTicksAndRejections (node:internal/process/task_queues:81:21)
+resolve 'lodash/isEqual' in '/home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/@storybook/csf/dist'
+  Parsed request is a module
+  using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/@storybook/csf/package.json (relative path: ./dist)
+    Field 'browser' doesn't contain a valid alias configuration
+    resolve as module
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/@storybook/csf/dist/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/@storybook/csf/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/@storybook/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules
+        existing directory /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/lodash
+          using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/lodash/package.json (relative path: .)
+            using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/lodash/package.json (relative path: ./isEqual)
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+csf@0.0.2-next.7/node_modules/lodash/isEqual doesn't exist
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules
+        existing directory /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash
+          using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: .)
+            using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: ./isEqual)
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/isEqual doesn't exist
+      /home/nolanlocke/dev/ultima/node_modules/node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules
+        /home/nolanlocke/dev/ultima/node_modules/lodash doesn't exist
+      /home/nolanlocke/dev/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/node_modules doesn't exist or is not a directory
+      /home/node_modules doesn't exist or is not a directory
+      /node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/.local/share/pnpm/global/5/.pnpm/node_modules
+        /home/nolanlocke/.local/share/pnpm/global/5/.pnpm/node_modules/lodash doesn't exist
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules
+        existing directory /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash
+          using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: .)
+            using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: ./isEqual)
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/isEqual doesn't exist
+    at HarmonyImportSpecifierDependency.getLinkingErrors (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/dependencies/HarmonyImportDependency.js:93:15)
+    at HarmonyImportSpecifierDependency._getErrors (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/dependencies/HarmonyImportSpecifierDependency.js:109:17)
+    at HarmonyImportSpecifierDependency.getErrors (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/dependencies/HarmonyImportSpecifierDependency.js:103:19)
+    at Compilation.reportDependencyErrorsAndWarnings (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:2259:26)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1911:32
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:50:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:272:21
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:690:7
+    at Object.each2 (/home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:704:39)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:252:26
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:690:7
+    at Object.each2 (/home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:704:39)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:27:22
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:42:1)
+    at Hook.CALL_ASYNC_DELEGATE [as _callAsync] (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/Hook.js:15:15)
+    at Compilation.finish (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1901:30)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compiler.js:830:25
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+
+ModuleDependencyError: export 'PLAY_FUNCTION_THREW_EXCEPTION' (imported as 'ce') was not found in '@storybook/core-events' (possible exports: CHANNEL_CREATED, CONFIG_ERROR, CURRENT_STORY_WAS_SET, DOCS_RENDERED, FORCE_REMOUNT, FORCE_RE_RENDER, GLOBALS_UPDATED, IGNORED_EXCEPTION, NAVIGATE_URL, PRELOAD_STORIES, PREVIEW_KEYDOWN, REGISTER_SUBSCRIPTION, RESET_STORY_ARGS, SELECT_STORY, SET_CURRENT_STORY, SET_GLOBALS, SET_STORIES, SHARED_STATE_CHANGED, SHARED_STATE_SET, STORIES_COLLAPSE_ALL, STORIES_EXPAND_ALL, STORY_ARGS_UPDATED, STORY_CHANGED, STORY_ERRORED, STORY_INDEX_INVALIDATED, STORY_MISSING, STORY_PREPARED, STORY_RENDERED, STORY_RENDER_PHASE_CHANGED, STORY_SPECIFIED, STORY_THREW_EXCEPTION, STORY_UNCHANGED, UPDATE_GLOBALS, UPDATE_QUERY_PARAMS, UPDATE_STORY_ARGS, default)
+    at Compilation.reportDependencyErrorsAndWarnings (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:2263:27)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1911:32
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:50:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:272:21
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:690:7
+    at Object.each2 (/home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:704:39)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:252:26
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:690:7
+    at Object.each2 (/home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:704:39)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:27:22
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:42:1)
+    at Hook.CALL_ASYNC_DELEGATE [as _callAsync] (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/Hook.js:15:15)
+    at Compilation.finish (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1901:30)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compiler.js:830:25
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+    at HarmonyImportSpecifierDependency.getLinkingErrors (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/dependencies/HarmonyImportDependency.js:93:15)
+    at HarmonyImportSpecifierDependency._getErrors (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/dependencies/HarmonyImportSpecifierDependency.js:109:17)
+    at HarmonyImportSpecifierDependency.getErrors (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/dependencies/HarmonyImportSpecifierDependency.js:103:19)
+    at Compilation.reportDependencyErrorsAndWarnings (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:2259:26)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1911:32
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:50:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:272:21
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:690:7
+    at Object.each2 (/home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:704:39)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:252:26
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:690:7
+    at Object.each2 (/home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:704:39)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:27:22
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:42:1)
+    at Hook.CALL_ASYNC_DELEGATE [as _callAsync] (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/Hook.js:15:15)
+    at Compilation.finish (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1901:30)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compiler.js:830:25
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+
+ModuleDependencyError: export 'deprecate' (imported as 'be') was not found in '@storybook/client-logger' (possible exports: logger, once, pretty)
+    at Compilation.reportDependencyErrorsAndWarnings (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:2263:27)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1911:32
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:50:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:272:21
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:690:7
+    at Object.each2 (/home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:704:39)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:252:26
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:690:7
+    at Object.each2 (/home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:704:39)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:27:22
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:42:1)
+    at Hook.CALL_ASYNC_DELEGATE [as _callAsync] (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/Hook.js:15:15)
+    at Compilation.finish (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1901:30)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compiler.js:830:25
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+    at HarmonyImportSpecifierDependency.getLinkingErrors (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/dependencies/HarmonyImportDependency.js:93:15)
+    at HarmonyImportSpecifierDependency._getErrors (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/dependencies/HarmonyImportSpecifierDependency.js:109:17)
+    at HarmonyImportSpecifierDependency.getErrors (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/dependencies/HarmonyImportSpecifierDependency.js:103:19)
+    at Compilation.reportDependencyErrorsAndWarnings (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:2259:26)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1911:32
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:50:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:272:21
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:690:7
+    at Object.each2 (/home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:704:39)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:252:26
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:690:7
+    at Object.each2 (/home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:704:39)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:27:22
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:42:1)
+    at Hook.CALL_ASYNC_DELEGATE [as _callAsync] (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/Hook.js:15:15)
+    at Compilation.finish (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1901:30)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compiler.js:830:25
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+
+ModuleDependencyError: export 'PRELOAD_ENTRIES' (imported as 'Ie') was not found in '@storybook/core-events' (possible exports: CHANNEL_CREATED, CONFIG_ERROR, CURRENT_STORY_WAS_SET, DOCS_RENDERED, FORCE_REMOUNT, FORCE_RE_RENDER, GLOBALS_UPDATED, IGNORED_EXCEPTION, NAVIGATE_URL, PRELOAD_STORIES, PREVIEW_KEYDOWN, REGISTER_SUBSCRIPTION, RESET_STORY_ARGS, SELECT_STORY, SET_CURRENT_STORY, SET_GLOBALS, SET_STORIES, SHARED_STATE_CHANGED, SHARED_STATE_SET, STORIES_COLLAPSE_ALL, STORIES_EXPAND_ALL, STORY_ARGS_UPDATED, STORY_CHANGED, STORY_ERRORED, STORY_INDEX_INVALIDATED, STORY_MISSING, STORY_PREPARED, STORY_RENDERED, STORY_RENDER_PHASE_CHANGED, STORY_SPECIFIED, STORY_THREW_EXCEPTION, STORY_UNCHANGED, UPDATE_GLOBALS, UPDATE_QUERY_PARAMS, UPDATE_STORY_ARGS, default)
+    at Compilation.reportDependencyErrorsAndWarnings (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:2263:27)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1911:32
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:50:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:272:21
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:690:7
+    at Object.each2 (/home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:704:39)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:252:26
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:690:7
+    at Object.each2 (/home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:704:39)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:27:22
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:42:1)
+    at Hook.CALL_ASYNC_DELEGATE [as _callAsync] (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/Hook.js:15:15)
+    at Compilation.finish (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1901:30)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compiler.js:830:25
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+    at HarmonyImportSpecifierDependency.getLinkingErrors (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/dependencies/HarmonyImportDependency.js:93:15)
+    at HarmonyImportSpecifierDependency._getErrors (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/dependencies/HarmonyImportSpecifierDependency.js:109:17)
+    at HarmonyImportSpecifierDependency.getErrors (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/dependencies/HarmonyImportSpecifierDependency.js:103:19)
+    at Compilation.reportDependencyErrorsAndWarnings (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:2259:26)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1911:32
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:50:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:272:21
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:690:7
+    at Object.each2 (/home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:704:39)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:252:26
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:690:7
+    at Object.each2 (/home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:704:39)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:27:22
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:42:1)
+    at Hook.CALL_ASYNC_DELEGATE [as _callAsync] (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/Hook.js:15:15)
+    at Compilation.finish (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1901:30)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compiler.js:830:25
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+
+ModuleDependencyError: export 'SET_INDEX' (imported as 'K') was not found in '@storybook/core-events' (possible exports: CHANNEL_CREATED, CONFIG_ERROR, CURRENT_STORY_WAS_SET, DOCS_RENDERED, FORCE_REMOUNT, FORCE_RE_RENDER, GLOBALS_UPDATED, IGNORED_EXCEPTION, NAVIGATE_URL, PRELOAD_STORIES, PREVIEW_KEYDOWN, REGISTER_SUBSCRIPTION, RESET_STORY_ARGS, SELECT_STORY, SET_CURRENT_STORY, SET_GLOBALS, SET_STORIES, SHARED_STATE_CHANGED, SHARED_STATE_SET, STORIES_COLLAPSE_ALL, STORIES_EXPAND_ALL, STORY_ARGS_UPDATED, STORY_CHANGED, STORY_ERRORED, STORY_INDEX_INVALIDATED, STORY_MISSING, STORY_PREPARED, STORY_RENDERED, STORY_RENDER_PHASE_CHANGED, STORY_SPECIFIED, STORY_THREW_EXCEPTION, STORY_UNCHANGED, UPDATE_GLOBALS, UPDATE_QUERY_PARAMS, UPDATE_STORY_ARGS, default)
+    at Compilation.reportDependencyErrorsAndWarnings (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:2263:27)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1911:32
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:50:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:272:21
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:690:7
+    at Object.each2 (/home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:704:39)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:252:26
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:690:7
+    at Object.each2 (/home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:704:39)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:27:22
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:42:1)
+    at Hook.CALL_ASYNC_DELEGATE [as _callAsync] (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/Hook.js:15:15)
+    at Compilation.finish (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1901:30)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compiler.js:830:25
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+    at HarmonyImportSpecifierDependency.getLinkingErrors (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/dependencies/HarmonyImportDependency.js:93:15)
+    at HarmonyImportSpecifierDependency._getErrors (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/dependencies/HarmonyImportSpecifierDependency.js:109:17)
+    at HarmonyImportSpecifierDependency.getErrors (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/dependencies/HarmonyImportSpecifierDependency.js:103:19)
+    at Compilation.reportDependencyErrorsAndWarnings (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:2259:26)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1911:32
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:50:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:272:21
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:690:7
+    at Object.each2 (/home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:704:39)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:252:26
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:690:7
+    at Object.each2 (/home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:704:39)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:27:22
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:42:1)
+    at Hook.CALL_ASYNC_DELEGATE [as _callAsync] (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/Hook.js:15:15)
+    at Compilation.finish (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1901:30)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compiler.js:830:25
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+
+ModuleDependencyError: export 'SET_INDEX' (imported as 'K') was not found in '@storybook/core-events' (possible exports: CHANNEL_CREATED, CONFIG_ERROR, CURRENT_STORY_WAS_SET, DOCS_RENDERED, FORCE_REMOUNT, FORCE_RE_RENDER, GLOBALS_UPDATED, IGNORED_EXCEPTION, NAVIGATE_URL, PRELOAD_STORIES, PREVIEW_KEYDOWN, REGISTER_SUBSCRIPTION, RESET_STORY_ARGS, SELECT_STORY, SET_CURRENT_STORY, SET_GLOBALS, SET_STORIES, SHARED_STATE_CHANGED, SHARED_STATE_SET, STORIES_COLLAPSE_ALL, STORIES_EXPAND_ALL, STORY_ARGS_UPDATED, STORY_CHANGED, STORY_ERRORED, STORY_INDEX_INVALIDATED, STORY_MISSING, STORY_PREPARED, STORY_RENDERED, STORY_RENDER_PHASE_CHANGED, STORY_SPECIFIED, STORY_THREW_EXCEPTION, STORY_UNCHANGED, UPDATE_GLOBALS, UPDATE_QUERY_PARAMS, UPDATE_STORY_ARGS, default)
+    at Compilation.reportDependencyErrorsAndWarnings (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:2263:27)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1911:32
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:50:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:272:21
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:690:7
+    at Object.each2 (/home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:704:39)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:252:26
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:690:7
+    at Object.each2 (/home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:704:39)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FlagDependencyExportsPlugin.js:27:22
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:42:1)
+    at Hook.CALL_ASYNC_DELEGATE [as _callAsync] (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/Hook.js:15:15)
+    at Compilation.finish (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1901:30)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compiler.js:830:25
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+ModuleNotFoundError: Module not found: Error: Can't resolve 'lodash/isPlainObject' in '/home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+preview-web@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/preview-web/dist'
+Did you mean 'isPlainObject.js'?
+BREAKING CHANGE: The request 'lodash/isPlainObject' failed to resolve only because it was resolved as fully specified
+(probably because the origin is strict EcmaScript Module, e. g. a module with javascript mimetype, a '*.mjs' file, or a '*.js' file where the package.json contains '"type": "module"').
+The extension in the request is mandatory for it to be fully specified.
+Add the extension to the request.
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1293:33
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:618:18
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:10:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:180:20
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:9:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:308:20
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:60:14
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:511:26
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:665:15
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:771:9
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:3005:13
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:692:24
+    at finishResolved (/home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/Resolver.js:136:14)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/Resolver.js:195:20
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/Resolver.js:253:18
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:27:1)
+    at done (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/cache/ResolverCachePlugin.js:216:23)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/cache/ResolverCachePlugin.js:133:28
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/HookWebpackError.js:35:5
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:15:1)
+    at Cache.store (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Cache.js:56:22)
+    at ItemCacheFacade.store (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/CacheFacade.js:62:17)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/cache/ResolverCachePlugin.js:127:25
+    at jobDone (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FileSystemInfo.js:1579:9)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FileSystemInfo.js:1702:19
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/util/AsyncQueue.js:240:9
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:6:1)
+    at AsyncQueue._handleResult (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/util/AsyncQueue.js:215:23)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/util/AsyncQueue.js:204:16
+    at Array.<anonymous> (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FileSystemInfo.js:2378:7)
+    at runCallbacks (/home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/CachedInputFileSystem.js:18:17)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/CachedInputFileSystem.js:138:7
+    at callback (/home/nolanlocke/dev/ultima/node_modules/.pnpm/graceful-fs@4.2.10/node_modules/graceful-fs/polyfills.js:306:20)
+    at FSReqCallback.oncomplete (node:fs:208:5)
+resolve 'lodash/isPlainObject' in '/home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+preview-web@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/preview-web/dist'
+  Parsed request is a module
+  using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+preview-web@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/preview-web/package.json (relative path: ./dist)
+    Field 'browser' doesn't contain a valid alias configuration
+    resolve as module
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+preview-web@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/preview-web/dist/node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+preview-web@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/preview-web/node_modules
+        /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+preview-web@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/preview-web/node_modules/lodash doesn't exist
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+preview-web@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+preview-web@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+preview-web@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules
+        existing directory /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+preview-web@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/lodash
+          using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+preview-web@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/lodash/package.json (relative path: .)
+            using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+preview-web@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/lodash/package.json (relative path: ./isPlainObject)
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+preview-web@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/lodash/isPlainObject doesn't exist
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules
+        existing directory /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash
+          using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: .)
+            using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: ./isPlainObject)
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/isPlainObject doesn't exist
+      /home/nolanlocke/dev/ultima/node_modules/node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules
+        /home/nolanlocke/dev/ultima/node_modules/lodash doesn't exist
+      /home/nolanlocke/dev/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/node_modules doesn't exist or is not a directory
+      /home/node_modules doesn't exist or is not a directory
+      /node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/.local/share/pnpm/global/5/.pnpm/node_modules
+        /home/nolanlocke/.local/share/pnpm/global/5/.pnpm/node_modules/lodash doesn't exist
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules
+        existing directory /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash
+          using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: .)
+            using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: ./isPlainObject)
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/isPlainObject doesn't exist
+ModuleNotFoundError: Module not found: Error: Can't resolve 'lodash/mapValues' in '/home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/store/dist'
+Did you mean 'mapValues.js'?
+BREAKING CHANGE: The request 'lodash/mapValues' failed to resolve only because it was resolved as fully specified
+(probably because the origin is strict EcmaScript Module, e. g. a module with javascript mimetype, a '*.mjs' file, or a '*.js' file where the package.json contains '"type": "module"').
+The extension in the request is mandatory for it to be fully specified.
+Add the extension to the request.
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1293:33
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:618:18
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:10:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:180:20
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:9:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:308:20
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:60:14
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:511:26
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:665:15
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:771:9
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:3005:13
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:692:24
+    at finishResolved (/home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/Resolver.js:136:14)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/Resolver.js:195:20
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/Resolver.js:253:18
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:27:1)
+    at done (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/cache/ResolverCachePlugin.js:216:23)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/cache/ResolverCachePlugin.js:133:28
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/HookWebpackError.js:35:5
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:15:1)
+    at Cache.store (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Cache.js:56:22)
+    at ItemCacheFacade.store (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/CacheFacade.js:62:17)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/cache/ResolverCachePlugin.js:127:25
+    at jobDone (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FileSystemInfo.js:1579:9)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FileSystemInfo.js:1702:19
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/util/AsyncQueue.js:240:9
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:6:1)
+    at AsyncQueue._handleResult (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/util/AsyncQueue.js:215:23)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/util/AsyncQueue.js:204:16
+    at Array.<anonymous> (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FileSystemInfo.js:2378:7)
+    at runCallbacks (/home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/CachedInputFileSystem.js:18:17)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/CachedInputFileSystem.js:138:7
+    at callback (/home/nolanlocke/dev/ultima/node_modules/.pnpm/graceful-fs@4.2.10/node_modules/graceful-fs/polyfills.js:306:20)
+    at FSReqCallback.oncomplete (node:fs:208:5)
+resolve 'lodash/mapValues' in '/home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/store/dist'
+  Parsed request is a module
+  using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/store/package.json (relative path: ./dist)
+    Field 'browser' doesn't contain a valid alias configuration
+    resolve as module
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/store/dist/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/store/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules
+        existing directory /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/lodash
+          using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/lodash/package.json (relative path: .)
+            using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/lodash/package.json (relative path: ./mapValues)
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/lodash/mapValues doesn't exist
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules
+        existing directory /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash
+          using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: .)
+            using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: ./mapValues)
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/mapValues doesn't exist
+      /home/nolanlocke/dev/ultima/node_modules/node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules
+        /home/nolanlocke/dev/ultima/node_modules/lodash doesn't exist
+      /home/nolanlocke/dev/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/node_modules doesn't exist or is not a directory
+      /home/node_modules doesn't exist or is not a directory
+      /node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/.local/share/pnpm/global/5/.pnpm/node_modules
+        /home/nolanlocke/.local/share/pnpm/global/5/.pnpm/node_modules/lodash doesn't exist
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules
+        existing directory /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash
+          using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: .)
+            using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: ./mapValues)
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/mapValues doesn't exist
+ModuleNotFoundError: Module not found: Error: Can't resolve 'lodash/pick' in '/home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/store/dist'
+Did you mean 'pick.js'?
+BREAKING CHANGE: The request 'lodash/pick' failed to resolve only because it was resolved as fully specified
+(probably because the origin is strict EcmaScript Module, e. g. a module with javascript mimetype, a '*.mjs' file, or a '*.js' file where the package.json contains '"type": "module"').
+The extension in the request is mandatory for it to be fully specified.
+Add the extension to the request.
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1293:33
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:618:18
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:10:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:180:20
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:9:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:308:20
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:60:14
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:511:26
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:665:15
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:771:9
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:3005:13
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:692:24
+    at finishResolved (/home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/Resolver.js:136:14)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/Resolver.js:195:20
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/Resolver.js:253:18
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:27:1)
+    at done (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/cache/ResolverCachePlugin.js:216:23)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/cache/ResolverCachePlugin.js:133:28
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/HookWebpackError.js:35:5
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:15:1)
+    at Cache.store (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Cache.js:56:22)
+    at ItemCacheFacade.store (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/CacheFacade.js:62:17)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/cache/ResolverCachePlugin.js:127:25
+    at jobDone (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FileSystemInfo.js:1579:9)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FileSystemInfo.js:1702:19
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/util/AsyncQueue.js:240:9
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:6:1)
+    at AsyncQueue._handleResult (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/util/AsyncQueue.js:215:23)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/util/AsyncQueue.js:204:16
+    at Array.<anonymous> (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FileSystemInfo.js:2378:7)
+    at runCallbacks (/home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/CachedInputFileSystem.js:18:17)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/CachedInputFileSystem.js:138:7
+    at callback (/home/nolanlocke/dev/ultima/node_modules/.pnpm/graceful-fs@4.2.10/node_modules/graceful-fs/polyfills.js:306:20)
+    at FSReqCallback.oncomplete (node:fs:208:5)
+resolve 'lodash/pick' in '/home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/store/dist'
+  Parsed request is a module
+  using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/store/package.json (relative path: ./dist)
+    Field 'browser' doesn't contain a valid alias configuration
+    resolve as module
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/store/dist/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/store/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules
+        existing directory /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/lodash
+          using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/lodash/package.json (relative path: .)
+            using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/lodash/package.json (relative path: ./pick)
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/lodash/pick doesn't exist
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules
+        existing directory /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash
+          using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: .)
+            using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: ./pick)
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/pick doesn't exist
+      /home/nolanlocke/dev/ultima/node_modules/node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules
+        /home/nolanlocke/dev/ultima/node_modules/lodash doesn't exist
+      /home/nolanlocke/dev/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/node_modules doesn't exist or is not a directory
+      /home/node_modules doesn't exist or is not a directory
+      /node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/.local/share/pnpm/global/5/.pnpm/node_modules
+        /home/nolanlocke/.local/share/pnpm/global/5/.pnpm/node_modules/lodash doesn't exist
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules
+        existing directory /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash
+          using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: .)
+            using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: ./pick)
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/pick doesn't exist
+ModuleNotFoundError: Module not found: Error: Can't resolve 'lodash/isPlainObject' in '/home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/store/dist'
+Did you mean 'isPlainObject.js'?
+BREAKING CHANGE: The request 'lodash/isPlainObject' failed to resolve only because it was resolved as fully specified
+(probably because the origin is strict EcmaScript Module, e. g. a module with javascript mimetype, a '*.mjs' file, or a '*.js' file where the package.json contains '"type": "module"').
+The extension in the request is mandatory for it to be fully specified.
+Add the extension to the request.
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1293:33
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:618:18
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:10:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:180:20
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:9:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:308:20
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:60:14
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:511:26
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:665:15
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:771:9
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:3005:13
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:692:24
+    at finishResolved (/home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/Resolver.js:136:14)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/Resolver.js:195:20
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/Resolver.js:253:18
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:27:1)
+    at done (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/cache/ResolverCachePlugin.js:216:23)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/cache/ResolverCachePlugin.js:133:28
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/HookWebpackError.js:35:5
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:15:1)
+    at Cache.store (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Cache.js:56:22)
+    at ItemCacheFacade.store (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/CacheFacade.js:62:17)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/cache/ResolverCachePlugin.js:127:25
+    at jobDone (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FileSystemInfo.js:1579:9)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FileSystemInfo.js:1702:19
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/util/AsyncQueue.js:243:13
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:6:1)
+    at AsyncQueue._handleResult (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/util/AsyncQueue.js:215:23)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/util/AsyncQueue.js:204:16
+    at Array.<anonymous> (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FileSystemInfo.js:2378:7)
+    at runCallbacks (/home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/CachedInputFileSystem.js:18:17)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/CachedInputFileSystem.js:138:7
+    at callback (/home/nolanlocke/dev/ultima/node_modules/.pnpm/graceful-fs@4.2.10/node_modules/graceful-fs/polyfills.js:306:20)
+    at FSReqCallback.oncomplete (node:fs:208:5)
+resolve 'lodash/isPlainObject' in '/home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/store/dist'
+  Parsed request is a module
+  using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/store/package.json (relative path: ./dist)
+    Field 'browser' doesn't contain a valid alias configuration
+    resolve as module
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/store/dist/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/store/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules
+        existing directory /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/lodash
+          using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/lodash/package.json (relative path: .)
+            using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/lodash/package.json (relative path: ./isPlainObject)
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/lodash/isPlainObject doesn't exist
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules
+        existing directory /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash
+          using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: .)
+            using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: ./isPlainObject)
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/isPlainObject doesn't exist
+      /home/nolanlocke/dev/ultima/node_modules/node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules
+        /home/nolanlocke/dev/ultima/node_modules/lodash doesn't exist
+      /home/nolanlocke/dev/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/node_modules doesn't exist or is not a directory
+      /home/node_modules doesn't exist or is not a directory
+      /node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/.local/share/pnpm/global/5/.pnpm/node_modules
+        /home/nolanlocke/.local/share/pnpm/global/5/.pnpm/node_modules/lodash doesn't exist
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules
+        existing directory /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash
+          using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: .)
+            using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: ./isPlainObject)
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/isPlainObject doesn't exist
+ModuleNotFoundError: Module not found: Error: Can't resolve 'lodash/pickBy' in '/home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/store/dist'
+Did you mean 'pickBy.js'?
+BREAKING CHANGE: The request 'lodash/pickBy' failed to resolve only because it was resolved as fully specified
+(probably because the origin is strict EcmaScript Module, e. g. a module with javascript mimetype, a '*.mjs' file, or a '*.js' file where the package.json contains '"type": "module"').
+The extension in the request is mandatory for it to be fully specified.
+Add the extension to the request.
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Compilation.js:1293:33
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:618:18
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:10:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:180:20
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:9:1)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:308:20
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:60:14
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:511:26
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:665:15
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:771:9
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/neo-async@2.6.2/node_modules/neo-async/async.js:3005:13
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/NormalModuleFactory.js:692:24
+    at finishResolved (/home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/Resolver.js:136:14)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/Resolver.js:195:20
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/Resolver.js:253:18
+    at eval (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:27:1)
+    at done (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/cache/ResolverCachePlugin.js:216:23)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/cache/ResolverCachePlugin.js:133:28
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/HookWebpackError.js:35:5
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:15:1)
+    at Cache.store (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/Cache.js:56:22)
+    at ItemCacheFacade.store (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/CacheFacade.js:62:17)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/cache/ResolverCachePlugin.js:127:25
+    at jobDone (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FileSystemInfo.js:1579:9)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FileSystemInfo.js:1702:19
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/util/AsyncQueue.js:240:9
+    at Hook.eval [as callAsync] (eval at create (/home/nolanlocke/dev/ultima/node_modules/.pnpm/tapable@2.2.1/node_modules/tapable/lib/HookCodeFactory.js:28:14), <anonymous>:6:1)
+    at AsyncQueue._handleResult (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/util/AsyncQueue.js:215:23)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/util/AsyncQueue.js:204:16
+    at Array.<anonymous> (/home/nolanlocke/dev/ultima/node_modules/.pnpm/webpack@5.75.0/node_modules/webpack/lib/FileSystemInfo.js:2378:7)
+    at runCallbacks (/home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/CachedInputFileSystem.js:18:17)
+    at /home/nolanlocke/dev/ultima/node_modules/.pnpm/enhanced-resolve@5.12.0/node_modules/enhanced-resolve/lib/CachedInputFileSystem.js:138:7
+    at callback (/home/nolanlocke/dev/ultima/node_modules/.pnpm/graceful-fs@4.2.10/node_modules/graceful-fs/polyfills.js:306:20)
+    at FSReqCallback.oncomplete (node:fs:208:5)
+resolve 'lodash/pickBy' in '/home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/store/dist'
+  Parsed request is a module
+  using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/store/package.json (relative path: ./dist)
+    Field 'browser' doesn't contain a valid alias configuration
+    resolve as module
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/store/dist/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/store/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/@storybook/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules
+        existing directory /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/lodash
+          using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/lodash/package.json (relative path: .)
+            using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/lodash/package.json (relative path: ./pickBy)
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/nolanlocke/dev/ultima/node_modules/.pnpm/@storybook+store@7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y/node_modules/lodash/pickBy doesn't exist
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules
+        existing directory /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash
+          using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: .)
+            using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: ./pickBy)
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/pickBy doesn't exist
+      /home/nolanlocke/dev/ultima/node_modules/node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules
+        /home/nolanlocke/dev/ultima/node_modules/lodash doesn't exist
+      /home/nolanlocke/dev/node_modules doesn't exist or is not a directory
+      /home/nolanlocke/node_modules doesn't exist or is not a directory
+      /home/node_modules doesn't exist or is not a directory
+      /node_modules doesn't exist or is not a directory
+      looking for modules in /home/nolanlocke/.local/share/pnpm/global/5/.pnpm/node_modules
+        /home/nolanlocke/.local/share/pnpm/global/5/.pnpm/node_modules/lodash doesn't exist
+      looking for modules in /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules
+        existing directory /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash
+          using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: .)
+            using description file: /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/package.json (relative path: ./pickBy)
+              Field 'browser' doesn't contain a valid alias configuration
+              /home/nolanlocke/dev/ultima/node_modules/.pnpm/node_modules/lodash/pickBy doesn't exist
+
+WARN Broken build, fix the error above.
+WARN You may need to refresh the browser.
+
+ ELIFECYCLE  Command failed with exit code 1.

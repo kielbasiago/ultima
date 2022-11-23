@@ -1,58 +1,51 @@
 import { getLogger, Logger } from "loglevel";
-import type {
-  connection as Connection,
-  Message,
-  w3cwebsocket,
-} from "websocket";
+import type { Message, w3cwebsocket } from "websocket";
 
 type DataAttacher = (incoming: Record<string, string>) => any;
 
 export class RequestSender {
-  private readonly _connection: w3cwebsocket;
   private readonly _dataAttacher: DataAttacher;
   private readonly _logger: Logger;
 
-  constructor(connection: w3cwebsocket, dataAttacher: DataAttacher) {
-    this._connection = connection;
+  constructor(dataAttacher: DataAttacher) {
     this._logger = getLogger("RequestSender");
     this._dataAttacher = dataAttacher;
   }
 
   public async sendUtf8<TIn extends Record<string, any>, TOut = void>(
+    client: w3cwebsocket,
     json: TIn
   ): Promise<TOut> {
     return new Promise((resolve, reject) => {
+      if (!client) {
+        reject();
+      }
       const normalized = this._dataAttacher(json);
       this._logger.debug("sending", JSON.stringify(normalized));
 
       const handler = (msg: Message) => {
-        // this._connection.off('message', handler);
         this._logger.debug("Response for", json.Opcode, msg);
         resolve(this.processUtf8(msg));
       };
 
-      // this._connection.once('message', handler);
-
-      this._connection.send(JSON.stringify(normalized));
-      this._connection.onmessage = (e) => {
+      client.send(JSON.stringify(normalized));
+      client.onmessage = (e) => {
         handler({
           type: "utf8",
           utf8Data: e.data as string,
         });
       };
-      // , (err) => {
-      //     if (err) {
-      //         this._logger.error('error sending request, expecting utf8', err);
-      //         reject(err);
-      //     }
-      // });
     });
   }
 
   public async sendBinary<TIn extends Record<string, any>>(
+    client: w3cwebsocket,
     json: TIn
   ): Promise<Uint8Array> {
     return new Promise((resolve, reject) => {
+      if (!client) {
+        reject();
+      }
       const normalized = this._dataAttacher(json);
       this._logger.debug("sending", JSON.stringify(normalized));
 
@@ -62,11 +55,9 @@ export class RequestSender {
         resolve(result);
       };
 
-      // this._connection.once('message', handler);
+      client.send(JSON.stringify(normalized));
 
-      this._connection.send(JSON.stringify(normalized));
-
-      this._connection.onmessage = async (e) => {
+      client.onmessage = async (e) => {
         const blob = e.data as unknown as Blob;
         let arrayBuffer: ArrayBuffer;
         const fileReader = new FileReader();
@@ -79,17 +70,25 @@ export class RequestSender {
     });
   }
 
-  public async sendRawBinary(data: ArrayBuffer): Promise<Uint8Array> {
+  public async sendRawBinary(
+    client: w3cwebsocket,
+    data: ArrayBuffer
+  ): Promise<Uint8Array> {
     return new Promise((resolve, reject) => {
+      if (!client) {
+        reject();
+      }
       const handler = (msg: ArrayBuffer) => {
         const result = new Uint8Array(msg);
         this._logger.debug("Response for", data, msg);
         resolve(result);
       };
 
-      this._connection.send(data);
+      // connection.once('message', handler);
 
-      this._connection.onmessage = async (e) => {
+      client.send(data);
+
+      client.onmessage = async (e) => {
         const blob = e.data as unknown as Blob;
         let arrayBuffer: ArrayBuffer;
         const fileReader = new FileReader();
@@ -102,11 +101,17 @@ export class RequestSender {
     });
   }
 
-  public async sendRawNoResponse(data: ArrayBuffer): Promise<void> {
+  public async sendRawNoResponse(
+    client: w3cwebsocket,
+    data: ArrayBuffer
+  ): Promise<void> {
     return new Promise((resolve, reject) => {
-      this._connection.send(data);
+      if (!client) {
+        reject();
+      }
+      client.send(data);
 
-      this._connection.onerror = (err) => {
+      client.onerror = (err) => {
         console.error("error sending request, expect no response", err);
         reject(err);
       };
@@ -119,15 +124,19 @@ export class RequestSender {
   }
 
   public async sendNoResponse<TIn extends Record<string, any>>(
+    client: w3cwebsocket,
     json: TIn
   ): Promise<void> {
     return new Promise((resolve, reject) => {
+      if (!client) {
+        reject();
+      }
       const normalized = this._dataAttacher(json);
       this._logger.debug("sending", JSON.stringify(normalized));
 
-      this._connection.send(JSON.stringify(normalized));
+      client.send(JSON.stringify(normalized));
 
-      this._connection.onerror = (err) => {
+      client.onerror = (err) => {
         console.error("error sending request, expect no response", err);
         reject(err);
       };

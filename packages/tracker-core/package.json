@@ -11,6 +11,7 @@
     "@ff6wc/eslint-config-custom": "workspace:*",
     "@ff6wc/tsconfig": "workspace:*",
     "@types/lodash": "4.14.188",
+    "@types/node": "^17.0.12",
     "@types/promise-queue": "2.2.0",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
@@ -21,7 +22,6 @@
     "typescript": "^4.5.2"
   },
   "dependencies": {
-    "@types/node": "^17.0.12",
     "promise-queue": "2.2.5",
     "websocket": "1.0.34"
   }

@@ -10,10 +10,11 @@ import {
   RegisterNameRequest,
 } from "./types";
 import { SnesInfo, SnesInfoArray } from "./SnesInfo";
-import { getLogger, Logger } from "loglevel";
+import { getLogger, Logger, LogLevelDesc } from "loglevel";
 import { RequestSender } from "./RequestSender";
 import Queue from "promise-queue";
 import * as ws from "websocket";
+import { Query, QueryResultType } from "./Query";
 
 type WsClient = ws.w3cwebsocket;
 type WsConnection = ws.connection;
@@ -25,49 +26,78 @@ const wsServer = "ws://localhost:8080";
 export class SnesSession {
   public info: SnesInfo | null;
 
+  public sender: RequestSender | null;
   protected _attachPromise: Promise<void> | null;
-  protected _connection: WsConnection | null;
-  protected _connectionPromise: Promise<void> | null;
+  protected _connectionPromise: Promise<null> | null;
   protected _devicePromise: Promise<Array<string>> | null;
   protected _deviceInfoPromise: Promise<DeviceInfoResponse> | null;
-  protected _sender: RequestSender | null;
   protected _deviceList: Array<string>;
   protected _logger: Logger | null;
-  protected _client!: WsClient;
+  protected _client!: WsClient | null;
   public logMessages: Array<string> = [];
   public readonly name: string;
   protected _externalLogger: ExternalLogger;
-  public status: "IDLE" | "ERROR" | "CONNECTING" | "CONNECTED" = "IDLE";
-
+  public error: string | null;
+  private _isConnected = false;
   constructor(appName: string) {
     this.name = appName;
-    this._connection = null;
     this.info = null;
-    this._sender = null;
-    this._deviceList = [];
+    this.sender = new RequestSender((inc) => {
+      return { ...inc, Space: "SNES" };
+    });
     this._logger = null;
-
+    this._deviceList = [];
     this._connectionPromise = null;
     this._devicePromise = null;
     this._deviceInfoPromise = null;
     this._attachPromise = null;
     this._externalLogger = () => {};
+    this.error = null;
+  }
+
+  public get isConnected() {
+    return this._isConnected;
+  }
+
+  public async send<TQuery extends Query<any>>(
+    query: TQuery
+  ): Promise<QueryResultType<TQuery>> {
+    const addrs = query.queryAddress;
+    const lengths = query.queryLength;
+
+    const pairs = addrs.map((addr, idx) => {
+      const hexAddr = addr.toString(16);
+      const length = lengths[idx];
+      return [hexAddr, length] as [string, number];
+    });
+
+    if (!this.isConnected) {
+      return query.onResponse([]);
+    }
+
+    this.logger.info("sending", pairs);
+
+    const responses: Array<Buffer> = [];
+    for (let i = 0; i < pairs.length; i++) {
+      const [addr, length] = pairs[i];
+      const result = await this.readRam(addr, length);
+      if (result) {
+        responses.push(result as Buffer);
+      }
+    }
+    return query.onResponse(responses);
   }
 
   public async connect() {
-    if (this.status === "CONNECTED") {
-      return;
-    }
-    if (!this._client) {
-      this._client = this.initializeClient();
-    }
-    this.status = "CONNECTING";
-    await this._connect();
+    this.resetState();
 
-    if (!this._sender) {
-      this.logger.error("No sender was initialized after calling connect()");
-      return;
+    if (!this._client) {
+      this._client = new ws.w3cwebsocket(wsServer);
     }
+
+    this._isConnected = false;
+    await this._connect(this._client);
+
     try {
       this.addLogMessage("Loading device list...");
       this._deviceList = await this.getDeviceList();
@@ -84,20 +114,26 @@ export class SnesSession {
       const deviceAttached = await this.attach();
       this.addLogMessage(`Attached to device '${deviceAttached}'`);
 
-      this.addLogMessage("Registering with Sni");
+      this.addLogMessage("Registering with SNI");
       await this.registerName();
       this.addLogMessage("Registered successfully");
 
       this.addLogMessage("Loading device info");
       await this.getDeviceInfo();
       this.addLogMessage(`Loaded device info ${JSON.stringify(this.info)}`);
-      this.status = "CONNECTED";
+      this._isConnected = true;
     } catch (err) {
       const e = err as Error;
       this.addLogMessage(`ERROR: ${e.message}`);
-      this.status = "ERROR";
+      this.error = e.message;
     }
     return;
+  }
+
+  public async disconnect() {
+    if (this._client) {
+      this._client.close(1000, "Tracker disconnecting from SNI");
+    }
   }
 
   public setLogger(logger: ExternalLogger): this {
@@ -109,45 +145,24 @@ export class SnesSession {
     this.logMessages = [];
   }
 
-  protected async _connect(): Promise<void> {
-    if (this._connectionPromise) {
-      return this._connectionPromise;
-    }
-
+  protected async _connect(client: ws.w3cwebsocket): Promise<null> {
     this._connectionPromise = new Promise((resolve, reject) => {
-      this.logger.info("begin connecting");
-      this.initializeListeners(resolve, reject);
+      this.logger.debug("connecting to websocket");
+      client.onopen = async () => {
+        this.logger.debug("connected to websocket");
+        resolve(null);
+      };
+
+      client.onclose = (event) => {
+        this.logger.error("client closed", event.code, event);
+        this.onClose(event.code, "Client disconnected");
+        this.addLogMessage("Disconnected from SNI");
+
+        reject(null);
+      };
     });
 
     return this._connectionPromise;
-  }
-
-  protected initializeListeners(
-    resolve: (arg: any) => void,
-    reject: (arg: any) => void
-  ): void {
-    this._client.onopen = async () => {
-      this._sender = new RequestSender(this._client, (inc) => {
-        return { ...inc, Space: "SNES" };
-      });
-      this.addLogMessage("RequestSender initialized");
-      resolve(null);
-    };
-
-    this._client.onclose = (event) => {
-      // document.getElementById("autotracker_connect_button").disabled = false;
-      this.addLogMessage("Disconnected from Sni");
-      this.status = "ERROR";
-      reject(null);
-    };
-
-    this._client.onmessage = async (event) => {
-      console.log("message", event);
-    };
-  }
-
-  protected initializeClient() {
-    return new ws.w3cwebsocket(wsServer);
   }
 
   protected addLogMessage(message: string): void {
@@ -157,7 +172,7 @@ export class SnesSession {
   }
 
   protected async getDeviceList(): Promise<Array<string>> {
-    if (!this._sender) {
+    if (!this.sender) {
       return [];
     }
 
@@ -165,11 +180,14 @@ export class SnesSession {
       return this._devicePromise;
     }
 
-    this._devicePromise = this._sender
-      .sendUtf8<DeviceListRequest, DeviceListResponse>({
-        Opcode: "DeviceList",
-        Space: "SNES",
-      })
+    this._devicePromise = this.sender
+      .sendUtf8<DeviceListRequest, DeviceListResponse>(
+        this._client as ws.w3cwebsocket,
+        {
+          Opcode: "DeviceList",
+          Space: "SNES",
+        }
+      )
       .then((resp) => {
         this.logger.debug("Device list: ", resp.Results);
         return resp;
@@ -180,7 +198,7 @@ export class SnesSession {
   }
 
   protected async attach(): Promise<string> {
-    if (!this._sender) {
+    if (!this.sender) {
       return "";
     }
 
@@ -195,11 +213,14 @@ export class SnesSession {
     }
 
     const deviceAttached = [this._deviceList[this._deviceList.length - 1]];
-    this._attachPromise = this._sender.sendNoResponse<AttachToDeviceRequest>({
-      Opcode: "Attach",
-      Space: "SNES",
-      Operands: deviceAttached,
-    });
+    this._attachPromise = this.sender.sendNoResponse<AttachToDeviceRequest>(
+      this._client as ws.w3cwebsocket,
+      {
+        Opcode: "Attach",
+        Space: "SNES",
+        Operands: deviceAttached,
+      }
+    );
 
     await this._attachPromise;
 
@@ -209,18 +230,21 @@ export class SnesSession {
   }
 
   protected async registerName(): Promise<void> {
-    if (!this._sender) {
+    if (!this.sender) {
       throw new Error("No request sender was initialized");
     }
 
-    await this._sender.sendNoResponse<RegisterNameRequest>({
-      Opcode: "Name",
-      Operands: [this.name],
-    });
+    await this.sender.sendNoResponse<RegisterNameRequest>(
+      this._client as ws.w3cwebsocket,
+      {
+        Opcode: "Name",
+        Operands: [this.name],
+      }
+    );
   }
 
   protected async getDeviceInfo(): Promise<DeviceInfoResponse> {
-    if (!this._sender) {
+    if (!this.sender) {
       throw new Error("No request sender was initialized");
     }
 
@@ -228,10 +252,10 @@ export class SnesSession {
       return this._deviceInfoPromise;
     }
 
-    this._deviceInfoPromise = this._sender.sendUtf8<
+    this._deviceInfoPromise = this.sender.sendUtf8<
       DeviceInfoRequest,
       DeviceInfoResponse
-    >({
+    >(this._client as ws.w3cwebsocket, {
       Opcode: "Info",
     });
 
@@ -255,7 +279,7 @@ export class SnesSession {
     addressStart: string,
     blockCount: number
   ): Promise<Uint8Array> {
-    if (!this._sender) {
+    if (!this.sender) {
       throw new Error("No request sender was initialized");
     }
 
@@ -264,10 +288,13 @@ export class SnesSession {
     this.logger.debug(`requesting ${blockCount} bytes of ram at`, addressStart);
 
     const cb = () =>
-      this._sender?.sendBinary<GetAddressRequest>({
-        Opcode: "GetAddress",
-        Operands: [addressVal.toString(16), blockCount.toString(16)],
-      }) || Promise.reject();
+      this.sender?.sendBinary<GetAddressRequest>(
+        this._client as ws.w3cwebsocket,
+        {
+          Opcode: "GetAddress",
+          Operands: [addressVal.toString(16), blockCount.toString(16)],
+        }
+      ) || Promise.reject();
 
     const result = await queue.add(cb);
 
@@ -279,7 +306,7 @@ export class SnesSession {
     blockCount: number,
     data: ArrayBuffer
   ): Promise<Uint8Array> {
-    if (!this._sender) {
+    if (!this.sender) {
       throw new Error("No request sender was initialized");
     }
 
@@ -290,10 +317,13 @@ export class SnesSession {
     const cb1 = () => {
       this.logger.info("sending put request");
       return (
-        this._sender?.sendNoResponse<PutAddressRequest>({
-          Opcode: "PutAddress",
-          Operands: [addressVal.toString(16), blockCount.toString(16)],
-        }) || Promise.reject()
+        this.sender?.sendNoResponse<PutAddressRequest>(
+          this._client as ws.w3cwebsocket,
+          {
+            Opcode: "PutAddress",
+            Operands: [addressVal.toString(16), blockCount.toString(16)],
+          }
+        ) || Promise.reject()
       );
     };
 
@@ -302,7 +332,10 @@ export class SnesSession {
     });
     this.logger.info("result", result);
     await queue.add(async () => {
-      return this._sender?.sendRawNoResponse(data);
+      return this.sender?.sendRawNoResponse(
+        this._client as ws.w3cwebsocket,
+        data
+      );
     });
 
     return new Uint8Array();
@@ -316,20 +349,12 @@ export class SnesSession {
   }
 
   protected onClose = (err: number, description: string) => {
+    if (err === 1006) {
+      this.error = "Unexpectedly disconnected from SNI";
+    }
     this.logger.info("connection closed", err, description);
-    this.info = null;
-    this._connection = null;
-    this._deviceList = [];
+    this.resetState();
   };
-
-  protected onError(error: Error) {
-    this._connection?.off("close", this.onClose);
-    this._connection?.off("error", this.onError);
-    this._connection?.off("pause", this.onPause);
-    this._connection?.off("ping", this.onPing);
-    this._connection?.off("pong", this.onPong);
-    this._connection?.off("resume", this.onResume);
-  }
 
   protected onPause = () => {
     this.logger.info("connection paused");
@@ -353,7 +378,19 @@ export class SnesSession {
     }
 
     this._logger = getLogger("SnesSession");
-    this._logger.setLevel("info");
+    this._logger.setLevel("debug");
     return this._logger;
+  }
+
+  private resetState() {
+    this._isConnected = false;
+    this._connectionPromise = null;
+    this._deviceList = [];
+    this._devicePromise = null;
+    this.info = null;
+    this._deviceInfoPromise = null;
+    this._attachPromise = null;
+
+    this.error = null;
   }
 }

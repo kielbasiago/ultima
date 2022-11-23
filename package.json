@@ -20,6 +20,8 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "next": "13.0.0"
+  },
   "packageManager": "pnpm@7.14.2"
 }

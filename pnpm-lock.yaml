@@ -5,11 +5,8 @@ importers:
   .:
     specifiers:
       '@ff6wc/eslint-config-custom': workspace:*
-      next: 13.0.0
       prettier: latest
       turbo: latest
-    dependencies:
-      next: 13.0.0
     devDependencies:
       '@ff6wc/eslint-config-custom': link:packages/eslint-config-custom
       prettier: 2.8.0

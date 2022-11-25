@@ -1,8 +1,9 @@
 import { Button } from "./Button";
 
 export default {
-  title: "idk",
+  title: "Button",
 };
+
 export const Default = () => {
-  return <Button></Button>;
+  return <Button>Booton</Button>;
 };

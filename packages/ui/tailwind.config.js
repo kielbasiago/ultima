@@ -6,31 +6,29 @@ module.exports = {
   ],
   theme: {
     extend: {
+      transitionDuration: {
+        40: "40ms",
+      },
       colors: {
         transparent: "transparent",
         background: "#F3F3F3", // PLATINUM
-        "panel-background": "#E5E5E5", //CULTURED
         "big-text": "#634064", // ENGLISH VIOLET
         headings: "#1D3461", // SPACE CADET
         link: "#2E86AB", // BLUE NCS
-
-        button: {
-          bg: "#F5F5F5",
+        panel: {
+          background: "#F3F3F3",
           border: "#D2CFC9",
+          "header-background": "#E5E5E5",
         },
-        input: {
-          bg: "#FFFFFF",
+        inputs: {
+          background: "#FFFFFF",
           border: "#D2CFC9",
         },
       },
       fontFamily: {
-        /*
-        font-family: 'Cinzel', serif;
-        font-family: 'Montserrat', sans-serif;
-        font-family: 'Roboto', sans-serif;
-
-        */
         sans: "'Montserrat', sans-serif",
+        montserrat: "'Montserrat', sans-serif",
+        cinzel: "'Cinzel', sans-serif",
       },
     },
     borderWidth: {

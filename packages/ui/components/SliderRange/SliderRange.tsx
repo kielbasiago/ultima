@@ -1,15 +1,17 @@
-import BaseSlider from "rc-slider";
+import { Slider, SliderProps } from "../Slider/Slider";
 
-type Props = {
-  onChange: (val: number[]) => void;
-  value: number[];
+type RangeSliderValues = [number, number];
+
+type Props = SliderProps<RangeSliderValues> & {
+  onChange: (val: RangeSliderValues) => void;
+  value: RangeSliderValues;
 };
 
 type TypedOnChange = (val: number | number[]) => void;
 
 export const SliderRange = ({ onChange, value }: Props) => {
   return (
-    <BaseSlider
+    <Slider
       className="ff6-slider"
       defaultValue={[25, 75]}
       min={0}

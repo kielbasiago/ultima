@@ -217,6 +217,7 @@ importers:
       '@babel/preset-typescript': 7.18.6
       '@ff6wc/eslint-config-custom': workspace:*
       '@ff6wc/tsconfig': workspace:*
+      '@headlessui/react': 1.7.4
       '@next/font': 13.0.5
       '@storybook/addon-essentials': ^7.0.0-alpha.52
       '@storybook/addon-interactions': ^7.0.0-alpha.52
@@ -248,6 +249,7 @@ importers:
       webpack: 5.75.0
     dependencies:
       '@babel/preset-react': 7.18.6_@babel+core@7.20.2
+      '@headlessui/react': 1.7.4_biqbaboplfbrettd7655fr4n2y
       '@next/font': 13.0.5
       next: 13.0.5_mqvh5p7ejg4taogoj6tpk3gd5a
       rc-slider: 10.1.0_biqbaboplfbrettd7655fr4n2y
@@ -1725,6 +1727,18 @@ packages:
   /@fal-works/esbuild-plugin-global-externals/2.1.2:
     resolution: {integrity: sha512-cEee/Z+I12mZcFJshKcCqC8tuX5hG3s+d+9nZ3LabqKF1vKdF41B92pJVCBggjAGORAeOzyyDDKrZwIkLffeOQ==}
     dev: true
+
+  /@headlessui/react/1.7.4_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-D8n5yGCF3WIkPsjEYeM8knn9jQ70bigGGb5aUvN6y4BGxcT3OcOQOKcM3zRGllRCZCFxCZyQvYJF6ZE7bQUOyQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: ^16 || ^17 || ^18
+      react-dom: ^16 || ^17 || ^18
+    dependencies:
+      client-only: 0.0.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
 
   /@humanwhocodes/config-array/0.11.7:
     resolution: {integrity: sha512-kBbPWzN8oVMLb0hOUYXhmxggL/1cJE6ydvjDIGi9EnAGUyA7cLVKQg+d/Dsm+KZwx2czGHrCmMVLiyg8s5JPKw==}

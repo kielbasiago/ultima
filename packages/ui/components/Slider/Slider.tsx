@@ -1,13 +1,11 @@
 import { cva, VariantProps } from "cva";
 import BaseSlider, { SliderProps as BaseSliderProps } from "rc-slider";
-import "./SliderSingle.css";
+import "./Slider.css";
 
-export type SliderProps = BaseSliderProps & {
-  onChange: (val: number) => void;
-  value: number;
+export type SliderProps<T extends number | number[]> = BaseSliderProps<T> & {
+  onChange: (val: T) => void;
+  value: T;
 };
-
-type TypedOnChange = (val: number | number[]) => void;
 
 const styles = cva([], {
   variants: {
@@ -16,14 +14,14 @@ const styles = cva([], {
   defaultVariants: {},
 });
 
-export const SliderSingle = ({
+export const Slider = <T extends number | number[]>({
   onChange,
   value,
-}: SliderProps & VariantProps<typeof styles>) => {
+  ...rest
+}: SliderProps<T> & VariantProps<typeof styles>) => {
   return (
     <BaseSlider
       className="ff6-slider"
-      defaultValue={0}
       min={0}
       max={100}
       step={1}
@@ -32,8 +30,9 @@ export const SliderSingle = ({
         50: "50",
         100: "100",
       }}
-      onChange={onChange as TypedOnChange}
-      value={value}
+      {...(rest as SliderProps<number | number[]>)}
+      onChange={onChange as BaseSliderProps["onChange"]}
+      value={value as BaseSliderProps["value"]}
     />
   );
 };

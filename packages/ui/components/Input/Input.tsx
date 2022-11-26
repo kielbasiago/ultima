@@ -11,8 +11,8 @@ const styles = cva("", {
     variant: {
       default: [
         "focus-visible:outline-none",
-        "border-input-border border-1",
-        "bg-input-bg",
+        "border-inputs-border border-1",
+        "bg-inputs-background",
         "px-2 py-1",
         "text-sm",
       ],

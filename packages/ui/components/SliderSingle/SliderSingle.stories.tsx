@@ -4,10 +4,13 @@ import { SliderSingle } from "./SliderSingle";
 
 export default {
   title: "Slider (Single)",
+  args: {
+    value: 30,
+  },
 };
 
 export const SliderWithNumber = () => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(30);
   const onChange = (e: ChangeEvent<HTMLInputElement>) =>
     setValue(Number.parseInt(e.target.value));
   return (

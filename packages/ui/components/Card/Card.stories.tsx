@@ -4,10 +4,12 @@ import { Input } from "../Input/Input";
 import { Slider } from "../Slider/Slider";
 import { Card } from "./Card";
 
-export default {
+const config: Meta<typeof Card> = {
   title: "Card",
   component: Card,
-} as Meta<typeof Card>;
+};
+
+export default config;
 
 export const BNRExample = () => {
   const [value, setValue] = useState([25, 75]);

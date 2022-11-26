@@ -1,10 +1,14 @@
+import { Meta } from "@storybook/react";
 import { useState } from "react";
 import { TabItemProps } from "../TabItem/TabItem";
 import { Tabs } from "./Tabs";
 
-export default {
+const config: Meta<typeof Tabs> = {
   title: "Tabs",
+  component: Tabs,
 };
+
+export default config;
 
 const tabs: TabItemProps["item"][] = [
   {

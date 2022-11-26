@@ -5,11 +5,12 @@ const tabStyles = cva(
   [
     "group relative min-w-0 flex-1",
     "overflow-hidden",
-    "py-4 px-6",
+    "py-3 px-6",
     "border-1 border-transparent",
-    "outline-0",
-    "focus-visible:border-x-inputs-border",
-    "focus-visible:border-t-inputs-border",
+    "outline-1",
+    "outline-blue-500",
+    "outline-offset-0",
+    "rounded-none",
     "focus:z-10",
     "font-medium",
   ],
@@ -29,7 +30,7 @@ const tabStyles = cva(
 const tabUndercarriageStyles = cva(["absolute inset-x-0 bottom-0 h-0.5"], {
   variants: {
     selected: {
-      true: "bg-blue-500",
+      true: "bg-blue-500 bg-opacity-90",
       false: "bg-transparent",
     },
   },

@@ -1,10 +1,14 @@
+import { Meta } from "@storybook/react";
 import { ChangeEvent, useState } from "react";
 import { Input } from "../Input/Input";
 import { Switch } from "./Switch";
 
-export default {
+const config: Meta<typeof Switch> = {
   title: "Switch",
+  component: Switch,
 };
+
+export default config;
 
 export const Default = () => {
   const [checked, setChecked] = useState(true);

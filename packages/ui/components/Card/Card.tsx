@@ -36,12 +36,13 @@ const headingStyles = cva(["px-4 py-2", "font-medium"], {
 
 export const Card = ({
   children,
+  className,
   title,
   variant = "default",
   ...rest
 }: CardProps) => {
   return (
-    <div {...rest} className={cx("ff6-slider", containerStyles())}>
+    <div {...rest} className={cx(containerStyles(), className)}>
       <div className={headingStyles({ variant })}>{title}</div>
       <div className={contentStyles()}>{children}</div>
     </div>

@@ -1,13 +1,17 @@
+import { Meta } from "@storybook/react";
 import { ChangeEvent, useState } from "react";
 import { Input } from "../Input/Input";
 import { Slider } from "./Slider";
 
-export default {
+const config: Meta<typeof Slider> = {
   title: "Slider",
+  component: Slider,
   args: {
     value: 30,
   },
 };
+
+export default config;
 
 export const SingleSlider = () => {
   const [value, setValue] = useState(30);

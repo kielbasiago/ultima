@@ -75,64 +75,6 @@ importers:
       socket.io: 4.5.3
       typescript: 4.8.4
 
-  apps/relmo:
-    specifiers:
-      '@babel/core': ^7.0.0
-      '@ff6wc/eslint-config-custom': workspace:*
-      '@ff6wc/tsconfig': workspace:*
-      '@ff6wc/ui': workspace:*
-      '@types/node': ^17.0.12
-      '@types/react': ^18.0.22
-      '@types/react-dom': ^18.0.7
-      eslint: 7.32.0
-      next: 13.0.0
-      react: 18.2.0
-      react-dom: 18.2.0
-      typescript: ^4.5.3
-    dependencies:
-      '@ff6wc/ui': link:../../packages/ui
-      next: 13.0.0_mqvh5p7ejg4taogoj6tpk3gd5a
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-    devDependencies:
-      '@babel/core': 7.20.2
-      '@ff6wc/eslint-config-custom': link:../../packages/eslint-config-custom
-      '@ff6wc/tsconfig': link:../../packages/tsconfig
-      '@types/node': 17.0.45
-      '@types/react': 18.0.25
-      '@types/react-dom': 18.0.9
-      eslint: 7.32.0
-      typescript: 4.8.4
-
-  apps/tempest:
-    specifiers:
-      '@babel/core': ^7.0.0
-      '@ff6wc/eslint-config-custom': workspace:*
-      '@ff6wc/tsconfig': workspace:*
-      '@ff6wc/ui': workspace:*
-      '@types/node': ^17.0.12
-      '@types/react': ^18.0.22
-      '@types/react-dom': ^18.0.7
-      eslint: 7.32.0
-      next: 13.0.0
-      react: 18.2.0
-      react-dom: 18.2.0
-      typescript: ^4.5.3
-    dependencies:
-      '@ff6wc/ui': link:../../packages/ui
-      next: 13.0.0_mqvh5p7ejg4taogoj6tpk3gd5a
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-    devDependencies:
-      '@babel/core': 7.20.2
-      '@ff6wc/eslint-config-custom': link:../../packages/eslint-config-custom
-      '@ff6wc/tsconfig': link:../../packages/tsconfig
-      '@types/node': 17.0.45
-      '@types/react': 18.0.25
-      '@types/react-dom': 18.0.8
-      eslint: 7.32.0
-      typescript: 4.8.4
-
   packages/eslint-config-custom:
     specifiers:
       '@types/react': 18.0.25

@@ -1,5 +1,9 @@
 import { cva, VariantProps } from "cva";
 
+type BaseButtonProps = React.DetailedHTMLProps<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+>;
 const b = cva([], {
   variants: {
     variant: {
@@ -16,13 +20,18 @@ const b = cva([], {
   },
 });
 
-type Props = {
+type Props = BaseButtonProps & {
   children: React.ReactNode;
 };
 
 export const Button = ({
   children,
+  variant,
   ...props
 }: Props & VariantProps<typeof b>) => {
-  return <button className={b({ ...props })}>{children}</button>;
+  return (
+    <button {...props} className={b({ variant })}>
+      {children}
+    </button>
+  );
 };

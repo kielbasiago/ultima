@@ -1,10 +1,9 @@
 import { cva, VariantProps } from "cva";
 import BaseSlider, { SliderProps as BaseSliderProps } from "rc-slider";
-import "./Slider.css";
 
 export type SliderProps<T extends number | number[]> = BaseSliderProps<T> & {
-  onChange: (val: T) => void;
-  value: T;
+  onChange?: (val: T) => void;
+  value?: T;
 };
 
 const styles = cva([], {

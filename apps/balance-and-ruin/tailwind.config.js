@@ -2,7 +2,7 @@
 module.exports = {
   content: [
     "./components/**/*.{js,ts,jsx,tsx}",
-    "./styles/*.{css}",
+    "./styles/*.css",
     "./pages/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
@@ -34,9 +34,6 @@ module.exports = {
     },
     borderWidth: {
       1: "1px",
-    },
-    fontFamily: {
-      "big-text": "'Cinzel', serif;",
     },
   },
   plugins: [],

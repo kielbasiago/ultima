@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@ff6wc/ui": "workspace:*",
+    "@next/font": "13.0.5",
     "@reduxjs/toolkit": "1.9.0",
     "@tailwindcss/forms": "0.5.3",
     "autoprefixer": "^10.4.13",
+    "cva": "npm:class-variance-authority@0.3.0",
     "next": "13.0.0",
     "next-redux-wrapper": "8.0.0",
     "postcss": "^8.0.0",
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",
+    "@babel/preset-env": "7.20.2",
     "@ff6wc/eslint-config-custom": "workspace:*",
     "@ff6wc/ff6-types": "workspace:*",
     "@ff6wc/tracker-core": "workspace:*",

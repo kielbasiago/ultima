@@ -15,11 +15,13 @@ importers:
   apps/balance-and-ruin:
     specifiers:
       '@babel/core': ^7.20.2
+      '@babel/preset-env': 7.20.2
       '@ff6wc/eslint-config-custom': workspace:*
       '@ff6wc/ff6-types': workspace:*
       '@ff6wc/tracker-core': workspace:*
       '@ff6wc/tsconfig': workspace:*
       '@ff6wc/ui': workspace:*
+      '@next/font': 13.0.5
       '@reduxjs/toolkit': 1.9.0
       '@tailwindcss/forms': 0.5.3
       '@types/lodash': 4.14.188
@@ -27,6 +29,7 @@ importers:
       '@types/react': ^18.0.22
       '@types/react-dom': ^18.0.7
       autoprefixer: ^10.4.13
+      cva: npm:class-variance-authority@0.3.0
       eslint: 7.32.0
       lodash: 4.17.21
       next: 13.0.0
@@ -42,9 +45,11 @@ importers:
       typescript: ^4.5.3
     dependencies:
       '@ff6wc/ui': link:../../packages/ui
+      '@next/font': 13.0.5
       '@reduxjs/toolkit': 1.9.0_k4ae6lp43ej6mezo3ztvx6pykq
       '@tailwindcss/forms': 0.5.3_tailwindcss@3.2.4
       autoprefixer: 10.4.13_postcss@8.4.19
+      cva: /class-variance-authority/0.3.0_typescript@4.8.4
       next: 13.0.0_mqvh5p7ejg4taogoj6tpk3gd5a
       next-redux-wrapper: 8.0.0_jc6xof54eybjtt4fduqchggeje
       postcss: 8.4.19
@@ -56,6 +61,7 @@ importers:
       tailwindcss: 3.2.4_postcss@8.4.19
     devDependencies:
       '@babel/core': 7.20.2
+      '@babel/preset-env': 7.20.2_@babel+core@7.20.2
       '@ff6wc/eslint-config-custom': link:../../packages/eslint-config-custom
       '@ff6wc/ff6-types': link:../../packages/ff6-types
       '@ff6wc/tracker-core': link:../../packages/tracker-core
@@ -4895,7 +4901,6 @@ packages:
         optional: true
     dependencies:
       typescript: 4.8.4
-    dev: true
 
   /classnames/2.3.2:
     resolution: {integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==}

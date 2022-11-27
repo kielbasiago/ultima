@@ -6,8 +6,8 @@ const switchStyles = cva(
   {
     variants: {
       checked: {
-        true: "bg-blue-600 border-switch-border-checked",
-        false: "bg-switch-bg",
+        true: "bg-blue-600 border-blue-600",
+        false: "bg-inputs-background border-inputs-border",
       },
     },
   }

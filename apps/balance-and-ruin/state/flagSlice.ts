@@ -9,7 +9,7 @@ type FlagData = {
    * `-cg`
    * `-msl`
    */
-  key: string;
+  flag: string;
   value: string | number | string[] | number[];
 };
 
@@ -20,7 +20,9 @@ export interface FlagState {
 
 // Initial state
 const initialState: FlagState = {
-  flagValues: {},
+  flagValues: {
+    "-csb": [1, 20],
+  },
 };
 
 // Actual Slice
@@ -29,12 +31,7 @@ export const flagSlice = createSlice({
   initialState,
   reducers: {
     setFlag: (state, action: PayloadAction<FlagData>) => {
-      if (Array.isArray(action.payload.value)) {
-        state.flagValues[action.payload.key] = `${action.payload.value.join(
-          " "
-        )}`;
-      }
-      state.flagValues[action.payload.key] = `${action.payload.value}`;
+      state.flagValues[action.payload.flag] = action.payload.value;
     },
   },
   // Special reducer for hydrating the state. Special case for next-redux-wrapper
@@ -48,8 +45,13 @@ export const flagSlice = createSlice({
   },
 });
 
-export const {} = flagSlice.actions;
+export const { setFlag } = flagSlice.actions;
 
-export const selectFlagState = (state: AppState) => state.auth;
+export const selectFlagValues = (state: AppState) => state.flag.flagValues;
+export const selectFlagValue =
+  <T = unknown>(flag: string) =>
+  (state: AppState): T => {
+    return state.flag.flagValues[flag];
+  };
 
 export default flagSlice.reducer;

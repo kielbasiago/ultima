@@ -1,4 +1,4 @@
-import "./storybook.styles.css";
+import "../globals.css";
 import React from "react";
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

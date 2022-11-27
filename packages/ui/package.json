@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint *.ts*",
+    "build": "tsup index.tsx && tsup globals.css",
     "dev": "concurrently \"tsup index.tsx --watch\" \"tsup globals.css --watch\"",
     "storybook": "storybook dev",
     "build-storybook": "build-storybook"

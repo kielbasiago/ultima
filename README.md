@@ -1,4 +1,66 @@
-# Turborepo starter
+# Project Apps
+
+## Balance and Ruin
+
+### Overview
+
+This is the primary website for WC
+
+1. Interact with various forms to get a flagstring
+2. Upload your rom and click "Generate"
+3. Make request `POST /api/generate` deliver a FF6WC patch file that is applied on the browser
+
+### MVP Features
+
+- Retain all FF6WC functionality flagset creation
+  - Graphics are an exception, being taken care of in [Relmo](#relmo)
+- Can interact with any branch of WC
+- All flags are available in UI , including dev flags
+
+## Relmo
+
+Relmo is the location for everything sprite/palette/portrait related.
+
+Idea is to create the content of the graphics tab here in isolation and then port it over once it's finished. The reason for this is to keep any unnecessary graphic/sprite code out of balance and ruin
+
+### MVP Features
+
+- Recreate ff6wc.com graphics tab
+- Generate flagstring at the bottom of the file, adding way to copy it to clipboard.
+
+### Long-term features
+
+- Create presets inside of relmo, making them accessible via balance-and-ruin
+- Move `relmo` into the `balance-and-ruin` app
+
+## Api
+
+Currently for the API we run python endpoints.
+
+### Local Development
+
+During local development we execute python locally using `python-shell` inside of Next.js api endpoint
+
+### Production
+
+The code running during local development will be added to an AWS Amplify python lambda,running any necessary WC code
+
+4. Integrate captcha to keep spammers from spammin
+
+## Long-term Goals
+
+### Graphics
+
+Add ability to create presets inside of app, which get loaded on the site and can be selected under the "Graphics" tab
+
+### Music
+
+Short-term: Create a new app (NEED NAME) where you can create new playlists that can be applied to WC seeds.
+Long-term: Add "Music" section to main site. Here you can create/choose playlists created by yourself or the community that can be applied
+
+---
+
+# Turborepo starter (old readme)
 
 This is an official pnpm starter turborepo.
 

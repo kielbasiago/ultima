@@ -45,8 +45,8 @@
   }
 
   .ff6-slider .rc-slider-track {
-    @apply bg-cyan-600-600;
-    @apply border-0 bg-cyan-600-600;
+    @apply bg-blue-600;
+    @apply border-0 bg-blue-600;
   }
 
   .ff6-slider .rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging {
@@ -122,8 +122,8 @@
 }
 
 .ff6-slider .rc-slider-track {
-  @apply bg-cyan-600-400;
-  @apply border-0 bg-cyan-600-600;
+  @apply bg-blue-400;
+  @apply border-0 bg-blue-600;
 }
 
 .ff6-slider .rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging {

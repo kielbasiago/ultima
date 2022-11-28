@@ -9,7 +9,14 @@ export type FlagSliderProps = {
   label: string;
 } & SliderProps<number>;
 
-export const FlagSlider = ({ flag, label }: FlagSliderProps) => {
+export const FlagSlider = ({
+  flag,
+  label,
+  min,
+  max,
+  step,
+  ...rest
+}: FlagSliderProps) => {
   const selectors = useMemo(() => selectFlagValue<number>(flag), [flag]);
   const value = useSelector(selectors) as number;
   const dispatch = useDispatch();
@@ -24,12 +31,9 @@ export const FlagSlider = ({ flag, label }: FlagSliderProps) => {
   };
 
   const parseValue = (val: string | number) => {
-    return Number.parseInt((val || "0").toString());
+    return Number.parseFloat((val || "0").toString());
   };
 
-  const min = 0;
-  const max = 100;
-  const step = 1;
   return (
     <div className={"flex flex-col gap-2"}>
       <div className={"flex justify-between items-center"}>
@@ -38,21 +42,22 @@ export const FlagSlider = ({ flag, label }: FlagSliderProps) => {
           <Input
             min={min}
             max={max}
-            step={step}
+            step={step || 1}
             onChange={(e) => setValue(parseValue(e.target.value))}
             type="number"
-            value={value}
+            value={value ?? min}
           />
         </div>
       </div>
       <div className={"flex gap-4"}>
         <Slider
-          defaultValue={value}
+          defaultValue={value ?? min}
           onChange={(val) => setValue(val)}
-          value={value}
-          min={0.5}
-          max={5}
-          step={0.5}
+          value={value ?? min}
+          min={min}
+          max={max}
+          step={step}
+          {...rest}
         />
       </div>
     </div>

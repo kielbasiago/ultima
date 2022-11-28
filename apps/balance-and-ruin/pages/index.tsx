@@ -12,7 +12,13 @@ const Home: NextPage = () => {
   return (
     <div className={"p-12 flex flex-col h-full justify-between"}>
       <Card className="gap-4 p-4" contentClassName="gap-4" title={"Items"}>
-        <FlagSlider flag="-lsced" label="Level Scaling Factor" />
+        <FlagSlider
+          flag="-lsced"
+          label="Level Scaling Factor"
+          min={0.5}
+          max={5}
+          step={0.5}
+        />
         <FlagRange flag="-csb" label="Cursed Shield Battles" />
         <FlagSwitch flag="-mca" label="Moogle Charm All" />
         <FlagSwitch flag="-nxppd" invert label="Split Party Exp" />

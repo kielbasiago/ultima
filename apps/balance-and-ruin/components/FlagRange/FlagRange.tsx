@@ -24,7 +24,7 @@ export const FlagRange = ({ flag, label, ...rest }: FlagRangeProps) => {
   };
 
   const parseValue = (val: string | number) => {
-    return Number.parseInt((val || "0").toString());
+    return Number.parseFloat((val || "0").toString());
   };
 
   const [minVal, maxVal] = value || [];

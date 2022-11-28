@@ -5,6 +5,7 @@ export type CardProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 > & {
+  contentClassName?: string;
   title: React.ReactNode;
   variant?: "default" | "primary";
 };
@@ -17,6 +18,7 @@ const containerStyles = cva([
 ]);
 
 const contentStyles = cva([
+  "flex flex-col",
   "px-4 py-3",
   "bg-panel-background",
   " border-panel-border",
@@ -37,6 +39,7 @@ const headingStyles = cva(["px-4 py-2", "font-medium"], {
 export const Card = ({
   children,
   className,
+  contentClassName,
   title,
   variant = "default",
   ...rest
@@ -44,7 +47,7 @@ export const Card = ({
   return (
     <div {...rest} className={cx(containerStyles(), className)}>
       <div className={headingStyles({ variant })}>{title}</div>
-      <div className={contentStyles()}>{children}</div>
+      <div className={cx(contentStyles(), contentClassName)}>{children}</div>
     </div>
   );
 };

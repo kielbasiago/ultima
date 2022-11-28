@@ -27,17 +27,18 @@ const buttonStyles = cva(
 
 export type SwitchProps = {
   checked?: boolean;
-  onChange: (checked: boolean) => void;
+  description?: string;
+  onChange?: (checked: boolean) => void;
 };
 
-export const Switch = ({ checked, onChange }: SwitchProps) => {
+export const Switch = ({ checked, description, onChange }: SwitchProps) => {
   return (
     <BaseSwitch
       checked={checked}
       onChange={onChange}
       className={switchStyles({ checked })}
     >
-      <span className="sr-only">Enable notifications</span>
+      <span className="sr-only">{description}</span>
       <span className={buttonStyles({ checked })} />
     </BaseSwitch>
   );

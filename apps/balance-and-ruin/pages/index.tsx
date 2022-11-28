@@ -1,73 +1,24 @@
 import type { NextPage } from "next";
-import { useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { selectFlagValue, setFlag } from "~/state/flagSlice";
-import { Card, Slider, Input } from "@ff6wc/ui";
-
-const parseValue = (val: string | number) => {
-  return Number.parseInt((val || "0").toString());
-};
-
-type FlagRangeProps = {
-  flag: string;
-  label: string;
-};
-const FlagRange = ({ flag, label }: FlagRangeProps) => {
-  const selectors = useMemo(() => selectFlagValue<number[]>(flag), []);
-  const value = useSelector(selectors) as number[];
-  const dispatch = useDispatch();
-
-  const setValue = (val: number[]) => {
-    dispatch(
-      setFlag({
-        flag: flag,
-        value: val,
-      })
-    );
-  };
-
-  const [minVal, maxVal] = value || [];
-
-  return (
-    <div className={"flex flex-col gap-2"}>
-      <div className={"flex justify-between"}>
-        <h3>{label}</h3>
-        <div className={"flex flex-shrink gap-2"}>
-          <Input
-            min={0}
-            max={100}
-            step={1}
-            onChange={(e) => setValue([parseValue(e.target.value), value[1]])}
-            type="number"
-            value={minVal}
-          />
-          <Input
-            min={0}
-            max={100}
-            step={1}
-            onChange={(e) => setValue([value[0], parseValue(e.target.value)])}
-            type="number"
-            value={maxVal}
-          />
-        </div>
-      </div>
-      <div className={"flex gap-4"}>
-        <Slider
-          defaultValue={value}
-          onChange={(val) => setValue(val)}
-          range
-          value={value}
-        />
-      </div>
-    </div>
-  );
-};
+import { FormEventHandler } from "react";
+import { Card } from "@ff6wc/ui";
+import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
+import { FlagRange } from "~/components/FlagRange/FlagRange";
+import { useSelector } from "react-redux";
+import { selectRawFlags } from "~/state/flagSlice";
+import { FlagSlider } from "~/components/FlagSlider/FlagSlider";
+import { FlagsCard } from "~/components/FlagCard/FlagCard";
 
 const Home: NextPage = () => {
   return (
-    <Card title={"Items"}>
-      <FlagRange flag="-csb" label="Cursed Shield Battles" />
-    </Card>
+    <div className={"p-12 flex flex-col h-full justify-between"}>
+      <Card className="gap-4 p-4" contentClassName="gap-4" title={"Items"}>
+        <FlagSlider flag="-lsced" label="Level Scaling Factor" />
+        <FlagRange flag="-csb" label="Cursed Shield Battles" />
+        <FlagSwitch flag="-mca" label="Moogle Charm All" />
+        <FlagSwitch flag="-nxppd" invert label="Split Party Exp" />
+      </Card>
+      <FlagsCard />
+    </div>
   );
 };
 

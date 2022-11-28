@@ -6,12 +6,10 @@
       "",
       "export type ${TM_DIRECTORY/^.+\\/(.*)$/$1/}Props = Record<string, unknown>;",
       "",
-      "const ${TM_DIRECTORY/^.+\\/(.*)$/$1/} = (props: ${TM_DIRECTORY/^.+\\/(.*)$/$1/}Props) => {",
+      "export const ${TM_DIRECTORY/^.+\\/(.*)$/$1/} = (props: ${TM_DIRECTORY/^.+\\/(.*)$/$1/}Props) => {",
       "    const {} = props;",
       "    return <></>;",
       "}",
-      "",
-      "export default ${TM_DIRECTORY/^.+\\/(.*)$/$1/};",
       ""
     ],
     "description": "Export both a component function with typed props matching the filename"

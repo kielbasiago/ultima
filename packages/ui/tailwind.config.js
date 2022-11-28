@@ -31,16 +31,16 @@ module.exports = {
         cinzel: "'Cinzel', sans-serif",
       },
     },
-    borderWidth: {
-      0: "0",
-      1: "1px",
-      2: "2px",
-      3: "3px",
-      4: "4px",
-    },
-    fontFamily: {
-      "big-text": "'Cinzel', serif;",
-    },
+    // borderWidth: {
+    //   0: "0",
+    //   1: "1px",
+    //   2: "2px",
+    //   3: "3px",
+    //   4: "4px",
+    // },
+    // fontFamily: {
+    //   "big-text": "'Cinzel', serif;",
+    // },
   },
   plugins: [],
 };

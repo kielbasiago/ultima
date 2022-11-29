@@ -6,6 +6,6 @@ module.exports = {
     fontLoaders: [
       { loader: "@next/font/google", options: { subsets: ["latin"] } },
     ],
-    transpilePackages: ["ui"],
+    transpilePackages: ["@ff6wc/ui"],
   },
 };

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppState } from "./store";
-import { createWrapper, HYDRATE } from "next-redux-wrapper";
+import { HYDRATE } from "next-redux-wrapper";
 
 type FlagValue = string | number | string[] | number[] | boolean;
 type FlagData = {
@@ -54,7 +54,6 @@ export const flagSlice = createSlice({
       state.rawFlags = valuesToString(state.flagValues);
     },
   },
-  // Special reducer for hydrating the state. Special case for next-redux-wrapper
   extraReducers: {
     [HYDRATE]: (state, action) => {
       return {

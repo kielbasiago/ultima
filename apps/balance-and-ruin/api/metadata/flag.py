@@ -11,7 +11,6 @@ class handler(BaseHTTPRequestHandler):
     from WorldsCollide.metadata.flag_metadata_writer import FlagMetadataWriter
 
     result = FlagMetadataWriter(arguments).get_flag_metadata()
-    print('result', result)
     import json
     self.send_response(200)
     self.send_header('Content-type','text/plain')

@@ -45,6 +45,7 @@ importers:
       react-select: 5.6.1
       socket.io: 4.5.3
       socket.io-client: 4.5.3
+      swr: 1.3.0
       tailwindcss: 3.2.4
       typescript: ^4.5.3
       vercel: 28.5.6
@@ -64,6 +65,7 @@ importers:
       react-redux: 8.0.5_cn3ejhfta5lq2dae4xucvtkwvu
       react-select: 5.6.1_o6ujcdmwt6ni5mv4wdf5n6tg3y
       socket.io-client: 4.5.3
+      swr: 1.3.0_react@18.2.0
       tailwindcss: 3.2.4_postcss@8.4.19
     devDependencies:
       '@babel/core': 7.20.2
@@ -11659,6 +11661,14 @@ packages:
   /supports-preserve-symlinks-flag/1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
+
+  /swr/1.3.0_react@18.2.0:
+    resolution: {integrity: sha512-dkghQrOl2ORX9HYrMDtPa7LTVHJjCTeZoB1dqTbnnEDlSvN8JEKpYIYurDfvbQFUUS8Cg8PceFVZNkW0KNNYPw==}
+    peerDependencies:
+      react: ^16.11.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /synchronous-promise/2.0.16:
     resolution: {integrity: sha512-qImOD23aDfnIDNqlG1NOehdB9IYsn1V9oByPjKY1nakv2MQYCEMyX033/q+aEtYCpmYK1cv2+NTmlH+ra6GA5A==}

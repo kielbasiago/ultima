@@ -11,7 +11,6 @@ class handler(BaseHTTPRequestHandler):
     from WorldsCollide.metadata.objective_metadata_writer import ObjectiveMetadataWriter
 
     result = ObjectiveMetadataWriter().get_objective_metadata()
-    print('result', result)
     import json
     self.send_response(200)
     self.send_header('Content-type','text/plain')

@@ -1,5 +1,5 @@
 import { Card, CardProps } from "@ff6wc/ui";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectRawFlags } from "~/state/flagSlice";
 
 export type FlagsCardProps = {};

@@ -1,21 +1,33 @@
 import type { AppProps } from "next/app";
-import { QueryClientProvider, QueryClient } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { Provider } from "react-redux";
 import { wrapper } from "~/state/store";
-import "~/styles/globals.css";
-import { Montserrat, Roboto } from "@next/font/google";
+
+import { Montserrat } from "@next/font/google";
 import { cx } from "cva";
+import { AppType } from "next/app";
+import { Schema } from "~/state/schemaSlice";
+import "~/styles/globals.css";
+
 const client = new QueryClient({});
 
 const montserrat = Montserrat();
-const roboto = Roboto({ weight: "500" });
-function App({ Component, pageProps }: AppProps) {
+
+type Props = {
+  schema: Schema;
+};
+
+const App: AppType<Props> = ({ Component, ...rest }: AppProps<Props>) => {
+  const { store, props } = wrapper.useWrappedStore(rest);
   return (
     <div className={cx(montserrat.className, "bg-white text-grey")}>
-      <QueryClientProvider client={client}>
-        <Component {...pageProps} />
-      </QueryClientProvider>
+      <Provider store={store}>
+        <QueryClientProvider client={client}>
+          <Component {...props.pageProps} />
+        </QueryClientProvider>
+      </Provider>
     </div>
   );
-}
+};
 
-export default wrapper.withRedux(App);
+export default App;

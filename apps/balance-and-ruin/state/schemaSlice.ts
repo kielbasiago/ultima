@@ -35,25 +35,26 @@ export type RawFlagMetadata = {
 };
 
 interface FlagMetadataNode {
-  allowedValues?: number;
-  min?: number;
-  max?: number;
+  allowedValues: RawFlagValue[];
+  defaultValue: RawFlagValue | null;
+  description: string | null;
+  min: number | null;
+  max: number | null;
 }
 
-type Schema = Record<string, FlagMetadataNode>;
+export type Schema = Record<string, FlagMetadataNode>;
 type SchemaOverrides = Record<string, NullableProperties<FlagMetadataNode>>;
 
-// Type for our state
 export interface SchemaState {
   /** Setting override for a flag, a given value will be taken over the server-supplied schema */
-  overrides: SchemaOverrides;
-  /** key is the flag, value contains info about the flag  */
+  overrides: Partial<SchemaOverrides>;
+  /** Schema created from a generated backend json. Generates item for every flag  */
   schema: Schema;
 }
 
 const schema = {};
 const initialState: SchemaState = {
-  overrides: { ...schema },
+  overrides: {},
   schema,
 };
 
@@ -69,16 +70,32 @@ interface OverridePayload {
   metadata: SchemaOverrides[string];
 }
 
+const combineMetadata = (
+  schema: SchemaState["schema"][string],
+  overrides: SchemaState["overrides"][string]
+) => {};
+
 // Actual Slice
 export const schemaSlice = createSlice({
-  name: "flag",
+  name: "schema",
   initialState,
   reducers: {
     setOverride: (state, action: PayloadAction<OverridePayload>) => {
       state.overrides[action.payload.flag] = action.payload.metadata;
     },
-    setSchema: (state, action: PayloadAction<Schema>) => {
-      state.schema = action.payload;
+    setSchema: (
+      state,
+      action: PayloadAction<Record<string, RawFlagMetadata>>
+    ) => {
+      Object.values(action.payload).forEach((item) => {
+        state.schema[item.flag] = {
+          allowedValues: item.allowed_values || [],
+          defaultValue: item.default || null,
+          description: null,
+          max: item.options?.max_val ?? null,
+          min: item.options?.min_val ?? null,
+        };
+      });
     },
   },
   // Special reducer for hydrating the state. Special case for next-redux-wrapper
@@ -86,23 +103,27 @@ export const schemaSlice = createSlice({
     [HYDRATE]: (state, action) => {
       return {
         ...state,
-        ...action.payload.flag,
+        ...action.payload.schema,
       };
     },
   },
 });
 
-export const { setOverride, setSchema } = schemaSlice.actions;
+export const { setSchema, setOverride } = schemaSlice.actions;
 
-export const selectFlagValues = (state: AppState) => state.flag.flagValues;
-export const selectFlagValue =
-  <T>(flag: string) =>
-  (state: AppState) => {
-    return state.flag.flagValues[flag] as unknown as T;
+export const selectSchema =
+  (flag: string) =>
+  (state: AppState): FlagMetadataNode => {
+    // const servers = state.schema.schema[flag];
+    // const ours = state.schema.overrides[flag];
+
+    // return {
+    //   allowedValues: ours?.allowedValues ?? servers?.allowedValues ?? [],
+    //   description: ours?.description ?? servers?.description ?? null,
+    //   max: ours?.max ?? servers?.max ?? null,
+    //   min: ours?.min ?? servers?.min ?? null,
+    // };
+    return state.schema.schema[flag];
   };
-
-export const selectRawFlags = (state: AppState) => {
-  return state.flag.rawFlags;
-};
 
 export default schemaSlice.reducer;

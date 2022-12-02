@@ -16,7 +16,7 @@ export default config;
 export const SingleSlider = () => {
   const [value, setValue] = useState(30);
   const onChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setValue(Number.parseInt(e.target.value));
+    setValue(Number.parseFloat(e.target.value));
   return (
     <div className={"flex flex-col gap-2"}>
       <div className={"flex justify-between"}>
@@ -41,13 +41,13 @@ export const RangeSlider = () => {
   const [value, setValue] = useState([25, 75]);
   const [minVal, maxVal] = value || [];
   const setMinVal = (e: ChangeEvent<HTMLInputElement>) => {
-    const val = Number.parseInt(e.target.value);
+    const val = Number.parseFloat(e.target.value);
     const vals = [...value];
     vals.splice(0, 1, val);
     setValue(vals);
   };
   const setMaxVal = (e: ChangeEvent<HTMLInputElement>) => {
-    const val = Number.parseInt(e.target.value);
+    const val = Number.parseFloat(e.target.value);
     const vals = [...value];
     vals.splice(1, 1, val);
     setValue(vals);

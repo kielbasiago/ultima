@@ -4,7 +4,7 @@ import { Card } from "@ff6wc/ui";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
 import { FlagRange } from "~/components/FlagRange/FlagRange";
 import { FlagSlider } from "~/components/FlagSlider/FlagSlider";
-import { FlagsCard } from "~/components/FlagCard/FlagCard";
+import { FlagsCard } from "~/components/FlagsCard/FlagsCard";
 
 import { RawFlagMetadata, setSchema } from "~/state/schemaSlice";
 import { useDispatch } from "react-redux";

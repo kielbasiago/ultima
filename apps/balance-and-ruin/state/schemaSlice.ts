@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppState } from "./store";
-import { createWrapper, HYDRATE } from "next-redux-wrapper";
+import { HYDRATE } from "next-redux-wrapper";
 import { NullableProperties } from "~/types/utils";
 
-export type RawFlagValue = string | number | string[] | number[];
+export type RawFlagValue = string | number | string[] | number[] | boolean;
 
 export type RawFlagMetadata = {
   /** Description of flag. this is usually less-than-human-readable */

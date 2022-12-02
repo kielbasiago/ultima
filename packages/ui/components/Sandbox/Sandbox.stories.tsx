@@ -15,13 +15,13 @@ export const BNRExample = () => {
   const [value, setValue] = useState([25, 75]);
   const [minVal, maxVal] = value || [];
   const setMinVal = (e: ChangeEvent<HTMLInputElement>) => {
-    const val = Number.parseInt(e.target.value);
+    const val = Number.parseFloat(e.target.value);
     const vals = [...value];
     vals.splice(0, 1, val);
     setValue(vals);
   };
   const setMaxVal = (e: ChangeEvent<HTMLInputElement>) => {
-    const val = Number.parseInt(e.target.value);
+    const val = Number.parseFloat(e.target.value);
     const vals = [...value];
     vals.splice(1, 1, val);
     setValue(vals);

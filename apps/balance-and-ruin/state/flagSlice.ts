@@ -34,11 +34,10 @@ const valuesToString = (flagValues: FlagState["flagValues"]) => {
     return `${acc} ${key} ${val}`;
   }, "");
 };
+
 // Initial state
 
-const flagValues = {
-  "-csb": [1, 20],
-};
+const flagValues = {};
 const initialState: FlagState = {
   flagValues,
   rawFlags: valuesToString(flagValues),
@@ -53,6 +52,13 @@ export const flagSlice = createSlice({
       state.flagValues[action.payload.flag] = action.payload.value;
       state.rawFlags = valuesToString(state.flagValues);
     },
+    setFlags: (state, action: PayloadAction<Record<string, FlagValue>>) => {
+      Object.keys(action.payload).forEach((key) => {
+        state.flagValues[key] = action.payload.value;
+      });
+
+      state.rawFlags = valuesToString(state.flagValues);
+    },
   },
   extraReducers: {
     [HYDRATE]: (state, action) => {
@@ -64,7 +70,7 @@ export const flagSlice = createSlice({
   },
 });
 
-export const { setFlag } = flagSlice.actions;
+export const { setFlag, setFlags } = flagSlice.actions;
 
 export const selectFlagValues = (state: AppState) => state.flag.flagValues;
 export const selectFlagValue =

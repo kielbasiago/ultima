@@ -14,12 +14,17 @@ export type FlagRangeProps = {
 export const FlagRange = ({ flag, label, ...rest }: FlagRangeProps) => {
   const valueSelector = useMemo(() => selectFlagValue<number[]>(flag), [flag]);
   const schemaSelector = useMemo(() => selectSchema(flag), [flag]);
-  const schema = useSelector(schemaSelector);
+  const {
+    defaultValue,
+    description,
+    max: schemaMax,
+    min: schemaMin,
+  } = useSelector(schemaSelector);
   const value = useSelector(valueSelector) as number[];
 
   const dispatch = useDispatch();
-
-  const setValue = (val: number[]) => {
+  const defaults = defaultValue as [number, number];
+  const onChange = (val: number[]) => {
     dispatch(
       setFlag({
         flag: flag,
@@ -33,10 +38,8 @@ export const FlagRange = ({ flag, label, ...rest }: FlagRangeProps) => {
   };
 
   const [minVal, maxVal] = value || [];
-  const min = schema.min ?? 0;
-  const max = schema.max ?? 100;
-  // const min = 0;
-  // const max = 100;
+  const min = schemaMin ?? 0;
+  const max = schemaMax ?? 100;
   const step = 1;
 
   return (
@@ -48,29 +51,28 @@ export const FlagRange = ({ flag, label, ...rest }: FlagRangeProps) => {
             min={min}
             max={max}
             step={step}
-            onChange={(e) => setValue([parseValue(e.target.value), value[1]])}
+            onChange={(e) => onChange([parseValue(e.target.value), value[1]])}
             type="number"
-            value={minVal}
+            value={minVal ?? defaults[0]}
           />
           <Input
             min={min}
             max={max}
             step={1}
-            onChange={(e) => setValue([value[0], parseValue(e.target.value)])}
+            onChange={(e) => onChange([value[0], parseValue(e.target.value)])}
             type="number"
-            value={maxVal}
+            value={maxVal ?? defaults[1]}
           />
         </div>
       </div>
       <div className={"flex gap-4"}>
         <Slider
-          defaultValue={value}
           min={min}
           max={max}
           step={step}
-          onChange={(val) => setValue(val)}
+          onChange={(val) => onChange(val)}
           range
-          value={value}
+          value={value ?? defaultValue}
           {...rest}
         />
       </div>

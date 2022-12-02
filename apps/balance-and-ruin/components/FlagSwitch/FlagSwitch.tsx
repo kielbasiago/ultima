@@ -10,7 +10,7 @@ export type FlagSwitchProps = {
   /** Invert logic so when true, set to false, and vice versa. If value undefined, default to true. */
   invert?: boolean;
   label: string;
-};
+}; // const schema = useSelector(schemaSelector);
 
 export const FlagSwitch = ({
   flag,
@@ -19,14 +19,14 @@ export const FlagSwitch = ({
 }: FlagSwitchProps) => {
   const valueSelector = useMemo(() => selectFlagValue<boolean>(flag), [flag]);
   const schemaSelector = useMemo(() => selectSchema(flag), [flag]);
-  // const schema = useSelector(schemaSelector);
+  const { defaultValue, description } = useSelector(schemaSelector);
 
-  const value = useSelector(valueSelector) ?? false;
+  const value = useSelector(valueSelector) ?? defaultValue ?? false;
   const checked = invert ? !value : value;
 
   const dispatch = useDispatch();
 
-  const setValue = (value: boolean) => {
+  const onChange = (value: boolean) => {
     dispatch(
       setFlag({
         flag,
@@ -36,17 +36,15 @@ export const FlagSwitch = ({
   };
 
   return (
-    <div className="cursor-text">
-      <div className={"flex items-center gap-4 justify-between max-w-[200px]"}>
-        <InputLabel
-          className={"cursor-pointer"}
-          htmlFor={flag}
-          onClick={() => setValue(!checked)}
-        >
-          {label}
-        </InputLabel>
-        <Switch checked={checked} onChange={(val) => setValue(val)} />
-      </div>
+    <div className={"flex items-center gap-4 justify-between max-w-[200px]"}>
+      <InputLabel
+        className={"cursor-pointer"}
+        htmlFor={flag}
+        onClick={() => onChange(!checked)}
+      >
+        {label}
+      </InputLabel>
+      <Switch checked={checked} onChange={(val) => onChange(val)} />
     </div>
   );
 };

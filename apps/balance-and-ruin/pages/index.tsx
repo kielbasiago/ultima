@@ -15,7 +15,7 @@ type PageProps = {
 };
 
 export const getStaticProps = wrapper.getStaticProps((store) => async ({}) => {
-  const url = `${process.env.API_URL}/api/metadata/flag`;
+  const url = `${process.env.VERCEL_URL}/api/metadata/flag`;
   const response = await fetch(url);
   const schema = await response.json();
   await store.dispatch(setSchema(schema));

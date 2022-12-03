@@ -14,15 +14,9 @@ export const Debug = () => {
           <FlagSlider flag={"-xgced"} label={"Exp/GP Scaling"} />
           <FlagSwitch flag={"-sed"} label={"Scale Eight Dragons"} />
           <FlagSwitch flag={"-sfb"} label={"Scale Final Battles"} />
+          <FlagRange flag={"-csb"} label={"Cursed Shield Battles"} />
         </div>
       </Card>
-      <FlagsCard className={"w-full"} />
-      {/* <Card className="flex-grow" title={"Debug"}>
-        <div className="flex flex-col flex-wrap gap-4">
-          <FlagSlider flag={"-lsced"} label={"Level Scaling C+E+D"} />
-          <FlagSwitch flag="-fst" label="Fast SwdTech" />
-        </div>
-      </Card> */}
     </div>
   );
 };

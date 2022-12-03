@@ -8,6 +8,7 @@ import { wrapper } from "~/state/store";
 import { StartParty } from "~/components/Panels/Party/StartingParty";
 import { SwdTechs } from "~/components/Panels/Party/SwdTechs";
 import { Debug } from "~/components/Panels/Debug/Debug";
+import { FlagsCard } from "~/components/FlagsCard/FlagsCard";
 
 type PageProps = {
   schema: Record<string, RawFlagMetadata>;
@@ -60,12 +61,17 @@ const Home: NextPage<PageProps> = ({ schema }: PageProps) => {
   // dispatch(setSchema(schema));
 
   return (
-    <div className="flex flex-col p-8">
-      <Tabs
-        onChange={(tab) => setSelected(tab)}
-        selected={selected}
-        tabs={tabs}
-      />
+    <div>
+      <div className="flex flex-col p-8">
+        <Tabs
+          onChange={(tab) => setSelected(tab)}
+          selected={selected}
+          tabs={tabs}
+        />
+      </div>
+      <div className="p-8">
+        <FlagsCard />
+      </div>
     </div>
   );
 };

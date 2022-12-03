@@ -39,7 +39,7 @@ const tabUndercarriageStyles = cva(["absolute inset-x-0 bottom-0 h-0.5"], {
   },
 });
 
-type TabItem = {
+type TabLabel = {
   content: React.ReactNode;
   id: string;
   label: React.ReactNode;
@@ -47,11 +47,9 @@ type TabItem = {
 
 export type TabItemProps = VariantProps<typeof tabStyles> & {
   children: React.ReactNode;
-  item: TabItem;
-  // onClick: (tab: TabItem) => void;
 };
 
-export const TabItem = ({ children, item, selected }: TabItemProps) => {
+export const TabLabel = ({ children, selected }: TabItemProps) => {
   return (
     <Tab
       className={tabStyles({

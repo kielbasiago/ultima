@@ -2,7 +2,7 @@
 module.exports = {
   content: [
     "./components/**/*.{js,ts,jsx,tsx}",
-    "./stories/**/*.{js,ts,jsx,tsx}",
+    "./styles/*.css",
   ],
   theme: {
     extend: {
@@ -31,16 +31,13 @@ module.exports = {
         cinzel: "'Cinzel', sans-serif",
       },
     },
-    // borderWidth: {
-    //   0: "0",
-    //   1: "1px",
-    //   2: "2px",
-    //   3: "3px",
-    //   4: "4px",
-    // },
-    // fontFamily: {
-    //   "big-text": "'Cinzel', serif;",
-    // },
+    borderWidth: {
+      0: "0",
+      1: "1px",
+      2: "2px",
+      3: "3px",
+      4: "4px",
+    },
   },
   plugins: [],
 };

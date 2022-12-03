@@ -5,3 +5,4 @@ export * from "./components/Input/Input";
 export * from "./components/Slider/Slider";
 export * from "./components/Switch/Switch";
 export * from "./components/Tabs/Tabs";
+export * from "./components/TabLabel/TabLabel";

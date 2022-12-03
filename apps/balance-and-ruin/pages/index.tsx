@@ -1,14 +1,12 @@
-import { useEffect } from "react";
-import type { GetServerSideProps, NextPage } from "next";
-import { Card } from "@ff6wc/ui";
-import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
-import { FlagRange } from "~/components/FlagRange/FlagRange";
-import { FlagSlider } from "~/components/FlagSlider/FlagSlider";
-import { FlagsCard } from "~/components/FlagsCard/FlagsCard";
+import { useEffect, useState } from "react";
+import type { NextPage } from "next";
+import { Tabs } from "@ff6wc/ui";
 
 import { RawFlagMetadata, setSchema } from "~/state/schemaSlice";
 import { useDispatch } from "react-redux";
 import { wrapper } from "~/state/store";
+import { StartParty } from "~/components/Panels/Party/StartingParty";
+import { SwdTechs } from "~/components/Panels/Party/SwdTechs";
 
 type PageProps = {
   schema: Record<string, RawFlagMetadata>;
@@ -25,31 +23,42 @@ export const getStaticProps = wrapper.getStaticProps((store) => async ({}) => {
   };
 });
 
+type TabItem = {
+  content: React.ReactNode;
+  label: React.ReactNode;
+  id: string;
+};
+
+const tabs: TabItem[] = [
+  {
+    label: <>Game</>,
+    id: "foo",
+    content: <StartParty />,
+  },
+  {
+    label: <>OOO!</>,
+    id: "foob",
+    content: <SwdTechs />,
+  },
+];
+
 const Home: NextPage<PageProps> = ({ schema }: PageProps) => {
+  const [selected, setSelected] = useState<TabItem | null>(tabs[0]);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("Home | call dispatch in useEffect");
     dispatch(setSchema(schema));
   }, [dispatch, schema]);
 
   // dispatch(setSchema(schema));
 
   return (
-    <div className={"p-12 flex flex-col h-full justify-between"}>
-      <Card className="gap-4 p-4" contentClassName="gap-4" title={"Items"}>
-        <FlagSlider
-          flag="-lsced"
-          label="Level Scaling Factor"
-          min={0.5}
-          max={5}
-          step={0.5}
-        />
-        <FlagRange flag="-csb" label="Cursed Shield Battles" />
-        <FlagSwitch flag="-mca" label="Moogle Charm All" />
-        <FlagSwitch flag="-nxppd" invert label="Split Party Exp" />
-      </Card>
-      <FlagsCard />
+    <div className="flex flex-col p-8">
+      <Tabs
+        onChange={(tab) => setSelected(tab)}
+        selected={selected}
+        tabs={tabs}
+      />
     </div>
   );
 };

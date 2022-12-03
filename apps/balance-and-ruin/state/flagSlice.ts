@@ -1,6 +1,8 @@
+import { useMemo } from "react";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppState } from "./store";
 import { HYDRATE } from "next-redux-wrapper";
+import { useSelector } from "react-redux";
 
 type FlagValue = string | number | string[] | number[] | boolean;
 type FlagData = {
@@ -14,12 +16,12 @@ type FlagData = {
   /**
    * The value of the flag - null indicates it hasn't been set or has been cleared
    */
-  value: FlagValue;
+  value: FlagValue | null;
 };
 
 // Type for our state
 export interface FlagState {
-  flagValues: Record<string, FlagValue>;
+  flagValues: Record<string, FlagValue | null>;
   rawFlags: string;
 }
 
@@ -36,7 +38,6 @@ const valuesToString = (flagValues: FlagState["flagValues"]) => {
 };
 
 // Initial state
-
 const flagValues = {};
 const initialState: FlagState = {
   flagValues,
@@ -49,6 +50,12 @@ export const flagSlice = createSlice({
   initialState,
   reducers: {
     setFlag: (state, action: PayloadAction<FlagData>) => {
+      // clear value
+      if (action.payload.value === null) {
+        delete state.flagValues[action.payload.flag];
+        state.rawFlags = valuesToString(state.flagValues);
+        return;
+      }
       state.flagValues[action.payload.flag] = action.payload.value;
       state.rawFlags = valuesToString(state.flagValues);
     },
@@ -81,6 +88,14 @@ export const selectFlagValue =
 
 export const selectRawFlags = (state: AppState) => {
   return state.flag.rawFlags;
+};
+
+export const useFlagValueSelector = <T>(flag: string) => {
+  const flagValueSelector = useMemo(
+    () => selectFlagValue<T | null>(flag),
+    [flag]
+  );
+  return useSelector(flagValueSelector);
 };
 
 export default flagSlice.reducer;

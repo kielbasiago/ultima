@@ -13,7 +13,7 @@ export const FlagsCard = (props: FlagsCardProps) => {
     dispatch(setFlags(flagsToData(value)));
   };
   return (
-    <Card {...props} title="Flags">
+    <Card {...props} className={"p-0"} title="Flags">
       {flags}
     </Card>
   );

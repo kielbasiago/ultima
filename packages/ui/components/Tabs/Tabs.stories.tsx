@@ -1,6 +1,6 @@
 import { Meta } from "@storybook/react";
 import { useState } from "react";
-import { TabItemProps } from "../TabItem/TabItem";
+import { TabItemProps } from "../TabLabel/TabLabel";
 import { Tabs } from "./Tabs";
 
 const config: Meta<typeof Tabs> = {

@@ -1,0 +1,86 @@
+{
+  "-sc1": {
+    "default": null,
+    "allowed_values": [
+      "random",
+      "randomngu",
+      "terra",
+      "locke",
+      "cyan",
+      "shadow",
+      "edgar",
+      "sabin",
+      "celes",
+      "strago",
+      "relm",
+      "setzer",
+      "mog",
+      "gau",
+      "gogo",
+      "umaro"
+    ]
+  },
+  "-sc2": {
+    "default": null,
+    "allowed_values": [
+      "random",
+      "randomngu",
+      "terra",
+      "locke",
+      "cyan",
+      "shadow",
+      "edgar",
+      "sabin",
+      "celes",
+      "strago",
+      "relm",
+      "setzer",
+      "mog",
+      "gau",
+      "gogo",
+      "umaro"
+    ]
+  },
+  "-sc3": {
+    "default": null,
+    "allowed_values": [
+      "random",
+      "randomngu",
+      "terra",
+      "locke",
+      "cyan",
+      "shadow",
+      "edgar",
+      "sabin",
+      "celes",
+      "strago",
+      "relm",
+      "setzer",
+      "mog",
+      "gau",
+      "gogo",
+      "umaro"
+    ]
+  },
+  "-sc4": {
+    "default": null,
+    "allowed_values": [
+      "random",
+      "randomngu",
+      "terra",
+      "locke",
+      "cyan",
+      "shadow",
+      "edgar",
+      "sabin",
+      "celes",
+      "strago",
+      "relm",
+      "setzer",
+      "mog",
+      "gau",
+      "gogo",
+      "umaro"
+    ]
+  }
+}

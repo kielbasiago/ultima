@@ -1,10 +1,13 @@
 import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Input, Slider, SliderProps } from "@ff6wc/ui";
-import { selectFlagValue, setFlag } from "~/state/flagSlice";
+import {
+  selectFlagValue,
+  setFlag,
+  useFlagValueSelector,
+} from "~/state/flagSlice";
 import { InputLabel } from "~/components/InputLabel/InputLabel";
-import { selectSchema } from "~/state/schemaSlice";
-import { AppState } from "~/state/store";
+import { useSchemaSelector } from "~/state/schemaSlice";
 
 export type FlagRangeProps = {
   flag: string;
@@ -12,15 +15,14 @@ export type FlagRangeProps = {
 } & SliderProps<number[]>;
 
 export const FlagRange = ({ flag, label, ...rest }: FlagRangeProps) => {
-  const valueSelector = useMemo(() => selectFlagValue<number[]>(flag), [flag]);
-  const schemaSelector = useMemo(() => selectSchema(flag), [flag]);
+  const value = useFlagValueSelector<number[]>(flag) ?? [];
+
   const {
     defaultValue,
     description,
     max: schemaMax,
     min: schemaMin,
-  } = useSelector(schemaSelector);
-  const value = useSelector(valueSelector) as number[];
+  } = useSchemaSelector(flag);
 
   const dispatch = useDispatch();
   const defaults = defaultValue as [number, number];

@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { selectFlagValue, setFlag } from "~/state/flagSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { InputLabel } from "~/components/InputLabel/InputLabel";
-import { selectSchema } from "~/state/schemaSlice";
+import { useSchemaSelector } from "~/state/schemaSlice";
 
 export type FlagSwitchProps = {
   flag: string;
@@ -18,8 +18,8 @@ export const FlagSwitch = ({
   label,
 }: FlagSwitchProps) => {
   const valueSelector = useMemo(() => selectFlagValue<boolean>(flag), [flag]);
-  const schemaSelector = useMemo(() => selectSchema(flag), [flag]);
-  const { defaultValue, description } = useSelector(schemaSelector);
+
+  const { defaultValue, description } = useSchemaSelector(flag);
 
   const value = useSelector(valueSelector) ?? defaultValue ?? false;
   const checked = invert ? !value : value;

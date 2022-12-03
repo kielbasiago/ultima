@@ -1,5 +1,206 @@
-@tailwind base;
+
+
+@import "../globals.css";
+
 @tailwind components;
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat:wght@400;500&family=Roboto&display=swap');
+
+@layer components {
+  .ff6-slider.rc-slider {
+    @apply p-0;
+    height: 42px !important;
+  }
+
+  .ff6-slider .rc-slider-handle, 
+  .ff6-slider .rc-slider-handle:hover {
+      width: 12px;
+      height: 12px;
+      @apply border-black;  
+      border-width: 1px;
+      @apply bg-black;
+      opacity: 1;
+  } 
+
+  .ff6-slider .rc-slider-handle {
+    top: 5px;
+  }
+
+  .ff6-slider .rc-slider-mark-text {
+    @apply text-zinc-400;
+    @apply transition-all;
+    @apply duration-100;
+  }
+
+  .ff6-slider .rc-slider-mark-text-active {
+    @apply text-zinc-600;
+  }
+
+  .ff6-slider .rc-slider-handle,
+  .ff6-slider .rc-slider-rail,
+  .ff6-slider .rc-slider-track {
+    border-radius: 0;
+  }
+
+  .ff6-slider .rc-slider-mark {
+    top: 28px;
+  }
+
+  .ff6-slider .rc-slider-track {
+    @apply bg-blue-600;
+    @apply border-0 bg-blue-600;
+  }
+
+  .ff6-slider .rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging {
+    border-color: transparent;
+    box-shadow: 0 0 0 1px black;
+  }
+
+  .ff6-slider .rc-slider-dot {
+    top: 18px;
+    width: 0;
+    border-radius: 0;
+    border-width: 1px;
+    @apply border-zinc-300;
+    @apply bg-zinc-100;
+    @apply transition-all;
+    @apply duration-100;
+  }
+
+  .ff6-slider .rc-slider-dot-active {
+    @apply border-zinc-400;
+    @apply bg-zinc-400;
+  }
+
+  .ff6-slider .rc-slider-rail {
+    border: 1px solid #D2CFC9;
+    @apply bg-inputs-background;
+  }
+
+  .ff6-slider .rc-slider-rail,
+  .ff6-slider .rc-slider-step,
+  .ff6-slider .rc-slider-track {
+    @apply h-[12px];
+  }
+}
+
+.ff6-slider.rc-slider {
+  @apply p-0;
+  height: 42px !important;
+}
+
+.ff6-slider .rc-slider-handle, 
+.ff6-slider .rc-slider-handle:hover {
+    width: 12px;
+    height: 12px;
+    @apply border-black;  
+    border-width: 1px;
+    @apply bg-black;
+    opacity: 1;
+} 
+
+.ff6-slider .rc-slider-handle {
+  top: 5px;
+}
+
+.ff6-slider .rc-slider-mark-text {
+  @apply text-zinc-400;
+  @apply transition-all;
+  @apply duration-100;
+}
+
+.ff6-slider .rc-slider-mark-text-active {
+  @apply text-zinc-600;
+}
+
+.ff6-slider .rc-slider-handle,
+.ff6-slider .rc-slider-rail,
+.ff6-slider .rc-slider-track {
+  border-radius: 0;
+}
+
+.ff6-slider .rc-slider-mark {
+  top: 28px;
+}
+
+.ff6-slider .rc-slider-track {
+  @apply bg-blue-400;
+  @apply border-0 bg-blue-600;
+}
+
+.ff6-slider .rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging {
+  border-color: transparent;
+  box-shadow: 0 0 0 1px black;
+}
+
+.ff6-slider .rc-slider-dot {
+  top: 18px;
+  width: 0;
+  border-radius: 0;
+  border-width: 1px;
+  @apply border-zinc-300;
+  @apply bg-zinc-100;
+  @apply transition-all;
+  @apply duration-100;
+}
+
+.ff6-slider .rc-slider-dot-active {
+  @apply border-zinc-400;
+  @apply bg-zinc-400;
+}
+
+.ff6-slider .rc-slider-rail {
+  border: 1px solid #D2CFC9;
+  @apply bg-inputs-background;
+}
+
+.ff6-slider .rc-slider-rail,
+.ff6-slider .rc-slider-step,
+.ff6-slider .rc-slider-track {
+  @apply h-[12px];
+}
+
+
+@layer components {
+  .ff6wc-select-container .ff6wc-select__control {
+    @apply border-2;
+    @apply bg-white dark:bg-transparent;
+    @apply border-neutral-300 dark:border-neutral-700;
+    @apply hover:border-neutral-400 dark:hover:border-neutral-500;
+  }
+
+  .ff6wc-select-container .ff6wc-select__control--is-focused {
+    @apply border-neutral-500  dark:border-neutral-400;
+    @apply hover:border-neutral-500 dark:hover:border-neutral-400;
+    @apply shadow-none;
+  }
+
+  .ff6wc-select-container .ff6wc-select__menu {
+    @apply bg-neutral-100 dark:bg-neutral-700 border-2;
+    @apply border-neutral-300 dark:border-neutral-600;
+  }
+
+  .ff6wc-select-container .ff6wc-select__option {
+    @apply text-neutral-600 dark:text-neutral-200;
+    @apply bg-neutral-100 dark:bg-neutral-700;
+    @apply hover:bg-neutral-200 dark:hover:bg-neutral-800;
+  }
+  .ff6wc-select-container .ff6wc-select__option--is-focused {
+    @apply bg-neutral-200 dark:bg-neutral-800;
+  }
+
+  .ff6wc-select-container .ff6wc-select__indicator-separator {
+    @apply bg-neutral-400;
+  }
+
+  .ff6wc-select-container .ff6wc-select__input-container,
+  .ff6wc-select-container .ff6wc-select__placeholder,
+  .ff6wc-select-container .ff6wc-select__single-value {
+    @apply text-neutral-600 dark:text-neutral-200;
+  }
+  
+  .ff6wc-select-container input:focus {
+    box-shadow: none;
+  }
+}

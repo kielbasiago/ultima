@@ -2501,7 +2501,7 @@ packages:
       '@storybook/components': 7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y
       '@storybook/csf-plugin': 7.0.0-alpha.52
       '@storybook/csf-tools': 7.0.0-alpha.52
-      '@storybook/mdx2-csf': 0.1.0-next.6
+      '@storybook/mdx2-csf': 0.1.0-next.7
       '@storybook/node-logger': 7.0.0-alpha.52
       '@storybook/postinstall': 7.0.0-alpha.52
       '@storybook/preview-web': 7.0.0-alpha.52_biqbaboplfbrettd7655fr4n2y
@@ -3348,8 +3348,8 @@ packages:
     resolution: {integrity: sha512-QulSDpZKXk6Jxy50tQWHmSx3Y+ytVARYH53lvoKlnoGZWP3KirC44sIMwgb9kg2XI9u9JhcG7kVqVFOnd50M0Q==}
     dev: true
 
-  /@storybook/mdx2-csf/0.1.0-next.6:
-    resolution: {integrity: sha512-FDBPTDHG9BcI27Zp5kwkqjsv2A3s8aUahtKeHOsmTicOBS8uWqUZ3jmL7vg6N7SpiUUBAft9/vTQfttNLeHO7w==}
+  /@storybook/mdx2-csf/0.1.0-next.7:
+    resolution: {integrity: sha512-ahwV2A4aS/D79WWum8fmrFhhbC28/f4XlEKtNG1s0EkCVwCSU17bthEBRY5/Y3IBR5jfeN/oApizNQMLh7mqAA==}
     dependencies:
       loader-utils: 2.0.4
     dev: true

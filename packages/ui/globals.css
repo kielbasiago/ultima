@@ -18,6 +18,7 @@
       border-width: 1px;
       @apply bg-black;
       opacity: 1;
+      @apply focus-visible:shadow-[0_0_0_3px_#33abff];
   } 
 
   .ff6-slider .rc-slider-handle {

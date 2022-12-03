@@ -10,7 +10,7 @@ const styles = cva("", {
   variants: {
     variant: {
       default: [
-        "focus-visible:outline-none",
+        "focus-visible:shadow-[0_0_0_3px_#33abff] focus-visible:outline-none",
         "border-inputs-border border-1",
         "bg-inputs-background",
         "px-2 py-1",

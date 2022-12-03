@@ -8,7 +8,7 @@
     "lint": "eslint *.ts*",
     "build": "tsup index.tsx --dts && tsup globals.css",
     "dev": "concurrently \"tsup index.tsx --watch --dts\" \"tsup globals.css --watch\"",
-    "storybook": "storybook dev",
+    "storybook": "storybook dev -p 6006",
     "build-storybook": "build-storybook"
   },
   "devDependencies": {

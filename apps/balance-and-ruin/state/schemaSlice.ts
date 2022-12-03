@@ -1,7 +1,9 @@
+import { useMemo } from "react";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppState } from "./store";
 import { HYDRATE } from "next-redux-wrapper";
 import { NullableProperties } from "~/types/utils";
+import { useSelector } from "react-redux";
 
 export type RawFlagValue = string | number | string[] | number[] | boolean;
 
@@ -125,5 +127,10 @@ export const selectSchema =
     // };
     return state.schema.schema[flag];
   };
+
+export const useSchemaSelector = (flag: string) => {
+  const schemaSelector = useMemo(() => selectSchema(flag), [flag]);
+  return useSelector(schemaSelector);
+};
 
 export default schemaSlice.reducer;

@@ -170,6 +170,10 @@ div#__next > div {
 }
 
 @layer components {
+  .ff6wc-select-container * {
+    @apply transition-colors duration-75;
+  }
+
   .ff6wc-select-container .ff6wc-select__control {
     @apply border-1;
     @apply bg-white dark:bg-transparent;      
@@ -198,6 +202,15 @@ div#__next > div {
     @apply hover:bg-neutral-200 dark:hover:bg-neutral-800;
     @apply px-2 py-1;
   }
+  .ff6wc-select-container .ff6wc-select__option--is-selected {
+    @apply bg-blue-700 text-white;
+  }
+
+  .ff6wc-select-container .ff6wc-select__option--is-selected.ff6wc-select__option--is-focused {
+    @apply bg-blue-500 text-white;
+  }
+  
+
   .ff6wc-select-container .ff6wc-select__option--is-focused {
     @apply bg-neutral-200 dark:bg-neutral-800;
   }

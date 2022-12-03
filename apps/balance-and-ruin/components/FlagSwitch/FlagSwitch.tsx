@@ -1,4 +1,4 @@
-import { Switch } from "@ff6wc/ui";
+import { HelperText, Switch } from "@ff6wc/ui";
 import { useMemo } from "react";
 import { selectFlagValue, setFlag } from "~/state/flagSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -36,15 +36,19 @@ export const FlagSwitch = ({
   };
 
   return (
-    <div className={"flex items-center gap-4 justify-between max-w-[200px]"}>
-      <InputLabel
-        className={"cursor-pointer"}
-        htmlFor={flag}
-        onClick={() => onChange(!checked)}
-      >
-        {label}
-      </InputLabel>
-      <Switch checked={checked} onChange={(val) => onChange(val)} />
+    <div className="flex flex-col gap-1 max-w-[400px]">
+      <div className={"flex items-center gap-4 justify-between max-w-[200px]"}>
+        <InputLabel
+          className={"cursor-pointer"}
+          htmlFor={flag}
+          onClick={() => onChange(!checked)}
+        >
+          {label}
+        </InputLabel>
+        <Switch checked={checked} onChange={(val) => onChange(val)} />
+        {/* <HelperText>{description}</HelperText> */}
+      </div>
+      <HelperText>{description}</HelperText>
     </div>
   );
 };

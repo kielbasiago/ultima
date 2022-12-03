@@ -35,7 +35,7 @@ export const StartParty = () => {
           nullable
           nullableLabel="None"
         />
-        {/* <FlagSelect
+        <FlagSelect
           flag={"-sc2"}
           label={"Start Character"}
           options={options}
@@ -55,9 +55,8 @@ export const StartParty = () => {
           options={options}
           nullable
           nullableLabel="None"
-        /> */}
+        />
       </div>
-      <FlagsCard />
     </Card>
   );
 };

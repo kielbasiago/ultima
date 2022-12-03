@@ -113,7 +113,6 @@ export const FlagSelect = ({
         getOptionLabel={(option) => option.label}
         getOptionValue={(option) => option.id}
         options={options}
-        menuIsOpen
         onChange={onChange}
         value={value}
       />

@@ -1,4 +1,4 @@
-import { Input, Slider, SliderProps } from "@ff6wc/ui";
+import { HelperText, Input, Slider, SliderProps } from "@ff6wc/ui";
 import { useDispatch } from "react-redux";
 import last from "lodash/last";
 import { InputLabel } from "~/components/InputLabel/InputLabel";
@@ -52,9 +52,12 @@ export const FlagSlider = ({
   const step = hardStep ?? schemaStep ?? 1;
 
   return (
-    <div className={"flex flex-col gap-2"}>
+    <div className={"flex flex-col"}>
       <div className={"flex justify-between items-center"}>
-        <InputLabel htmlFor={flag}>{label}</InputLabel>
+        <div className="flex flex-col">
+          <InputLabel htmlFor={flag}>{label}</InputLabel>
+          <HelperText>{description}</HelperText>
+        </div>
         <Input
           min={min}
           max={max}
@@ -64,7 +67,7 @@ export const FlagSlider = ({
           value={value ?? min}
         />
       </div>
-      <div className={""}>
+      <div className={"mt-3"}>
         <Slider
           {...rest}
           defaultValue={value ?? min}

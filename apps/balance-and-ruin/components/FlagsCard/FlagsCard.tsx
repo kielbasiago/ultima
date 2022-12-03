@@ -1,11 +1,14 @@
 import { Card } from "@ff6wc/ui";
+import { cx } from "cva";
 import { useDispatch, useSelector } from "react-redux";
 import { selectFlagValues, selectRawFlags, setFlags } from "~/state/flagSlice";
 import { flagsToData } from "~/utils/flagsToData";
 
-export type FlagsCardProps = {};
+export type FlagsCardProps = {
+  className?: string;
+};
 
-export const FlagsCard = (props: FlagsCardProps) => {
+export const FlagsCard = ({ className, ...rest }: FlagsCardProps) => {
   const flags = useSelector(selectRawFlags);
   const value = useSelector(selectFlagValues);
   const dispatch = useDispatch();
@@ -13,7 +16,7 @@ export const FlagsCard = (props: FlagsCardProps) => {
     dispatch(setFlags(flagsToData(value)));
   };
   return (
-    <Card {...props} className={"p-0"} title="Flags">
+    <Card {...rest} className={cx("p-0", className)} title="Flags">
       {flags}&nbsp;
     </Card>
   );

@@ -14,7 +14,7 @@ export const FlagsCard = (props: FlagsCardProps) => {
   };
   return (
     <Card {...props} className={"p-0"} title="Flags">
-      {flags}
+      {flags}&nbsp;
     </Card>
   );
 };

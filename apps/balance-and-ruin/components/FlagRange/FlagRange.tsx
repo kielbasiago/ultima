@@ -1,12 +1,8 @@
-import { useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import last from "lodash/last";
 import { Input, Slider, SliderProps } from "@ff6wc/ui";
-import {
-  selectFlagValue,
-  setFlag,
-  useFlagValueSelector,
-} from "~/state/flagSlice";
+import { useDispatch } from "react-redux";
 import { InputLabel } from "~/components/InputLabel/InputLabel";
+import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 import { useSchemaSelector } from "~/state/schemaSlice";
 
 export type FlagRangeProps = {
@@ -18,6 +14,7 @@ export const FlagRange = ({ flag, label, ...rest }: FlagRangeProps) => {
   const value = useFlagValueSelector<number[]>(flag) ?? [];
 
   const {
+    allowedValues,
     defaultValue,
     description,
     max: schemaMax,
@@ -25,7 +22,6 @@ export const FlagRange = ({ flag, label, ...rest }: FlagRangeProps) => {
   } = useSchemaSelector(flag);
 
   const dispatch = useDispatch();
-  const defaults = defaultValue as [number, number];
   const onChange = (val: number[]) => {
     dispatch(
       setFlag({
@@ -40,9 +36,15 @@ export const FlagRange = ({ flag, label, ...rest }: FlagRangeProps) => {
   };
 
   const [minVal, maxVal] = value || [];
-  const min = schemaMin ?? 0;
-  const max = schemaMax ?? 100;
+  const min = (
+    allowedValues.length ? allowedValues[0] : schemaMin ?? 0
+  ) as number;
+  const max = (
+    allowedValues.length ? last(allowedValues) : schemaMax ?? 100
+  ) as number;
   const step = 1;
+
+  const defaults = (defaultValue ?? [min, max]) as [number, number];
 
   return (
     <div className={"flex flex-col gap-2"}>

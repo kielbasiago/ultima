@@ -7,13 +7,15 @@ import { useDispatch } from "react-redux";
 import { wrapper } from "~/state/store";
 import { StartParty } from "~/components/Panels/Party/StartingParty";
 import { SwdTechs } from "~/components/Panels/Party/SwdTechs";
+import { Debug } from "~/components/Panels/Debug/Debug";
 
 type PageProps = {
   schema: Record<string, RawFlagMetadata>;
 };
 
 export const getStaticProps = wrapper.getStaticProps((store) => async ({}) => {
-  const response = await fetch(`${process.env.API_URL}/api/metadata/flag`);
+  const url = `${process.env.API_URL}/api/metadata/flag`;
+  const response = await fetch(url);
   const schema = await response.json();
   await store.dispatch(setSchema(schema));
   return {
@@ -31,13 +33,18 @@ type TabItem = {
 
 const tabs: TabItem[] = [
   {
+    label: <>Debug</>,
+    id: "debug",
+    content: <Debug />,
+  },
+  {
     label: <>Game</>,
-    id: "foo",
+    id: "game",
     content: <StartParty />,
   },
   {
-    label: <>OOO!</>,
-    id: "foob",
+    label: <>Skills</>,
+    id: "skills",
     content: <SwdTechs />,
   },
 ];

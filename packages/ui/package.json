@@ -1,7 +1,7 @@
 {
-  "name": "@ff6wc/ui",
+  "name": "@ff6wc/deprecated-ui",
   "version": "0.0.0",
-  "main": "./index.tsx",
+  "main": "./dist/index.js",
   "types": "./index.tsx",
   "license": "MIT",
   "scripts": {

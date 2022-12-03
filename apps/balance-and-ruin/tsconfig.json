@@ -7,7 +7,9 @@
     "declarationMap": false,
     "importHelpers": true,
     "paths": {
-      "~/*": ["./*"]
+      "~/*": ["./*"],
+      "@ff6wc/ui": ["./design-components"],
+      "@ff6wc/ui/*": ["./design-components/*"]
     }
   }
 }

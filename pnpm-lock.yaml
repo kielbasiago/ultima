@@ -20,7 +20,7 @@ importers:
       '@ff6wc/ff6-types': workspace:*
       '@ff6wc/tracker-core': workspace:*
       '@ff6wc/tsconfig': workspace:*
-      '@ff6wc/ui': workspace:*
+      '@headlessui/react': 1.7.4
       '@next/font': 13.0.5
       '@reduxjs/toolkit': 1.9.0
       '@tailwindcss/forms': 0.5.3
@@ -37,6 +37,7 @@ importers:
       next-redux-wrapper: 8.0.0
       postcss: ^8.0.0
       postcss-import: 15.0.0
+      rc-slider: 10.1.0
       react: 18.2.0
       react-dom: 18.2.0
       react-icons: 4.6.0
@@ -50,7 +51,7 @@ importers:
       typescript: ^4.5.3
       vercel: 28.5.6
     dependencies:
-      '@ff6wc/ui': link:../../packages/ui
+      '@headlessui/react': 1.7.4_biqbaboplfbrettd7655fr4n2y
       '@next/font': 13.0.5
       '@reduxjs/toolkit': 1.9.0_k4ae6lp43ej6mezo3ztvx6pykq
       '@tailwindcss/forms': 0.5.3_tailwindcss@3.2.4
@@ -59,6 +60,7 @@ importers:
       next: 13.0.0_mqvh5p7ejg4taogoj6tpk3gd5a
       next-redux-wrapper: 8.0.0_jc6xof54eybjtt4fduqchggeje
       postcss: 8.4.19
+      rc-slider: 10.1.0_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-query: 3.39.2_biqbaboplfbrettd7655fr4n2y
@@ -106,7 +108,7 @@ importers:
       eslint: 7.32.0
       eslint-config-next: 13.0.0_3rubbgt5ekhqrcgx4uwls3neim
       eslint-config-prettier: 8.5.0_eslint@7.32.0
-      eslint-config-turbo: 0.0.4_eslint@7.32.0
+      eslint-config-turbo: 0.0.7_eslint@7.32.0
       eslint-plugin-react: 7.31.8_eslint@7.32.0
       next: 13.0.0_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
@@ -6887,13 +6889,13 @@ packages:
       eslint: 8.27.0
     dev: true
 
-  /eslint-config-turbo/0.0.4_eslint@7.32.0:
-    resolution: {integrity: sha512-HErPS/wfWkSdV9Yd2dDkhZt3W2B78Ih/aWPFfaHmCMjzPalh+5KxRRGTf8MOBQLCebcWJX0lP1Zvc1rZIHlXGg==}
+  /eslint-config-turbo/0.0.7_eslint@7.32.0:
+    resolution: {integrity: sha512-WbrGlyfs94rOXrhombi1wjIAYGdV2iosgJRndOZtmDQeq5GLTzYmBUCJQZWtLBEBUPCj96RxZ2OL7Cn+xv/Azg==}
     peerDependencies:
-      eslint: ^7.23.0 || ^8.0.0
+      eslint: '>6.6.0'
     dependencies:
       eslint: 7.32.0
-      eslint-plugin-turbo: 0.0.4_eslint@7.32.0
+      eslint-plugin-turbo: 0.0.7_eslint@7.32.0
     dev: false
 
   /eslint-import-resolver-node/0.3.6:
@@ -7172,10 +7174,10 @@ packages:
       string.prototype.matchall: 4.0.8
     dev: true
 
-  /eslint-plugin-turbo/0.0.4_eslint@7.32.0:
-    resolution: {integrity: sha512-dfmYE/iPvoJInQq+5E/0mj140y/rYwKtzZkn3uVK8+nvwC5zmWKQ6ehMWrL4bYBkGzSgpOndZM+jOXhPQ2m8Cg==}
+  /eslint-plugin-turbo/0.0.7_eslint@7.32.0:
+    resolution: {integrity: sha512-iajOH8eD4jha3duztGVBD1BEmvNrQBaA/y3HFHf91vMDRYRwH7BpHSDFtxydDpk5ghlhRxG299SFxz7D6z4MBQ==}
     peerDependencies:
-      eslint: ^7.23.0 || ^8.0.0
+      eslint: '>6.6.0'
     dependencies:
       eslint: 7.32.0
     dev: false

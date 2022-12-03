@@ -4,7 +4,7 @@ import { AppState } from "./store";
 import { HYDRATE } from "next-redux-wrapper";
 import { useSelector } from "react-redux";
 
-type FlagValue = string | number | string[] | number[] | boolean;
+type FlagValue = string | number | string[] | number[] | boolean | null;
 type FlagData = {
   /**
    * The WC flag used to identify a flag

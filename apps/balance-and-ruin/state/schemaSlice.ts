@@ -4,8 +4,15 @@ import { AppState } from "./store";
 import { HYDRATE } from "next-redux-wrapper";
 import { NullableProperties } from "~/types/utils";
 import { useSelector } from "react-redux";
+import overrides from "./schema-overrides.json";
 
-export type RawFlagValue = string | number | string[] | number[] | boolean;
+export type RawFlagValue =
+  | string
+  | number
+  | string[]
+  | number[]
+  | boolean
+  | null;
 
 export type RawFlagMetadata = {
   /** Description of flag. this is usually less-than-human-readable */
@@ -25,6 +32,7 @@ export type RawFlagMetadata = {
   options?: {
     min_val?: number;
     max_val?: number;
+    step?: number;
   };
 
   /** number of args */
@@ -42,6 +50,7 @@ interface FlagMetadataNode {
   description: string | null;
   min: number | null;
   max: number | null;
+  step: number | null;
 }
 
 export type Schema = Record<string, FlagMetadataNode>;
@@ -56,7 +65,7 @@ export interface SchemaState {
 
 const schema = {};
 const initialState: SchemaState = {
-  overrides: {},
+  overrides: overrides as any,
   schema,
 };
 
@@ -90,12 +99,22 @@ export const schemaSlice = createSlice({
       action: PayloadAction<Record<string, RawFlagMetadata>>
     ) => {
       Object.values(action.payload).forEach((item) => {
+        const allowedValues = item.allowed_values || [];
+        let step: number = item.options?.step ?? 0;
+        if (!step && allowedValues) {
+          const interpreted = (allowedValues as number[]).find(
+            (val) => val % 1
+          );
+          step = interpreted ? interpreted % 1 : 1;
+        }
+        // const step = item.options?.step ??  % 1
         state.schema[item.flag] = {
           allowedValues: item.allowed_values || [],
-          defaultValue: item.default || null,
-          description: null,
+          defaultValue: item.default ?? null,
+          description: item.description ?? null,
           max: item.options?.max_val ?? null,
           min: item.options?.min_val ?? null,
+          step,
         };
       });
     },
@@ -116,16 +135,17 @@ export const { setSchema, setOverride } = schemaSlice.actions;
 export const selectSchema =
   (flag: string) =>
   (state: AppState): FlagMetadataNode => {
-    // const servers = state.schema.schema[flag];
-    // const ours = state.schema.overrides[flag];
+    const schema = state.schema.schema[flag];
+    const overrides = state.schema.overrides[flag];
 
-    // return {
-    //   allowedValues: ours?.allowedValues ?? servers?.allowedValues ?? [],
-    //   description: ours?.description ?? servers?.description ?? null,
-    //   max: ours?.max ?? servers?.max ?? null,
-    //   min: ours?.min ?? servers?.min ?? null,
-    // };
-    return state.schema.schema[flag];
+    return {
+      allowedValues: overrides?.allowedValues ?? schema?.allowedValues ?? [],
+      defaultValue: overrides?.defaultValue ?? schema?.defaultValue ?? null,
+      description: overrides?.description ?? schema?.description ?? null,
+      max: overrides?.max ?? schema?.max ?? null,
+      min: overrides?.min ?? schema?.min ?? null,
+      step: overrides?.step ?? schema?.step ?? null,
+    };
   };
 
 export const useSchemaSelector = (flag: string) => {

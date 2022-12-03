@@ -2,7 +2,7 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "dependsOn": ["^build", "$VERCEL_URL"],
+      "dependsOn": ["^build", "$NODE_ENV", "$VERCEL_URL"],
       "outputs": ["dist/**", ".next/**"]
     },
     "lint": {

@@ -11,7 +11,7 @@ export type FlagRangeProps = {
 } & SliderProps<number[]>;
 
 export const FlagRange = ({ flag, label, ...rest }: FlagRangeProps) => {
-  const value = useFlagValueSelector<number[]>(flag) ?? [];
+  const value = useFlagValueSelector<number[]>(flag);
 
   const {
     allowedValues,
@@ -55,7 +55,9 @@ export const FlagRange = ({ flag, label, ...rest }: FlagRangeProps) => {
             min={min}
             max={max}
             step={step}
-            onChange={(e) => onChange([parseValue(e.target.value), value[1]])}
+            onChange={(e) =>
+              onChange([parseValue(e.target.value), value?.[1] ?? max])
+            }
             type="number"
             value={minVal ?? defaults[0]}
           />
@@ -63,7 +65,9 @@ export const FlagRange = ({ flag, label, ...rest }: FlagRangeProps) => {
             min={min}
             max={max}
             step={1}
-            onChange={(e) => onChange([value[0], parseValue(e.target.value)])}
+            onChange={(e) =>
+              onChange([value?.[0] ?? min, parseValue(e.target.value)])
+            }
             type="number"
             value={maxVal ?? defaults[1]}
           />
@@ -76,7 +80,7 @@ export const FlagRange = ({ flag, label, ...rest }: FlagRangeProps) => {
           step={step}
           onChange={(val) => onChange(val)}
           range
-          value={value ?? defaultValue}
+          value={value ?? (defaultValue as number[])}
           {...rest}
         />
       </div>

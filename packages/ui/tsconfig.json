@@ -1,9 +1,0 @@
-{
-  "extends": "@ff6wc/tsconfig/react-library.json",
-  "include": ["."],
-  "exclude": ["dist", "build", "node_modules"],
-  "compilerOptions": {
-    "declaration": true,
-    "lib": ["dom", "esnext"]
-  }
-}

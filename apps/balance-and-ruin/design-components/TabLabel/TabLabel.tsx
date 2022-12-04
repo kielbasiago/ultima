@@ -30,7 +30,7 @@ const tabStyles = cva(
 const tabUndercarriageStyles = cva(["absolute inset-x-0 bottom-0 h-0.5"], {
   variants: {
     selected: {
-      true: "shadow-[1px_5px_5px_3px_#33abff] bg-opacity-90",
+      true: "border-1 border-blue-400",
       false: "bg-transparent",
     },
   },

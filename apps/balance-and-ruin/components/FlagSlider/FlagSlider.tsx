@@ -13,11 +13,13 @@ import {
 } from "~/state/schemaSlice";
 
 export type FlagSliderProps = {
+  allowedValues?: number[];
   flag: string;
   label: string;
 } & SliderProps<number>;
 
 export const FlagSlider = ({
+  allowedValues: hardAllowed,
   flag,
   label,
   min: hardMin,
@@ -27,12 +29,14 @@ export const FlagSlider = ({
 }: FlagSliderProps) => {
   const value = useFlagValueSelector<number>(flag);
 
-  const allowedValues = useSelector(selectAllowedValues(flag)) ?? [];
+  const schemaAllowed = useSelector(selectAllowedValues(flag)) ?? [];
   const description = useSelector(selectDescription(flag));
   const schemaMax = useSelector(selectMax(flag));
   const schemaMin = useSelector(selectMin(flag));
   const schemaStep = useSelector(selectStep(flag));
   const dispatch = useDispatch();
+
+  const allowedValues = hardAllowed ?? schemaAllowed;
 
   const setValue = (val: number) => {
     dispatch(
@@ -60,7 +64,7 @@ export const FlagSlider = ({
     <div className={"flex flex-col"}>
       <div className={"flex justify-between items-center "}>
         <div className="flex flex-col min-w-[50%%]">
-          <InputLabel htmlFor={flag}>{label}</InputLabel>
+          {label ? <InputLabel htmlFor={flag}>{label}</InputLabel> : null}
           <HelperText>{description}</HelperText>
         </div>
         <Input
@@ -72,7 +76,7 @@ export const FlagSlider = ({
           value={value ?? min}
         />
       </div>
-      <div className={"mt-1"}>
+      <div>
         <Slider
           {...rest}
           defaultValue={value ?? min}

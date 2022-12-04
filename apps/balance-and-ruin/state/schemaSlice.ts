@@ -6,19 +6,13 @@ import { NullableProperties } from "~/types/utils";
 import { useSelector } from "react-redux";
 import overrides from "./schema-overrides.json";
 
-export type RawFlagValue =
-  | string
-  | number
-  | string[]
-  | number[]
-  | boolean
-  | null;
+export type FlagValue = string | number | string[] | number[] | boolean | null;
 
 export type RawFlagMetadata = {
   /** Description of flag. this is usually less-than-human-readable */
   description: string;
   /** default value */
-  default?: RawFlagValue;
+  default?: FlagValue;
   /** shorthand flag i.e. `-cg` */
   flag: string;
   /** human readable version of the flag i.e. `character_gated` */
@@ -28,7 +22,7 @@ export type RawFlagMetadata = {
   /** how flags are grouped in code */
   group: string;
 
-  allowed_values?: RawFlagValue[];
+  allowed_values?: FlagValue[];
   options?: {
     min_val?: number;
     max_val?: number;
@@ -45,8 +39,8 @@ export type RawFlagMetadata = {
 };
 
 interface FlagMetadataNode {
-  allowedValues: RawFlagValue[] | null;
-  defaultValue: RawFlagValue | null;
+  allowedValues: FlagValue[] | null;
+  defaultValue: FlagValue | null;
   description: string | null;
   min: number | null;
   max: number | null;
@@ -54,7 +48,7 @@ interface FlagMetadataNode {
 }
 
 export type Schema = Record<string, FlagMetadataNode>;
-type SchemaOverrides = Record<string, NullableProperties<FlagMetadataNode>>;
+type SchemaOverrides = Record<string, Partial<FlagMetadataNode>>;
 
 export interface SchemaState {
   /** Setting override for a flag, a given value will be taken over the server-supplied schema */
@@ -65,7 +59,7 @@ export interface SchemaState {
 
 const schema = {};
 const initialState: SchemaState = {
-  overrides: overrides as any,
+  overrides: overrides as SchemaOverrides,
   schema,
 };
 

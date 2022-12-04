@@ -61,11 +61,7 @@ export const FlagSelect = ({
   const flagValue = useFlagValueSelector<string | null>(flag) ?? empty.id;
 
   const allowedValues = useSelector(selectAllowedValues(flag)) ?? [];
-  const defaultValue = useSelector(selectDefaultValue(flag));
   const description = useSelector(selectDescription(flag));
-  const schemaMax = useSelector(selectMax(flag));
-  const schemaMin = useSelector(selectMin(flag));
-  const schemaStep = useSelector(selectStep(flag));
   const id = useId();
 
   const options: FlagSelectOption[] = useMemo(() => {

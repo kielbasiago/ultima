@@ -1,10 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
+    "./card-components/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./design-components/**/*.{ts,tsx}",
     "./pages/**/*.{ts,tsx}",
     "./pages/*.{ts,tsx}",
+    "./page-components/*.{ts,tsx}",
     "./styles/*.css",
   ],
   theme: {
@@ -26,6 +28,7 @@ module.exports = {
         inputs: {
           background: "#FFFFFF",
           border: "#D2CFC9",
+          focus: '#33abff99'
         },
       },
       fontFamily: {
@@ -33,6 +36,10 @@ module.exports = {
         montserrat: "'Montserrat', sans-serif",
         cinzel: "'Cinzel', sans-serif",
       },
+      boxShadow: {
+        'input-focus': '0 0 0 2px #55cbff',
+        'switch-focus': '0 0 0 4px #55cbff'
+      }
     },
     borderWidth: {
       0: "0",

@@ -7,7 +7,11 @@ type TabsProps = {
   tabs: any[];
 };
 
-export const Tabs = ({ onChange, selected, tabs }: TabsProps) => {
+export const Tabs = ({ onChange: baseOnChange, selected, tabs }: TabsProps) => {
+  const onChange = (tab: any) => {
+    baseOnChange(tab);
+  };
+
   return (
     <div>
       <Tab.Group onChange={(idx) => onChange(tabs[idx])}>
@@ -18,7 +22,7 @@ export const Tabs = ({ onChange, selected, tabs }: TabsProps) => {
             </TabLabel>
           ))}
         </Tab.List>
-        <Tab.Panels>
+        <Tab.Panels tabIndex={-1}>
           {tabs.map(({ content, id }) => (
             <Tab.Panel key={`tab-panel-${id}`}>{content}</Tab.Panel>
           ))}

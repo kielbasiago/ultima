@@ -15,9 +15,10 @@ import {
 export type FlagRangeProps = {
   flag: string;
   label: string;
+  type?: "percent";
 } & SliderProps<number[]>;
 
-export const FlagRange = ({ flag, label, ...rest }: FlagRangeProps) => {
+export const FlagRange = ({ flag, label, type, ...rest }: FlagRangeProps) => {
   const value = useFlagValueSelector<number[]>(flag);
 
   const allowedValues = useSelector(selectAllowedValues(flag)) ?? [];
@@ -82,7 +83,7 @@ export const FlagRange = ({ flag, label, ...rest }: FlagRangeProps) => {
           />
         </div>
       </div>
-      <div className={"mt-1"}>
+      <div>
         <Slider
           min={min}
           max={max}

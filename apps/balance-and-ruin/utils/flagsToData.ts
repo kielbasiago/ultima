@@ -1,6 +1,6 @@
-import { RawFlagMetadata, RawFlagValue } from "~/state/schemaSlice";
+import { RawFlagMetadata, FlagValue } from "~/state/schemaSlice";
 
-export const flagsToData = (rawFlags: string): Record<string, RawFlagValue> => {
+export const flagsToData = (rawFlags: string): Record<string, FlagValue> => {
   const flags = rawFlags
     .split("-")
     .filter((flag) => flag)
@@ -21,5 +21,5 @@ export const flagsToData = (rawFlags: string): Record<string, RawFlagValue> => {
       acc[key] = true;
     }
     return acc;
-  }, {} as Record<string, RawFlagValue>);
+  }, {} as Record<string, FlagValue>);
 };

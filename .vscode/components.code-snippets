@@ -13,5 +13,27 @@
       ""
     ],
     "description": "Export both a component function with typed props matching the filename"
+  },
+
+  "New Card": {
+    "scope": "typescript,typescriptreact",
+    "prefix": "newcard",
+    "body": [
+      "import { Card } from \"@ff6wc/ui\";",
+      "import { Column } from \"~/components/Column/Column\";",
+      "import { FlagSwitch } from \"~/components/FlagSwitch/FlagSwitch\";",
+      "",
+      "export const ${TM_FILENAME_BASE} = () => {",
+      "  return (",
+      "    <Card title={\"SwdTech\"}>",
+      "      <Column>",
+      "        <FlagSwitch flag=\"-fst\" label=\"Fast SwdTech\" />",
+      "      </Column>",
+      "    </Card>",
+      "  );",
+      "};",
+      ""
+    ],
+    "description": "Export both a component function with typed props matching the filename"
   }
 }

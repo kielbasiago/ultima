@@ -28,7 +28,7 @@ div#__next > div {
       border-width: 1px;
       @apply bg-black;
       opacity: 1;
-      @apply focus-visible:shadow-[0_0_0_3px_#33abff];
+      @apply focus-visible:shadow-input-focus;
   } 
 
   .ff6-slider .rc-slider-handle {
@@ -61,8 +61,8 @@ div#__next > div {
   }
 
   .ff6-slider .rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging {
-    border-color: transparent;
-    box-shadow: 0 0 0 1px black;
+    /* border-color: transparent; */
+    box-shadow: 0 0 0 4px red;
   }
 
   .ff6-slider .rc-slider-dot {
@@ -184,14 +184,8 @@ div#__next > div {
     @apply rounded-none;
   }
 
-  .ff6wc-select__control.ff6wc-select__control--is-focused {
-    @apply border-blue-500 border-1;
-    @apply hover:border-neutral-500 dark:hover:border-neutral-400;
-    @apply shadow-none;
-  }
-
-  .ff6wc-select__control.ff6wc-select__control--is-focused svg {
-    @apply fill-blue-600;
+  .ff6wc-select-container .ff6wc-select__control.ff6wc-select__control--is-focused {
+    @apply shadow-input-focus;
   }
 
   .ff6wc-select-container .ff6wc-select__menu {

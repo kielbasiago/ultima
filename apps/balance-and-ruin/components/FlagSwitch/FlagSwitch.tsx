@@ -25,9 +25,8 @@ export const FlagSwitch = ({
   const description = useSelector(selectDescription(flag));
 
   const value = useFlagValueSelector(flag) ?? defaultValue ?? false;
-  const [checked, setChecked] = useState(false);
 
-  // const checked = invert ? !value : value;
+  const checked = invert ? Boolean(!value) : Boolean(value);
 
   const dispatch = useDispatch();
 
@@ -38,12 +37,16 @@ export const FlagSwitch = ({
         value: invert ? !value : value,
       })
     );
-    setChecked(value);
   };
 
   return (
     <div className="flex flex-col gap-1 max-w-[400px]">
-      <div className={"flex items-center gap-4 justify-between max-w-[200px]"}>
+      <div
+        className={
+          "flex items-center gap-4 justify-between max-w-[200px] cursor-pointer"
+        }
+        onClick={() => onChange(!checked)}
+      >
         <InputLabel
           className={"cursor-pointer"}
           htmlFor={flag}

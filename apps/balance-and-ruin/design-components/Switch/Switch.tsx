@@ -4,7 +4,7 @@ import { cva } from "cva";
 const switchStyles = cva(
   [
     "relative inline-flex h-3 w-8 items-center border-1",
-    "focus-visible:shadow-[0_0_0_3px_#33abff]",
+    "focus-visible:shadow-switch-focus",
     "focus-visible:outline-1 outline-black",
   ],
   {

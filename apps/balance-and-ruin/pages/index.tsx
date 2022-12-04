@@ -5,11 +5,11 @@ import { Tabs } from "@ff6wc/ui";
 import { RawFlagMetadata, setSchema } from "~/state/schemaSlice";
 import { useDispatch } from "react-redux";
 import { wrapper } from "~/state/store";
-import { StartingParty } from "~/components/Panels/Party/StartingParty";
-import { SwdTechs } from "~/components/Panels/Party/SwdTechs";
-import { Debug } from "~/components/Panels/Debug/Debug";
+import { StartingParty } from "~/card-components/StartingParty";
+import { SwdTechs } from "~/card-components/SwdTechs";
 import { FlagsCard } from "~/components/FlagsCard/FlagsCard";
-import { Party } from "~/components/Panels/Party/Party";
+import { Party } from "~/page-components/Party";
+import { Items } from "~/page-components/Items";
 
 type PageProps = {
   schema: Record<string, RawFlagMetadata>;
@@ -40,19 +40,14 @@ type TabItem = {
 
 const tabs: TabItem[] = [
   {
-    label: <>Debug</>,
-    id: "debug",
+    label: <>Party</>,
+    id: "party",
     content: <Party />,
   },
   {
-    label: <>Game</>,
-    id: "game",
-    content: <StartingParty />,
-  },
-  {
-    label: <>Skills</>,
-    id: "skills",
-    content: <SwdTechs />,
+    label: <>Items</>,
+    id: "items",
+    content: <Items />,
   },
 ];
 
@@ -64,8 +59,6 @@ const Home: NextPage<PageProps> = ({ schema }: PageProps) => {
     dispatch(setSchema(schema));
   }, [dispatch, schema]);
 
-  // dispatch(setSchema(schema));
-
   return (
     <div>
       <div className="flex flex-col p-8">
@@ -74,6 +67,7 @@ const Home: NextPage<PageProps> = ({ schema }: PageProps) => {
           selected={selected}
           tabs={tabs}
         />
+        {/* <Party /> */}
       </div>
       <div className="p-8">
         <FlagsCard />

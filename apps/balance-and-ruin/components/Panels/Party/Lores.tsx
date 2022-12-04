@@ -1,12 +1,11 @@
 import { Card } from "@ff6wc/ui";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
 
-export const SwdTechs = () => {
+export const Lores = () => {
   return (
-    <Card title={"SwdTech"}>
+    <Card title={"Lores"}>
       <div className="flex flex-col">
-        <FlagSwitch flag="-fst" label="Fast SwdTech" />
-        <FlagSwitch flag="-sel" label="Everyrone Learns" />
+        <FlagSwitch flag="-lel" label="Everyone Learns" />
       </div>
     </Card>
   );

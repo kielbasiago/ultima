@@ -1,9 +1,16 @@
 import { HelperText, Input, Slider, SliderProps } from "@ff6wc/ui";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import first from "lodash/first";
 import last from "lodash/last";
 import { InputLabel } from "~/components/InputLabel/InputLabel";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
-import { useSchemaSelector } from "~/state/schemaSlice";
+import {
+  selectAllowedValues,
+  selectDescription,
+  selectMax,
+  selectMin,
+  selectStep,
+} from "~/state/schemaSlice";
 
 export type FlagSliderProps = {
   flag: string;
@@ -19,14 +26,12 @@ export const FlagSlider = ({
   ...rest
 }: FlagSliderProps) => {
   const value = useFlagValueSelector<number>(flag);
-  const {
-    allowedValues,
-    defaultValue,
-    description,
-    max: schemaMax,
-    min: schemaMin,
-    step: schemaStep,
-  } = useSchemaSelector(flag);
+
+  const allowedValues = useSelector(selectAllowedValues(flag)) ?? [];
+  const description = useSelector(selectDescription(flag));
+  const schemaMax = useSelector(selectMax(flag));
+  const schemaMin = useSelector(selectMin(flag));
+  const schemaStep = useSelector(selectStep(flag));
   const dispatch = useDispatch();
 
   const setValue = (val: number) => {
@@ -43,7 +48,7 @@ export const FlagSlider = ({
   };
 
   const min = (
-    hardMin ?? allowedValues ? allowedValues[0] : schemaMin ?? 0
+    hardMin ?? allowedValues ? first(allowedValues) : schemaMin ?? 0
   ) as number;
   const max = (
     hardMax ?? allowedValues ? last(allowedValues) : schemaMax ?? 100
@@ -53,8 +58,8 @@ export const FlagSlider = ({
 
   return (
     <div className={"flex flex-col"}>
-      <div className={"flex justify-between items-center"}>
-        <div className="flex flex-col">
+      <div className={"flex justify-between items-center "}>
+        <div className="flex flex-col min-w-[50%%]">
           <InputLabel htmlFor={flag}>{label}</InputLabel>
           <HelperText>{description}</HelperText>
         </div>
@@ -67,7 +72,7 @@ export const FlagSlider = ({
           value={value ?? min}
         />
       </div>
-      <div className={"mt-3"}>
+      <div className={"mt-1"}>
         <Slider
           {...rest}
           defaultValue={value ?? min}

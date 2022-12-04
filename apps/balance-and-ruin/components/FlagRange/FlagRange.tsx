@@ -1,9 +1,16 @@
 import last from "lodash/last";
-import { Input, Slider, SliderProps } from "@ff6wc/ui";
-import { useDispatch } from "react-redux";
+import { HelperText, Input, Slider, SliderProps } from "@ff6wc/ui";
+import { useDispatch, useSelector } from "react-redux";
 import { InputLabel } from "~/components/InputLabel/InputLabel";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
-import { useSchemaSelector } from "~/state/schemaSlice";
+import {
+  selectAllowedValues,
+  selectDefaultValue,
+  selectDescription,
+  selectMax,
+  selectMin,
+  selectStep,
+} from "~/state/schemaSlice";
 
 export type FlagRangeProps = {
   flag: string;
@@ -13,15 +20,14 @@ export type FlagRangeProps = {
 export const FlagRange = ({ flag, label, ...rest }: FlagRangeProps) => {
   const value = useFlagValueSelector<number[]>(flag);
 
-  const {
-    allowedValues,
-    defaultValue,
-    description,
-    max: schemaMax,
-    min: schemaMin,
-  } = useSchemaSelector(flag);
-
+  const allowedValues = useSelector(selectAllowedValues(flag)) ?? [];
+  const defaultValue = useSelector(selectDefaultValue(flag)) ?? [];
+  const description = useSelector(selectDescription(flag));
+  const schemaMax = useSelector(selectMax(flag));
+  const schemaMin = useSelector(selectMin(flag));
+  const schemaStep = useSelector(selectStep(flag));
   const dispatch = useDispatch();
+
   const onChange = (val: number[]) => {
     dispatch(
       setFlag({
@@ -47,9 +53,12 @@ export const FlagRange = ({ flag, label, ...rest }: FlagRangeProps) => {
   const defaults = (defaultValue ?? [min, max]) as [number, number];
 
   return (
-    <div className={"flex flex-col"}>
+    <div className={"flex flex-col gap-1"}>
       <div className={"flex justify-between items-center"}>
-        <InputLabel htmlFor={flag}>{label}</InputLabel>
+        <div className="flex flex-col">
+          <InputLabel htmlFor={flag}>{label}</InputLabel>
+          <HelperText>{description}</HelperText>
+        </div>
         <div className={"flex flex-shrink gap-2"}>
           <Input
             min={min}
@@ -73,7 +82,7 @@ export const FlagRange = ({ flag, label, ...rest }: FlagRangeProps) => {
           />
         </div>
       </div>
-      <div className={"mt-3"}>
+      <div className={"mt-1"}>
         <Slider
           min={min}
           max={max}

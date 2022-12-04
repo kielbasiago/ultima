@@ -5,10 +5,11 @@ import { Tabs } from "@ff6wc/ui";
 import { RawFlagMetadata, setSchema } from "~/state/schemaSlice";
 import { useDispatch } from "react-redux";
 import { wrapper } from "~/state/store";
-import { StartParty } from "~/components/Panels/Party/StartingParty";
+import { StartingParty } from "~/components/Panels/Party/StartingParty";
 import { SwdTechs } from "~/components/Panels/Party/SwdTechs";
 import { Debug } from "~/components/Panels/Debug/Debug";
 import { FlagsCard } from "~/components/FlagsCard/FlagsCard";
+import { Party } from "~/components/Panels/Party/Party";
 
 type PageProps = {
   schema: Record<string, RawFlagMetadata>;
@@ -41,12 +42,12 @@ const tabs: TabItem[] = [
   {
     label: <>Debug</>,
     id: "debug",
-    content: <Debug />,
+    content: <Party />,
   },
   {
     label: <>Game</>,
     id: "game",
-    content: <StartParty />,
+    content: <StartingParty />,
   },
   {
     label: <>Skills</>,

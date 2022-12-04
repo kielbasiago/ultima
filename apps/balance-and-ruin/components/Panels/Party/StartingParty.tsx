@@ -24,10 +24,10 @@ const options = [
   ),
 ];
 
-export const StartParty = () => {
+export const StartingParty = () => {
   return (
     <Card title={"Starting Party"}>
-      <div className="flex flex-row flex-wrap justify-start gap-2">
+      <div className="flex flex-col flex-wrap justify-start gap-2">
         <FlagSelect
           flag={"-sc1"}
           label={"Start Character"}

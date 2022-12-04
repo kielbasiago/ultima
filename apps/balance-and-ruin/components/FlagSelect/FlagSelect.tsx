@@ -1,11 +1,18 @@
 import { characterNames } from "@ff6wc/ff6-types";
 import startCase from "lodash/startCase";
 import { useEffect, useId, useMemo } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import BaseSelect, { components, OptionProps } from "react-select";
 import { InputLabel } from "~/components/InputLabel/InputLabel";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
-import { useSchemaSelector } from "~/state/schemaSlice";
+import {
+  selectAllowedValues,
+  selectDefaultValue,
+  selectDescription,
+  selectMax,
+  selectMin,
+  selectStep,
+} from "~/state/schemaSlice";
 
 export type FlagSelectOption = {
   readonly id: string;
@@ -52,20 +59,26 @@ export const FlagSelect = ({
 }: FlagSelectProps) => {
   const dispatch = useDispatch();
   const flagValue = useFlagValueSelector<string | null>(flag) ?? empty.id;
-  const schema = useSchemaSelector(flag);
+
+  const allowedValues = useSelector(selectAllowedValues(flag)) ?? [];
+  const defaultValue = useSelector(selectDefaultValue(flag));
+  const description = useSelector(selectDescription(flag));
+  const schemaMax = useSelector(selectMax(flag));
+  const schemaMin = useSelector(selectMin(flag));
+  const schemaStep = useSelector(selectStep(flag));
   const id = useId();
 
   const options: FlagSelectOption[] = useMemo(() => {
     const newOptions = optionOverrides
       ? [...optionOverrides]
-      : schema.allowedValues.map(
+      : allowedValues.map(
           (val) =>
             ({
               id: val,
               label: startCase(val as string),
               isDisabled: false,
             } as FlagSelectOption)
-        );
+        ) || [];
 
     if (nullable) {
       newOptions.unshift({
@@ -75,7 +88,7 @@ export const FlagSelect = ({
     }
 
     return newOptions;
-  }, [nullable, nullableLabel, optionOverrides, schema.allowedValues]);
+  }, [nullable, nullableLabel, optionOverrides, allowedValues]);
 
   const value = options.find((option) => option.id === flagValue);
 
@@ -106,7 +119,7 @@ export const FlagSelect = ({
       </InputLabel>
 
       <BaseSelect
-        className="ff6wc-select-container min-w-[370px]"
+        className="ff6wc-select-container"
         classNamePrefix="ff6wc-select"
         components={{ Option }}
         instanceId={id}

@@ -175,10 +175,13 @@ div#__next > div {
   }
 
   .ff6wc-select-container .ff6wc-select__control {
+    @apply max-h-[30px];
+    @apply min-h-[30px];
     @apply border-1;
     @apply bg-white dark:bg-transparent;      
     @apply border-neutral-300 dark:border-neutral-700;
     @apply hover:border-neutral-400 dark:hover:border-neutral-500;
+    @apply rounded-none;
   }
 
   .ff6wc-select__control.ff6wc-select__control--is-focused {
@@ -219,10 +222,21 @@ div#__next > div {
     @apply bg-neutral-400;
   }
 
+  .ff6wc-select-container .ff6wc-select__dropdown-indicator {
+    @apply py-0;
+    @apply px-2;
+  }
+
+  .ff6wc-select-container .ff6wc-select__input-container {
+    @apply m-0;
+    @apply p-0;
+  }
+  
   .ff6wc-select-container .ff6wc-select__input-container,
   .ff6wc-select-container .ff6wc-select__placeholder,
   .ff6wc-select-container .ff6wc-select__single-value {
     @apply text-neutral-600 dark:text-neutral-200;
+    @apply text-sm;
   }
   
   .ff6wc-select-container input:focus {

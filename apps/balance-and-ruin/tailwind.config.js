@@ -19,7 +19,7 @@ module.exports = {
         headings: "#1D3461", // SPACE CADET
         link: "#2E86AB", // BLUE NCS
         panel: {
-          background: "#F3F3F3",
+          background: "#FAFAFA",
           border: "#D2CFC9",
           "header-background": "#E5E5E5",
         },

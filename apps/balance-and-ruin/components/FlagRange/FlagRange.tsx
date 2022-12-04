@@ -11,18 +11,27 @@ import {
   selectMin,
   selectStep,
 } from "~/state/schemaSlice";
+import { cva } from "cva";
+import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
 
 export type FlagRangeProps = {
+  helperText?: React.ReactNode;
   flag: string;
-  label: string;
+  label: React.ReactNode;
   type?: "percent";
 } & SliderProps<number[]>;
 
-export const FlagRange = ({ flag, label, type, ...rest }: FlagRangeProps) => {
+export const FlagRange = ({
+  flag,
+  defaultValue: hardDefault,
+  helperText,
+  label,
+  type,
+  ...rest
+}: FlagRangeProps) => {
   const value = useFlagValueSelector<number[]>(flag);
 
   const allowedValues = useSelector(selectAllowedValues(flag)) ?? [];
-  const defaultValue = useSelector(selectDefaultValue(flag)) ?? [];
   const description = useSelector(selectDescription(flag));
   const schemaMax = useSelector(selectMax(flag));
   const schemaMin = useSelector(selectMin(flag));
@@ -51,16 +60,19 @@ export const FlagRange = ({ flag, label, type, ...rest }: FlagRangeProps) => {
   ) as number;
   const step = 1;
 
+  const defaultValue = useSelector(selectDefaultValue(flag));
+
   const defaults = (defaultValue ?? [min, max]) as [number, number];
 
   return (
     <div className={"flex flex-col gap-2"}>
-      <div className={"flex justify-between items-center"}>
-        <div className="flex flex-col gap-1">
-          <InputLabel htmlFor={flag}>{label}</InputLabel>
-          <HelperText>{description}</HelperText>
-        </div>
-        <div className={"flex flex-shrink gap-2"}>
+      <div className={"flex justify-between items-center gap-4"}>
+        <FlagLabel
+          flag={flag}
+          helperText={(helperText as string) ?? description}
+          label={label}
+        />
+        <div className={"flex items-center justify-center flex-shrink gap-1"}>
           <Input
             min={min}
             max={max}
@@ -71,6 +83,7 @@ export const FlagRange = ({ flag, label, type, ...rest }: FlagRangeProps) => {
             type="number"
             value={minVal ?? defaults[0]}
           />
+          <span className={"flex-shrink font-semibold"}>-</span>
           <Input
             min={min}
             max={max}
@@ -81,6 +94,9 @@ export const FlagRange = ({ flag, label, type, ...rest }: FlagRangeProps) => {
             type="number"
             value={maxVal ?? defaults[1]}
           />
+          {/* <span className={"flex-shrink font-semibold"}>
+            {type === "percent" ? "%" : null}
+          </span> */}
         </div>
       </div>
       <div>

@@ -1,14 +1,19 @@
-import { useId, useMemo } from "react";
-import { useDispatch } from "react-redux";
+import first from "lodash/first";
+import React, { useId, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import BaseSelect, { components, OptionProps } from "react-select";
-import { useFlagValueSelector } from "~/state/flagSlice";
-import { FlagValue } from "~/state/schemaSlice";
+import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
+import { FlagSelectOption } from "~/components/FlagSelectOption/FlagSelectOption";
+import { selectActiveMutuallyExclusiveFlag, setFlag } from "~/state/flagSlice";
+import { FlagValue, selectDescription } from "~/state/schemaSlice";
+import { AppState } from "~/state/store";
 
 export type SubflagOption = {
+  defaultValue: FlagValue;
   flag: string;
   label: string;
   helperText?: string;
-  render?: React.ReactNode;
+  Renderable?: React.FC<{ children: React.ReactNode }> | null;
 };
 
 export type FlagSubflagSelectProps = {
@@ -20,74 +25,91 @@ export type FlagSubflagSelectProps = {
 
 const EMPTY_FLAG = "-ff6wc-empty-value";
 
-const empty: SubflagOption = {
-  flag: EMPTY_FLAG,
-  label: "None",
-};
-
-const Option = ({
-  children,
-  data,
-  ...rest
-}: OptionProps<SubflagOption, false>) => {
-  return (
-    <components.Option data={data} {...rest}>
-      <div className="flex flex-col justify-start gap-2">{children}</div>
-    </components.Option>
-  );
-};
-
 export const FlagSubflagSelect = ({
   label,
   nullableDescription,
   nullableLabel,
-  options,
+  options: baseOptions,
 }: FlagSubflagSelectProps) => {
-  const id = useId();
   const dispatch = useDispatch();
+  const id = useId();
 
-  // const flagValue = useFlagValueSelector<string | null>(flag) ?? empty.id;
+  const selectedFlag = useSelector(
+    selectActiveMutuallyExclusiveFlag(...baseOptions.map(({ flag }) => flag))
+  );
 
-  // const allowedValues = useSelector(selectAllowedValues(flag)) ?? [];
-  // const description = useSelector(selectDescription(flag));
-  // const id = useId();
+  const empty = useMemo<SubflagOption>(
+    () => ({
+      flag: EMPTY_FLAG,
+      label: nullableLabel ?? "None",
+      defaultValue: null,
+      helperText: nullableDescription,
+    }),
+    [nullableDescription, nullableLabel]
+  );
 
-  // const options: FlagSelectOption[] = useMemo(() => {
-  //   const newOptions = optionOverrides
-  //     ? [...optionOverrides]
-  //     : allowedValues.map(
-  //         (val) =>
-  //           ({
-  //             id: val,
-  //             label: startCase(val as string),
-  //             isDisabled: false,
-  //           } as FlagSelectOption)
-  //       ) || [];
+  const options: SubflagOption[] = useMemo(() => {
+    const newOptions = [...baseOptions];
+    newOptions.unshift(empty);
 
-  //   if (nullable) {
-  //     newOptions.unshift({
-  //       id: EMPTY_ID,
-  //       label: nullableLabel ?? "None",
-  //     });
-  //   }
+    return newOptions;
+  }, [baseOptions, empty]);
 
-  //   return newOptions;
-  // }, [allowedValues]);
+  const onChange = ({ defaultValue, flag }: SubflagOption) => {
+    if (selectedFlag && selectedFlag !== EMPTY_FLAG) {
+      dispatch(
+        setFlag({
+          flag: selectedFlag,
+          value: null,
+        })
+      );
+    }
 
-  // const options: any[] = [];
-  const onChange = () => {};
-  const value: any = empty;
-  return (
+    dispatch(
+      setFlag({
+        flag,
+        value: defaultValue,
+      })
+    );
+  };
+
+  const schemaDescription = useSelector(
+    selectedFlag ? selectDescription(selectedFlag) : () => null
+  );
+
+  const value = useMemo(
+    () => options.find(({ flag }) => flag === selectedFlag) ?? empty,
+    [empty, selectedFlag, options]
+  );
+
+  const { Renderable } = value;
+
+  const Select = (
     <BaseSelect
       className="ff6wc-select-container"
       classNamePrefix="ff6wc-select"
-      components={{ Option }}
+      components={{ Option: FlagSelectOption }}
       instanceId={id}
       getOptionLabel={(option) => option.label}
       getOptionValue={(option) => option.flag}
       options={options}
-      onChange={onChange}
+      onChange={(selected) => onChange(selected as SubflagOption)}
       value={value}
     />
+  );
+
+  return (
+    <div className="flex flex-col gap-1">
+      <>
+        <FlagLabel
+          flag={value.flag}
+          helperText={value.helperText ?? schemaDescription ?? null}
+          label={label}
+        />
+        {Renderable ? null : Select}
+
+        {Renderable ? <Renderable>{Select}</Renderable> : null}
+      </>
+    </div>
   );
 };

@@ -61,7 +61,7 @@ export const FlagSlider = ({
   const step = hardStep ?? schemaStep ?? 1;
 
   return (
-    <div className={"flex flex-col"}>
+    <div className={"flex flex-col gap-2"}>
       <div className={"flex justify-between items-center "}>
         <div className="flex flex-col gap-1">
           {label ? <InputLabel htmlFor={flag}>{label}</InputLabel> : null}

@@ -1,13 +1,9 @@
-import { Card } from "@ff6wc/ui";
-import { FlagsCard } from "~/components/FlagsCard/FlagsCard";
-import {
-  FlagSelect,
-  FlagSelectOption,
-} from "~/components/FlagSelect/FlagSelect";
-import startCase from "lodash/startCase";
 import { characterNames } from "@ff6wc/ff6-types";
-import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
+import { Card } from "@ff6wc/ui";
+import startCase from "lodash/startCase";
 import { FlagRange } from "~/components/FlagRange/FlagRange";
+import { FlagSelectOption } from "~/components/FlagSelect/FlagSelect";
+import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
 
 const [random, randomngu]: FlagSelectOption[] = [
   { id: "random", label: "Random" },
@@ -26,9 +22,9 @@ const options = [
   ),
 ];
 
-export const Characters = () => {
+export const PartyMembers = () => {
   return (
-    <Card title={"Characters"}>
+    <Card title={"Party Members"}>
       <div className="flex flex-col flex-wrap gap-2">
         <FlagSwitch flag={"-sal"} label={"Start Average Level"} />
         <FlagSwitch flag={"-sn"} label={"Start Naked"} />

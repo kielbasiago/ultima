@@ -15,11 +15,12 @@ const subflagScalingProps = {
 
 const options: SubflagOption[] = [
   {
+    defaultValue: 2,
     flag: "-lsced",
     label: "Characters + Espers + Dragons",
     helperText:
       "Enemies and bosses gain {{ . }} levels for each character recruited, esper acquired, and dragon defeated",
-    render: <FlagSlider {...subflagScalingProps} flag="-lsced" />,
+    Renderable: () => <FlagSlider {...subflagScalingProps} flag="-lsced" />,
   },
 ];
 

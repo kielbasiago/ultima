@@ -142,25 +142,5 @@ export const selectDescription = (flag: string) =>
 export const selectMax = (flag: string) => schemaSelector(flag, "max");
 export const selectMin = (flag: string) => schemaSelector(flag, "min");
 export const selectStep = (flag: string) => schemaSelector(flag, "step");
-// export const selectSchemaAllowedValues =
-//   (flag: string) =>
-//   (state: AppState): FlagMetadataNode["allowedValues"] => {
-//     const schema = state.schema.schema[flag];
-//     const overrides = state.schema.overrides[flag];
-//     return overrides?.allowedValues ?? schema?.allowedValues ?? null;
-//   };
-//     allowedValues:
-//     defaultValue: overrides?.defaultValue ?? schema?.defaultValue ?? null,
-//     description: overrides?.description ?? schema?.description ?? null,
-//     max: overrides?.max ?? schema?.max ?? null,
-//     min: overrides?.min ?? schema?.min ?? null,
-//     step: overrides?.step ?? schema?.step ?? null,
-//   };
-// };
-
-// export const useSchemaSelector = (flag: string) => {
-//   const schemaSelector = useMemo(() => selectSchema(flag), [flag]);
-//   return useSelector(schemaSelector);
-// };
 
 export default schemaSlice.reducer;

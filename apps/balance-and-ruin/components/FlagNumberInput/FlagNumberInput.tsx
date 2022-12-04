@@ -14,6 +14,7 @@ import {
   selectMin,
   selectStep,
 } from "~/state/schemaSlice";
+import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
 
 export type FlagNumberInputProps = {
   description: string;
@@ -62,9 +63,8 @@ export const FlagNumberInput = ({
   return (
     <div className="flex flex-col gap-1">
       <div className={"flex flex-col gap-1"}>
-        <InputLabel className={"cursor-pointer"} htmlFor={flag}>
-          {label}
-        </InputLabel>
+        <FlagLabel flag={flag} helperText={description} label={label} />
+
         <Input
           className="w-full"
           max={max ?? undefined}
@@ -75,7 +75,6 @@ export const FlagNumberInput = ({
           value={value}
         />
       </div>
-      <HelperText>{hardDescription ?? description}</HelperText>
     </div>
   );
 };

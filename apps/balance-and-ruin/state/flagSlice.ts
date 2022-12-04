@@ -81,8 +81,11 @@ export const { setFlag, setFlags } = flagSlice.actions;
 
 export const selectFlagValues = (state: AppState) => state.flag.flagValues;
 export const selectFlagValue =
-  <T>(flag: string) =>
+  <T>(flag: string | null) =>
   (state: AppState) => {
+    if (!flag) {
+      return null;
+    }
     return state.flag.flagValues[flag] as unknown as T;
   };
 
@@ -90,12 +93,23 @@ export const selectRawFlags = (state: AppState) => {
   return state.flag.rawFlags;
 };
 
-export const useFlagValueSelector = <T>(flag: string) => {
+export const useFlagValueSelector = <T>(flag: string | null) => {
   const flagValueSelector = useMemo(
     () => selectFlagValue<T | null>(flag),
     [flag]
   );
   return useSelector(flagValueSelector);
 };
+
+/**
+ *
+ * @param flags
+ * @returns
+ */
+export const selectActiveMutuallyExclusiveFlag =
+  (...flags: string[]) =>
+  (state: AppState) => {
+    return flags.find((flag) => Boolean(state.flag.flagValues[flag])) ?? null;
+  };
 
 export default flagSlice.reducer;

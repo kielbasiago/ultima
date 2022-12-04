@@ -40,12 +40,12 @@ export const Slider = <T extends number | number[]>({
 
   return (
     <BaseSlider
+      {...(rest as SliderProps<number | number[]>)}
       className="ff6-slider"
       step={step}
       min={min}
       max={max}
       marks={defaultMarks}
-      {...(rest as SliderProps<number | number[]>)}
       onChange={onChange as BaseSliderProps["onChange"]}
       value={value as BaseSliderProps["value"]}
     />

@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import { Tabs } from "@ff6wc/ui";
-
 import { RawFlagMetadata, setSchema } from "~/state/schemaSlice";
 import { useDispatch } from "react-redux";
 import { wrapper } from "~/state/store";
-import { StartingParty } from "~/card-components/StartingParty";
-import { SwdTechs } from "~/card-components/SwdTechs";
 import { FlagsCard } from "~/components/FlagsCard/FlagsCard";
 import { Party } from "~/page-components/Party";
 import { Items } from "~/page-components/Items";
+import { Commands } from "~/page-components/Commands";
 
 type PageProps = {
   schema: Record<string, RawFlagMetadata>;
@@ -43,6 +41,11 @@ const tabs: TabItem[] = [
     label: <>Party</>,
     id: "party",
     content: <Party />,
+  },
+  {
+    label: <>Commands</>,
+    id: "commands",
+    content: <Commands />,
   },
   {
     label: <>Items</>,

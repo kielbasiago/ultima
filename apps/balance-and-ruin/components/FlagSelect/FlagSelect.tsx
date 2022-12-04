@@ -1,18 +1,12 @@
-import { characterNames } from "@ff6wc/ff6-types";
 import startCase from "lodash/startCase";
-import { useEffect, useId, useMemo } from "react";
+import { useId, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import BaseSelect, { components, OptionProps } from "react-select";
+import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
+import { FlagSelectOption } from "~/components/FlagSelectOption/FlagSelectOption";
 import { InputLabel } from "~/components/InputLabel/InputLabel";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
-import {
-  selectAllowedValues,
-  selectDefaultValue,
-  selectDescription,
-  selectMax,
-  selectMin,
-  selectStep,
-} from "~/state/schemaSlice";
+import { selectAllowedValues, selectDescription } from "~/state/schemaSlice";
 
 export type FlagSelectOption = {
   readonly id: string;
@@ -25,18 +19,6 @@ const EMPTY_ID = "none";
 const empty = {
   id: EMPTY_ID,
   label: "None",
-};
-
-const Option = ({
-  children,
-  data,
-  ...rest
-}: OptionProps<FlagSelectOption, false>) => {
-  return (
-    <components.Option data={data} {...rest}>
-      <span className="text-sm">{children}</span>
-    </components.Option>
-  );
 };
 
 type FlagSelectProps = {
@@ -60,14 +42,14 @@ export const FlagSelect = ({
   const dispatch = useDispatch();
   const flagValue = useFlagValueSelector<string | null>(flag) ?? empty.id;
 
-  const allowedValues = useSelector(selectAllowedValues(flag)) ?? [];
+  const allowedValues = useSelector(selectAllowedValues(flag));
   const description = useSelector(selectDescription(flag));
   const id = useId();
 
   const options: FlagSelectOption[] = useMemo(() => {
-    const newOptions = optionOverrides
+    const newOptions = optionOverrides?.length
       ? [...optionOverrides]
-      : allowedValues.map(
+      : (allowedValues || []).map(
           (val) =>
             ({
               id: val,
@@ -110,14 +92,12 @@ export const FlagSelect = ({
 
   return (
     <div className="flex flex-col gap-1">
-      <InputLabel className={"cursor-pointer"} htmlFor={id}>
-        {label}
-      </InputLabel>
+      <FlagLabel flag={flag} helperText={description} label={label} />
 
       <BaseSelect
         className="ff6wc-select-container"
         classNamePrefix="ff6wc-select"
-        components={{ Option }}
+        components={{ Option: FlagSelectOption }}
         instanceId={id}
         getOptionLabel={(option) => option.label}
         getOptionValue={(option) => option.id}

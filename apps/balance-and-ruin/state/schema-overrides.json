@@ -1,4 +1,10 @@
 {
+  "-lmprp": {
+    "description": ""
+  },
+  "-lmps": {
+    "description": "FOOBAR"
+  },
   "-sc1": {
     "default": null,
     "allowed_values": [
@@ -82,5 +88,8 @@
       "gogo",
       "umaro"
     ]
+  },
+  "-sdr": {
+    "defaultValue": [0, 0]
   }
 }

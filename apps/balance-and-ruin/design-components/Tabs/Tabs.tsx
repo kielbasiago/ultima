@@ -24,7 +24,9 @@ export const Tabs = ({ onChange: baseOnChange, selected, tabs }: TabsProps) => {
         </Tab.List>
         <Tab.Panels tabIndex={-1}>
           {tabs.map(({ content, id }) => (
-            <Tab.Panel key={`tab-panel-${id}`}>{content}</Tab.Panel>
+            <Tab.Panel tabIndex={-1} key={`tab-panel-${id}`}>
+              {content}
+            </Tab.Panel>
           ))}
         </Tab.Panels>
       </Tab.Group>

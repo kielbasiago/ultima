@@ -19,20 +19,21 @@ div#__next > div {
     @apply p-0;
     height: 42px !important;
   }
-
+  
   .ff6-slider .rc-slider-handle, 
   .ff6-slider .rc-slider-handle:hover {
-      width: 12px;
-      height: 12px;
-      @apply border-black;  
-      border-width: 1px;
-      @apply bg-black;
-      opacity: 1;
-      @apply focus-visible:shadow-input-focus;
+    width: 16px;
+    height: 16px;
+    @apply border-1 border-black;  
+    @apply bg-black;
+    opacity: 1;
+
+    @apply focus-visible:shadow-range-focus;
   } 
+  
 
   .ff6-slider .rc-slider-handle {
-    top: 5px;
+    top: 3px;
   }
 
   .ff6-slider .rc-slider-mark-text {
@@ -61,8 +62,9 @@ div#__next > div {
   }
 
   .ff6-slider .rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging {
+    @apply shadow-range-focus;
     /* border-color: transparent; */
-    box-shadow: 0 0 0 4px red;
+    /* box-shadow: 0 0 0 4px red; */
   }
 
   .ff6-slider .rc-slider-dot {
@@ -93,56 +95,38 @@ div#__next > div {
   }
 }
 
-.ff6-slider.rc-slider {
-  @apply p-0;
-  height: 42px !important;
-}
 
-.ff6-slider .rc-slider-handle, 
-.ff6-slider .rc-slider-handle:hover {
-    width: 12px;
-    height: 12px;
-    @apply border-black;  
-    border-width: 1px;
-    @apply bg-black;
-    opacity: 1;
-} 
 
-.ff6-slider .rc-slider-handle {
-  top: 5px;
-}
-
-.ff6-slider .rc-slider-mark-text {
+/* .ff6-slider .rc-slider-mark-text {
   @apply text-zinc-400;
   @apply transition-all;
   @apply duration-100;
-}
+} */
 
-.ff6-slider .rc-slider-mark-text-active {
+/* .ff6-slider .rc-slider-mark-text-active {
   @apply text-zinc-600;
-}
-
+} */
+/* 
 .ff6-slider .rc-slider-handle,
 .ff6-slider .rc-slider-rail,
 .ff6-slider .rc-slider-track {
   border-radius: 0;
-}
+} */
 
-.ff6-slider .rc-slider-mark {
+/* .ff6-slider .rc-slider-mark {
   top: 28px;
-}
+} */
 
-.ff6-slider .rc-slider-track {
+/* .ff6-slider .rc-slider-track {
   @apply bg-blue-400;
   @apply border-0 bg-blue-600;
 }
 
 .ff6-slider .rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging {
   border-color: transparent;
-  box-shadow: 0 0 0 1px black;
-}
+} */
 
-.ff6-slider .rc-slider-dot {
+/* .ff6-slider .rc-slider-dot {
   top: 18px;
   width: 0;
   border-radius: 0;
@@ -151,23 +135,13 @@ div#__next > div {
   @apply bg-zinc-100;
   @apply transition-all;
   @apply duration-100;
-}
+} */
 
-.ff6-slider .rc-slider-dot-active {
+/* .ff6-slider .rc-slider-dot-active {
   @apply border-zinc-400;
   @apply bg-zinc-400;
-}
+} */
 
-.ff6-slider .rc-slider-rail {
-  border: 1px solid #D2CFC9;
-  @apply bg-inputs-background;
-}
-
-.ff6-slider .rc-slider-rail,
-.ff6-slider .rc-slider-step,
-.ff6-slider .rc-slider-track {
-  @apply h-[12px];
-}
 
 @layer components {
   .ff6wc-select-container * {

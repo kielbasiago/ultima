@@ -28,7 +28,7 @@ module.exports = {
         inputs: {
           background: "#FFFFFF",
           border: "#D2CFC9",
-          focus: '#33abff99'
+          focus: '#33abff99',
         },
       },
       fontFamily: {
@@ -38,7 +38,9 @@ module.exports = {
       },
       boxShadow: {
         'input-focus': '0 0 0 2px #55cbff',
-        'switch-focus': '0 0 0 4px #55cbff'
+        'switch-focus': '0 0 0 4px #55cbff',
+        'range-focus': '0 0 0 4px #55cbff'
+
       }
     },
     borderWidth: {

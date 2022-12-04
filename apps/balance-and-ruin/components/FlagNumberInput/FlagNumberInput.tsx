@@ -60,8 +60,8 @@ export const FlagNumberInput = ({
   };
 
   return (
-    <div className="flex flex-col gap-1 max-w-[400px]">
-      <div className={""}>
+    <div className="flex flex-col gap-1">
+      <div className={"flex flex-col gap-1"}>
         <InputLabel className={"cursor-pointer"} htmlFor={flag}>
           {label}
         </InputLabel>

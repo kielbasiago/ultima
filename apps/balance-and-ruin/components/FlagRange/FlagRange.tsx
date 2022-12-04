@@ -54,9 +54,9 @@ export const FlagRange = ({ flag, label, type, ...rest }: FlagRangeProps) => {
   const defaults = (defaultValue ?? [min, max]) as [number, number];
 
   return (
-    <div className={"flex flex-col gap-1"}>
+    <div className={"flex flex-col gap-2"}>
       <div className={"flex justify-between items-center"}>
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-1">
           <InputLabel htmlFor={flag}>{label}</InputLabel>
           <HelperText>{description}</HelperText>
         </div>

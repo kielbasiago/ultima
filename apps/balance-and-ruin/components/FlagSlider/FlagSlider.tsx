@@ -63,7 +63,7 @@ export const FlagSlider = ({
   return (
     <div className={"flex flex-col"}>
       <div className={"flex justify-between items-center "}>
-        <div className="flex flex-col min-w-[50%%]">
+        <div className="flex flex-col gap-1">
           {label ? <InputLabel htmlFor={flag}>{label}</InputLabel> : null}
           <HelperText>{description}</HelperText>
         </div>

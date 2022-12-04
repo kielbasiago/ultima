@@ -1,4 +1,5 @@
 import { useId, useMemo } from "react";
+import { useDispatch } from "react-redux";
 import BaseSelect, { components, OptionProps } from "react-select";
 import { useFlagValueSelector } from "~/state/flagSlice";
 import { FlagValue } from "~/state/schemaSlice";
@@ -7,7 +8,7 @@ export type SubflagOption = {
   flag: string;
   label: string;
   helperText?: string;
-  render: React.ReactNode;
+  render?: React.ReactNode;
 };
 
 export type FlagSubflagSelectProps = {
@@ -17,10 +18,10 @@ export type FlagSubflagSelectProps = {
   nullableDescription: string;
 };
 
-const EMPTY_ID = "none";
+const EMPTY_FLAG = "-ff6wc-empty-value";
 
-const empty = {
-  id: EMPTY_ID,
+const empty: SubflagOption = {
+  flag: EMPTY_FLAG,
   label: "None",
 };
 
@@ -40,10 +41,11 @@ export const FlagSubflagSelect = ({
   label,
   nullableDescription,
   nullableLabel,
-}: // options,
-FlagSubflagSelectProps) => {
+  options,
+}: FlagSubflagSelectProps) => {
   const id = useId();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+
   // const flagValue = useFlagValueSelector<string | null>(flag) ?? empty.id;
 
   // const allowedValues = useSelector(selectAllowedValues(flag)) ?? [];
@@ -72,7 +74,7 @@ FlagSubflagSelectProps) => {
   //   return newOptions;
   // }, [allowedValues]);
 
-  const options: any[] = [];
+  // const options: any[] = [];
   const onChange = () => {};
   const value: any = empty;
   return (

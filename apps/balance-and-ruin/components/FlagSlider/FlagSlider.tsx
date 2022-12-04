@@ -52,10 +52,10 @@ export const FlagSlider = ({
   };
 
   const min = (
-    hardMin ?? allowedValues ? first(allowedValues) : schemaMin ?? 0
+    hardMin ?? allowedValues.length ? first(allowedValues) : schemaMin ?? 0
   ) as number;
   const max = (
-    hardMax ?? allowedValues ? last(allowedValues) : schemaMax ?? 100
+    hardMax ?? allowedValues.length ? last(allowedValues) : schemaMax ?? 100
   ) as number;
 
   const step = hardStep ?? schemaStep ?? 1;

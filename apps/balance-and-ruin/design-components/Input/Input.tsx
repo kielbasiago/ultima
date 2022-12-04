@@ -1,4 +1,4 @@
-import { cva } from "cva";
+import { cva, cx } from "cva";
 import React from "react";
 
 export type InputProps = React.DetailedHTMLProps<
@@ -23,6 +23,6 @@ const styles = cva("", {
   },
 });
 
-export const Input = (props: InputProps) => {
-  return <input {...props} className={styles()} />;
+export const Input = ({ className, ...rest }: InputProps) => {
+  return <input {...rest} className={cx(styles(), className)} />;
 };

@@ -16,21 +16,23 @@ import {
 } from "~/state/schemaSlice";
 
 export type FlagNumberInputProps = {
+  description: string;
   flag: string;
   label: string;
   type: "int";
 };
 
 export const FlagNumberInput = ({
+  description: hardDescription,
   flag,
   label,
   type,
 }: FlagNumberInputProps) => {
   const defaultValue = useSelector(selectDefaultValue(flag));
   const description = useSelector(selectDescription(flag));
-  const schemaMax = useSelector(selectMax(flag));
-  const schemaMin = useSelector(selectMin(flag));
-  const schemaStep = useSelector(selectStep(flag));
+  const max = useSelector(selectMax(flag)) ?? 0;
+  const min = useSelector(selectMin(flag)) ?? 0;
+  const step = useSelector(selectStep(flag));
 
   const value =
     useFlagValueSelector<number>(flag) ?? defaultValue?.toString() ?? "";
@@ -38,8 +40,16 @@ export const FlagNumberInput = ({
   const dispatch = useDispatch();
 
   const onChange = (rawValue: string) => {
-    const value =
+    let value: number | null =
       type === "int" ? Number.parseInt(rawValue) : Number.parseFloat(rawValue);
+
+    if (Number.isNaN(value)) {
+      value = null;
+    } else if (value > max) {
+      value = max;
+    } else if (value < min) {
+      value = min;
+    }
 
     dispatch(
       setFlag({
@@ -51,20 +61,21 @@ export const FlagNumberInput = ({
 
   return (
     <div className="flex flex-col gap-1 max-w-[400px]">
-      <div className={"flex items-center gap-4 justify-between max-w-[200px]"}>
+      <div className={""}>
         <InputLabel className={"cursor-pointer"} htmlFor={flag}>
           {label}
         </InputLabel>
         <Input
-          max={schemaMax ?? undefined}
-          min={schemaMin ?? undefined}
-          onChange={(e) => onChange}
-          step={schemaStep ?? undefined}
+          className="w-full"
+          max={max ?? undefined}
+          min={min ?? undefined}
+          onChange={(e) => onChange(e.target.value)}
+          step={step ?? undefined}
           type="number"
           value={value}
         />
       </div>
-      <HelperText>{description}</HelperText>
+      <HelperText>{hardDescription ?? description}</HelperText>
     </div>
   );
 };

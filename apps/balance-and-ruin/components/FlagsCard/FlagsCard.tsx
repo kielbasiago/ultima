@@ -1,4 +1,4 @@
-import { Card } from "@ff6wc/ui";
+import { Button, Card } from "@ff6wc/ui";
 import { cx } from "cva";
 import { useDispatch, useSelector } from "react-redux";
 import { selectFlagValues, selectRawFlags, setFlags } from "~/state/flagSlice";
@@ -17,7 +17,10 @@ export const FlagsCard = ({ className, ...rest }: FlagsCardProps) => {
   };
   return (
     <Card {...rest} className={cx("p-0", className)} title="Flags">
-      {flags}&nbsp;
+      {/* <div className="flex justify-between">
+        <span className="flex-shrink">{flags}&nbsp;</span>
+        <Button onClick={() => {}}>Generate</Button>
+      </div> */}
     </Card>
   );
 };

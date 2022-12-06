@@ -1,18 +1,23 @@
 from http.server import BaseHTTPRequestHandler
-import sys
-from urllib.parse import parse_qs, urlparse
+import subprocess
+import tempfile
 
 class handler(BaseHTTPRequestHandler):
   def do_GET(self):    
-    sys.path.append("WorldsCollide")
-    from WorldsCollide.arguments import Arguments
-    arguments = Arguments(args = ['-i', 'ff3.smc'])
-
-    from WorldsCollide.metadata.flag_metadata_writer import FlagMetadataWriter
-
-    result = FlagMetadataWriter(arguments).get_flag_metadata()
-    import json
-    self.send_response(200)
-    self.send_header('Content-type','text/plain') 
-    self.end_headers()
-    self.wfile.write(json.dumps(result).encode())
+    with tempfile.TemporaryDirectory() as temp_dir:
+        in_filename = 'ff3.smc'
+        out_filename = temp_dir + "/out-meta.json"
+        result = subprocess.Popen(['python', 'WorldsCollide/build-wc-flag-metadata.py', '-i', in_filename, '-o', out_filename]).wait()
+        if not result:
+          with open(out_filename, "rb") as metadata:
+              import json
+              self.send_response(200)
+              self.send_header('Content-type','application/json') 
+              self.end_headers()
+              result1 = json.load(metadata)
+              self.wfile.write(json.dumps(result1).encode())
+        else:
+          self.send_response(400)
+          self.send_header('Content-type', 'text/plain')
+          self.end_headers()
+          self.finish()

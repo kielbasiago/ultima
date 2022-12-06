@@ -13,7 +13,6 @@ This is the primary website for WC
 ### MVP Features
 
 - Retain all FF6WC functionality flagset creation
-  - Graphics are an exception, being taken care of in [Relmo](#relmo)
 - Can interact with any branch of WC
 - All flags are available in UI , including dev flags
 

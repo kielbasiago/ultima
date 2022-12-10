@@ -1,0 +1,7 @@
+{
+  "name": "@ff6wc/ips-utils",
+  "version": "0.0.0",
+  "private": false,
+  "main": "./index.ts",
+  "types": "./index.ts"
+}

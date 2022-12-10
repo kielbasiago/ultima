@@ -14,7 +14,6 @@ const containerStyles = cva([
   "bg-panel-background",
   "rounded-none",
   "shadow-[0px_0px_1px_0px_rgba(0,0,0,0.75)]",
-  // "border-1 border-panel-border",
 ]);
 
 const contentStyles = cva([

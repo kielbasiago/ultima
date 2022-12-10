@@ -5,7 +5,7 @@
       "name": "Next.js: debug server-side",
       "type": "node-terminal",
       "request": "launch",
-      "command": "npm run vercel"
+      "command": "pnpm --filter \"@ff6wc/balance-and-ruin\" run  vercel"
     },
     {
       "name": "Next.js: debug client-side",

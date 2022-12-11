@@ -37,6 +37,7 @@ export const RomFileSelect = () => {
     }
   );
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [romData, setRomData] = useState<string | null>(null);
   const [romName, setRomName] = useState<string | null>(null);
@@ -52,6 +53,7 @@ export const RomFileSelect = () => {
 
     if (savedRomData) {
       setRomData(savedRomData);
+      setSuccess(true);
     }
 
     if (savedRomName) {
@@ -75,10 +77,14 @@ export const RomFileSelect = () => {
 
         let data_string = "";
         let data_length = rom_data.byteLength;
+
         for (let i = 0; i < data_length; i++) {
           data_string += String.fromCharCode(rom_data[i]);
         }
+
         data_string = btoa(data_string);
+
+        setSuccess(true);
 
         try {
           localStorage.setItem("rom_data", data_string);
@@ -109,19 +115,27 @@ export const RomFileSelect = () => {
 
   return (
     <div className="flex flex-grow p-6">
-      <div className="flex flex-col">
-        <input
-          className={"hidden"}
-          id="rom_name"
-          ref={inputRef}
-          name="rom"
-          onChange={onRomSelect}
-          type="file"
-        />
-        <Button onClick={() => inputRef.current?.click()}>Select File</Button>
+      <div className="flex flex-col gap-5">
+        <div>
+          <h2 className={"text-lg font-semibold"}>Step 1: Select ROM</h2>
+          <input
+            className={"hidden"}
+            id="rom_name"
+            ref={inputRef}
+            name="rom"
+            onChange={onRomSelect}
+            type="file"
+          />
+          <Button onClick={() => inputRef.current?.click()}>Select File</Button>
+        </div>
+
+        {success && <div className={"text-green-500"}>Valid ROM</div>}
         {error && <div className={"text-red-500"}>{error}</div>}
+        <div>
+          <h2 className={"text-lg font-semibold"}>Step 2: Click Generate</h2>
+          <Button onClick={generate}>Generate</Button>
+        </div>
       </div>
-      <Button onClick={generate}>Generate</Button>
     </div>
   );
 };

@@ -1,10 +1,28 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import first from "lodash/first";
 import { isValidROM, removeHeader } from "~/utils/romUtils";
-import { downloadBase64File } from "~/utils/downloadBase64File";
 import { Button } from "~/design-components";
 import useSWRMutation from "swr/mutation";
-import { IpsPatcher } from "@ff6wc/ips-utils";
+import { XDelta3Decoder } from "~/utils/xdelta3_decoder";
+
+function base64ToByteArray(base64: string) {
+  var raw = atob(base64);
+  var rawLength = raw.length;
+  var array = new Uint8Array(new ArrayBuffer(rawLength));
+
+  for (let i = 0; i < rawLength; i++) {
+    array[i] = raw.charCodeAt(i);
+  }
+  return array;
+}
+
+function saveByteArray(fileName: string, bytes: Uint8Array) {
+  var blob = new Blob([bytes], { type: "application/pdf" });
+  var link = document.createElement("a");
+  link.href = window.URL.createObjectURL(blob);
+  link.download = fileName;
+  link.click();
+}
 
 export const RomFileSelect = () => {
   const { trigger } = useSWRMutation<string>(
@@ -14,7 +32,8 @@ export const RomFileSelect = () => {
         method: "POST",
       });
 
-      return result.text();
+      const b64result = await result.text();
+      return b64result;
     }
   );
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -74,21 +93,18 @@ export const RomFileSelect = () => {
   };
 
   const generate = async () => {
-    const rawPatch = await trigger();
-    const patch = atob(rawPatch as string);
-    const rom = atob(romData as string);
-    const dec = new TextDecoder();
-    const enc = new TextEncoder();
-    const patcher = new IpsPatcher();
+    const patch = await trigger();
+    const rom = romData as string;
 
-    if (patcher.isValidPatch(patch)) {
-      const u8arr = enc.encode(patch);
-      await patcher.parseFile(u8arr);
-      const result = await patcher.apply(enc.encode(rom));
-      downloadBase64File(btoa(dec.decode(result)), "ff3-wc.smc");
-    } else {
-      throw "Unexpected start of file: " + patch.slice(0, 50);
-    }
+    const patched = XDelta3Decoder.decode(
+      base64ToByteArray(patch as string),
+      base64ToByteArray(rom)
+    );
+
+    saveByteArray("ff3-wc.smc", patched as Uint8Array);
+    // const result = await patcher.apply(enc.encode(rom));
+    // downloadBase64File(btoa(dec.decode(patched)), "ff3-wc-5.smc");
+    // downloadBase64File(btoa(patch), "ff3-wc-4.ips");
   };
 
   return (

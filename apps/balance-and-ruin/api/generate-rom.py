@@ -1,5 +1,5 @@
 from http.server import BaseHTTPRequestHandler
-import ips
+import xdelta3
 import os
 import shutil
 import subprocess
@@ -35,15 +35,19 @@ class handler(BaseHTTPRequestHandler):
           with open("ff3.smc", "rb") as old, open(out_filename, "rb") as new:
               import base64
               import json
-              p = ips.Patch.create(old, new)
+              from io import BytesIO
+               
+              delta = xdelta3.encode(old.read(), new.read())
               self.send_response(200)
-              self.send_header('Content-type','text/plain')
+              self.send_header('Content-type','')
               self.end_headers()
-              
-              patch = base64.b64encode(bytes(p))
-              
-              val = { 'data': str(patch).encode('ascii') }
+
+              # buffer = BytesIO(base64.b64encode(delta)).read()
+              # before = delta
+              # mid = base64.b64encode(before)
+              # after = base64.decodebytes(mid)
+
               # working
-              self.wfile.write(patch)
+              self.wfile.write(base64.b64encode(delta))
               # wip
               # self.wfile.write(json.dumps(val).encode('utf-8'))

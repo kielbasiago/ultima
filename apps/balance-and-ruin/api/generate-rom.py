@@ -16,11 +16,15 @@ class handler(BaseHTTPRequestHandler):
         in_filename = temp_dir + "ff3.smc"
 
         src_file = os.getenv("INPUT_ROM") or 'ff3.smc'
+        
+        print('using src file', src_file)
 
         if src_file.startswith('http'):
           urllib.request.urlretrieve(src_file, in_filename)
+          print('request finished in_filename', in_filename)
         else:
           shutil.copyfile(src_file, in_filename)
+          print('copy src_file into in_filename')
             
         out_filename = temp_dir + "ff3-out.smc"
         result = subprocess.Popen(['python', 'WorldsCollide/wc.py', '-i', 'ff3.smc', '-o', out_filename, '-s', 'foo']).wait()
@@ -32,7 +36,7 @@ class handler(BaseHTTPRequestHandler):
           self.end_headers()
           self.wfile.write()
         else:
-          with open("ff3.smc", "rb") as old, open(out_filename, "rb") as new:
+          with open(src_file, "rb") as old, open(out_filename, "rb") as new:
               import base64
               import json
               from io import BytesIO

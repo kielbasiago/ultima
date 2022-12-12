@@ -23,6 +23,10 @@ const styles = cva("", {
   },
 });
 
-export const Input = ({ className, ...rest }: InputProps) => {
-  return <input {...rest} className={cx(styles(), className)} />;
-};
+export const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, ...rest }: InputProps, ref) => {
+    return <input {...rest} className={cx(styles(), className)} ref={ref} />;
+  }
+);
+
+Input.displayName = "Input";

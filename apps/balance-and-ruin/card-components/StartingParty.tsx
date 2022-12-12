@@ -23,7 +23,7 @@ const options = [
   ),
 ];
 
-export const PartyStart = () => {
+export const StartingParty = () => {
   return (
     <Card title={"Starting Party"}>
       <div className="flex flex-col flex-wrap justify-start gap-2">

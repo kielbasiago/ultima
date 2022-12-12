@@ -1,5 +1,5 @@
 import { HelperText, Input, Switch } from "@ff6wc/ui";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   selectFlagValue,
   setFlag,
@@ -15,6 +15,7 @@ import {
   selectStep,
 } from "~/state/schemaSlice";
 import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
+import { useNumberScroll } from "~/utils/useNumberScroll";
 
 export type FlagNumberInputProps = {
   description: string;
@@ -29,11 +30,14 @@ export const FlagNumberInput = ({
   label,
   type,
 }: FlagNumberInputProps) => {
+  const ref = useRef<HTMLInputElement>(null);
   const defaultValue = useSelector(selectDefaultValue(flag));
   const description = useSelector(selectDescription(flag));
   const max = useSelector(selectMax(flag)) ?? 0;
   const min = useSelector(selectMin(flag)) ?? 0;
   const step = useSelector(selectStep(flag));
+
+  useNumberScroll(ref);
 
   const value =
     useFlagValueSelector<number>(flag) ?? defaultValue?.toString() ?? "";
@@ -70,6 +74,7 @@ export const FlagNumberInput = ({
           max={max ?? undefined}
           min={min ?? undefined}
           onChange={(e) => onChange(e.target.value)}
+          ref={ref}
           step={step ?? undefined}
           type="number"
           value={value}

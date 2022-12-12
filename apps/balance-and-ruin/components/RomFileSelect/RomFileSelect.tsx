@@ -4,31 +4,14 @@ import { isValidROM, removeHeader } from "~/utils/romUtils";
 import { Button } from "~/design-components";
 import useSWRMutation from "swr/mutation";
 import { XDelta3Decoder } from "~/utils/xdelta3_decoder";
-
-function base64ToByteArray(base64: string) {
-  var raw = atob(base64);
-  var rawLength = raw.length;
-  var array = new Uint8Array(new ArrayBuffer(rawLength));
-
-  for (let i = 0; i < rawLength; i++) {
-    array[i] = raw.charCodeAt(i);
-  }
-  return array;
-}
-
-function saveByteArray(fileName: string, bytes: Uint8Array) {
-  var blob = new Blob([bytes], { type: "application/pdf" });
-  var link = document.createElement("a");
-  link.href = window.URL.createObjectURL(blob);
-  link.download = fileName;
-  link.click();
-}
+import { base64ToByteArray } from "~/utils/base64ToByteArray";
+import { downloadByteArray } from "~/utils/downloadByteArray";
 
 export const RomFileSelect = () => {
   const { trigger } = useSWRMutation<string>(
-    "/api/generate-rom",
+    "/api/generate",
     async (key: string) => {
-      const result = await fetch("/api/generate-rom", {
+      const result = await fetch("/api/generate", {
         method: "POST",
       });
 
@@ -107,10 +90,7 @@ export const RomFileSelect = () => {
       base64ToByteArray(rom)
     );
 
-    saveByteArray("ff3-wc.smc", patched as Uint8Array);
-    // const result = await patcher.apply(enc.encode(rom));
-    // downloadBase64File(btoa(dec.decode(patched)), "ff3-wc-5.smc");
-    // downloadBase64File(btoa(patch), "ff3-wc-4.ips");
+    downloadByteArray("ff3-wc.smc", patched as Uint8Array);
   };
 
   return (
@@ -128,9 +108,14 @@ export const RomFileSelect = () => {
           />
           <Button onClick={() => inputRef.current?.click()}>Select File</Button>
         </div>
-
         {success && <div className={"text-green-500"}>Valid ROM</div>}
         {error && <div className={"text-red-500"}>{error}</div>}
+
+        <div>
+          <h2 className={"text-lg font-semibold"}>Step 2: Enter your flags</h2>
+          <textarea className={"hidden"} id="rom_name" name="rom" />
+          <Button onClick={() => inputRef.current?.click()}>Select File</Button>
+        </div>
         <div>
           <h2 className={"text-lg font-semibold"}>Step 2: Click Generate</h2>
           <Button onClick={generate}>Generate</Button>

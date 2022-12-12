@@ -1,7 +1,6 @@
 import last from "lodash/last";
-import { HelperText, Input, Slider, SliderProps } from "@ff6wc/ui";
+import { Input, Slider, SliderProps } from "@ff6wc/ui";
 import { useDispatch, useSelector } from "react-redux";
-import { InputLabel } from "~/components/InputLabel/InputLabel";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 import {
   selectAllowedValues,
@@ -11,8 +10,9 @@ import {
   selectMin,
   selectStep,
 } from "~/state/schemaSlice";
-import { cva } from "cva";
 import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
+import { useEffect, useRef } from "react";
+import { useNumberScroll } from "~/utils/useNumberScroll";
 
 export type FlagRangeProps = {
   helperText?: React.ReactNode;
@@ -29,6 +29,8 @@ export const FlagRange = ({
   type,
   ...rest
 }: FlagRangeProps) => {
+  const minRef = useRef<HTMLInputElement>(null);
+  const maxRef = useRef<HTMLInputElement>(null);
   const value = useFlagValueSelector<number[]>(flag);
 
   const allowedValues = useSelector(selectAllowedValues(flag)) ?? [];
@@ -37,6 +39,9 @@ export const FlagRange = ({
   const schemaMin = useSelector(selectMin(flag));
   const schemaStep = useSelector(selectStep(flag));
   const dispatch = useDispatch();
+
+  useNumberScroll(minRef);
+  useNumberScroll(maxRef);
 
   const onChange = (val: number[]) => {
     dispatch(
@@ -74,6 +79,7 @@ export const FlagRange = ({
         />
         <div className={"flex items-center justify-center flex-shrink gap-1"}>
           <Input
+            ref={minRef}
             min={min}
             max={max}
             step={step}
@@ -85,6 +91,7 @@ export const FlagRange = ({
           />
           <span className={"flex-shrink font-semibold"}>-</span>
           <Input
+            ref={maxRef}
             min={min}
             max={max}
             step={1}

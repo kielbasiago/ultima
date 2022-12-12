@@ -16,7 +16,7 @@ export const flagsToData = (rawFlags: string): Record<string, FlagValue> => {
     } else if (Number.isFinite(Number.parseFloat(val1))) {
       acc[key] = Number.parseFloat(val1);
     } else if (val1) {
-      acc[key] = key;
+      acc[key] = val1;
     } else {
       acc[key] = true;
     }

@@ -33,9 +33,16 @@ export const Slider = <T extends number | number[]>({
   const steps = (max - min) / step;
   const every = steps > 10 ? 10 : steps > 6 ? 0.5 : step;
 
+  const currentValMark =
+    typeof value === "number"
+      ? { [value]: value }
+      : value
+      ? { [value[0]]: value[0], [value[1]]: value[1] }
+      : {};
   const defaultMarks = {
     [min]: min,
     [max]: max,
+    // ...currentValMark,
   };
 
   return (

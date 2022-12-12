@@ -11,6 +11,8 @@ import {
   selectMin,
   selectStep,
 } from "~/state/schemaSlice";
+import { useRef } from "react";
+import { useNumberScroll } from "~/utils/useNumberScroll";
 
 export type FlagSliderProps = {
   allowedValues?: number[];
@@ -27,6 +29,7 @@ export const FlagSlider = ({
   step: hardStep,
   ...rest
 }: FlagSliderProps) => {
+  const ref = useRef<HTMLInputElement>(null);
   const value = useFlagValueSelector<number>(flag);
 
   const schemaAllowed = useSelector(selectAllowedValues(flag)) ?? [];
@@ -35,6 +38,8 @@ export const FlagSlider = ({
   const schemaMin = useSelector(selectMin(flag));
   const schemaStep = useSelector(selectStep(flag));
   const dispatch = useDispatch();
+
+  useNumberScroll(ref);
 
   const allowedValues = hardAllowed ?? schemaAllowed;
 
@@ -72,6 +77,7 @@ export const FlagSlider = ({
           max={max}
           step={step || 1}
           onChange={(e) => setValue(parseValue(e.target.value))}
+          ref={ref}
           type="number"
           value={value ?? min}
         />

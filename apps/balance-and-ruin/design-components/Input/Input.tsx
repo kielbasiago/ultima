@@ -17,6 +17,9 @@ const styles = cva("", {
         "text-sm",
       ],
     },
+    disabled: {
+      true: "select-none",
+    },
   },
   defaultVariants: {
     variant: "default",
@@ -24,8 +27,15 @@ const styles = cva("", {
 });
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, ...rest }: InputProps, ref) => {
-    return <input {...rest} className={cx(styles(), className)} ref={ref} />;
+  ({ className, disabled, ...rest }: InputProps, ref) => {
+    return (
+      <input
+        {...rest}
+        className={cx(styles({ disabled }), className)}
+        disabled={disabled}
+        ref={ref}
+      />
+    );
   }
 );
 

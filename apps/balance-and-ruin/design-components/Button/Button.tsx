@@ -48,7 +48,11 @@ export const Button = ({
   ...props
 }: Props & VariantProps<typeof b>) => {
   return (
-    <button {...props} className={cx(className, b({ disabled, variant }))}>
+    <button
+      {...props}
+      className={cx(className, b({ disabled, variant }))}
+      disabled={disabled}
+    >
       {children}
     </button>
   );

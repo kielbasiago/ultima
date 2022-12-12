@@ -1,8 +1,8 @@
-import { Button, Card, Input } from "@ff6wc/ui";
+import { Button, Card, HelperText, Input } from "@ff6wc/ui";
 import { cx } from "cva";
 import first from "lodash/first";
 import { useEffect, useRef, useState } from "react";
-import { MdClear } from "react-icons/md";
+import { MdClear, MdFileUpload } from "react-icons/md";
 import { useSelector } from "react-redux";
 import useSWRMutation from "swr/mutation";
 import { selectRawFlags } from "~/state/flagSlice";
@@ -77,6 +77,8 @@ export const FlagsCard = ({ className, ...rest }: FlagsCardProps) => {
     localStorage.removeItem("rom_data");
     setRomName("");
     setRomData(null);
+    setSuccess(false);
+    setError(null);
   };
 
   const onRomSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,6 +105,7 @@ export const FlagsCard = ({ className, ...rest }: FlagsCardProps) => {
         data_string = btoa(data_string);
 
         setSuccess(true);
+        setError(null);
 
         try {
           localStorage.setItem("rom_data", data_string);
@@ -121,13 +124,39 @@ export const FlagsCard = ({ className, ...rest }: FlagsCardProps) => {
   return (
     <Card
       {...rest}
-      className={cx("flex-col flex p-0", className)}
-      title="Flags"
+      contentClassName={cx("p-0 gap-3", className)}
+      title="Generate"
     >
-      <div className="flex justify-between items-center gap-12">
-        <span className="flex-shrink">{flags}&nbsp;</span>
+      <div className="flex flex-col gap-2">
+        <h2 className={"font-medium text-base"}>
+          Step 1: Select your flags above
+        </h2>
+        <span className="text-sm pl-3">{flags}&nbsp;</span>
       </div>
-      <div className="flex min-h-[30px] gap-1">
+      <div className="flex flex-col gap-2">
+        <h2 className={"font-medium text-"}>
+          Step 2: Select v1.0 US ROM file by clicking the input below
+        </h2>
+        <HelperText>
+          Once you have selected a valid ROM it will be reused for future visits
+        </HelperText>
+      </div>
+      <div className="flex min-h-[30px] gap-1 pl-3">
+        <Button
+          className="flex items-center gap-1"
+          disabled={hasRomData}
+          onClick={() => inputRef.current?.click()}
+          variant="outline"
+        >
+          <MdFileUpload className={"inline"} /> Upload v1.0 US ROM file..
+        </Button>
+        <Input
+          disabled
+          ref={inputRef}
+          placeholder="Upload ROM to continue"
+          onChange={() => {}}
+          value={romName}
+        />
         <Button
           className="flex items-center gap-1"
           disabled={!hasRomData}
@@ -136,17 +165,6 @@ export const FlagsCard = ({ className, ...rest }: FlagsCardProps) => {
         >
           <MdClear className={"inline"} /> Clear ROM
         </Button>
-        <Input
-          className={"cursor-pointer"}
-          disabled={Boolean(romData)}
-          onClick={() => {
-            inputRef.current?.click();
-          }}
-          ref={inputRef}
-          placeholder="Click to select file..."
-          onChange={() => {}}
-          value={romName}
-        />
         <input
           className={"hidden"}
           id="rom_name"
@@ -155,7 +173,28 @@ export const FlagsCard = ({ className, ...rest }: FlagsCardProps) => {
           onChange={onRomSelect}
           type="file"
         />
-        <Button onClick={generate} variant="primary">
+      </div>
+      <div className="pl-3">
+        {!success && !error && (
+          <div className="text-yellow-500 font-semibold">
+            Waiting for ROM upload
+          </div>
+        )}
+        {success && (
+          <div className={"text-green-500 font-semibold"}>Valid ROM </div>
+        )}
+        {error && <div className={"text-red-500 font-semibold"}>{error}</div>}
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <h2 className={"font-medium text-lg"}>Step 3: Click Generate!</h2>
+        <HelperText>
+          This button will be disabled until a valid ROM is selected
+        </HelperText>
+      </div>
+
+      <div className="pl-3">
+        <Button disabled={!hasRomData} onClick={generate} variant="primary">
           Generate
         </Button>
       </div>

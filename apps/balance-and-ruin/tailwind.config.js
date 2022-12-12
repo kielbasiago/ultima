@@ -21,9 +21,9 @@ module.exports = {
         headings: "#1D3461", // SPACE CADET
         link: "#2E86AB", // BLUE NCS
         panel: {
-          background: "#FAFAFA",
+          background: "#FFFFFF",
           border: "#D2CFC9",
-          "header-background": "#E5E5E5",
+          "header-background": "#f3f3f3",
         },
         inputs: {
           background: "#FFFFFF",
@@ -40,7 +40,6 @@ module.exports = {
         'input-focus': '0 0 0 2px #55cbff',
         'switch-focus': '0 0 0 4px #55cbff',
         'range-focus': '0 0 0 4px #55cbff'
-
       }
     },
     borderWidth: {

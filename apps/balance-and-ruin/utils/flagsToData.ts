@@ -1,5 +1,6 @@
-import { RawFlagMetadata, FlagValue } from "~/state/schemaSlice";
+import { FlagValue } from "~/state/schemaSlice";
 
+const OBJECTIVE_REGEX = /(-o)/g;
 export const flagsToData = (rawFlags: string): Record<string, FlagValue> => {
   const flags = rawFlags
     .split("-")
@@ -8,12 +9,17 @@ export const flagsToData = (rawFlags: string): Record<string, FlagValue> => {
 
   return flags.reduce((acc, flagWithValue) => {
     const [key, val1, val2] = flagWithValue.split(" ");
-    // is number arary
+    const isObjective = val1 && OBJECTIVE_REGEX.test(val1);
+    // is number array
     if (val1 && val2) {
       const min = Number.parseFloat(val1);
       const max = Number.parseFloat(val2);
       acc[key] = [min, max];
-    } else if (Number.isFinite(Number.parseFloat(val1))) {
+    } else if (
+      val1 &&
+      !isObjective &&
+      Number.isFinite(Number.parseFloat(val1))
+    ) {
       acc[key] = Number.parseFloat(val1);
     } else if (val1) {
       acc[key] = val1;

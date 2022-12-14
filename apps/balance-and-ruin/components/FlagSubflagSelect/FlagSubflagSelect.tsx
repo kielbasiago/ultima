@@ -5,14 +5,11 @@ import BaseSelect, { components, OptionProps } from "react-select";
 import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
 import { FlagSelectOption } from "~/components/FlagSelectOption/FlagSelectOption";
 import { selectActiveMutuallyExclusiveFlag, setFlag } from "~/state/flagSlice";
-import { FlagValue, selectDescription } from "~/state/schemaSlice";
+import { FlagValue, selectDefaultValue, selectDescription } from "~/state/schemaSlice";
 import { AppState } from "~/state/store";
 
 export type SubflagOption = {
-  defaultValue: FlagValue;
   flag: string;
-  label: string;
-  helperText?: string;
   Renderable?: React.FC<{ children: React.ReactNode }> | null;
 };
 
@@ -38,6 +35,13 @@ export const FlagSubflagSelect = ({
     selectActiveMutuallyExclusiveFlag(...baseOptions.map(({ flag }) => flag))
   );
 
+  const defaultValue = useSelector(selectedFlag ? selectDefaultValue(selectedFlag.));
+
+  const schemaDescription = useSelector(
+    selectedFlag ? selectDescription(selectedFlag) : () => null
+  );
+
+
   const empty = useMemo<SubflagOption>(
     () => ({
       flag: EMPTY_FLAG,
@@ -55,7 +59,7 @@ export const FlagSubflagSelect = ({
     return newOptions;
   }, [baseOptions, empty]);
 
-  const onChange = ({ defaultValue, flag }: SubflagOption) => {
+  const onChange = ({ flag }: SubflagOption) => {
     if (selectedFlag && selectedFlag !== EMPTY_FLAG) {
       dispatch(
         setFlag({
@@ -73,9 +77,6 @@ export const FlagSubflagSelect = ({
     );
   };
 
-  const schemaDescription = useSelector(
-    selectedFlag ? selectDescription(selectedFlag) : () => null
-  );
 
   const value = useMemo(
     () => options.find(({ flag }) => flag === selectedFlag) ?? empty,
@@ -106,9 +107,8 @@ export const FlagSubflagSelect = ({
           helperText={value.helperText ?? schemaDescription ?? null}
           label={label}
         />
-        {Renderable ? null : Select}
 
-        {Renderable ? <Renderable>{Select}</Renderable> : null}
+        {Renderable ? <Renderable>{Select}</Renderable> : Select}
       </>
     </div>
   );

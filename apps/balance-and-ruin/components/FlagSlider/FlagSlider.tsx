@@ -13,16 +13,19 @@ import {
 } from "~/state/schemaSlice";
 import { useRef } from "react";
 import { useNumberScroll } from "~/utils/useNumberScroll";
+import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
 
 export type FlagSliderProps = {
   allowedValues?: number[];
   flag: string;
-  label: string;
+  helperText?: React.ReactNode;
+  label: React.ReactNode;
 } & SliderProps<number>;
 
 export const FlagSlider = ({
   allowedValues: hardAllowed,
   flag,
+  helperText,
   label,
   min: hardMin,
   max: hardMax,
@@ -67,20 +70,23 @@ export const FlagSlider = ({
 
   return (
     <div className={"flex flex-col gap-2"}>
-      <div className={"flex justify-between items-center "}>
-        <div className="flex flex-col gap-1">
-          {label ? <InputLabel htmlFor={flag}>{label}</InputLabel> : null}
-          <HelperText>{description}</HelperText>
-        </div>
-        <Input
-          min={min}
-          max={max}
-          step={step || 1}
-          onChange={(e) => setValue(parseValue(e.target.value))}
-          ref={ref}
-          type="number"
-          value={value ?? min}
+      <div className={"flex justify-between items-center gap-4"}>
+        <FlagLabel
+          flag={flag}
+          helperText={(helperText as string) ?? description}
+          label={label}
         />
+        <div className={"flex items-center justify-center flex-shrink gap-1"}>
+          <Input
+            min={min}
+            max={max}
+            step={step || 1}
+            onChange={(e) => setValue(parseValue(e.target.value))}
+            ref={ref}
+            type="number"
+            value={value ?? min}
+          />
+        </div>
       </div>
       <div>
         <Slider

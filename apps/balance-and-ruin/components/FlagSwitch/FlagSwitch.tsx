@@ -10,6 +10,7 @@ import { InputLabel } from "~/components/InputLabel/InputLabel";
 import { selectDefaultValue, selectDescription } from "~/state/schemaSlice";
 
 export type FlagSwitchProps = {
+  description?: string;
   flag: string;
   /** Invert logic so when true, set to false, and vice versa. If value undefined, default to true. */
   invert?: boolean;
@@ -17,12 +18,13 @@ export type FlagSwitchProps = {
 };
 
 export const FlagSwitch = ({
+  description: hardDescription,
   flag,
   invert = false,
   label,
 }: FlagSwitchProps) => {
   const defaultValue = useSelector(selectDefaultValue(flag));
-  const description = useSelector(selectDescription(flag));
+  const schemaDescription = useSelector(selectDescription(flag));
 
   const value = useFlagValueSelector(flag) ?? defaultValue ?? false;
 
@@ -40,7 +42,7 @@ export const FlagSwitch = ({
   };
 
   return (
-    <div className="flex flex-col gap-1 max-w-[400px]">
+    <div className="flex flex-col gap-1">
       <div
         className={
           "flex items-center gap-4 justify-between max-w-[200px] cursor-pointer"
@@ -56,7 +58,7 @@ export const FlagSwitch = ({
         </InputLabel>
         <Switch checked={checked} onChange={(val) => onChange(val)} />
       </div>
-      <HelperText>{description}</HelperText>
+      <HelperText>{hardDescription ?? schemaDescription}</HelperText>
     </div>
   );
 };

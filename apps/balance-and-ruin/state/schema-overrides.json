@@ -6,7 +6,7 @@
     "description": "FOOBAR"
   },
   "-sc1": {
-    "default": null,
+    "defaultValue": null,
     "allowed_values": [
       "random",
       "randomngu",
@@ -27,7 +27,7 @@
     ]
   },
   "-sc2": {
-    "default": null,
+    "defaultValue": null,
     "allowed_values": [
       "random",
       "randomngu",
@@ -48,7 +48,7 @@
     ]
   },
   "-sc3": {
-    "default": null,
+    "defaultValue": null,
     "allowed_values": [
       "random",
       "randomngu",
@@ -69,7 +69,7 @@
     ]
   },
   "-sc4": {
-    "default": null,
+    "defaultValue": null,
     "allowed_values": [
       "random",
       "randomngu",
@@ -91,5 +91,45 @@
   },
   "-sdr": {
     "defaultValue": [0, 0]
+  },
+  "-lsa": {
+    "defaultValue": 1,
+    "label": "Party Average Level",
+    "description": "Enemy and boss levels equal to {{ . }}x party average level"
+  },
+  "-lsh": {
+    "defaultValue": 1,
+    "label": "Party Highest Level",
+    "description": "Enemy and boss levels equal to {{ . }}x highest level in party"
+  },
+  "-lsce": {
+    "defaultValue": 2,
+    "label": "Characters + Espers",
+    "description": "Enemies and bosses gain {{ . }} levels for each character recruited and esper acquired"
+  },
+  "-lsced": {
+    "defaultValue": 2,
+    "label": "Characters + Espers + Dragons",
+    "description": "Enemies and bosses gain {{ . }} levels for each character recruited, esper acquired, and dragon defeated"
+  },
+  "-lsc": {
+    "defaultValue": 2,
+    "label": "Checks",
+    "description": "Enemies and bosses gain {{ . }} levels for each check completed"
+  },
+  "-lst": {
+    "defaultValue": 2,
+    "label": "Time",
+    "description": "Enemies and bosses gain 1 level every {{ . }} minutes"
+  },
+  "-hma": {
+    "defaultValue": 1,
+    "label": "Party Average Level",
+    "description": "Enemy and boss hp/mp scales {{ . }}x party average level"
+  },
+  "-hmh": {
+    "defaultValue": 1,
+    "label": "Party Highest Level",
+    "description": "Enemy and boss hp/mp scales {{ . }}x highest level in party"
   }
 }

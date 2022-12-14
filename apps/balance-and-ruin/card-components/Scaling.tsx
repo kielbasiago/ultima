@@ -13,14 +13,119 @@ const subflagScalingProps = {
   label: "",
 };
 
-const options: SubflagOption[] = [
+const levelScalingOptions: SubflagOption[] = [
   {
-    defaultValue: 2,
+    flag: "-lsa",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-lsa"
+        label={children}
+      />
+    ),
+  },
+  {
+    flag: "-lsh",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-lsh"
+        label={children}
+      />
+    ),
+  },
+  {
+    flag: "-lsce",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-lsce"
+        label={children}
+      />
+    ),
+  },
+  {
     flag: "-lsced",
-    label: "Characters + Espers + Dragons",
-    helperText:
-      "Enemies and bosses gain {{ . }} levels for each character recruited, esper acquired, and dragon defeated",
-    Renderable: () => <FlagSlider {...subflagScalingProps} flag="-lsced" />,
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-lsced"
+        label={children}
+      />
+    ),
+  },
+  {
+    flag: "-lsc",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-lsc"
+        label={children}
+      />
+    ),
+  },
+  {
+    flag: "-lst",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-lst"
+        label={children}
+      />
+    ),
+  },
+];
+
+const hpMpScalingOptions: SubflagOption[] = [
+  {
+    flag: "-hma",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-hma"
+        label={children}
+      />
+    ),
+  },
+  {
+    flag: "-hmh",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-hmh"
+        label={children}
+      />
+    ),
+  },
+  {
+    flag: "-hmh",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-hmh"
+        label={children}
+      />
+    ),
+  },
+  {
+    flag: "-hmh",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-hmh"
+        label={children}
+      />
+    ),
   },
 ];
 
@@ -32,7 +137,14 @@ export const Scaling = () => {
           label="Level Scaling"
           nullableDescription="Enemy and boss levels are not scaled"
           nullableLabel="None"
-          options={[]}
+          options={levelScalingOptions}
+        />
+
+        <FlagSubflagSelect
+          label="HP/MP Scaling"
+          nullableDescription="Enemy and boss hp/mp are not scaled"
+          nullableLabel="None"
+          options={levelScalingOptions}
         />
       </Column>
     </Card>

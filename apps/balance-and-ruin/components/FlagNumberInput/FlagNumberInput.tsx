@@ -18,7 +18,7 @@ import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
 import { useNumberScroll } from "~/utils/useNumberScroll";
 
 export type FlagNumberInputProps = {
-  description: string;
+  description?: string;
   flag: string;
   label: string;
   type: "int";
@@ -32,7 +32,7 @@ export const FlagNumberInput = ({
 }: FlagNumberInputProps) => {
   const ref = useRef<HTMLInputElement>(null);
   const defaultValue = useSelector(selectDefaultValue(flag));
-  const description = useSelector(selectDescription(flag));
+  const schemaDescription = useSelector(selectDescription(flag));
   const max = useSelector(selectMax(flag)) ?? 0;
   const min = useSelector(selectMin(flag)) ?? 0;
   const step = useSelector(selectStep(flag));
@@ -67,7 +67,11 @@ export const FlagNumberInput = ({
   return (
     <div className="flex flex-col gap-1">
       <div className={"flex flex-col gap-1"}>
-        <FlagLabel flag={flag} helperText={description} label={label} />
+        <FlagLabel
+          flag={flag}
+          helperText={hardDescription ?? schemaDescription}
+          label={label}
+        />
 
         <Input
           className="w-full"

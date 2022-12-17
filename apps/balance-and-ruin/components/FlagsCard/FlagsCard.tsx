@@ -45,8 +45,8 @@ export const FlagsCard = ({ className, ...rest }: FlagsCardProps) => {
   }, [inputRef]);
 
   const { trigger, isMutating } = useSWRMutation<string>(
-    "/api/generate",
-    async (key: string) => {
+    ["/api/generate", flags],
+    async () => {
       const result = await fetch("/api/generate", {
         body: JSON.stringify({ flags }),
         headers: {},
@@ -61,7 +61,7 @@ export const FlagsCard = ({ className, ...rest }: FlagsCardProps) => {
     if (isMutating) {
       return;
     }
-    const patch = await trigger();
+    const patch = await trigger(flags);
     const rom = romData as string;
 
     const patched = XDelta3Decoder.decode(

@@ -153,7 +153,7 @@ const hpMpScalingOptions: SubflagOption[] = [
       <FlagSlider
         {...subflagScalingProps}
         helperText=""
-        flag="-lsce"
+        flag="-hmce"
         label={children}
       />
     ),
@@ -203,6 +203,95 @@ const hpMpScalingOptions: SubflagOption[] = [
   },
 ];
 
+const expGpScalingOptions: SubflagOption[] = [
+  {
+    defaultValue: 1,
+    label: "Party Average Level",
+    flag: "-xga",
+    helperText: "Enemy and boss exp/gp scales {{ . }}x party average level",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-xga"
+        label={children}
+      />
+    ),
+  },
+  {
+    defaultValue: 1,
+    flag: "-xgh",
+    helperText: "Enemy and boss exp/gp scales {{ . }}x highest level in party",
+    label: "Party Highest Level",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-xgh"
+        label={children}
+      />
+    ),
+  },
+  {
+    defaultValue: 2,
+    flag: "-xgce",
+    helperText:
+      "Enemy and boss exp/gp scales {{ . }}x each character recruited and esper acquired",
+    label: "Characters + Espers",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-xgce"
+        label={children}
+      />
+    ),
+  },
+  {
+    defaultValue: 2,
+    flag: "-xgced",
+    helperText:
+      "Enemy and boss exp/gp scales {{ . }}x each character recruited, esper acquired, and dragon defeated",
+    label: "Characters + Espers + Dragons",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-xgced"
+        label={children}
+      />
+    ),
+  },
+  {
+    defaultValue: 2,
+    flag: "-xgc",
+    helperText: "Enemy and boss exp/gp scales {{ . }}x each check completed",
+    label: "Checks",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-xgc"
+        label={children}
+      />
+    ),
+  },
+  {
+    defaultValue: 2,
+    flag: "-xgt",
+    helperText: "Enemy and boss exp/gp scales every {{ . }}x minutes",
+    label: "Time",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-xgt"
+        label={children}
+      />
+    ),
+  },
+];
+
 export const Scaling = () => {
   return (
     <Card title={"Scaling"}>
@@ -219,6 +308,13 @@ export const Scaling = () => {
           nullableDescription="Enemy and boss hp/mp are not scaled"
           nullableLabel="None"
           options={hpMpScalingOptions}
+        />
+
+        <FlagSubflagSelect
+          label="Exp/GP Scaling"
+          nullableDescription="Enemy and boss exp/gp are not scaled"
+          nullableLabel="None"
+          options={expGpScalingOptions}
         />
       </CardColumn>
     </Card>

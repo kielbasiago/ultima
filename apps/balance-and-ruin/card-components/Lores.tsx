@@ -10,7 +10,7 @@ const startingLores: SubflagOption[] = [
   {
     defaultValue: [1, 5],
     flag: "-slr",
-    helperText: "",
+    helperText: "Begin the game with between {{ . }} lore spells learned",
     label: "Random",
     Renderable: ({ children }) => (
       <FlagRange flag="-slr" helperText="" label={children} />
@@ -30,7 +30,7 @@ const mpOptions: SubflagOption[] = [
     defaultValue: [0, 99],
     flag: "-lmprv",
     label: "Random Flat Value",
-    helperText: "Each lore's MP cost set to random value within given range",
+    helperText: "Each lore has an MP cost between {{ . }}",
     Renderable: ({ children }) => (
       <FlagRange flag="-lmprv" helperText="" label={children} />
     ),
@@ -40,7 +40,7 @@ const mpOptions: SubflagOption[] = [
     flag: "-lmprp",
     label: "Random Percent",
     helperText:
-      "Each lore's MP cost set to random percent of the original cost within given range",
+      "Each lore has an MP cost between {{ . }}% of its original cost",
     Renderable: ({ children }) => (
       <FlagRange flag="-lmprp" helperText="" label={children} type="percent" />
     ),

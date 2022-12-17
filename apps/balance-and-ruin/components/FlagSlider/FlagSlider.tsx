@@ -14,6 +14,7 @@ import {
 import { useRef } from "react";
 import { useNumberScroll } from "~/utils/useNumberScroll";
 import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
+import { renderDescription } from "~/utils/renderDescription";
 
 export type FlagSliderProps = {
   allowedValues?: number[];
@@ -25,7 +26,7 @@ export type FlagSliderProps = {
 export const FlagSlider = ({
   allowedValues: hardAllowed,
   flag,
-  helperText,
+  helperText: hardDescription,
   label,
   min: hardMin,
   max: hardMax,
@@ -36,7 +37,7 @@ export const FlagSlider = ({
   const value = useFlagValueSelector<number>(flag);
 
   const schemaAllowed = useSelector(selectAllowedValues(flag)) ?? [];
-  const description = useSelector(selectDescription(flag));
+  const schemaDescription = useSelector(selectDescription(flag));
   const schemaMax = useSelector(selectMax(flag));
   const schemaMin = useSelector(selectMin(flag));
   const schemaStep = useSelector(selectStep(flag));
@@ -68,12 +69,15 @@ export const FlagSlider = ({
 
   const step = hardStep ?? schemaStep ?? 1;
 
+  const description = hardDescription ?? schemaDescription;
+  const helperText = renderDescription(description, value);
+
   return (
     <div className={"flex flex-col gap-2"}>
       <div className={"flex justify-between items-center gap-4"}>
         <FlagLabel
           flag={flag}
-          helperText={(helperText as string) ?? description}
+          helperText={helperText ?? description}
           label={label}
         />
         <div className={"flex items-center justify-center flex-shrink gap-1"}>

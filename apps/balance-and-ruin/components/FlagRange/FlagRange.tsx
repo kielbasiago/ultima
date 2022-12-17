@@ -13,6 +13,7 @@ import {
 import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
 import { useEffect, useRef } from "react";
 import { useNumberScroll } from "~/utils/useNumberScroll";
+import { renderDescription } from "~/utils/renderDescription";
 
 export type FlagRangeProps = {
   helperText?: React.ReactNode;
@@ -24,7 +25,7 @@ export type FlagRangeProps = {
 export const FlagRange = ({
   flag,
   defaultValue: hardDefault,
-  helperText,
+  helperText: hardDescription,
   label,
   type,
   ...rest
@@ -34,7 +35,7 @@ export const FlagRange = ({
   const value = useFlagValueSelector<number[]>(flag);
 
   const allowedValues = useSelector(selectAllowedValues(flag)) ?? [];
-  const description = useSelector(selectDescription(flag));
+  const schemaDescription = useSelector(selectDescription(flag));
   const schemaMax = useSelector(selectMax(flag));
   const schemaMin = useSelector(selectMin(flag));
   const schemaStep = useSelector(selectStep(flag));
@@ -69,12 +70,15 @@ export const FlagRange = ({
 
   const defaults = (defaultValue ?? [min, max]) as [number, number];
 
+  const description = hardDescription ?? schemaDescription;
+  const helperText = renderDescription(description, value);
+
   return (
     <div className={"flex flex-col gap-2"}>
       <div className={"flex justify-between items-center gap-4"}>
         <FlagLabel
           flag={flag}
-          helperText={(helperText as string) ?? description}
+          helperText={helperText ?? description}
           label={label}
         />
         <div className={"flex items-center justify-center flex-shrink gap-1"}>

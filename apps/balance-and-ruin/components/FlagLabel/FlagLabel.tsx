@@ -2,7 +2,7 @@ import { InputLabel } from "~/components/InputLabel/InputLabel";
 import { HelperText } from "~/design-components";
 
 export type FlagLabelProps = {
-  helperText: string | null;
+  helperText: React.ReactNode;
   flag: string;
   label: React.ReactNode;
 };

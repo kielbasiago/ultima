@@ -1,4 +1,3 @@
-import Mustache from "mustache";
 import React, { useId, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import BaseSelect from "react-select";
@@ -11,6 +10,7 @@ import {
   useFlagValueSelector,
 } from "~/state/flagSlice";
 import { FlagValue, selectDescription } from "~/state/schemaSlice";
+import { renderDescription } from "~/utils/renderDescription";
 
 export type SubflagOption = {
   defaultValue: FlagValue;
@@ -102,9 +102,9 @@ export const FlagSubflagSelect = ({
     />
   );
 
-  const selectedValue = useFlagValueSelector(selectedOption.flag);
+  const selectedValue = useFlagValueSelector<FlagValue>(selectedOption.flag);
 
-  const description = Mustache.render(
+  const description = renderDescription(
     selectedOption.helperText ?? schemaDescription ?? "",
     selectedValue
   );

@@ -10,7 +10,7 @@ const startingRages: SubflagOption[] = [
   {
     defaultValue: [1, 5],
     flag: "-srr",
-    helperText: "",
+    helperText: "Begin the game with between {{.}} rages learned",
     label: "Random",
     Renderable: ({ children }) => (
       <FlagRange flag="-srr" helperText="" label={children} />

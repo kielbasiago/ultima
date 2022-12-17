@@ -8,10 +8,12 @@ import {
   ALL_COMMANDS,
   RANDOM_UNIQUE,
   RANDOM,
+  FIGHT,
 } from "@ff6wc/ff6-types";
-import { Card } from "@ff6wc/ui";
+import { Button, Card } from "@ff6wc/ui";
 import orderBy from "lodash/orderBy";
 import padStart from "lodash/padStart";
+import sample from "lodash/sample";
 import { useDispatch } from "react-redux";
 import BaseSelect from "react-select";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
@@ -42,7 +44,7 @@ const LABELS = [
 ];
 
 const hoistedOptions = [RANDOM, RANDOM_UNIQUE, NONE];
-const rawOptions = Object.values(ALL_COMMANDS).filter(
+const commandOptions = Object.values(ALL_COMMANDS).filter(
   ({ id }) => !hoistedOptions.includes(id)
 );
 
@@ -50,7 +52,7 @@ const options: CommandOption[] = [
   RANDOM_OPTION,
   RANDOM_UNIQUE_OPTION,
   NONE_OPTION,
-  ...orderBy(rawOptions, ({ label }) => label),
+  ...orderBy(commandOptions, ({ label }) => label),
 ];
 
 export const CommandsList = () => {
@@ -62,20 +64,63 @@ export const CommandsList = () => {
 
   const values = rawValues.map((val) => ALL_COMMANDS[Number.parseInt(val)]);
 
-  const onChange = (val: CommandOption | null, idx: number) => {
-    const ids = values.map(({ id }) => valToStr(id));
-    ids[idx] = valToStr(val?.id ?? NONE);
-    const newValue = ids.join("");
+  const setCommands = (value: string) => {
     dispatch(
       setFlag({
         flag: "-com",
-        value: newValue,
+        value,
       })
     );
   };
 
+  const onChange = (val: CommandOption | null, idx: number) => {
+    const ids = values.map(({ id }) => valToStr(id));
+    ids[idx] = valToStr(val?.id ?? NONE);
+    const newValue = ids.join("");
+    setCommands(newValue);
+  };
+
+  const allOriginal = () => {
+    setCommands(originalCommandFlags);
+  };
+
+  const allRandomized = () => {
+    const excludedRandomized = [FIGHT];
+    const validOptions = commandOptions.filter(
+      ({ id }) => !excludedRandomized.includes(id)
+    );
+    const randomized = DEFAULT_COMMANDS.map(
+      () => sample(validOptions) as CommandOption
+    )
+      .map(({ id }) => valToStr(id))
+      .join("");
+    setCommands(randomized);
+  };
+  const allRandom = () => {
+    const random = valToStr(RANDOM);
+    setCommands(DEFAULT_COMMANDS.map(() => random).join(""));
+  };
+  const allRandomUnique = () => {
+    const randomUnique = valToStr(RANDOM_UNIQUE);
+    setCommands(DEFAULT_COMMANDS.map(() => randomUnique).join(""));
+  };
+
   return (
-    <Card title={"Commands"}>
+    <Card contentClassName="gap-2" title={"Commands"}>
+      <div className="flex gap-3 justify-center">
+        <Button onClick={allRandomized} variant="primary">
+          Randomize
+        </Button>
+        <Button onClick={allRandom} variant="primary">
+          All Random
+        </Button>
+        <Button onClick={allRandomUnique} variant="primary">
+          All Random Unique
+        </Button>
+        <Button onClick={allOriginal} variant="primary">
+          Original
+        </Button>
+      </div>
       <CardColumn>
         {LABELS.map((label, idx) => {
           const id = `${label}-select`;

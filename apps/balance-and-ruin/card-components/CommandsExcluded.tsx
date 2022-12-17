@@ -71,7 +71,7 @@ export const CommandsExcluded = () => {
           <FlagLabel
             flag="-rec1"
             helperText={
-              "The commands below will not be considered when for Random and Random Unique commands"
+              "The commands below will not be considered for Random and Random Unique commands"
             }
             label={"Excluded Commands"}
           />

@@ -4,7 +4,7 @@ type BaseButtonProps = React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
   HTMLButtonElement
 >;
-const b = cva(["px-2 py-1", "text-base", "rounded-none", "transition-all"], {
+const b = cva(["px-4 py-2", "text-base", "rounded-none", "transition-all"], {
   variants: {
     disabled: {
       true: "opacity-40 cursor-not-allowed",

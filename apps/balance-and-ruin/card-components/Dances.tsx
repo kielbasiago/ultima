@@ -1,15 +1,13 @@
 import { Card } from "@ff6wc/ui";
 import { FlagRange } from "~/components/FlagRange/FlagRange";
-import {
-  FlagSubflagSelect,
-  SubflagOption,
-} from "~/components/FlagSubflagSelect/FlagSubflagSelect";
+import { SubflagOption } from "~/components/FlagSubflagSelect/FlagSubflagSelect";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
 
 const startingDances: SubflagOption[] = [
   {
-    defaultValue: [1, 5],
+    defaultValue: [0, 2],
     flag: "-sdr",
+    helperText: "",
     label: "Random",
     Renderable: ({ children }) => (
       <FlagRange flag="-srr" helperText="" label={children} />

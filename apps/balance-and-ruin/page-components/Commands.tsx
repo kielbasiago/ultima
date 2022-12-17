@@ -1,29 +1,29 @@
 import { Blitzes } from "~/card-components/Blitzes";
-import { CommandsList } from "~/card-components/CommandsList";
 import { CommandsExcluded } from "~/card-components/CommandsExcluded";
-import { Lores } from "~/card-components/Lores";
-import { SwdTechs } from "~/card-components/SwdTechs";
-import { Rages } from "~/card-components/Rages";
+import { CommandsList } from "~/card-components/CommandsList";
 import { Dances } from "~/card-components/Dances";
+import { Lores } from "~/card-components/Lores";
+import { Rages } from "~/card-components/Rages";
 import { Steal } from "~/card-components/Steal";
+import { SwdTechs } from "~/card-components/SwdTechs";
+import { PageColumn } from "~/components/PageColumn/PageColumn";
+import { PageContainer } from "~/components/PageContainer/PageContainer";
 
 export const Commands = () => {
   return (
-    <div className="flex flex-row justify-center flex-wrap gap-6">
-      <div className="flex-grow">
-        <div className="flex flex-col gap-6">
-          <SwdTechs />
-          <Blitzes />
-          <Lores />
-          <Rages />
-          <Dances />
-          <Steal />
-        </div>
-      </div>
-      <div className="flex flex-col flex-grow gap-6">
+    <PageContainer>
+      <PageColumn>
+        <SwdTechs />
+        <Blitzes />
+        <Lores />
+        <Rages />
+        <Dances />
+        <Steal />
+      </PageColumn>
+      <PageColumn>
         <CommandsList />
         <CommandsExcluded />
-      </div>
-    </div>
+      </PageColumn>
+    </PageContainer>
   );
 };

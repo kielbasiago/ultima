@@ -10,6 +10,7 @@ const startingLores: SubflagOption[] = [
   {
     defaultValue: [1, 5],
     flag: "-slr",
+    helperText: "",
     label: "Random",
     Renderable: ({ children }) => (
       <FlagRange flag="-slr" helperText="" label={children} />

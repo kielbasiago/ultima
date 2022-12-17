@@ -1,5 +1,5 @@
 import { Card } from "@ff6wc/ui";
-import { Column } from "~/components/Column/Column";
+import { CardColumn } from "~/components/CardColumn/CardColumn";
 import {
   FlagSubflagSelect,
   SubflagOption,
@@ -25,14 +25,14 @@ const stealOptions: SubflagOption[] = [
 export const Steal = () => {
   return (
     <Card title={"Steal"}>
-      <Column>
+      <CardColumn>
         <FlagSubflagSelect
           label="Chance to Steal"
           nullableLabel="Original"
           nullableDescription="Original steal chances"
           options={stealOptions}
         />
-      </Column>
+      </CardColumn>
     </Card>
   );
 };

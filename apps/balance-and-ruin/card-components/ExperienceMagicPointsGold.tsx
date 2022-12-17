@@ -1,12 +1,12 @@
 import { Card } from "@ff6wc/ui";
-import { Column } from "~/components/Column/Column";
+import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { FlagNumberInput } from "~/components/FlagNumberInput/FlagNumberInput";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
 
 export const ExperienceMagicPointsGold = () => {
   return (
     <Card title={"Experience, Magic Points, Gold"}>
-      <Column>
+      <CardColumn>
         <FlagNumberInput
           description=""
           flag="-xpm"
@@ -31,7 +31,7 @@ export const ExperienceMagicPointsGold = () => {
           invert
           label="Split Party Exp"
         />
-      </Column>
+      </CardColumn>
     </Card>
   );
 };

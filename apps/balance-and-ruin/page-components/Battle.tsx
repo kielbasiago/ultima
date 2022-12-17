@@ -1,17 +1,17 @@
 import { ExperienceMagicPointsGold } from "~/card-components/ExperienceMagicPointsGold";
 import { Scaling } from "~/card-components/Scaling";
+import { PageColumn } from "~/components/PageColumn/PageColumn";
+import { PageContainer } from "~/components/PageContainer/PageContainer";
 
 export const Battle = () => {
   return (
-    <div className="flex flex-row justify-center flex-wrap gap-6">
-      <div className="flex-grow">
-        <div className="flex flex-col gap-6">
-          <ExperienceMagicPointsGold />
-        </div>
-      </div>
-      <div className="flex-grow gap-6">
+    <PageContainer>
+      <PageColumn>
+        <ExperienceMagicPointsGold />
+      </PageColumn>
+      <PageColumn>
         <Scaling />
-      </div>
-    </div>
+      </PageColumn>
+    </PageContainer>
   );
 };

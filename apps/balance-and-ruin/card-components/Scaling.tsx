@@ -1,5 +1,5 @@
 import { Card } from "@ff6wc/ui";
-import { Column } from "~/components/Column/Column";
+import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { FlagSlider } from "~/components/FlagSlider/FlagSlider";
 import {
   FlagSubflagSelect,
@@ -13,9 +13,22 @@ const subflagScalingProps = {
   label: "",
 };
 
+const averagePartyScaling = {
+  defaultValue: 1,
+  label: "Party Average Level",
+};
+
+const highestPartyScaling = {
+  defaultValue: 1,
+  label: "Party Highest Level",
+};
+
 const levelScalingOptions: SubflagOption[] = [
   {
+    defaultValue: 1,
     flag: "-lsa",
+    helperText: "Enemy and boss levels equal to {{ . }}x party average level",
+    label: "Party Average Level",
     Renderable: ({ children }) => (
       <FlagSlider
         {...subflagScalingProps}
@@ -26,7 +39,11 @@ const levelScalingOptions: SubflagOption[] = [
     ),
   },
   {
+    defaultValue: 1,
     flag: "-lsh",
+    helperText:
+      "Enemy and boss levels equal to {{ . }}x highest level in party",
+    label: "Party Highest Level",
     Renderable: ({ children }) => (
       <FlagSlider
         {...subflagScalingProps}
@@ -37,7 +54,11 @@ const levelScalingOptions: SubflagOption[] = [
     ),
   },
   {
+    defaultValue: 2,
     flag: "-lsce",
+    helperText:
+      "Enemies and bosses gain {{ . }} levels for each character recruited and esper acquired",
+    label: "Characters + Espers",
     Renderable: ({ children }) => (
       <FlagSlider
         {...subflagScalingProps}
@@ -48,7 +69,11 @@ const levelScalingOptions: SubflagOption[] = [
     ),
   },
   {
+    defaultValue: 2,
     flag: "-lsced",
+    helperText:
+      "Enemies and bosses gain {{ . }} levels for each character recruited, esper acquired, and dragon defeated",
+    label: "Characters + Espers + Dragons",
     Renderable: ({ children }) => (
       <FlagSlider
         {...subflagScalingProps}
@@ -59,7 +84,11 @@ const levelScalingOptions: SubflagOption[] = [
     ),
   },
   {
+    defaultValue: 2,
     flag: "-lsc",
+    helperText:
+      "Enemies and bosses gain {{ . }} levels for each check completed",
+    label: "Checks",
     Renderable: ({ children }) => (
       <FlagSlider
         {...subflagScalingProps}
@@ -70,7 +99,10 @@ const levelScalingOptions: SubflagOption[] = [
     ),
   },
   {
+    defaultValue: 2,
     flag: "-lst",
+    helperText: "Enemies and bosses gain 1 level every {{ . }} minutes",
+    label: "Time",
     Renderable: ({ children }) => (
       <FlagSlider
         {...subflagScalingProps}
@@ -84,7 +116,10 @@ const levelScalingOptions: SubflagOption[] = [
 
 const hpMpScalingOptions: SubflagOption[] = [
   {
+    defaultValue: 1,
+    label: "Party Average Level",
     flag: "-hma",
+    helperText: "Enemy and boss hp/mp scales {{ . }}x party average level",
     Renderable: ({ children }) => (
       <FlagSlider
         {...subflagScalingProps}
@@ -95,7 +130,10 @@ const hpMpScalingOptions: SubflagOption[] = [
     ),
   },
   {
+    defaultValue: 1,
     flag: "-hmh",
+    helperText: "Enemy and boss hp/mp scales {{ . }}x highest level in party",
+    label: "Party Highest Level",
     Renderable: ({ children }) => (
       <FlagSlider
         {...subflagScalingProps}
@@ -106,23 +144,59 @@ const hpMpScalingOptions: SubflagOption[] = [
     ),
   },
   {
-    flag: "-hmh",
+    defaultValue: 2,
+    flag: "-hmce",
+    helperText:
+      "Enemy and boss hp/mp scales {{ . }}x each character recruited and esper acquired",
+    label: "Characters + Espers",
     Renderable: ({ children }) => (
       <FlagSlider
         {...subflagScalingProps}
         helperText=""
-        flag="-hmh"
+        flag="-lsce"
         label={children}
       />
     ),
   },
   {
-    flag: "-hmh",
+    defaultValue: 2,
+    flag: "-hmced",
+    helperText:
+      "Enemy and boss hp/mp scales {{ . }}x each character recruited, esper acquired, and dragon defeated",
+    label: "Characters + Espers + Dragons",
     Renderable: ({ children }) => (
       <FlagSlider
         {...subflagScalingProps}
         helperText=""
-        flag="-hmh"
+        flag="-hmced"
+        label={children}
+      />
+    ),
+  },
+  {
+    defaultValue: 2,
+    flag: "-hmc",
+    helperText: "Enemy and boss hp/mp scales {{ . }}x each check completed",
+    label: "Checks",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-hmc"
+        label={children}
+      />
+    ),
+  },
+  {
+    defaultValue: 2,
+    flag: "-hmt",
+    helperText: "Enemy and boss hp/mp scales every {{ . }}x minutes",
+    label: "Time",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-hmt"
         label={children}
       />
     ),
@@ -132,7 +206,7 @@ const hpMpScalingOptions: SubflagOption[] = [
 export const Scaling = () => {
   return (
     <Card title={"Scaling"}>
-      <Column>
+      <CardColumn>
         <FlagSubflagSelect
           label="Level Scaling"
           nullableDescription="Enemy and boss levels are not scaled"
@@ -144,9 +218,9 @@ export const Scaling = () => {
           label="HP/MP Scaling"
           nullableDescription="Enemy and boss hp/mp are not scaled"
           nullableLabel="None"
-          options={levelScalingOptions}
+          options={hpMpScalingOptions}
         />
-      </Column>
+      </CardColumn>
     </Card>
   );
 };

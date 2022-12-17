@@ -1,15 +1,22 @@
-import first from "lodash/first";
+import Mustache from "mustache";
 import React, { useId, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import BaseSelect, { components, OptionProps } from "react-select";
+import BaseSelect from "react-select";
 import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
 import { FlagSelectOption } from "~/components/FlagSelectOption/FlagSelectOption";
-import { selectActiveMutuallyExclusiveFlag, setFlag } from "~/state/flagSlice";
-import { FlagValue, selectDefaultValue, selectDescription } from "~/state/schemaSlice";
-import { AppState } from "~/state/store";
+import {
+  EMPTY_FLAG_VALUE,
+  selectActiveMutuallyExclusiveFlag,
+  setFlag,
+  useFlagValueSelector,
+} from "~/state/flagSlice";
+import { FlagValue, selectDescription } from "~/state/schemaSlice";
 
 export type SubflagOption = {
+  defaultValue: FlagValue;
   flag: string;
+  helperText: string;
+  label: string;
   Renderable?: React.FC<{ children: React.ReactNode }> | null;
 };
 
@@ -19,8 +26,6 @@ export type FlagSubflagSelectProps = {
   nullableLabel: string;
   nullableDescription: string;
 };
-
-const EMPTY_FLAG = "-ff6wc-empty-value";
 
 export const FlagSubflagSelect = ({
   label,
@@ -35,16 +40,13 @@ export const FlagSubflagSelect = ({
     selectActiveMutuallyExclusiveFlag(...baseOptions.map(({ flag }) => flag))
   );
 
-  const defaultValue = useSelector(selectedFlag ? selectDefaultValue(selectedFlag.));
-
   const schemaDescription = useSelector(
     selectedFlag ? selectDescription(selectedFlag) : () => null
   );
 
-
   const empty = useMemo<SubflagOption>(
     () => ({
-      flag: EMPTY_FLAG,
+      flag: EMPTY_FLAG_VALUE,
       label: nullableLabel ?? "None",
       defaultValue: null,
       helperText: nullableDescription,
@@ -59,8 +61,8 @@ export const FlagSubflagSelect = ({
     return newOptions;
   }, [baseOptions, empty]);
 
-  const onChange = ({ flag }: SubflagOption) => {
-    if (selectedFlag && selectedFlag !== EMPTY_FLAG) {
+  const onChange = ({ defaultValue, flag }: SubflagOption) => {
+    if (selectedFlag && selectedFlag !== EMPTY_FLAG_VALUE) {
       dispatch(
         setFlag({
           flag: selectedFlag,
@@ -69,21 +71,22 @@ export const FlagSubflagSelect = ({
       );
     }
 
-    dispatch(
-      setFlag({
-        flag,
-        value: defaultValue,
-      })
-    );
+    if (flag !== EMPTY_FLAG_VALUE) {
+      dispatch(
+        setFlag({
+          flag,
+          value: defaultValue,
+        })
+      );
+    }
   };
 
-
-  const value = useMemo(
+  const selectedOption = useMemo(
     () => options.find(({ flag }) => flag === selectedFlag) ?? empty,
     [empty, selectedFlag, options]
   );
 
-  const { Renderable } = value;
+  const { Renderable } = selectedOption;
 
   const Select = (
     <BaseSelect
@@ -91,20 +94,27 @@ export const FlagSubflagSelect = ({
       classNamePrefix="ff6wc-select"
       components={{ Option: FlagSelectOption }}
       instanceId={id}
-      getOptionLabel={(option) => option.label}
+      getOptionLabel={(option) => option.label ?? nullableLabel}
       getOptionValue={(option) => option.flag}
       options={options}
       onChange={(selected) => onChange(selected as SubflagOption)}
-      value={value}
+      value={selectedOption}
     />
+  );
+
+  const selectedValue = useFlagValueSelector(selectedOption.flag);
+
+  const description = Mustache.render(
+    selectedOption.helperText ?? schemaDescription ?? "",
+    selectedValue
   );
 
   return (
     <div className="flex flex-col gap-1">
       <>
         <FlagLabel
-          flag={value.flag}
-          helperText={value.helperText ?? schemaDescription ?? null}
+          flag={selectedOption.flag}
+          helperText={description}
           label={label}
         />
 

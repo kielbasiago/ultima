@@ -1,2 +1,3 @@
-export * from './ff6';
-export * from './wc';
+export * from "./commands";
+export * from "./ff6";
+export * from "./wc";

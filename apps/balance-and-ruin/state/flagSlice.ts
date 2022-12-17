@@ -51,6 +51,8 @@ const initialState: FlagState = {
   rawFlags: startingFlags,
 };
 
+export const EMPTY_FLAG_VALUE = "-ff6wc-empty-value";
+
 // Actual Slice
 export const flagSlice = createSlice({
   name: "flag",
@@ -90,7 +92,7 @@ export const selectFlagValues = (state: AppState) => state.flag.flagValues;
 export const selectFlagValue =
   <T>(flag: string | null) =>
   (state: AppState) => {
-    if (!flag) {
+    if (!flag || flag === EMPTY_FLAG_VALUE) {
       return null;
     }
     return state.flag.flagValues[flag] as unknown as T;

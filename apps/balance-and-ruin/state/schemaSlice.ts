@@ -1,10 +1,7 @@
-import { useMemo } from "react";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AppState } from "./store";
 import { HYDRATE } from "next-redux-wrapper";
-import { NullableProperties } from "~/types/utils";
-import { useSelector } from "react-redux";
 import overrides from "./schema-overrides.json";
+import { AppState } from "./store";
 
 export type FlagValue = string | number | string[] | number[] | boolean | null;
 
@@ -23,6 +20,7 @@ export type RawFlagMetadata = {
   group: string;
 
   allowed_values?: FlagValue[];
+  label?: string;
   options?: {
     min_val?: number;
     max_val?: number;
@@ -38,10 +36,12 @@ export type RawFlagMetadata = {
   mutually_exclusive_group?: string;
 };
 
-interface FlagMetadataNode {
+export interface FlagMetadataNode {
   allowedValues: FlagValue[] | null;
   defaultValue: FlagValue | null;
   description: string | null;
+  flag: string | null;
+  label: string | null;
   min: number | null;
   max: number | null;
   step: number | null;
@@ -106,6 +106,8 @@ export const schemaSlice = createSlice({
           allowedValues: item.allowed_values || [],
           defaultValue: item.default ?? null,
           description: item.description ?? null,
+          flag: item.flag,
+          label: item.label ?? null,
           max: item.options?.max_val ?? null,
           min: item.options?.min_val ?? null,
           step,
@@ -126,7 +128,7 @@ export const schemaSlice = createSlice({
 
 export const { setSchema, setOverride } = schemaSlice.actions;
 
-const schemaSelector =
+export const schemaSelector =
   <TKey extends keyof FlagMetadataNode>(flag: string, key: TKey) =>
   (state: AppState): FlagMetadataNode[TKey] => {
     const schema = state.schema.schema[flag];
@@ -139,6 +141,7 @@ export const selectDefaultValue = (flag: string) =>
   schemaSelector(flag, "defaultValue");
 export const selectDescription = (flag: string) =>
   schemaSelector(flag, "description");
+export const selectLabel = (flag: string) => schemaSelector(flag, "label");
 export const selectMax = (flag: string) => schemaSelector(flag, "max");
 export const selectMin = (flag: string) => schemaSelector(flag, "min");
 export const selectStep = (flag: string) => schemaSelector(flag, "step");

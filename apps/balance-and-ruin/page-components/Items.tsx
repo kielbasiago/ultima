@@ -1,14 +1,16 @@
 import { StartingGoldAndItems } from "~/card-components/StartingGoldAndItems";
+import { PageColumn } from "~/components/PageColumn/PageColumn";
+import { PageContainer } from "~/components/PageContainer/PageContainer";
 
 export const Items = () => {
   return (
-    <div className="flex flex-row justify-center flex-wrap gap-6">
-      <div className="flex-grow">
-        <div className="flex flex-col gap-6">
-          <StartingGoldAndItems />
-        </div>
-      </div>
-      <div className="flex-grow gap-6"></div>
-    </div>
+    <PageContainer>
+      <PageColumn>
+        <StartingGoldAndItems />
+      </PageColumn>
+      <PageColumn>
+        <StartingGoldAndItems />
+      </PageColumn>
+    </PageContainer>
   );
 };

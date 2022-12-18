@@ -18,7 +18,7 @@ const stealOptions: SubflagOption[] = [
     defaultValue: true,
     flag: "-sca",
     label: "Always",
-    helperText: "Steal will always succeed if an enemy has an enemy",
+    helperText: "Steal will always succeed if an enemy has an item",
     Renderable: null,
   },
 ];

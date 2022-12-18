@@ -49,7 +49,7 @@ const MIX_STATUES = {
   defaultValue: "mix",
   flag: "-stloc",
   helperText:
-    "Statue bosses are added to the general boss pool. If boss battles are original, they will shuffle amongst themselves",
+    "Doom, Goddess, and Poltrgeist are mixed into the general boss pool. If boss battles are original, they will shuffle amongst themselves",
   label: "Mixed",
   isStatic: true,
 };
@@ -57,14 +57,15 @@ const statueOptions = [
   {
     defaultValue: "original",
     flag: "-stloc",
-    helperText: "Statue battles are unchanged",
+    helperText:
+      "Doom, Goddess, and Poltrgeist are fought in their original locations",
     label: "Original",
     isStatic: true,
   },
   {
     defaultValue: "shuffle",
     flag: "-stloc",
-    helperText: "Statue battles are shuffled amongst themselves",
+    helperText: "Doom, Goddess, and Poltrgeist are shuffled amongst themselves",
     label: "Shuffled",
     isStatic: true,
   },

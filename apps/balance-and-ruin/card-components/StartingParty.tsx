@@ -59,11 +59,11 @@ export const StartingParty = () => {
           nullableLabel="None"
         />
 
-        <Divider>Amazing</Divider>
+        <Divider />
 
         <FlagSlider
           flag="-stl"
-          helperText="Starty party begins the game at level {{ . }}"
+          helperText="Starting party begins the game at level {{ . }}"
           label="Starting Party Level"
         />
       </CardColumn>

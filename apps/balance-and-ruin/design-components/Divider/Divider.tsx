@@ -1,11 +1,8 @@
 import { cx } from "cva";
 
-export type DividerProps = {
-  children?: React.ReactNode;
-  className?: string;
-};
+export type DividerProps = {};
 
-export const Divider = ({ children, className }: DividerProps) => {
+export const Divider = ({}: DividerProps) => {
   return (
     <div className="relative">
       <div className="absolute  inset-0 flex items-center" aria-hidden="true">

@@ -28,8 +28,10 @@ export const Steal = () => {
       <CardColumn>
         <FlagSubflagSelect
           label="Chance to Steal"
-          nullableLabel="Original"
-          nullableDescription="Original steal chances"
+          nullable={{
+            label: "Original",
+            description: "Original steal changes",
+          }}
           options={stealOptions}
         />
       </CardColumn>

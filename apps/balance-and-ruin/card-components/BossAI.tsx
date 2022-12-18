@@ -8,7 +8,11 @@ export const BossAI = () => {
       <CardColumn>
         <FlagSwitch flag="-dgne" label="Doom Gaze No Escape" />
         <FlagSwitch flag="-wnz" label="Wrexsoul No Zinger" />
-        <FlagSwitch flag="-mmmu" label="MagiMaster No Ultima" />
+        <FlagSwitch
+          flag="-mmmu"
+          description="MagiMaster does not cast Ultima before death"
+          label="MagiMaster No Ultima"
+        />
         <FlagSwitch flag="-cmd" label="Chadarnook More Demon" />
       </CardColumn>
     </Card>

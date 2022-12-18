@@ -5,6 +5,9 @@ import {
 } from "~/components/FlagSelect/FlagSelect";
 import startCase from "lodash/startCase";
 import { characterNames } from "@ff6wc/ff6-types";
+import { CardColumn } from "~/components/CardColumn/CardColumn";
+import { FlagSlider } from "~/components/FlagSlider/FlagSlider";
+import { Divider } from "~/design-components/Divider/Divider";
 
 const [random, randomngu]: FlagSelectOption[] = [
   { id: "random", label: "Random" },
@@ -26,7 +29,7 @@ const options = [
 export const StartingParty = () => {
   return (
     <Card title={"Starting Party"}>
-      <div className="flex flex-col flex-wrap justify-start gap-2">
+      <CardColumn>
         <FlagSelect
           flag={"-sc1"}
           label={"Start Character"}
@@ -55,7 +58,15 @@ export const StartingParty = () => {
           nullable
           nullableLabel="None"
         />
-      </div>
+
+        <Divider>Amazing</Divider>
+
+        <FlagSlider
+          flag="-stl"
+          helperText="Starty party begins the game at level {{ . }}"
+          label="Starting Party Level"
+        />
+      </CardColumn>
     </Card>
   );
 };

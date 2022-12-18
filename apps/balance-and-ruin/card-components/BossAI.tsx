@@ -10,7 +10,7 @@ export const BossAI = () => {
         <FlagSwitch flag="-wnz" label="Wrexsoul No Zinger" />
         <FlagSwitch
           flag="-mmmu"
-          description="MagiMaster does not cast Ultima before death"
+          helperText="MagiMaster does not cast Ultima before death"
           label="MagiMaster No Ultima"
         />
         <FlagSwitch flag="-cmd" label="Chadarnook More Demon" />

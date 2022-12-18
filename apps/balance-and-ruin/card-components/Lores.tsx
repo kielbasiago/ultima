@@ -10,7 +10,7 @@ const startingLores: SubflagOption[] = [
   {
     defaultValue: [1, 5],
     flag: "-slr",
-    helperText: "Begin the game with between {{ . }} lore spells learned",
+    helperText: "Begin the game with {{ . }} lore spells learned",
     label: "Random",
     Renderable: ({ children }) => (
       <FlagRange flag="-slr" helperText="" label={children} />

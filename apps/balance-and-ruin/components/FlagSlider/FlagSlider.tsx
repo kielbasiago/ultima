@@ -1,20 +1,20 @@
-import { HelperText, Input, Slider, SliderProps } from "@ff6wc/ui";
-import { useDispatch, useSelector } from "react-redux";
+import { Input, Slider, SliderProps } from "@ff6wc/ui";
 import first from "lodash/first";
 import last from "lodash/last";
-import { InputLabel } from "~/components/InputLabel/InputLabel";
+import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 import {
   selectAllowedValues,
+  selectDefaultValue,
   selectDescription,
   selectMax,
   selectMin,
   selectStep,
 } from "~/state/schemaSlice";
-import { useRef } from "react";
-import { useNumberScroll } from "~/utils/useNumberScroll";
-import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
 import { renderDescription } from "~/utils/renderDescription";
+import { useNumberScroll } from "~/utils/useNumberScroll";
 
 export type FlagSliderProps = {
   allowedValues?: number[];
@@ -38,6 +38,7 @@ export const FlagSlider = ({
 
   const schemaAllowed = useSelector(selectAllowedValues(flag)) ?? [];
   const schemaDescription = useSelector(selectDescription(flag));
+  const schemaDefaultValue = useSelector(selectDefaultValue(flag));
   const schemaMax = useSelector(selectMax(flag));
   const schemaMin = useSelector(selectMin(flag));
   const schemaStep = useSelector(selectStep(flag));
@@ -70,7 +71,10 @@ export const FlagSlider = ({
   const step = hardStep ?? schemaStep ?? 1;
 
   const description = hardDescription ?? schemaDescription;
-  const helperText = renderDescription(description, value);
+  const helperText = renderDescription(
+    description,
+    value ?? schemaDefaultValue
+  );
 
   return (
     <div className={"flex flex-col gap-2"}>

@@ -4,6 +4,7 @@ import {
   FlagSubflagSelect,
   SubflagOption,
 } from "~/components/FlagSubflagSelect/FlagSubflagSelect";
+import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
 
 const stealOptions: SubflagOption[] = [
   {
@@ -22,9 +23,9 @@ const stealOptions: SubflagOption[] = [
   },
 ];
 
-export const Steal = () => {
+export const StealCapture = () => {
   return (
-    <Card title={"Steal"}>
+    <Card title={"Steal/Capture"}>
       <CardColumn>
         <FlagSubflagSelect
           label="Chance to Steal"
@@ -33,6 +34,12 @@ export const Steal = () => {
             description: "Original steal changes",
           }}
           options={stealOptions}
+        />
+
+        <FlagSwitch
+          flag="-fc"
+          helperText="When enabled, multi-steal can give more than one item, and weapon specials can now proc using the Capture command"
+          label="Fix Capture Bugs"
         />
       </CardColumn>
     </Card>

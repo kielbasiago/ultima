@@ -26,7 +26,7 @@ export const ExperienceMagicPointsGold = () => {
           type="int"
         />
         <FlagSwitch
-          description="When enabled, experience will be split evenly amongst surviving party members."
+          helperText="When enabled, experience will be split evenly amongst surviving party members."
           flag="-nxppd"
           invert
           label="Split Party Exp"

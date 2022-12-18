@@ -10,7 +10,7 @@ import { InputLabel } from "~/components/InputLabel/InputLabel";
 import { selectDefaultValue, selectDescription } from "~/state/schemaSlice";
 
 export type FlagSwitchProps = {
-  description?: string;
+  helperText?: string;
   flag: string;
   /** Invert logic so when true, set to false, and vice versa. If value undefined, default to true. */
   invert?: boolean;
@@ -18,7 +18,7 @@ export type FlagSwitchProps = {
 };
 
 export const FlagSwitch = ({
-  description: hardDescription,
+  helperText: hardDescription,
   flag,
   invert = false,
   label,

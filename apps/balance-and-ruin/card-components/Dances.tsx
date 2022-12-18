@@ -10,7 +10,7 @@ const startingDances: SubflagOption[] = [
   {
     defaultValue: [0, 2],
     flag: "-sdr",
-    helperText: "Begin the game with between {{ . }} dances learned",
+    helperText: "Begin the game with {{ . }} dances learned",
     label: "Random",
     Renderable: ({ children }) => (
       <FlagRange flag="-sdr" helperText="" label={children} />

@@ -9,7 +9,6 @@ export const Challenges = () => {
         <FlagSwitch flag="-nmc" label="No Moogle Charms" />
         <FlagSwitch flag="-nee" label="No Exp. Eggs" />
         <FlagSwitch flag="-nil" label="No Illuminas" />
-        <FlagSwitch flag="-nu" label="No Ultima" />
         <FlagSwitch flag="-nfps" label="No Free Paladin Shields" />
         <FlagSwitch flag="-pd" label="Permadeath" />
       </CardColumn>

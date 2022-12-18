@@ -30,7 +30,7 @@ const dragonOptions = [
   {
     defaultValue: "original",
     flag: "-drloc",
-    helperText: "Dragons battles will be the same as the original game",
+    helperText: "Dragons battles are unchanged",
     label: "Original",
     isStatic: true,
   },
@@ -57,7 +57,7 @@ const statueOptions = [
   {
     defaultValue: "original",
     flag: "-stloc",
-    helperText: "Statue battles will be the same as the original game",
+    helperText: "Statue battles are unchanged",
     label: "Original",
     isStatic: true,
   },
@@ -77,7 +77,7 @@ export const Bosses = () => {
       <CardColumn>
         <FlagSubflagSelect
           nullable={{
-            description: "Boss battles will be the same as the original game",
+            description: "Boss battles are unchanged",
             label: "Original",
           }}
           label="Boss Battles"

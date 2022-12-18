@@ -11,6 +11,7 @@ import { Commands } from "~/page-components/Commands";
 import { Battle } from "~/page-components/Battle";
 import { Misc } from "~/page-components/Misc";
 import { Magic } from "~/page-components/Magic";
+import { Accessibility } from "~/page-components/Accessibility";
 
 type PageProps = {
   schema: Record<string, RawFlagMetadata>;
@@ -69,6 +70,11 @@ const tabs: TabItem[] = [
     label: <>Misc</>,
     id: "misc",
     content: <Misc />,
+  },
+  {
+    label: <>A11y</>,
+    id: "accessibility",
+    content: <Accessibility />,
   },
 ];
 

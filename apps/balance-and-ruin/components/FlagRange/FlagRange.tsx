@@ -71,7 +71,7 @@ export const FlagRange = ({
   const defaults = (defaultValue ?? [min, max]) as [number, number];
 
   const description = hardDescription ?? schemaDescription;
-  const helperText = renderDescription(description, value);
+  const helperText = renderDescription(description, value ?? defaultValue);
 
   return (
     <div className={"flex flex-col gap-2"}>

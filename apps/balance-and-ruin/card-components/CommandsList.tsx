@@ -28,19 +28,19 @@ const strToVals = (val: string) => val.match(/.{1,2}/g) as string[];
 const originalCommandFlags = DEFAULT_COMMANDS.map(valToStr).join("");
 
 const LABELS = [
-  "Morph",
-  "Steal",
-  "SwdTech",
-  "Throw",
-  "Tools",
-  "Blitz",
-  "Runic",
-  "Lore",
-  "Sketch",
-  "Slot",
-  "Dance",
-  "Rage",
-  "Leap",
+  "Terra (Morph)",
+  "Locke (Steal)",
+  "Cyan (SwdTech)",
+  "Shadow (Throw)",
+  "Edgar (Tools)",
+  "Sabin ( Blitz)",
+  "Cele (Runic)",
+  "Strago (Lore)",
+  "Relm (Sketch)",
+  "Setzer (Slot)",
+  "Mog (Dance)",
+  "Gau (Rage)",
+  "Gau (Leap)",
 ];
 
 const hoistedOptions = [RANDOM, RANDOM_UNIQUE, NONE];
@@ -144,7 +144,7 @@ export const CommandsList = () => {
         <FlagSwitch
           flag="-scc"
           label="Shuffle Commands"
-          description="Shuffle the commands selected above"
+          helperText="Shuffle the commands selected above"
         />
       </CardColumn>
     </Card>

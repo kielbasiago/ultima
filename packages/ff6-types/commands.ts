@@ -147,10 +147,6 @@ export const ALL_COMMANDS: Record<
     id: RAGE,
     label: "Rage",
   },
-  [REVERT]: {
-    id: REVERT,
-    label: "Revert",
-  },
   [RUNIC]: {
     id: RUNIC,
     label: "Runic",
@@ -185,6 +181,6 @@ export const ALL_COMMANDS: Record<
   },
   [X_MAGIC]: {
     id: X_MAGIC,
-    label: "X-Magic",
+    label: "X Magic",
   },
 };

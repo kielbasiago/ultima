@@ -18,7 +18,7 @@ const flashOptions: SubflagOption[] = [
   {
     defaultValue: true,
     flag: "-frm",
-    helperText: "Removes most flashes from animations. Includes Kefka's Death",
+    helperText: "Removes most flashes from animations",
     label: "Most",
     isStatic: true,
   },

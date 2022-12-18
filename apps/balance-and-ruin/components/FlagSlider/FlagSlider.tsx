@@ -73,7 +73,7 @@ export const FlagSlider = ({
   const description = hardDescription ?? schemaDescription;
   const helperText = renderDescription(
     description,
-    value ?? schemaDefaultValue
+    value ?? schemaDefaultValue ?? min
   );
 
   return (
@@ -101,7 +101,7 @@ export const FlagSlider = ({
           {...rest}
           defaultValue={value ?? min}
           onChange={(val) => setValue(val)}
-          value={value ?? min}
+          value={value ?? (schemaDefaultValue as number) ?? min}
           min={min}
           max={max}
           step={step}

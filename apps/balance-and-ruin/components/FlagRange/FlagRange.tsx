@@ -71,7 +71,7 @@ export const FlagRange = ({
   const defaults = (defaultValue ?? [min, max]) as [number, number];
 
   const description = hardDescription ?? schemaDescription;
-  const helperText = renderDescription(description, value ?? defaultValue);
+  const helperText = renderDescription(description, value ?? defaults);
 
   return (
     <div className={"flex flex-col gap-2"}>
@@ -117,7 +117,7 @@ export const FlagRange = ({
           step={step}
           onChange={(val) => onChange(val)}
           range
-          value={value ?? (defaultValue as number[])}
+          value={value ?? (defaults as number[])}
           {...rest}
         />
       </div>

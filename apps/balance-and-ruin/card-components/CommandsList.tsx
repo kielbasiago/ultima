@@ -34,7 +34,7 @@ const LABELS = [
   "Shadow (Throw)",
   "Edgar (Tools)",
   "Sabin ( Blitz)",
-  "Cele (Runic)",
+  "Celes (Runic)",
   "Strago (Lore)",
   "Relm (Sketch)",
   "Setzer (Slot)",

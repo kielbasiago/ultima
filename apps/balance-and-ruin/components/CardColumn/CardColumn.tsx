@@ -3,5 +3,5 @@ export type CardColumnProps = {
 };
 
 export const CardColumn = ({ children }: CardColumnProps) => {
-  return <div className={"flex flex-col gap-2"}>{children}</div>;
+  return <div className={"flex flex-col gap-4"}>{children}</div>;
 };

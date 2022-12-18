@@ -5,7 +5,7 @@ import { FlagSubflagSelect } from "~/components/FlagSubflagSelect/FlagSubflagSel
 const AUTO_SPRINT = {
   defaultValue: "as",
   flag: "-move",
-  helperText: "Always sprint, and hold B to walk.",
+  helperText: "Always sprint, and hold B to walk. Sprint Shoes have no effect",
   label: "Auto Sprint",
   isStatic: true,
 };

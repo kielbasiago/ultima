@@ -1,5 +1,6 @@
-import { Card } from "@ff6wc/ui";
 import { characterNames } from "@ff6wc/ff6-types/wc";
+import { Card } from "@ff6wc/ui";
+import startCase from "lodash/startCase";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import {
   FlagSelect,
@@ -7,14 +8,17 @@ import {
 } from "~/components/FlagSelect/FlagSelect";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
 import { Divider } from "~/design-components/Divider/Divider";
-import startCase from "lodash/startCase";
-import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
 
 const [random]: FlagSelectOption[] = [{ id: "random", label: "Random" }];
 
+const excluded = ["gogo", "umaro"];
+const naturalMagicCharacters = characterNames.filter(
+  (c) => !excluded.includes(c)
+);
+
 const options: FlagSelectOption[] = [
   random,
-  ...characterNames.map(
+  ...naturalMagicCharacters.map(
     (id) =>
       ({
         id,

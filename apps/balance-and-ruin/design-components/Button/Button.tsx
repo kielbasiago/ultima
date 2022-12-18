@@ -17,6 +17,8 @@ const b = cva(["px-4 py-2", "text-base", "rounded-none", "transition-all"], {
       ],
       primary: [
         "bg-blue-700 text-white",
+        "hover:bg-blue-800",
+        "active:bg-blue-900",
         "border-blue-300 active:border-blue-500",
         "focus-visible:border-blue-300 focus-visible:outline-2",
       ],

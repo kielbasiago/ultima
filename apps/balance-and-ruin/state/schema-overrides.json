@@ -96,5 +96,13 @@
     "defaultValue": 3,
     "min": 3,
     "max": 99
+  },
+  "-mmprv": {
+    "min": 0,
+    "max": 254
+  },
+  "-mmprp": {
+    "min": 0,
+    "max": 200
   }
 }

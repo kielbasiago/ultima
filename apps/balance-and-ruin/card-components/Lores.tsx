@@ -61,8 +61,8 @@ export const Lores = () => {
         <FlagSubflagSelect
           label="MP"
           nullable={{
-            description: "Original",
-            label: "Original MP costs of lore spells",
+            description: "Original MP costs of lore spells",
+            label: "Original",
           }}
           options={mpOptions}
         />

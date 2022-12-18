@@ -14,15 +14,15 @@ export const Misc = () => {
     <PageContainer>
       <PageColumn>
         <Movement />
-        <RNG />
-        <AuctionHouse />
-        <MiscCard />
+        <Challenges />
+        <Checks />
       </PageColumn>
       <PageColumn>
-        <Checks />
-        <Challenges />
-        <BossAI />
+        <MiscCard />
+        <RNG />
+        <AuctionHouse />
         <BugFixes />
+        <BossAI />
       </PageColumn>
     </PageContainer>
   );

@@ -1,10 +1,36 @@
 import { Card } from "@ff6wc/ui";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
+import { FlagRange } from "~/components/FlagRange/FlagRange";
 import {
   FlagSubflagSelect,
   SubflagOption,
 } from "~/components/FlagSubflagSelect/FlagSubflagSelect";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
+
+const mpOptions: SubflagOption[] = [
+  {
+    defaultValue: true,
+    flag: "-mmps",
+    helperText: "Original MP costs shuffled between spells",
+    label: "Shuffle",
+    isStatic: true,
+  },
+  {
+    defaultValue: [0, 254],
+    flag: "-mmprv",
+    helperText: "Each spell has an MP cost between {{ . }}",
+    label: "Random Flat Value",
+    Renderable: ({ children }) => <FlagRange flag="-mmprv" label={children} />,
+  },
+  {
+    defaultValue: [75, 125],
+    flag: "-mmprp",
+    helperText:
+      "Each spells has an MP cost between {{ . }}% of its original cost",
+    label: "Random Percent",
+    Renderable: ({ children }) => <FlagRange flag="-mmprp" label={children} />,
+  },
+];
 
 const rlsOptions: SubflagOption[] = [
   {
@@ -44,6 +70,15 @@ export const Spells = () => {
   return (
     <Card title={"Spells"}>
       <CardColumn>
+        <FlagSubflagSelect
+          label="MP"
+          nullable={{
+            description: "Original MP costs of lore spells",
+            label: "Original",
+          }}
+          options={mpOptions}
+        />
+
         <FlagSubflagSelect
           label="Learnable Spells"
           nullable={{

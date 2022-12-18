@@ -48,7 +48,7 @@ const mpOptions: SubflagOption[] = [
 ];
 export const Lores = () => {
   return (
-    <Card title={"Lores"}>
+    <Card title={"Lore"}>
       <div className="flex flex-col gap-2">
         <FlagSubflagSelect
           label="Starting Lores"

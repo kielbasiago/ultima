@@ -91,5 +91,10 @@
     "defaultValue": [0, 0],
     "min": 0,
     "max": 22
+  },
+  "-stl": {
+    "defaultValue": 3,
+    "min": 3,
+    "max": 99
   }
 }

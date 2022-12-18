@@ -14,13 +14,13 @@ export const Commands = () => {
   return (
     <PageContainer>
       <PageColumn>
+        <SwdTechs />
+        <Blitzes />
         <Lores />
         <Rages />
         <Dances />
         <SketchControl />
         <StealCapture />
-        <SwdTechs />
-        <Blitzes />
       </PageColumn>
       <PageColumn>
         <CommandsList />

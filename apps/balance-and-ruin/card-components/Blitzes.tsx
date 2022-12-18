@@ -4,7 +4,7 @@ import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
 
 export const Blitzes = () => {
   return (
-    <Card title={"Blitzes"}>
+    <Card title={"Blitz"}>
       <CardColumn>
         <FlagSwitch flag="-brl" label="Bum Rush Last" />
         <FlagSwitch flag="-bel" label="Everyone Learns" />

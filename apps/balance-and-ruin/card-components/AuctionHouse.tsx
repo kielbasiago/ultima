@@ -10,7 +10,7 @@ export const AuctionHouse = () => {
         <FlagSwitch
           flag="-anca"
           invert
-          helperText="Allow the unbuyable chocobo and 1/1200 airship to show up in the AH. Decreases the chance of seeing espers/items"
+          helperText="Allow the unbuyable chocobo and 1/1200 airship to appear in the Auction House. Decreases the chance of seeing espers/items"
           label="Allow Chocobo/Airship"
         />
         <FlagSwitch flag="-adeh" label="Door Hint" />

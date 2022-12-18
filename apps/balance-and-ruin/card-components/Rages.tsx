@@ -19,7 +19,7 @@ const startingRages: SubflagOption[] = [
 ];
 export const Rages = () => {
   return (
-    <Card title={"Rages"}>
+    <Card title={"Rage"}>
       <div className="flex flex-col gap-2">
         <FlagSubflagSelect
           label="Starting Rages"

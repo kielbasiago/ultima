@@ -19,7 +19,7 @@ const startingDances: SubflagOption[] = [
 ];
 export const Dances = () => {
   return (
-    <Card title={"Dances"}>
+    <Card title={"Dance"}>
       <div className="flex flex-col gap-2">
         <FlagSubflagSelect
           options={startingDances}

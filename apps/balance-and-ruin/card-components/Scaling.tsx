@@ -292,30 +292,47 @@ const expGpScalingOptions: SubflagOption[] = [
   },
 ];
 
+const abilityScalingOptions: SubflagOption[] = [
+  {
+    flag: "ase",
+    defaultValue: 2,
+    helperText: "",
+    label: "",
+  },
+];
+
 export const Scaling = () => {
   return (
     <Card title={"Scaling"}>
       <CardColumn>
         <FlagSubflagSelect
           label="Level Scaling"
-          nullableDescription="Enemy and boss levels are not scaled"
-          nullableLabel="None"
+          nullable={{
+            description: "Enemy and boss levels are not scaled",
+            label: "None",
+          }}
           options={levelScalingOptions}
         />
 
         <FlagSubflagSelect
           label="HP/MP Scaling"
-          nullableDescription="Enemy and boss hp/mp are not scaled"
-          nullableLabel="None"
+          nullable={{
+            description: "Enemy and boss hp/mp are not scaled",
+            label: "None",
+          }}
           options={hpMpScalingOptions}
         />
 
         <FlagSubflagSelect
           label="Exp/GP Scaling"
-          nullableDescription="Enemy and boss exp/gp are not scaled"
-          nullableLabel="None"
+          nullable={{
+            description: "Enemy and boss exp/gp are not scaled",
+            label: "None",
+          }}
           options={expGpScalingOptions}
         />
+
+        <FlagSlider flag={"-msl"} label={"Max Scale Level"} />
       </CardColumn>
     </Card>
   );

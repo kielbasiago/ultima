@@ -9,6 +9,8 @@ import { Party } from "~/page-components/Party";
 import { Items } from "~/page-components/Items";
 import { Commands } from "~/page-components/Commands";
 import { Battle } from "~/page-components/Battle";
+import { Misc } from "~/page-components/Misc";
+import { Magic } from "~/page-components/Magic";
 
 type PageProps = {
   schema: Record<string, RawFlagMetadata>;
@@ -54,9 +56,19 @@ const tabs: TabItem[] = [
     content: <Battle />,
   },
   {
+    label: <>Magic</>,
+    id: "magic",
+    content: <Magic />,
+  },
+  {
     label: <>Items</>,
     id: "items",
     content: <Items />,
+  },
+  {
+    label: <>Misc</>,
+    id: "misc",
+    content: <Misc />,
   },
 ];
 

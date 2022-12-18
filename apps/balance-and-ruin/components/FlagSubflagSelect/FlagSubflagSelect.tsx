@@ -17,21 +17,26 @@ export type SubflagOption = {
   flag: string;
   helperText: string;
   label: string;
+  // if true, it will match flag name + defaultValue to the current selected.
+  isStatic?: boolean;
   Renderable?: React.FC<{ children: React.ReactNode }> | null;
 };
 
 export type FlagSubflagSelectProps = {
   label: string;
   options: SubflagOption[];
-  nullableLabel: string;
-  nullableDescription: string;
+  nullable?: {
+    description: string;
+    label: string;
+  };
+  defaultSelected?: SubflagOption;
 };
 
 export const FlagSubflagSelect = ({
   label,
-  nullableDescription,
-  nullableLabel,
+  nullable,
   options: baseOptions,
+  defaultSelected,
 }: FlagSubflagSelectProps) => {
   const dispatch = useDispatch();
   const id = useId();
@@ -47,19 +52,21 @@ export const FlagSubflagSelect = ({
   const empty = useMemo<SubflagOption>(
     () => ({
       flag: EMPTY_FLAG_VALUE,
-      label: nullableLabel ?? "None",
+      label: nullable?.label ?? "",
       defaultValue: null,
-      helperText: nullableDescription,
+      helperText: nullable?.description ?? "",
     }),
-    [nullableDescription, nullableLabel]
+    [nullable]
   );
 
   const options: SubflagOption[] = useMemo(() => {
     const newOptions = [...baseOptions];
-    newOptions.unshift(empty);
+    if (nullable) {
+      newOptions.unshift(empty);
+    }
 
     return newOptions;
-  }, [baseOptions, empty]);
+  }, [baseOptions, empty, nullable]);
 
   const onChange = ({ defaultValue, flag }: SubflagOption) => {
     if (selectedFlag && selectedFlag !== EMPTY_FLAG_VALUE) {
@@ -80,10 +87,26 @@ export const FlagSubflagSelect = ({
       );
     }
   };
+  const selectedValue = useFlagValueSelector<FlagValue>(selectedFlag);
 
   const selectedOption = useMemo(
-    () => options.find(({ flag }) => flag === selectedFlag) ?? empty,
-    [empty, selectedFlag, options]
+    () =>
+      options.find(({ defaultValue, flag, isStatic }) => {
+        if (flag === selectedFlag) {
+          if (isStatic) {
+            return flag === selectedFlag && defaultValue === selectedValue;
+          }
+        }
+        return flag === selectedFlag;
+      }) ??
+      defaultSelected ??
+      empty,
+    [options, defaultSelected, empty, selectedFlag, selectedValue]
+  );
+
+  const description = renderDescription(
+    selectedOption.helperText ?? schemaDescription ?? "",
+    selectedValue
   );
 
   const { Renderable } = selectedOption;
@@ -94,19 +117,12 @@ export const FlagSubflagSelect = ({
       classNamePrefix="ff6wc-select"
       components={{ Option: FlagSelectOption }}
       instanceId={id}
-      getOptionLabel={(option) => option.label ?? nullableLabel}
-      getOptionValue={(option) => option.flag}
+      getOptionLabel={(option) => option.label}
+      getOptionValue={(option) => option.flag + option.defaultValue}
       options={options}
       onChange={(selected) => onChange(selected as SubflagOption)}
       value={selectedOption}
     />
-  );
-
-  const selectedValue = useFlagValueSelector<FlagValue>(selectedOption.flag);
-
-  const description = renderDescription(
-    selectedOption.helperText ?? schemaDescription ?? "",
-    selectedValue
   );
 
   return (

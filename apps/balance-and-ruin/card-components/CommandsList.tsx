@@ -107,7 +107,7 @@ export const CommandsList = () => {
 
   return (
     <Card contentClassName="gap-2" title={"Commands"}>
-      <div className="flex gap-3 justify-center">
+      <div className="flex gap-3 justify-center flex-wrap">
         <Button onClick={allRandomized} variant="primary">
           Randomize
         </Button>

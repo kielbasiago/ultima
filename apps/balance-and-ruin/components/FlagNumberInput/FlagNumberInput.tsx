@@ -16,6 +16,7 @@ import {
 } from "~/state/schemaSlice";
 import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
 import { useNumberScroll } from "~/utils/useNumberScroll";
+import { renderDescription } from "~/utils/renderDescription";
 
 export type FlagNumberInputProps = {
   description?: string;
@@ -69,7 +70,10 @@ export const FlagNumberInput = ({
       <div className={"flex flex-col gap-1"}>
         <FlagLabel
           flag={flag}
-          helperText={hardDescription ?? schemaDescription}
+          helperText={renderDescription(
+            hardDescription ?? schemaDescription,
+            value
+          )}
           label={label}
         />
 

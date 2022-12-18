@@ -23,8 +23,10 @@ export const Dances = () => {
       <div className="flex flex-col gap-2">
         <FlagSubflagSelect
           options={startingDances}
-          nullableDescription={"Begin the game with no dances learned"}
-          nullableLabel={"None"}
+          nullable={{
+            description: "Begin the game with no dances learned",
+            label: "None",
+          }}
           label="Starting Dances"
         />
         <FlagSwitch flag="-das" label="Shuffle Abilities" />

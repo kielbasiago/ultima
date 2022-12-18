@@ -52,14 +52,18 @@ export const Lores = () => {
       <div className="flex flex-col gap-2">
         <FlagSubflagSelect
           label="Starting Lores"
-          nullableLabel="Original"
-          nullableDescription="Start with Strago's original lores"
+          nullable={{
+            description: "Start with Strago's original lores",
+            label: "Original",
+          }}
           options={startingLores}
         />
         <FlagSubflagSelect
           label="MP"
-          nullableLabel="Original"
-          nullableDescription="Original MP costs as the vanilla game"
+          nullable={{
+            description: "Original",
+            label: "Original MP costs of lore spells",
+          }}
           options={mpOptions}
         />
 

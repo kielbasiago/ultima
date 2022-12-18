@@ -23,8 +23,10 @@ export const Rages = () => {
       <div className="flex flex-col gap-2">
         <FlagSubflagSelect
           label="Starting Rages"
-          nullableLabel="Original"
-          nullableDescription="Original starting rages"
+          nullable={{
+            description: "Original",
+            label: "Original starting rages",
+          }}
           options={startingRages}
         />
         <FlagSwitch flag="-rnl" label="No Leap" />

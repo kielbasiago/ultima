@@ -44,11 +44,10 @@ export const FlagSwitch = ({
   return (
     <div className="flex flex-col gap-1">
       <div
-        className={
-          "flex items-center gap-4 justify-between max-w-[200px] cursor-pointer"
-        }
+        className={"flex items-center gap-4  cursor-pointer"}
         onClick={() => onChange(!checked)}
       >
+        <Switch checked={checked} onChange={(val) => onChange(val)} />
         <InputLabel
           className={"cursor-pointer"}
           htmlFor={flag}
@@ -56,7 +55,6 @@ export const FlagSwitch = ({
         >
           {label}
         </InputLabel>
-        <Switch checked={checked} onChange={(val) => onChange(val)} />
       </div>
       <HelperText>{hardDescription ?? schemaDescription}</HelperText>
     </div>

@@ -109,7 +109,10 @@ export const CharacterSprites = ({
             <div className="flex gap-8" key={idx}>
               {/* input + sprite */}
               <div className="flex flex-col gap-3 items-center">
-                <Input defaultValue={characterNames[idx].toUpperCase()} />
+                <Input
+                  defaultValue={characterNames[idx].toUpperCase()}
+                  disabled
+                />
                 <div>
                   <SpriteDrawLoad
                     paletteId={paletteValues[characterPaletteValues[idx]]}

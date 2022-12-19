@@ -18,7 +18,7 @@ const styles = cva("", {
       ],
     },
     disabled: {
-      true: "select-none",
+      true: "select-none opacity-60 text-gray-500",
     },
   },
   defaultVariants: {

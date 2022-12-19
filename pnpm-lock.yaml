@@ -25,6 +25,7 @@ importers:
       '@next/font': 13.0.5
       '@reduxjs/toolkit': 1.9.0
       '@tailwindcss/forms': 0.5.3
+      '@types/chroma-js': 2.1.4
       '@types/lodash': 4.14.188
       '@types/mustache': 4.2.2
       '@types/node': ^17.0.12
@@ -32,6 +33,7 @@ importers:
       '@types/react-dom': ^18.0.7
       '@vercel/python': 3.1.27
       autoprefixer: ^10.4.13
+      chroma-js: 2.4.2
       cva: npm:class-variance-authority@0.3.0
       eslint: 7.32.0
       lodash: 4.17.21
@@ -60,6 +62,7 @@ importers:
       '@tailwindcss/forms': 0.5.3_tailwindcss@3.2.4
       '@types/mustache': 4.2.2
       autoprefixer: 10.4.13_postcss@8.4.19
+      chroma-js: 2.4.2
       cva: /class-variance-authority/0.3.0_typescript@4.8.4
       mustache: 4.2.0
       next: 13.0.0_mqvh5p7ejg4taogoj6tpk3gd5a
@@ -82,6 +85,7 @@ importers:
       '@ff6wc/ips-utils': link:../../packages/ips-utils
       '@ff6wc/tracker-core': link:../../packages/tracker-core
       '@ff6wc/tsconfig': link:../../packages/tsconfig
+      '@types/chroma-js': 2.1.4
       '@types/lodash': 4.14.188
       '@types/node': 17.0.45
       '@types/react': 18.0.25
@@ -1763,6 +1767,10 @@ packages:
       path-browserify: 1.0.1
     dev: true
 
+  /@types/chroma-js/2.1.4:
+    resolution: {integrity: sha512-l9hWzP7cp7yleJUI7P2acmpllTJNYf5uU6wh50JzSIZt3fFHe+w2FM6w9oZGBTYzjjm2qHdnQvI+fF/JF/E5jQ==}
+    dev: true
+
   /@types/cookie/0.4.1:
     resolution: {integrity: sha512-XW/Aa8APYr6jSVVA1y/DEIZX0/GMKLEVekNG727R8cs56ahETkRAy/3DR7+fJyh7oUgGwNQaRfXCun0+KbWY7Q==}
     dev: true
@@ -2447,6 +2455,10 @@ packages:
     resolution: {integrity: sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==}
     engines: {node: '>=10'}
     dev: true
+
+  /chroma-js/2.4.2:
+    resolution: {integrity: sha512-U9eDw6+wt7V8z5NncY2jJfZa+hUH8XEj8FQHgFJTrUFnJfXYf4Ml4adI2vXZOjqRDpFWtYVWypDfZwnJ+HIR4A==}
+    dev: false
 
   /ci-info/2.0.0:
     resolution: {integrity: sha512-5tK7EtrZ0N+OLFMthtqOj4fI2Jeb88C4CAZPu25LDVUgXJ0A3Js4PMGqrn0JU1W0Mh1/Z8wZzYPxqUrXeBboCQ==}

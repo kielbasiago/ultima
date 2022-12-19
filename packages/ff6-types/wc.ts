@@ -368,8 +368,8 @@ export const characterPalettesByKey: Record<FF6Character, number> = {
   relm: 3,
   setzer: 4,
   mog: 5,
-  gau: 4,
-  gogo: 1,
+  gau: 3,
+  gogo: 3,
   umaro: 5,
 };
 

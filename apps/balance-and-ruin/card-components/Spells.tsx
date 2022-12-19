@@ -20,7 +20,9 @@ const mpOptions: SubflagOption[] = [
     flag: "-mmprv",
     helperText: "Each spell has an MP cost between {{ . }}",
     label: "Random Flat Value",
-    Renderable: ({ children }) => <FlagRange flag="-mmprv" label={children} />,
+    Renderable: ({ children }) => (
+      <FlagRange flag="-mmprv" helperText="" label={children} />
+    ),
   },
   {
     defaultValue: [75, 125],
@@ -28,7 +30,9 @@ const mpOptions: SubflagOption[] = [
     helperText:
       "Each spells has an MP cost between {{ . }}% of its original cost",
     label: "Random Percent",
-    Renderable: ({ children }) => <FlagRange flag="-mmprp" label={children} />,
+    Renderable: ({ children }) => (
+      <FlagRange flag="-mmprp" helperText="" label={children} />
+    ),
   },
 ];
 
@@ -66,6 +70,23 @@ const rlsOptions: SubflagOption[] = [
     isStatic: true,
   },
 ];
+
+const ultimaOptions: SubflagOption[] = [
+  {
+    defaultValue: true,
+    flag: "-nu",
+    helperText:
+      "Ultima can no longer be learned from Natural Magic, Espers, Equipment, or Objectives",
+    label: "No Ultima",
+  },
+  {
+    defaultValue: true,
+    flag: "-u254",
+    helperText:
+      "Ultima is available to learn, but has a base cost of 254 MP. Economizer and Gold Hairpin both affect this value",
+    label: "Expensive Ultima (254 MP)",
+  },
+];
 export const Spells = () => {
   return (
     <Card title={"Spells"}>
@@ -86,6 +107,15 @@ export const Spells = () => {
             label: "Allow All",
           }}
           options={rlsOptions}
+        />
+
+        <FlagSubflagSelect
+          label="Ultima"
+          nullable={{
+            description: "Ultima is available to learn and unchanged.",
+            label: "Original",
+          }}
+          options={ultimaOptions}
         />
 
         <FlagSwitch

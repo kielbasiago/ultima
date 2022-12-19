@@ -14,7 +14,6 @@ import BaseSelect from "react-select";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
 import { FlagSelectOption } from "~/components/FlagSelectOption/FlagSelectOption";
-import { InputLabel } from "~/components/InputLabel/InputLabel";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 
 const hoistedOptions = [RANDOM, RANDOM_UNIQUE, NONE];

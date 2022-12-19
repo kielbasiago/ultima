@@ -10,7 +10,6 @@ import { selectAllowedValues, selectDescription } from "~/state/schemaSlice";
 
 export type FlagSelectOption = {
   readonly id: string;
-  readonly isDisabled?: boolean;
   readonly label: string;
 };
 

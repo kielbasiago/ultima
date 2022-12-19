@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { draw_rgb, scale_rgb } from "~/utils/rgbUtils";
 
-export type SpriteDrawProps = {
+export type PortraitDrawProps = {
   alphaBytes: number[];
   rgbBytes: number[];
   scale: number;
@@ -10,11 +10,11 @@ export type SpriteDrawProps = {
 const width = 24;
 const height = 24;
 
-export const SpriteDraw = ({
+export const PortraitDraw = ({
   alphaBytes,
   rgbBytes,
   scale = 3,
-}: SpriteDrawProps) => {
+}: PortraitDrawProps) => {
   const ref = useRef<HTMLCanvasElement | null>(null);
   useEffect(() => {
     const canvas = ref.current;

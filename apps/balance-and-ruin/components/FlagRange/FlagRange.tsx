@@ -11,7 +11,7 @@ import {
   selectStep,
 } from "~/state/schemaSlice";
 import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useNumberScroll } from "~/utils/useNumberScroll";
 import { renderDescription } from "~/utils/renderDescription";
 
@@ -76,11 +76,13 @@ export const FlagRange = ({
   return (
     <div className={"flex flex-col gap-2"}>
       <div className={"flex justify-between items-center gap-4"}>
-        <FlagLabel
-          flag={flag}
-          helperText={helperText ?? description}
-          label={label}
-        />
+        <div>
+          <FlagLabel
+            flag={flag}
+            helperText={helperText ?? description}
+            label={label}
+          />
+        </div>
         <div className={"flex items-center justify-center flex-shrink gap-1"}>
           <Input
             ref={minRef}

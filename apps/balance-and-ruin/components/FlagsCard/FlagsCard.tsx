@@ -44,11 +44,11 @@ export const FlagsCard = ({ className, ...rest }: FlagsCardProps) => {
     }
   }, [inputRef]);
 
-  const { trigger, isMutating } = useSWRMutation<string>(
+  const { trigger, isMutating } = useSWRMutation(
     ["/api/generate", flags],
-    async () => {
+    async (key, { arg }) => {
       const result = await fetch("/api/generate", {
-        body: JSON.stringify({ flags }),
+        body: JSON.stringify({ flags: arg }),
         headers: {},
         method: "POST",
       });

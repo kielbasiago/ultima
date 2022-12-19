@@ -9,10 +9,11 @@ import { Party } from "~/page-components/Party";
 import { Items } from "~/page-components/Items";
 import { Commands } from "~/page-components/Commands";
 import { Battle } from "~/page-components/Battle";
-import { Misc } from "~/page-components/Misc";
+import { Gameplay } from "~/page-components/Misc";
 import { Magic } from "~/page-components/Magic";
-import { Accessibility } from "~/page-components/Accessibility";
+import { AccessibilityAndFixes } from "~/page-components/Accessibility";
 import { Graphics } from "~/page-components/Graphics";
+import { Presets } from "~/page-components/Presets";
 
 type PageProps = {
   schema: Record<string, RawFlagMetadata>;
@@ -43,6 +44,11 @@ type TabItem = {
 
 const tabs: TabItem[] = [
   {
+    label: <>Presets</>,
+    id: "presets",
+    content: <Presets />,
+  },
+  {
     label: <>Party</>,
     id: "party",
     content: <Party />,
@@ -68,15 +74,15 @@ const tabs: TabItem[] = [
     content: <Items />,
   },
   {
-    label: <>Misc</>,
+    label: <>Gameplay</>,
     id: "misc",
-    content: <Misc />,
+    content: <Gameplay />,
   },
   { label: <>Graphics</>, id: "Graphics", content: <Graphics /> },
   {
-    label: <>A11y</>,
+    label: <>Accessibility & Fixes</>,
     id: "accessibility",
-    content: <Accessibility />,
+    content: <AccessibilityAndFixes />,
   },
 ];
 

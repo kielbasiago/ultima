@@ -7,14 +7,17 @@ class handler(BaseHTTPRequestHandler):
     sys.path.append("WorldsCollide")
     
     from WorldsCollide.api.get_sprites import get_sprites
+    from WorldsCollide.api.get_portraits import get_portraits
     from WorldsCollide.api.get_palettes import get_palettes_with_colors
     
     sprites = get_sprites()
     palettes = get_palettes_with_colors()
+    portraits = get_portraits()
     
     result = { 
         'sprites': sprites,
-        'palettes': palettes 
+        'palettes': palettes,
+        'portraits': portraits
     }
     
     import json

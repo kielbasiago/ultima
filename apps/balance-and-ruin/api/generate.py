@@ -24,7 +24,7 @@ class handler(BaseHTTPRequestHandler):
         self.send_response(400)
         self.send_header('Content-type', 'text/plain')
         self.end_headers()
-        self.wfile.write()
+        self.wfile.write(json.dumps({}))
       else:
         with open(in_filename, "rb") as old, open(out_filename, "rb") as new:
             import base64
@@ -38,12 +38,12 @@ class handler(BaseHTTPRequestHandler):
 
   def _generate(self, flags, in_filename, out_filename):
     src_file = os.getenv("INPUT_ROM") or 'ff3.smc'
+    print("GENERATING WITH FLAGS", flags)
     
     if src_file.startswith('http'):
       urllib.request.urlretrieve(src_file, in_filename)
     else:
       shutil.copyfile(src_file, in_filename)
-        
     return subprocess.Popen(['python', 'WorldsCollide/wc.py', '-i', in_filename, '-o', out_filename] + flags.split()).wait()
 
   def do_GET(self):    

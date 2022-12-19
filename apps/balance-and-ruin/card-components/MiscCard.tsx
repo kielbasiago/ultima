@@ -97,10 +97,37 @@ const yNpcOptions: SubflagOption[] = [
   },
 ];
 
+const OPEN_WORLD = {
+  flag: "-open",
+  helperText: "Unrestricted event access",
+  label: "Open World",
+  defaultValue: true,
+  isStatic: true,
+};
+
+const modeOptions: SubflagOption[] = [
+  {
+    flag: "-cg",
+    helperText: "Events locked until required characters recruited",
+    label: "Character Gated",
+    defaultValue: true,
+    isStatic: true,
+  },
+  OPEN_WORLD,
+];
+
 export const MiscCard = () => {
   return (
     <Card title={"Misc."}>
       <CardColumn>
+        <FlagSubflagSelect
+          label="Game Mode"
+          options={modeOptions}
+          defaultSelected={OPEN_WORLD}
+        />
+        <FlagSwitch flag="-sl" label="Spoiler Log" />
+        <FlagSwitch flag="-ond" label="Original Name Display" />
+
         <FlagSubflagSelect
           nullable={{ description: "", label: "None" }}
           label="Y NPC"
@@ -115,8 +142,6 @@ export const MiscCard = () => {
             label: "Original",
           }}
         />
-
-        <FlagSwitch flag="-ond" label="Original Name Display" />
       </CardColumn>
     </Card>
   );

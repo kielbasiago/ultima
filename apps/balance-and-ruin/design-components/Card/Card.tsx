@@ -19,6 +19,7 @@ const containerStyles = cva([
 const contentStyles = cva([
   "flex flex-col",
   "px-4 py-3",
+  "my-4",
   "bg-panel-background",
   " border-panel-border",
 ]);

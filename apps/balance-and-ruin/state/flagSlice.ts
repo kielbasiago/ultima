@@ -75,6 +75,10 @@ export const flagSlice = createSlice({
 
       state.rawFlags = valuesToString(state.flagValues);
     },
+    setRawFlags: (state, action: PayloadAction<string>) => {
+      state.rawFlags = action.payload;
+      state.flagValues = flagsToData(action.payload);
+    },
   },
   extraReducers: {
     [HYDRATE]: (state, action) => {
@@ -86,7 +90,7 @@ export const flagSlice = createSlice({
   },
 });
 
-export const { setFlag, setFlags } = flagSlice.actions;
+export const { setFlag, setFlags, setRawFlags } = flagSlice.actions;
 
 export const selectFlagValues = (state: AppState) => state.flag.flagValues;
 export const selectFlagValue =

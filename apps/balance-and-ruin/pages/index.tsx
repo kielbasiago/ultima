@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from "react";
-import type { NextPage } from "next";
 import { Tabs } from "@ff6wc/ui";
-import { RawFlagMetadata, setSchema } from "~/state/schemaSlice";
-import { useDispatch } from "react-redux";
-import { wrapper } from "~/state/store";
-import { FlagsCard } from "~/components/FlagsCard/FlagsCard";
-import { Party } from "~/page-components/Party";
-import { Items } from "~/page-components/Items";
-import { Commands } from "~/page-components/Commands";
-import { Battle } from "~/page-components/Battle";
-import { Gameplay } from "~/page-components/Misc";
-import { Magic } from "~/page-components/Magic";
-import { AccessibilityAndFixes } from "~/page-components/Accessibility";
-import { Graphics } from "~/page-components/Graphics";
-import { Presets } from "~/page-components/Presets";
 import { PaintBrushIcon } from "@heroicons/react/24/solid";
+import type { NextPage } from "next";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { FlagsCard } from "~/card-components/Flags";
+import { CardColumn } from "~/components/CardColumn/CardColumn";
+import { GenerateCard } from "~/components/GenerateCard/GenerateCard";
+import { AccessibilityAndFixes } from "~/page-components/Accessibility";
+import { Battle } from "~/page-components/Battle";
+import { Commands } from "~/page-components/Commands";
+import { Graphics } from "~/page-components/Graphics";
+import { Items } from "~/page-components/Items";
+import { Magic } from "~/page-components/Magic";
+import { Gameplay } from "~/page-components/Misc";
+import { Party } from "~/page-components/Party";
+import { Presets } from "~/page-components/Presets";
+import { RawFlagMetadata, setSchema } from "~/state/schemaSlice";
+import { wrapper } from "~/state/store";
 
 type PageProps = {
   schema: Record<string, RawFlagMetadata>;
@@ -98,7 +100,7 @@ const tabs: TabItem[] = [
   {
     label: (
       <TabContainer>
-        <TabIcon Icon={PaintBrushIcon} />
+        {/* <TabIcon Icon={PaintBrushIcon} /> */}
         <span>Graphics</span>
       </TabContainer>
     ),
@@ -130,8 +132,11 @@ const Home: NextPage<PageProps> = ({ schema }: PageProps) => {
         />
         {/* <Party /> */}
       </div>
-      <div className="p-8">
-        <FlagsCard />
+      <div className="flex p-8">
+        <CardColumn>
+          <FlagsCard />
+          <GenerateCard />
+        </CardColumn>
       </div>
     </div>
   );

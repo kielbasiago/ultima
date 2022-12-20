@@ -15,7 +15,7 @@ export type FlagsCardProps = {
   className?: string;
 };
 
-export const FlagsCard = ({ className, ...rest }: FlagsCardProps) => {
+export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const flags = useSelector(selectRawFlags);
   const [romData, setRomData] = useState<string | null>(null);

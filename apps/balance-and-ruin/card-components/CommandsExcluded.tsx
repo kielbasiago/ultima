@@ -1,6 +1,7 @@
 import {
   ALL_COMMANDS,
   CommandOption,
+  FIGHT,
   NONE,
   NONE_OPTION,
   RANDOM,
@@ -17,9 +18,10 @@ import { FlagSelectOption } from "~/components/FlagSelectOption/FlagSelectOption
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 
 const hoistedOptions = [RANDOM, RANDOM_UNIQUE, NONE];
+const nonExcludable = [FIGHT];
 
 const rawOptions = Object.values(ALL_COMMANDS).filter(
-  ({ id }) => !hoistedOptions.includes(id)
+  ({ id }) => !hoistedOptions.includes(id) && !nonExcludable.includes(id)
 );
 
 const options: CommandOption[] = [

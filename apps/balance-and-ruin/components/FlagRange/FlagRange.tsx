@@ -76,7 +76,7 @@ export const FlagRange = ({
   return (
     <div className={"flex flex-col gap-2"}>
       <div className={"flex justify-between items-center gap-4"}>
-        <div>
+        <div className="w-full">
           <FlagLabel
             flag={flag}
             helperText={helperText ?? description}

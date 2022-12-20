@@ -3,5 +3,7 @@ export type PageColumnProps = {
 };
 
 export const PageColumn = ({ children }: PageColumnProps) => {
-  return <div className="block basis-0 flex-grow flex-shrink">{children}</div>;
+  return (
+    <div className="flex flex-col gap-4 flex-grow flex-shrink">{children}</div>
+  );
 };

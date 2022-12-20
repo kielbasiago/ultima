@@ -9,6 +9,7 @@ import PaletteSelect, {
 import { PaletteSwatch } from "~/components/PaletteSwatch/PaletteSwatch";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 import sampleSize from "lodash/sampleSize";
+import { Divider } from "~/design-components/Divider/Divider";
 
 export type LoadPalettesResponse = {
   id: string;
@@ -80,32 +81,35 @@ export const SpritePalettes = ({
           const paletteColors = palettesById[paletteValues[idx]]?.color ?? [];
           return (
             <React.Fragment key={idx}>
+              {idx ? <Divider /> : null}
               <div className="flex items-center gap-12 flex-grow min-w-full">
                 <FlagLabel
                   flag="-cpal"
                   helperText=""
                   label={`Palette ${idx}`}
                 />
-                <PaletteSelect
-                  onChange={(val) => {
-                    if (val) {
-                      const paletteValuesBak = [...paletteValues];
-                      paletteValuesBak.splice(
-                        idx,
-                        1,
-                        Number.parseInt(val.value)
-                      );
-                      dispatch(
-                        setFlag({
-                          flag: "-cpal",
-                          value: paletteValuesBak.join("."),
-                        })
-                      );
-                    }
-                  }}
-                  options={paletteOptions}
-                  value={palettesById[paletteValues[idx]]}
-                />
+                <div className="w-full">
+                  <PaletteSelect
+                    onChange={(val) => {
+                      if (val) {
+                        const paletteValuesBak = [...paletteValues];
+                        paletteValuesBak.splice(
+                          idx,
+                          1,
+                          Number.parseInt(val.value)
+                        );
+                        dispatch(
+                          setFlag({
+                            flag: "-cpal",
+                            value: paletteValuesBak.join("."),
+                          })
+                        );
+                      }
+                    }}
+                    options={paletteOptions}
+                    value={palettesById[paletteValues[idx]]}
+                  />
+                </div>
               </div>
               <div>{<PaletteSwatch colors={paletteColors} />}</div>
             </React.Fragment>

@@ -9,17 +9,13 @@ import { PageContainer } from "~/components/PageContainer/PageContainer";
 
 export const Gameplay = () => {
   return (
-    <PageContainer>
-      <PageColumn>
-        <Movement />
-        <Challenges />
-        <Checks />
-      </PageColumn>
-      <PageColumn>
-        <MiscCard />
-        <RNG />
-        <AuctionHouse />
-      </PageColumn>
+    <PageContainer columns={2}>
+      <Movement />
+      <Challenges />
+      <Checks />
+      <MiscCard />
+      <RNG />
+      <AuctionHouse />
     </PageContainer>
   );
 };

@@ -10,7 +10,8 @@ export type SelectOption = {
 type SelectProps = {
   onChange: (selected: SelectOption | null) => void;
   options: SelectOption[];
-  value: SelectOption;
+  placeholder?: string;
+  value: SelectOption | null;
 };
 
 import { components, OptionProps } from "react-select";
@@ -35,7 +36,12 @@ export const FlagSelectOption = <T extends FlagSelectOptionData>({
   );
 };
 
-export const Select = ({ options, onChange, value }: SelectProps) => {
+export const Select = ({
+  options,
+  onChange,
+  placeholder,
+  value,
+}: SelectProps) => {
   const id = useId();
 
   return (
@@ -51,6 +57,7 @@ export const Select = ({ options, onChange, value }: SelectProps) => {
         onChange={(val) => {
           onChange(val as SelectOption);
         }}
+        placeholder={placeholder}
         value={value}
       />
     </div>

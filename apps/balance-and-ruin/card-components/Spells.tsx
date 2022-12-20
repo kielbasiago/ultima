@@ -117,17 +117,6 @@ export const Spells = () => {
           }}
           options={ultimaOptions}
         />
-
-        <FlagSwitch
-          flag="-nu"
-          helperText="Ultima can no longer be learned from Natural Magic, Espers, Equipment, or Objectives"
-          label="No Ultima"
-        />
-        <FlagSwitch
-          flag="-u254"
-          helperText="Ultima costs 254 MP to cast without Economizer"
-          label="Ultima 254"
-        />
       </CardColumn>
     </Card>
   );

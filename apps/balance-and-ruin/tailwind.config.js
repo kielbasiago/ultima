@@ -12,8 +12,10 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        "m": '720px',
+        "sm": "512px",
+        "m": '768px',
         "l": '1024px',
+        "xl": "1366px",
       },
       transitionDuration: {
         40: "40ms",

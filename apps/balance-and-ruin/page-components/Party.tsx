@@ -5,13 +5,9 @@ import { PageContainer } from "~/components/PageContainer/PageContainer";
 
 export const Party = () => {
   return (
-    <PageContainer>
-      <PageColumn>
-        <StartingParty />
-      </PageColumn>
-      <PageColumn>
-        <PartyMembers />
-      </PageColumn>
+    <PageContainer columns={1}>
+      <StartingParty />
+      <PartyMembers />
     </PageContainer>
   );
 };

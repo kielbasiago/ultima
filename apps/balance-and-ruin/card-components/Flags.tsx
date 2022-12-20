@@ -13,13 +13,13 @@ export const FlagsCard = () => {
   };
 
   return (
-    <Card title={"Presets"}>
+    <Card title={"Enter Flags"}>
       <CardColumn>
         <div>
           <FlagLabel
             flag="-manualflagstring"
-            helperText="Enter own flagstring below"
-            label={"Manually Enter Flagstring"}
+            helperText="Enter own flagstring below and click 'Set Flags' to update the active flags"
+            label={""}
           />
         </div>
         <div className={"flex gap-4"}>

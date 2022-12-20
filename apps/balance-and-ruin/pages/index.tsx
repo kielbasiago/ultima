@@ -1,5 +1,15 @@
 import { Tabs } from "@ff6wc/ui";
-import { PaintBrushIcon } from "@heroicons/react/24/solid";
+import {
+  GiPaintBrush,
+  GiRetroController,
+  GiDrinkMe,
+  GiWizardStaff,
+  GiLightningTrio,
+  GiRelicBlade,
+  GiUprising,
+  GiMagnifyingGlass,
+} from "react-icons/gi";
+import type { IconType } from "react-icons";
 import type { NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -12,7 +22,7 @@ import { Commands } from "~/page-components/Commands";
 import { Graphics } from "~/page-components/Graphics";
 import { Items } from "~/page-components/Items";
 import { Magic } from "~/page-components/Magic";
-import { Gameplay } from "~/page-components/Misc";
+import { Gameplay } from "~/page-components/Gameplay";
 import { Party } from "~/page-components/Party";
 import { Presets } from "~/page-components/Presets";
 import { RawFlagMetadata, setSchema } from "~/state/schemaSlice";
@@ -51,56 +61,92 @@ const TabContainer = ({ children }: WithChildren) => {
 };
 
 type WithIcon = {
-  Icon: React.ComponentType<JSX.IntrinsicElements["svg"]>;
+  Icon: IconType;
 };
 const TabIcon = ({ Icon }: WithIcon) => {
   return (
-    <span>
-      <Icon height={16} width={16} />
+    <span className="">
+      <Icon size={"1.25rem"} />
     </span>
   );
 };
 
 const tabs: TabItem[] = [
   {
-    label: <TabContainer>Presets</TabContainer>,
+    label: (
+      <TabContainer>
+        <TabIcon Icon={GiWizardStaff} />
+        Presets
+      </TabContainer>
+    ),
+
     id: "presets",
     content: <Presets />,
   },
   {
-    label: <TabContainer>Party</TabContainer>,
+    label: (
+      <TabContainer>
+        <TabIcon Icon={GiUprising} />
+        Party
+      </TabContainer>
+    ),
     id: "party",
     content: <Party />,
   },
   {
-    label: <TabContainer>Commands</TabContainer>,
+    label: (
+      <TabContainer>
+        <TabIcon Icon={GiWizardStaff} />
+        Commands
+      </TabContainer>
+    ),
     id: "commands",
     content: <Commands />,
   },
   {
-    label: <TabContainer>Battle</TabContainer>,
+    label: (
+      <TabContainer>
+        <TabIcon Icon={GiRelicBlade} />
+        Battle
+      </TabContainer>
+    ),
     id: "battle",
     content: <Battle />,
   },
   {
-    label: <TabContainer>Magic</TabContainer>,
+    label: (
+      <TabContainer>
+        <TabIcon Icon={GiLightningTrio} />
+        Magic
+      </TabContainer>
+    ),
     id: "magic",
     content: <Magic />,
   },
   {
-    label: <TabContainer>Items</TabContainer>,
+    label: (
+      <TabContainer>
+        <TabIcon Icon={GiDrinkMe} />
+        Items
+      </TabContainer>
+    ),
     id: "items",
     content: <Items />,
   },
   {
-    label: <TabContainer>Gameplay</TabContainer>,
+    label: (
+      <TabContainer>
+        <TabIcon Icon={GiRetroController} />
+        Gameplay
+      </TabContainer>
+    ),
     id: "misc",
     content: <Gameplay />,
   },
   {
     label: (
       <TabContainer>
-        {/* <TabIcon Icon={PaintBrushIcon} /> */}
+        <TabIcon Icon={GiPaintBrush} />
         <span>Graphics</span>
       </TabContainer>
     ),
@@ -108,7 +154,12 @@ const tabs: TabItem[] = [
     content: <Graphics />,
   },
   {
-    label: <TabContainer>Accessibility & Fixes</TabContainer>,
+    label: (
+      <TabContainer>
+        <TabIcon Icon={GiMagnifyingGlass} />
+        Accessibility & Fixes
+      </TabContainer>
+    ),
     id: "accessibility",
     content: <AccessibilityAndFixes />,
   },
@@ -123,8 +174,8 @@ const Home: NextPage<PageProps> = ({ schema }: PageProps) => {
   }, [dispatch, schema]);
 
   return (
-    <div>
-      <div className="flex flex-col p-8">
+    <>
+      <div className="WC-Page">
         <Tabs
           onChange={(tab) => setSelected(tab)}
           selected={selected}
@@ -138,7 +189,7 @@ const Home: NextPage<PageProps> = ({ schema }: PageProps) => {
           <GenerateCard />
         </CardColumn>
       </div>
-    </div>
+    </>
   );
 };
 

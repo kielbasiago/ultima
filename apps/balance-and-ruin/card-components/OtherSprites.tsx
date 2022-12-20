@@ -1,9 +1,11 @@
 import { Button, Card } from "@ff6wc/ui";
 import sampleSize from "lodash/sampleSize";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { CharacterGraphicSelector } from "~/components/CharacterGraphicSelector/CharacterGraphicSelector";
 import { defaultSpriteString } from "~/constants/graphicConstants";
+import { Divider } from "~/design-components/Divider/Divider";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 
 export type LoadPalettesResponse = {
@@ -83,17 +85,20 @@ export const OtherSprites = ({
           </Button>
         </span>
 
-        {dudes.map((dude) => (
-          <CharacterGraphicSelector
-            key={dude}
-            id={dude}
-            Label={names[dude] ?? null}
-            paletteOptionCount={6}
-            palettes={paletteDefs}
-            portraitId={portraits[dude] ?? null}
-            portraits={portraitDefs}
-            sprites={spriteDefs}
-          />
+        {dudes.map((dude, idx) => (
+          <React.Fragment key={dude}>
+            {idx ? <Divider /> : null}
+            <CharacterGraphicSelector
+              key={dude}
+              id={dude}
+              Label={names[dude] ?? null}
+              paletteOptionCount={6}
+              palettes={paletteDefs}
+              portraitId={portraits[dude] ?? null}
+              portraits={portraitDefs}
+              sprites={spriteDefs}
+            />
+          </React.Fragment>
         ))}
       </CardColumn>
     </Card>

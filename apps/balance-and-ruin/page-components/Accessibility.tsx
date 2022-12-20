@@ -8,13 +8,9 @@ import { PageContainer } from "~/components/PageContainer/PageContainer";
 export const AccessibilityAndFixes = () => {
   return (
     <PageContainer>
-      <PageColumn>
-        <AccessibilityCard />
-      </PageColumn>
-      <PageColumn>
-        <BugFixes />
-        <BossAI />
-      </PageColumn>
+      <AccessibilityCard />
+      <BugFixes />
+      <BossAI />
     </PageContainer>
   );
 };

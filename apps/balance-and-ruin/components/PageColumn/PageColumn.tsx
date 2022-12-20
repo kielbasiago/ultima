@@ -1,7 +1,20 @@
+import { cx } from "cva";
+
 export type PageColumnProps = {
   children: React.ReactNode;
+  className?: string;
 };
 
-export const PageColumn = ({ children }: PageColumnProps) => {
-  return <div className="block basis-0 flex-grow mx-auto">{children}</div>;
+export const PageColumn = ({ children, className }: PageColumnProps) => {
+  return (
+    <div
+      className={cx(
+        "WC-PageColumn",
+        className,
+        "col-span-8 lg:col-span-4 inline-block h-fit w-full"
+      )}
+    >
+      {children}
+    </div>
+  );
 };

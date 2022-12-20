@@ -17,9 +17,9 @@ const containerStyles = cva([
 ]);
 
 const contentStyles = cva([
-  "flex flex-col",
+  "flex flex-col gap-4",
+  "mb-6",
   "px-4 py-3",
-  "my-4",
   "bg-panel-background",
   " border-panel-border",
 ]);
@@ -45,9 +45,17 @@ export const Card = ({
   ...rest
 }: CardProps) => {
   return (
-    <div {...rest} className={cx(containerStyles(), className)}>
-      <div className={headingStyles({ variant })}>{title}</div>
-      <div className={cx(contentStyles(), contentClassName)}>{children}</div>
+    <div
+      className={cx(
+        "WC-Card",
+        className,
+        "col-span-6 inline-block h-fit w-full"
+      )}
+    >
+      <div {...rest} className={cx(containerStyles())}>
+        <div className={headingStyles({ variant })}>{title}</div>
+        <div className={cx(contentStyles(), contentClassName)}>{children}</div>
+      </div>
     </div>
   );
 };

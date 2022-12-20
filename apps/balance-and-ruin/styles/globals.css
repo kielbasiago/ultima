@@ -13,7 +13,6 @@ div#__next > div {
   height: 100%;
 }
 
-
 @layer components {
   .ff6-slider.rc-slider {
     @apply p-0;

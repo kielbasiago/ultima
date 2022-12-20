@@ -12,7 +12,7 @@ const tabStyles = cva(
     "outline-offset-0",
     "rounded-none",
     "focus:z-10",
-    "font-medium",
+    "font-small md:font-medium",
   ],
   {
     variants: {

@@ -7,15 +7,11 @@ import { PageContainer } from "~/components/PageContainer/PageContainer";
 
 export const Battle = () => {
   return (
-    <PageContainer>
-      <PageColumn>
-        <ExperienceMagicPointsGold />
-        <Bosses />
-        <Encounters />
-      </PageColumn>
-      <PageColumn>
-        <Scaling />
-      </PageColumn>
+    <PageContainer columns={2}>
+      <ExperienceMagicPointsGold />
+      <Bosses />
+      <Scaling />
+      <Encounters />
     </PageContainer>
   );
 };

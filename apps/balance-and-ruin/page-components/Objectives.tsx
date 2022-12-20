@@ -18,19 +18,14 @@ export const Graphics = () => {
   const { palettes = [], portraits = [], sprites = [] } = data || {};
 
   return (
-    <PageContainer columns={2}>
-      <SpritePalettes palettes={palettes} />
-      <OtherSprites
-        palettes={palettes}
-        portraits={portraits}
-        sprites={sprites}
-      />
-
-      <CharacterSprites
-        palettes={palettes}
-        portraits={portraits}
-        sprites={sprites}
-      />
+    <PageContainer>
+      <PageColumn>
+        <CharacterSprites
+          palettes={palettes}
+          portraits={portraits}
+          sprites={sprites}
+        />
+      </PageColumn>
     </PageContainer>
   );
 };

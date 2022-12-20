@@ -8,14 +8,10 @@ import { PageContainer } from "~/components/PageContainer/PageContainer";
 export const Items = () => {
   return (
     <PageContainer>
-      <PageColumn>
-        <StartingGoldAndItems />
-        <Coliseum />
-      </PageColumn>
-      <PageColumn>
-        <Shops />
-        <Chests />
-      </PageColumn>
+      <StartingGoldAndItems />
+      <Coliseum />
+      <Shops />
+      <Chests />
     </PageContainer>
   );
 };

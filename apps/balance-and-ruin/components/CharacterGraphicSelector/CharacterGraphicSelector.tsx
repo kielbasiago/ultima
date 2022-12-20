@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import SpriteDrawLoad from "~/components/SpriteDrawLoad/SpriteDrawLoad";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
@@ -32,6 +32,8 @@ export type CharacterGraphicSelectorProps = {
   portraits: LoadSpritesResponse;
   sprites: LoadSpritesResponse;
 };
+
+const usablePoses = [1, 9, 10, 11, 18, 20, 22, 24, 29, 31, 32, 36, 39];
 
 export const CharacterGraphicSelector = ({
   id,
@@ -115,6 +117,17 @@ export const CharacterGraphicSelector = ({
     return acc;
   }, {} as Record<string, SelectOption>);
 
+  const [poseId, setPoseId] = useState(1);
+
+  const onSpriteClick = () => {
+    const idx = usablePoses.indexOf(poseId);
+    if (usablePoses[idx + 1] != null) {
+      setPoseId(usablePoses[idx + 1]);
+    } else {
+      setPoseId(1);
+    }
+  };
+
   return (
     <div className="flex gap-8" key={id}>
       <div className="flex flex-col gap-3 items-center min-w-[150px]">
@@ -127,8 +140,9 @@ export const CharacterGraphicSelector = ({
           ) : null}
           <span>
             <SpriteDrawLoad
+              onClick={onSpriteClick}
               paletteId={paletteValues[characterPaletteValues[id]]}
-              poseId={1}
+              poseId={poseId}
               spriteId={spriteValues[id]}
               scale={3}
             />

@@ -3,6 +3,7 @@ import { draw_rgb, scale_rgb } from "~/utils/rgbUtils";
 
 export type SpriteDrawProps = {
   alphaBytes: number[];
+  onClick?: () => void;
   rgbBytes: number[];
   scale: number;
 };
@@ -12,6 +13,7 @@ const height = 24;
 
 export const SpriteDraw = ({
   alphaBytes,
+  onClick,
   rgbBytes,
   scale = 3,
 }: SpriteDrawProps) => {
@@ -36,6 +38,7 @@ export const SpriteDraw = ({
   return (
     <canvas
       className="inline"
+      onClick={onClick}
       ref={ref}
       width={width * scale}
       height={height * scale}

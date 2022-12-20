@@ -10,6 +10,7 @@ export type LoadSpriteResponse = {
 };
 
 type SpriteDrawLoadProps = {
+  onClick: () => void;
   paletteId: number;
   poseId: number;
   scale?: number;
@@ -17,6 +18,7 @@ type SpriteDrawLoadProps = {
 };
 
 export default function SpriteDrawLoad({
+  onClick,
   paletteId,
   poseId,
   scale = 3,
@@ -42,9 +44,12 @@ export default function SpriteDrawLoad({
     return { alphaBytes, rgbBytes };
   }, [data]);
 
-  const SpriteRender = (
-    <SpriteDraw alphaBytes={alphaBytes} rgbBytes={rgbBytes} scale={scale} />
+  return (
+    <SpriteDraw
+      alphaBytes={alphaBytes}
+      onClick={onClick}
+      rgbBytes={rgbBytes}
+      scale={scale}
+    />
   );
-
-  return <>{SpriteRender}</>;
 }

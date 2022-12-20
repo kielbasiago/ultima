@@ -2,15 +2,15 @@ import { useId } from "react";
 
 import BaseSelect from "react-select";
 
-export type SpriteSelectOption = {
+export type SelectOption = {
   readonly value: string;
   readonly label: string;
 };
 
-type SpriteSelectProps = {
-  onChange: (selected: SpriteSelectOption | null) => void;
-  options: SpriteSelectOption[];
-  value: SpriteSelectOption;
+type SelectProps = {
+  onChange: (selected: SelectOption | null) => void;
+  options: SelectOption[];
+  value: SelectOption;
 };
 
 import { components, OptionProps } from "react-select";
@@ -20,6 +20,7 @@ type FlagSelectOptionData = {
   label: string;
   value: string;
 };
+
 export const FlagSelectOption = <T extends FlagSelectOptionData>({
   children,
   data,
@@ -34,7 +35,7 @@ export const FlagSelectOption = <T extends FlagSelectOptionData>({
   );
 };
 
-export const Select = ({ options, onChange, value }: SpriteSelectProps) => {
+export const Select = ({ options, onChange, value }: SelectProps) => {
   const id = useId();
 
   return (
@@ -48,7 +49,7 @@ export const Select = ({ options, onChange, value }: SpriteSelectProps) => {
         getOptionValue={(option) => option.value}
         options={options}
         onChange={(val) => {
-          onChange(val as SpriteSelectOption);
+          onChange(val as SelectOption);
         }}
         value={value}
       />

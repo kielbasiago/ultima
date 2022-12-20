@@ -7,13 +7,13 @@ export type PortraitDrawProps = {
   scale: number;
 };
 
-const width = 24;
-const height = 24;
+const width = 40;
+const height = 40;
 
 export const PortraitDraw = ({
   alphaBytes,
   rgbBytes,
-  scale = 3,
+  scale = 2,
 }: PortraitDrawProps) => {
   const ref = useRef<HTMLCanvasElement | null>(null);
   useEffect(() => {
@@ -34,8 +34,11 @@ export const PortraitDraw = ({
   }, [alphaBytes, ref, rgbBytes, scale]);
 
   return (
-    <div className="">
-      <canvas className="inline" ref={ref} width={width} height={height} />
-    </div>
+    <canvas
+      className="inline"
+      ref={ref}
+      width={width * scale}
+      height={height * scale}
+    />
   );
 };

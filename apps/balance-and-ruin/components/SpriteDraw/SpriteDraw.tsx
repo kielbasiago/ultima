@@ -34,13 +34,11 @@ export const SpriteDraw = ({
   }, [alphaBytes, ref, rgbBytes, scale]);
 
   return (
-    <div className="">
-      <canvas
-        className="inline"
-        ref={ref}
-        width={width * scale}
-        height={height * scale}
-      />
-    </div>
+    <canvas
+      className="inline"
+      ref={ref}
+      width={width * scale}
+      height={height * scale}
+    />
   );
 };

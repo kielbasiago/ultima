@@ -1,4 +1,4 @@
-import { Card } from "@ff6wc/ui";
+import { Button, Card } from "@ff6wc/ui";
 import React, { useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
@@ -8,6 +8,7 @@ import PaletteSelect, {
 } from "~/components/PaletteSelect/PaletteSelect";
 import { PaletteSwatch } from "~/components/PaletteSwatch/PaletteSwatch";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
+import sampleSize from "lodash/sampleSize";
 
 export type LoadPalettesResponse = {
   id: string;
@@ -48,11 +49,33 @@ export const SpritePalettes = ({
     return acc;
   }, {} as Record<string, PaletteSelectOption>);
 
-  const paletteIter = Array.from(new Array(6));
+  const paletteIter = Array.from(new Array(7));
 
+  const randomize = () => {
+    const pal = sampleSize(
+      paletteDefs.map(({ id }) => id),
+      paletteIter.length
+    );
+
+    dispatch(
+      setFlag({
+        flag: "-cpal",
+        value: pal.join("."),
+      })
+    );
+  };
   return (
-    <Card title={"Character Sprites"}>
+    <Card title={"Sprite Palettes"}>
       <CardColumn>
+        <div className="flex flex-wrap">
+          <Button
+            disabled={!paletteDefs.length}
+            onClick={randomize}
+            variant="primary"
+          >
+            Randomize Palettes
+          </Button>
+        </div>
         {paletteIter.map((_val, idx) => {
           const paletteColors = palettesById[paletteValues[idx]]?.color ?? [];
           return (

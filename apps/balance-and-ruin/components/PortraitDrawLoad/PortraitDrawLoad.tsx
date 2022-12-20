@@ -16,7 +16,7 @@ type PortraitDrawLoadProps = {
 
 export default function PortraitDrawLoad({
   portraitId,
-  scale = 3,
+  scale = 2,
 }: PortraitDrawLoadProps) {
   const { data, error } = useSWRImmutable<LoadSpriteResponse>(
     `/api/portrait/${portraitId}`,
@@ -38,9 +38,9 @@ export default function PortraitDrawLoad({
     return { alphaBytes, rgbBytes };
   }, [data]);
 
-  const SpriteRender = (
+  const PortraitRender = (
     <PortraitDraw alphaBytes={alphaBytes} rgbBytes={rgbBytes} scale={scale} />
   );
 
-  return <>{SpriteRender}</>;
+  return <>{PortraitRender}</>;
 }

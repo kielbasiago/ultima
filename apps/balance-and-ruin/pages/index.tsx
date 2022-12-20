@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import { Tabs } from "@ff6wc/ui";
 import { RawFlagMetadata, setSchema } from "~/state/schemaSlice";
@@ -14,6 +14,7 @@ import { Magic } from "~/page-components/Magic";
 import { AccessibilityAndFixes } from "~/page-components/Accessibility";
 import { Graphics } from "~/page-components/Graphics";
 import { Presets } from "~/page-components/Presets";
+import { PaintBrushIcon } from "@heroicons/react/24/solid";
 
 type PageProps = {
   schema: Record<string, RawFlagMetadata>;
@@ -42,45 +43,70 @@ type TabItem = {
   id: string;
 };
 
+type WithChildren = { children: React.ReactNode };
+const TabContainer = ({ children }: WithChildren) => {
+  return <div className="flex items-center gap-2">{children}</div>;
+};
+
+type WithIcon = {
+  Icon: React.ComponentType<JSX.IntrinsicElements["svg"]>;
+};
+const TabIcon = ({ Icon }: WithIcon) => {
+  return (
+    <span>
+      <Icon height={16} width={16} />
+    </span>
+  );
+};
+
 const tabs: TabItem[] = [
   {
-    label: <>Presets</>,
+    label: <TabContainer>Presets</TabContainer>,
     id: "presets",
     content: <Presets />,
   },
   {
-    label: <>Party</>,
+    label: <TabContainer>Party</TabContainer>,
     id: "party",
     content: <Party />,
   },
   {
-    label: <>Commands</>,
+    label: <TabContainer>Commands</TabContainer>,
     id: "commands",
     content: <Commands />,
   },
   {
-    label: <>Battle</>,
+    label: <TabContainer>Battle</TabContainer>,
     id: "battle",
     content: <Battle />,
   },
   {
-    label: <>Magic</>,
+    label: <TabContainer>Magic</TabContainer>,
     id: "magic",
     content: <Magic />,
   },
   {
-    label: <>Items</>,
+    label: <TabContainer>Items</TabContainer>,
     id: "items",
     content: <Items />,
   },
   {
-    label: <>Gameplay</>,
+    label: <TabContainer>Gameplay</TabContainer>,
     id: "misc",
     content: <Gameplay />,
   },
-  { label: <>Graphics</>, id: "Graphics", content: <Graphics /> },
   {
-    label: <>Accessibility & Fixes</>,
+    label: (
+      <TabContainer>
+        <TabIcon Icon={PaintBrushIcon} />
+        <span>Graphics</span>
+      </TabContainer>
+    ),
+    id: "Graphics",
+    content: <Graphics />,
+  },
+  {
+    label: <TabContainer>Accessibility & Fixes</TabContainer>,
     id: "accessibility",
     content: <AccessibilityAndFixes />,
   },

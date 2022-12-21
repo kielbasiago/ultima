@@ -86,6 +86,7 @@ export const FlagSlider = ({
         />
         <div className={"flex items-center justify-center flex-shrink gap-1"}>
           <Input
+            className={"max-w-[80px]"}
             min={min}
             max={max}
             step={step || 1}

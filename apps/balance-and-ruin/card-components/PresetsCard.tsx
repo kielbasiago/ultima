@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Select, SelectOption } from "~/components/Select/Select";
 import { setRawFlags } from "~/state/flagSlice";
-
 const presets: SelectOption[] = [
   {
     label: "Ultros League",

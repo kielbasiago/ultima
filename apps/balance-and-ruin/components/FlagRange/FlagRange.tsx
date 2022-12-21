@@ -85,6 +85,7 @@ export const FlagRange = ({
         </div>
         <div className={"flex items-center justify-center flex-shrink gap-1"}>
           <Input
+            className={"max-w-[80px]"}
             ref={minRef}
             min={min}
             max={max}
@@ -97,6 +98,7 @@ export const FlagRange = ({
           />
           <span className={"flex-shrink font-semibold"}>-</span>
           <Input
+            className={"max-w-[80px]"}
             ref={maxRef}
             min={min}
             max={max}

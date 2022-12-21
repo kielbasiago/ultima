@@ -14,6 +14,9 @@ const styles = cva(["columns-1 gap-6"], {
       // 3: "md:grid-cols-6 lg:grid-cols-12",
     },
   },
+  defaultVariants: {
+    columns: 2,
+  },
 });
 
 export const PageContainer = ({ children, columns }: PageContainerProps) => {

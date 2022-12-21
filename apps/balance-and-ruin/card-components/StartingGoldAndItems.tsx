@@ -28,11 +28,6 @@ export const StartingGoldAndItems = () => {
           flag="-sfd"
           label="Starting Fenix Downs"
         />
-        <FlagSlider
-          helperText="Begin the game with {{ . }} different random tools"
-          flag="-sto"
-          label="Starting Tools"
-        />
       </CardColumn>
     </Card>
   );

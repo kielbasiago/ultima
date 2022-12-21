@@ -27,10 +27,12 @@ type SelectOption = BaseOption & {
 
 const RANDOM = "random";
 const RANDOM_NGU = "randomngu";
+const NONE = "none";
 
-const [randomOption, randomnguOption]: SelectOption[] = [
+const [randomOption, randomnguOption, noneOption]: SelectOption[] = [
   { value: RANDOM, label: "Random" },
   { value: RANDOM_NGU, label: "Random (No Gogo/Umaro)" },
+  { value: NONE, label: "None" },
 ];
 
 const randomValues = [RANDOM, RANDOM_NGU];
@@ -38,6 +40,7 @@ const randomValues = [RANDOM, RANDOM_NGU];
 const options = [
   randomOption,
   randomnguOption,
+  noneOption,
   ...characterNames.map(
     (id) =>
       ({
@@ -141,6 +144,15 @@ export const StartingParty = () => {
   }, [sc1Val, sc2Val, sc3Val, sc4Val]);
 
   const onChange = (flag: string) => (selected: SelectOption | null) => {
+    if (selected?.value === NONE) {
+      dispatch(
+        setFlag({
+          flag,
+          value: null,
+        })
+      );
+      return;
+    }
     dispatch(
       setFlag({
         flag,

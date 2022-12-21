@@ -11,6 +11,7 @@ import {
   defaultPortraitString,
   defaultSpriteString,
 } from "~/constants/graphicConstants";
+import { CHARACTER_POSES } from "@ff6wc/ff6-types";
 
 export type LoadPalettesResponse = {
   id: string;
@@ -32,8 +33,6 @@ export type CharacterGraphicSelectorProps = {
   portraits: LoadSpritesResponse;
   sprites: LoadSpritesResponse;
 };
-
-const usablePoses = [1, 9, 10, 11, 18, 20, 22, 24, 29, 31, 32, 36, 39];
 
 export const CharacterGraphicSelector = ({
   id,
@@ -120,9 +119,9 @@ export const CharacterGraphicSelector = ({
   const [poseId, setPoseId] = useState(1);
 
   const onSpriteClick = () => {
-    const idx = usablePoses.indexOf(poseId);
-    if (usablePoses[idx + 1] != null) {
-      setPoseId(usablePoses[idx + 1]);
+    const idx = CHARACTER_POSES.indexOf(poseId);
+    if (CHARACTER_POSES[idx + 1] != null) {
+      setPoseId(CHARACTER_POSES[idx + 1]);
     } else {
       setPoseId(1);
     }

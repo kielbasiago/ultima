@@ -27,6 +27,7 @@ import { Party } from "~/page-components/Party";
 import { Presets } from "~/page-components/Presets";
 import { RawFlagMetadata, setSchema } from "~/state/schemaSlice";
 import { wrapper } from "~/state/store";
+import { cx } from "cva";
 
 type PageProps = {
   schema: Record<string, RawFlagMetadata>;
@@ -55,18 +56,21 @@ type TabItem = {
   id: string;
 };
 
-type WithChildren = { children: React.ReactNode };
-const TabContainer = ({ children }: WithChildren) => {
-  return <div className="flex items-center gap-2">{children}</div>;
+type WithChildren = { children: React.ReactNode; className?: string };
+const TabContainer = ({ children, className }: WithChildren) => {
+  return (
+    <div className={cx("flex items-center gap-2", className)}>{children}</div>
+  );
 };
 
 type WithIcon = {
+  className?: string;
   Icon: IconType;
 };
-const TabIcon = ({ Icon }: WithIcon) => {
+const TabIcon = ({ className, Icon }: WithIcon) => {
   return (
     <span className="">
-      <Icon size={"1.25rem"} />
+      <Icon className={className} size={"1.25rem"} />
     </span>
   );
 };

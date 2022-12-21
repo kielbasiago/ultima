@@ -1,0 +1,3 @@
+export const CHARACTER_POSES = [1, 9, 10, 11, 16, 20, 22, 24, 29, 31, 32, 36];
+
+export const CHARACTER_POSES_EXTENDED = [...CHARACTER_POSES, 18, 39];

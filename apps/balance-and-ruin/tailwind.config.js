@@ -45,7 +45,8 @@ module.exports = {
       boxShadow: {
         'input-focus': '0 0 0 2px #55cbff',
         'switch-focus': '0 0 0 4px #55cbff',
-        'range-focus': '0 0 0 4px #55cbff'
+        'range-focus': '0 0 0 4px #55cbff',
+        'rainbow': ' 5px 5px 15px 5px #FF8080, -9px 5px 15px 5px #FFE488, -7px -5px 15px 5px #8CFF85, 12px -5px 15px 5px #80C7FF, 12px 10px 15px 7px #E488FF, -10px 10px 15px 7px #FF616B, -10px -7px 27px 1px #8E5CFF, 5px 5px 15px 5px rgba(0,0,0,0) '
       }
     },
     borderWidth: {

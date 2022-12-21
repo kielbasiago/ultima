@@ -1,6 +1,5 @@
+import { cx } from "cva";
 import { useId } from "react";
-
-import BaseSelect from "react-select";
 
 export type SelectOption = {
   readonly value: string;
@@ -8,13 +7,19 @@ export type SelectOption = {
 };
 
 type SelectProps = {
+  className?: string;
   onChange: (selected: SelectOption | null) => void;
   options: SelectOption[];
+  components?: SelectComponentsConfig<SelectOption, false, any>;
   placeholder?: string;
   value: SelectOption | null;
 };
 
-import { components, OptionProps } from "react-select";
+import BaseSelect, {
+  components,
+  OptionProps,
+  SelectComponentsConfig,
+} from "react-select";
 
 type FlagSelectOptionData = {
   helperText?: string;
@@ -37,19 +42,22 @@ export const FlagSelectOption = <T extends FlagSelectOptionData>({
 };
 
 export const Select = ({
+  className,
+  components = {},
   options,
   onChange,
   placeholder,
   value,
 }: SelectProps) => {
   const id = useId();
+  const { Option = FlagSelectOption, ...restComponents } = components;
 
   return (
     <div className="flex flex-col gap-1">
       <BaseSelect
-        className="ff6wc-select-container"
-        classNamePrefix="ff6wc-select"
-        components={{ Option: FlagSelectOption }}
+        className={cx(className, "ff6wc-select-container")}
+        classNamePrefix={"ff6wc-select"}
+        components={{ Option: Option, ...restComponents }}
         instanceId={id}
         getOptionLabel={(option) => option.label}
         getOptionValue={(option) => option.value}

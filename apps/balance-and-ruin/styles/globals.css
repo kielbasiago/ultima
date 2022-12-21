@@ -160,4 +160,13 @@ div#__next > div {
   .ff6wc-select-container input:focus {
     box-shadow: none;
   }
+
+  .ff6wc-party-select.ff6wc-select-container .ff6wc-select__control {
+    @apply min-h-[100px];
+    @apply flex-shrink;
+  }
+
+  .ff6wc-party-select.ff6wc-select-container .ff6wc-select__indicator-separator {
+    display: none;
+  }
 }

@@ -1,8 +1,10 @@
+import { cx } from "cva";
 import { useEffect, useRef } from "react";
 import { draw_rgb, scale_rgb } from "~/utils/rgbUtils";
 
 export type SpriteDrawProps = {
   alphaBytes: number[];
+  className?: string;
   onClick?: () => void;
   rgbBytes: number[];
   scale: number;
@@ -13,6 +15,7 @@ const height = 24;
 
 export const SpriteDraw = ({
   alphaBytes,
+  className,
   onClick,
   rgbBytes,
   scale = 3,
@@ -37,7 +40,7 @@ export const SpriteDraw = ({
 
   return (
     <canvas
-      className="inline"
+      className={cx(className, "inline")}
       onClick={onClick}
       ref={ref}
       width={width * scale}

@@ -4,7 +4,7 @@ import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
 
 export const BossAI = () => {
   return (
-    <Card title={"BossAI"}>
+    <Card title={"Boss AI"}>
       <CardColumn>
         <FlagSwitch flag="-dgne" label="Doom Gaze No Escape" />
         <FlagSwitch flag="-wnz" label="Wrexsoul No Zinger" />

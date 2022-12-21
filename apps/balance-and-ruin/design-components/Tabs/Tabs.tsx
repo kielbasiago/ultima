@@ -13,7 +13,7 @@ export const Tabs = ({ onChange: baseOnChange, selected, tabs }: TabsProps) => {
   };
 
   return (
-    <main className={"lg:w-10/12  m-auto"}>
+    <main className={"w-11/12 lg:w-10/12  m-auto"}>
       <Tab.Group onChange={(idx) => onChange(tabs[idx])}>
         <div className="flex justify-center items-center">
           <Tab.List className="p-5">

@@ -68,10 +68,6 @@ export const SelectPartyOption = <T extends SelectOption>({
 
   const isRandom = randomValues.includes(value);
 
-  if (isRandom) {
-    debugger;
-  }
-
   return (
     <components.Option data={data} {...rest}>
       <span className="flex items-center">
@@ -86,7 +82,7 @@ export const SelectPartyOption = <T extends SelectOption>({
             scale={1}
           />
         </span>
-        <span className="text-lg">{label}</span>
+        <span>{label}</span>
       </span>
     </components.Option>
   );

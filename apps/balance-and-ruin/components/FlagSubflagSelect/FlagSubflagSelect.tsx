@@ -87,7 +87,7 @@ export const FlagSubflagSelect = ({
       );
     }
   };
-  const selectedValue = useFlagValueSelector<FlagValue>(selectedFlag);
+  const selectedValue = useFlagValueSelector<FlagValue>(selectedFlag!);
 
   const selectedOption = useMemo(
     () =>

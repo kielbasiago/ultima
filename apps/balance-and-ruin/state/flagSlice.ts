@@ -122,7 +122,10 @@ export const useFlagValueSelector = <T>(flag: string | null) => {
 export const selectActiveMutuallyExclusiveFlag =
   (...flags: string[]) =>
   (state: AppState) => {
-    return flags.find((flag) => Boolean(state.flag.flagValues[flag])) ?? null;
+    return flags.find((flag) => {
+      const val = state.flag.flagValues[flag];
+      return val != null;
+    });
   };
 
 export default flagSlice.reducer;

@@ -161,6 +161,7 @@ div#__next > div {
     box-shadow: none;
   }
 
+  /** PARTY SELECT **/
   .ff6wc-party-select.ff6wc-select-container .ff6wc-select__control {
     @apply min-h-[100px];
     @apply flex-shrink;
@@ -169,4 +170,12 @@ div#__next > div {
   .ff6wc-party-select.ff6wc-select-container .ff6wc-select__indicator-separator {
     display: none;
   }
+
+  .ff6wc-party-select.ff6wc-select-container .ff6wc-select__input-container,
+  .ff6wc-party-select.ff6wc-select-container .ff6wc-select__placeholder,
+  .ff6wc-party-select.ff6wc-select-container .ff6wc-select__single-value {
+    @apply text-neutral-600 dark:text-neutral-200;
+    @apply text-lg;
+  }
+
 }

@@ -1,9 +1,11 @@
 import { PresetsCard } from "~/card-components/PresetsCard";
 import { PageColumn } from "~/components/PageColumn/PageColumn";
 import { PageContainer } from "~/components/PageContainer/PageContainer";
-import { SelectOption } from "~/components/Select/Select";
+import useSWR from "swr";
 
-type PresetPayload = {};
+const usePresets = () => {
+  useSWR([""], () => {});
+};
 
 export const Presets = () => {
   return (

@@ -8,6 +8,7 @@ export type SelectOption = {
 
 type SelectProps = {
   className?: string;
+  defaultValue?: SelectOption;
   onChange: (selected: SelectOption | null) => void;
   options: SelectOption[];
   components?: SelectComponentsConfig<SelectOption, false, any>;
@@ -44,6 +45,7 @@ export const FlagSelectOption = <T extends FlagSelectOptionData>({
 export const Select = ({
   className,
   components = {},
+  defaultValue,
   options,
   onChange,
   placeholder,
@@ -66,7 +68,7 @@ export const Select = ({
           onChange(val as SelectOption);
         }}
         placeholder={placeholder}
-        value={value}
+        value={value ?? defaultValue}
       />
     </div>
   );

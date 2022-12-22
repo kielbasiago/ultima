@@ -4,7 +4,6 @@ import {
   FF6Character,
 } from "@ff6wc/ff6-types";
 import { Card } from "@ff6wc/ui";
-import sampleSize from "lodash/sampleSize";
 import random from "lodash/random";
 import startCase from "lodash/startCase";
 import { useMemo } from "react";
@@ -18,6 +17,10 @@ import {
 import { FlagSlider } from "~/components/FlagSlider/FlagSlider";
 import { Select, SelectOption as BaseOption } from "~/components/Select/Select";
 import SpriteDrawLoad from "~/components/SpriteDrawLoad/SpriteDrawLoad";
+import {
+  defaultPaletteString,
+  defaultSpritePaletteString,
+} from "~/constants/graphicConstants";
 import { Divider } from "~/design-components/Divider/Divider";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 
@@ -37,28 +40,34 @@ const [randomOption, randomnguOption, noneOption]: SelectOption[] = [
 
 const randomValues = [RANDOM, RANDOM_NGU];
 
-const options = [
-  randomOption,
-  randomnguOption,
-  noneOption,
-  ...characterNames.map(
-    (id) =>
-      ({
-        value: id,
-        poseId: 1,
-        label: startCase(id),
-      } as SelectOption)
-  ),
-];
+const useOptions = () => {
+  return useMemo(() => {
+    const options = [
+      randomOption,
+      randomnguOption,
+      noneOption,
+      ...characterNames.map(
+        (id) =>
+          ({
+            value: id,
+            poseId: 1,
+            label: startCase(id),
+          } as SelectOption)
+      ),
+    ];
+    const optionsById = options.reduce((acc, val) => {
+      return { ...acc, [val.value]: val };
+    }, {} as Record<string, SelectOption>);
 
-const optionsById = options.reduce((acc, val) => {
-  return { ...acc, [val.value]: val };
-}, {} as Record<string, SelectOption>);
+    return { options, optionsById };
+  }, []);
+};
 
 const usePartyOption = (flag: string) => {
+  const { optionsById } = useOptions();
   const value = useFlagValueSelector<string>(flag) ?? "-unknown";
   const option = optionsById[value];
-  return [value, option] as const;
+  return option;
 };
 
 export const SelectPartyOption = <T extends SelectOption>({
@@ -76,10 +85,8 @@ export const SelectPartyOption = <T extends SelectOption>({
       <span className="flex items-center">
         <span className={"min-h-[24px]"}>
           <SpriteDrawLoad
-            className={
-              randomValues.includes(value) ? "brightness-0" : undefined
-            }
-            spriteId={randomValues.includes(value) ? 1 : characterIdx}
+            className={isRandom ? "brightness-0" : undefined}
+            spriteId={isRandom ? 1 : characterIdx}
             paletteId={2}
             poseId={1}
             scale={1}
@@ -89,6 +96,21 @@ export const SelectPartyOption = <T extends SelectOption>({
       </span>
     </components.Option>
   );
+};
+
+const useSpritePaletteId = (characterId: number) => {
+  const rawPalettes =
+    useFlagValueSelector<string>("-cpal") ?? defaultPaletteString;
+  const rawSpritePalettes =
+    useFlagValueSelector<string>("-cspp") ?? defaultSpritePaletteString;
+
+  const spritePalette = rawSpritePalettes
+    .split(".")
+    .map((val) => Number.parseInt(val))[characterId];
+  const paletteId = rawPalettes.split(".").map((val) => Number.parseInt(val))[
+    spritePalette
+  ];
+  return paletteId;
 };
 
 const SelectPartyControl = ({
@@ -101,10 +123,18 @@ const SelectPartyControl = ({
   const characterValue = value?.value ?? "";
 
   const isRandom = randomValues.includes(characterValue);
+  const isNgu = characterValue === RANDOM_NGU;
 
   const cn = [...characterNames];
   const characterIdx = cn.indexOf(value?.value as FF6Character);
   const poseId = value?.poseId ?? 1;
+  const spriteId = useMemo(
+    () => (isNgu ? random(0, 11) : isRandom ? random(0, 14) : characterIdx),
+    [isNgu, isRandom, characterIdx]
+  );
+
+  const paletteId = useSpritePaletteId(spriteId);
+
   return (
     <components.Control
       {...props}
@@ -114,8 +144,8 @@ const SelectPartyControl = ({
       <span>
         <SpriteDrawLoad
           className={isRandom ? "brightness-0" : undefined}
-          spriteId={isRandom ? random(0, 13) : characterIdx}
-          paletteId={2}
+          spriteId={spriteId}
+          paletteId={paletteId}
           poseId={poseId}
           scale={3}
         />
@@ -130,18 +160,20 @@ const partyComponents = {
   // Option: SelectPartyOption,
 };
 
+const partySelectProps = {
+  className: "ff6wc-party-select",
+  components: partyComponents,
+  defaultValue: noneOption,
+};
+
 export const StartingParty = () => {
   const dispatch = useDispatch();
 
-  const [sc1Val, sc1Option] = usePartyOption("-sc1");
-  const [sc2Val, sc2Option] = usePartyOption("-sc2");
-  const [sc3Val, sc3Option] = usePartyOption("-sc3");
-  const [sc4Val, sc4Option] = usePartyOption("-sc4");
-
-  const poses = useMemo(() => {
-    return sampleSize(CHARACTER_POSES, 4) as [number, number, number, number];
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sc1Val, sc2Val, sc3Val, sc4Val]);
+  const { options } = useOptions();
+  const sc1Option = usePartyOption("-sc1");
+  const sc2Option = usePartyOption("-sc2");
+  const sc3Option = usePartyOption("-sc3");
+  const sc4Option = usePartyOption("-sc4");
 
   const onChange = (flag: string) => (selected: SelectOption | null) => {
     if (selected?.value === NONE) {
@@ -165,35 +197,31 @@ export const StartingParty = () => {
     <Card title={"Starting Party"}>
       <div className="grid grid-cols-2 gap-4 ">
         <Select
-          className={"ff6wc-party-select"}
-          options={options}
+          {...partySelectProps}
           onChange={onChange("-sc1")}
+          options={options}
           value={sc1Option}
-          components={partyComponents}
         />
 
         <Select
-          className={"ff6wc-party-select"}
-          options={options}
+          {...partySelectProps}
           onChange={onChange("-sc2")}
+          options={options}
           value={sc2Option}
-          components={partyComponents}
         />
 
         <Select
-          className={"ff6wc-party-select"}
-          options={options}
+          {...partySelectProps}
           onChange={onChange("-sc3")}
+          options={options}
           value={sc3Option}
-          components={partyComponents}
         />
 
         <Select
-          className={"ff6wc-party-select"}
-          options={options}
+          {...partySelectProps}
           onChange={onChange("-sc4")}
+          options={options}
           value={sc4Option}
-          components={partyComponents}
         />
       </div>
       <Divider />

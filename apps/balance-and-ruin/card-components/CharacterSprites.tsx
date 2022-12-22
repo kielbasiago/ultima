@@ -10,7 +10,7 @@ import {
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 import sampleSize from "lodash/sampleSize";
 import {
-  defaultPaletteValuesString,
+  defaultPaletteString,
   defaultPortraitString,
   defaultSpriteString,
 } from "~/constants/graphicConstants";
@@ -29,7 +29,7 @@ export const CharacterSprites = ({
   const dispatch = useDispatch();
 
   const paletteValues =
-    useFlagValueSelector<string>("-cpal") ?? defaultPaletteValuesString;
+    useFlagValueSelector<string>("-cpal") ?? defaultPaletteString;
 
   const portraitValues =
     useFlagValueSelector<string>("-cpor") ?? defaultPortraitString;

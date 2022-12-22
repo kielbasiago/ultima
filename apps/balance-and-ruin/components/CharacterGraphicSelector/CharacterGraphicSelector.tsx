@@ -6,8 +6,8 @@ import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 import PortraitDrawLoad from "~/components/PortraitDrawLoad/PortraitDrawLoad";
 import { Select, SelectOption } from "~/components/Select/Select";
 import {
+  defaultSpritePaletteString,
   defaultPaletteString,
-  defaultPaletteValuesString,
   defaultPortraitString,
   defaultSpriteString,
 } from "~/constants/graphicConstants";
@@ -48,10 +48,10 @@ export const CharacterGraphicSelector = ({
     useFlagValueSelector<string>("-cspr") ?? defaultSpriteString;
 
   const rawPaletteString =
-    useFlagValueSelector<string>("-cspp") ?? defaultPaletteString;
+    useFlagValueSelector<string>("-cspp") ?? defaultSpritePaletteString;
 
   const rawPaletteValuesString =
-    useFlagValueSelector<string>("-cpal") ?? defaultPaletteValuesString;
+    useFlagValueSelector<string>("-cpal") ?? defaultPaletteString;
 
   const rawPortraitString =
     useFlagValueSelector<string>("-cpor") ?? defaultPortraitString;

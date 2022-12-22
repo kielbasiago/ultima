@@ -13,16 +13,6 @@ const subflagScalingProps = {
   label: "",
 };
 
-const averagePartyScaling = {
-  defaultValue: 1,
-  label: "Party Average Level",
-};
-
-const highestPartyScaling = {
-  defaultValue: 1,
-  label: "Party Highest Level",
-};
-
 const levelScalingOptions: SubflagOption[] = [
   {
     defaultValue: 1,
@@ -333,6 +323,9 @@ export const Scaling = () => {
         />
 
         <FlagSlider flag={"-msl"} label={"Max Scale Level"} />
+
+        <FlagSwitch flag="-sed" label="Scale Eight Dragons" />
+        <FlagSwitch flag="-sfb" label="Scale Final Battles" />
       </CardColumn>
     </Card>
   );

@@ -9,7 +9,7 @@ import { PageContainer } from "~/components/PageContainer/PageContainer";
 
 export const Items = () => {
   return (
-    <PageContainer columns={3}>
+    <PageContainer columns={2}>
       <StartingGoldAndItems />
       <Shops />
       <Chests />

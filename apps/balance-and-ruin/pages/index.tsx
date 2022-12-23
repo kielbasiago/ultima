@@ -1,4 +1,4 @@
-import { Tabs } from "@ff6wc/ui";
+import { TabLabel } from "@ff6wc/ui";
 import {
   GiPaintBrush,
   GiRetroController,
@@ -11,7 +11,7 @@ import {
 } from "react-icons/gi";
 import type { IconType } from "react-icons";
 import type { NextPage } from "next";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { FlagsCard } from "~/card-components/Flags";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
@@ -24,18 +24,35 @@ import { Items } from "~/page-components/Items";
 import { Magic } from "~/page-components/Magic";
 import { Gameplay } from "~/page-components/Gameplay";
 import { Party } from "~/page-components/Party";
-import { Presets } from "~/page-components/Presets";
+import {
+  Presets,
+  SeedbotPreset,
+  SeedOfTheWeek,
+} from "~/page-components/Presets";
 import { RawFlagMetadata, setSchema } from "~/state/schemaSlice";
 import { wrapper } from "~/state/store";
 import { cx } from "cva";
+import { Tab } from "@headlessui/react";
 
 type PageProps = {
+  presets: Record<string, SeedbotPreset>;
   schema: Record<string, RawFlagMetadata>;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async ({}) => {
+      const sotwResponse = await fetch(
+        "https://storage.googleapis.com/seedbot/sotw_db.json"
+      );
+      const sotw: Record<string, SeedOfTheWeek> = await sotwResponse.json();
+
+      const presetResponse = await fetch(
+        "https://storage.googleapis.com/seedbot/user_presets.json"
+      );
+      const presets: Record<string, SeedbotPreset> =
+        await presetResponse.json();
+
       const protocol =
         process.env.NODE_ENV === "development" ? "http" : "https";
       const url = `${protocol}://${process.env.VERCEL_URL}/api/metadata/flag`;
@@ -44,6 +61,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       await store.dispatch(setSchema(schema));
       return {
         props: {
+          presets,
           schema,
         },
       };
@@ -75,101 +93,104 @@ const TabIcon = ({ className, Icon }: WithIcon) => {
   );
 };
 
-const tabs: TabItem[] = [
-  {
-    label: (
-      <TabContainer>
-        <TabIcon Icon={GiWizardStaff} />
-        Presets
-      </TabContainer>
-    ),
+const Home: NextPage<PageProps> = ({ presets, schema }: PageProps) => {
+  const tabs: TabItem[] = useMemo(
+    () => [
+      {
+        label: (
+          <TabContainer>
+            <TabIcon Icon={GiWizardStaff} />
+            Presets
+          </TabContainer>
+        ),
 
-    id: "presets",
-    content: <Presets />,
-  },
-  {
-    label: (
-      <TabContainer>
-        <TabIcon Icon={GiUprising} />
-        Party
-      </TabContainer>
-    ),
-    id: "party",
-    content: <Party />,
-  },
-  {
-    label: (
-      <TabContainer>
-        <TabIcon Icon={GiWizardStaff} />
-        Commands
-      </TabContainer>
-    ),
-    id: "commands",
-    content: <Commands />,
-  },
-  {
-    label: (
-      <TabContainer>
-        <TabIcon Icon={GiRelicBlade} />
-        Battle
-      </TabContainer>
-    ),
-    id: "battle",
-    content: <Battle />,
-  },
-  {
-    label: (
-      <TabContainer>
-        <TabIcon Icon={GiLightningTrio} />
-        Magic
-      </TabContainer>
-    ),
-    id: "magic",
-    content: <Magic />,
-  },
-  {
-    label: (
-      <TabContainer>
-        <TabIcon Icon={GiDrinkMe} />
-        Items
-      </TabContainer>
-    ),
-    id: "items",
-    content: <Items />,
-  },
-  {
-    label: (
-      <TabContainer>
-        <TabIcon Icon={GiRetroController} />
-        Gameplay
-      </TabContainer>
-    ),
-    id: "misc",
-    content: <Gameplay />,
-  },
-  {
-    label: (
-      <TabContainer>
-        <TabIcon Icon={GiPaintBrush} />
-        <span>Graphics</span>
-      </TabContainer>
-    ),
-    id: "Graphics",
-    content: <Graphics />,
-  },
-  {
-    label: (
-      <TabContainer>
-        <TabIcon Icon={GiMagnifyingGlass} />
-        Accessibility & Fixes
-      </TabContainer>
-    ),
-    id: "accessibility",
-    content: <AccessibilityAndFixes />,
-  },
-];
+        id: "presets",
+        content: <Presets presets={presets} />,
+      },
+      {
+        label: (
+          <TabContainer>
+            <TabIcon Icon={GiUprising} />
+            Party
+          </TabContainer>
+        ),
+        id: "party",
+        content: <Party />,
+      },
+      {
+        label: (
+          <TabContainer>
+            <TabIcon Icon={GiWizardStaff} />
+            Commands
+          </TabContainer>
+        ),
+        id: "commands",
+        content: <Commands />,
+      },
+      {
+        label: (
+          <TabContainer>
+            <TabIcon Icon={GiRelicBlade} />
+            Battle
+          </TabContainer>
+        ),
+        id: "battle",
+        content: <Battle />,
+      },
+      {
+        label: (
+          <TabContainer>
+            <TabIcon Icon={GiLightningTrio} />
+            Magic
+          </TabContainer>
+        ),
+        id: "magic",
+        content: <Magic />,
+      },
+      {
+        label: (
+          <TabContainer>
+            <TabIcon Icon={GiDrinkMe} />
+            Items
+          </TabContainer>
+        ),
+        id: "items",
+        content: <Items />,
+      },
+      {
+        label: (
+          <TabContainer>
+            <TabIcon Icon={GiRetroController} />
+            Gameplay
+          </TabContainer>
+        ),
+        id: "misc",
+        content: <Gameplay />,
+      },
+      {
+        label: (
+          <TabContainer>
+            <TabIcon Icon={GiPaintBrush} />
+            <span>Graphics</span>
+          </TabContainer>
+        ),
+        id: "Graphics",
+        content: <Graphics />,
+      },
+      {
+        label: (
+          <TabContainer>
+            <TabIcon Icon={GiMagnifyingGlass} />
+            Accessibility & Fixes
+          </TabContainer>
+        ),
+        id: "accessibility",
+        content: <AccessibilityAndFixes />,
+      },
+    ],
+    [presets]
+  );
 
-const Home: NextPage<PageProps> = ({ schema }: PageProps) => {
   const [selected, setSelected] = useState<TabItem | null>(tabs[0]);
   const dispatch = useDispatch();
 
@@ -180,12 +201,26 @@ const Home: NextPage<PageProps> = ({ schema }: PageProps) => {
   return (
     <>
       <div className="WC-Page">
-        <Tabs
-          onChange={(tab) => setSelected(tab)}
-          selected={selected}
-          tabs={tabs}
-        />
-        {/* <Party /> */}
+        <main className={"w-11/12 lg:w-10/12  m-auto"}>
+          <Tab.Group onChange={(idx) => setSelected(tabs[idx])}>
+            <div className="flex justify-center items-center">
+              <Tab.List className="p-5">
+                {tabs.map((tab) => (
+                  <TabLabel key={tab.id} selected={selected?.id === tab.id}>
+                    {tab.label}
+                  </TabLabel>
+                ))}
+              </Tab.List>
+            </div>
+            <Tab.Panels tabIndex={-1}>
+              {tabs.map(({ content, id }) => (
+                <Tab.Panel tabIndex={-1} key={`tab-panel-${id}`}>
+                  {content}
+                </Tab.Panel>
+              ))}
+            </Tab.Panels>
+          </Tab.Group>
+        </main>
       </div>
       <div className="flex p-8">
         <CardColumn>

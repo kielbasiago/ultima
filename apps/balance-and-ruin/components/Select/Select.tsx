@@ -2,6 +2,7 @@ import { cx } from "cva";
 import { useId } from "react";
 
 export type SelectOption = {
+  readonly helperText?: string;
   readonly value: string;
   readonly label: string;
 };

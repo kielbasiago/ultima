@@ -19,7 +19,7 @@ class handler(BaseHTTPRequestHandler):
         'palettes': palettes,
         'portraits': portraits
     }
-    
+
     import json
     self.send_response(200)
     self.send_header('Content-type','text/plain')

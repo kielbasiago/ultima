@@ -20,7 +20,7 @@ const spellOptions: SubflagOption[] = [
   {
     defaultValue: true,
     flag: "-ess",
-    helperText: "Spells are shuffled among espers",
+    helperText: "Spells are shuffled between espers",
     label: "Shuffle",
     isStatic: true,
   },
@@ -28,7 +28,7 @@ const spellOptions: SubflagOption[] = [
     defaultValue: true,
     flag: "-essrr",
     helperText:
-      "Spells are shuffled among espers, but are learned at variable rates",
+      "Spells are shuffled between espers, but are learned at variable rates",
     label: "Original (Random Rates)",
     isStatic: true,
   },
@@ -36,7 +36,7 @@ const spellOptions: SubflagOption[] = [
     defaultValue: true,
     flag: "-esrt",
     helperText:
-      "Spells are distributed among espers according to their power level",
+      "Spells are distributed between espers according to their power level",
     label: "Random Tiered",
     isStatic: true,
   },
@@ -55,7 +55,7 @@ const bonusOptions: SubflagOption[] = [
   {
     defaultValue: true,
     flag: "-ebs",
-    helperText: "Original bonuses are shuffled among espers",
+    helperText: "Original bonuses are shuffled between espers",
     label: "Shuffle",
     isStatic: true,
   },
@@ -67,6 +67,56 @@ const bonusOptions: SubflagOption[] = [
     label: "Random",
     Renderable: ({ children }) => (
       <FlagSlider helperText="" flag="-ebr" label={children} />
+    ),
+  },
+];
+
+const mpOptions: SubflagOption[] = [
+  {
+    defaultValue: true,
+    flag: "-emps",
+    helperText: "Original MP costs are shuffled between espers",
+    label: "Shuffle",
+    isStatic: true,
+  },
+  {
+    defaultValue: [1, 128],
+    flag: "-emprv",
+    helperText: "Each esper has an MP cost of {{ . }}",
+    label: "Random Value",
+    Renderable: ({ children }) => (
+      <FlagSlider helperText="" flag="-emprv" label={children} />
+    ),
+  },
+  {
+    defaultValue: [75, 125],
+    flag: "-emprp",
+    helperText: "Each esper has an MP cost of {{ . }}% of its original value",
+    label: "Random",
+    Renderable: ({ children }) => (
+      <FlagSlider helperText="" flag="-emprv" label={children} />
+    ),
+  },
+];
+
+const equipableOptions: SubflagOption[] = [
+  {
+    defaultValue: [1, 12],
+    flag: "-eer",
+    helperText: "Each esper is equipable by {{ . }} random characters",
+    label: "Random",
+    Renderable: ({ children }) => (
+      <FlagRange helperText="" flag="-eer" label={children} />
+    ),
+  },
+  {
+    defaultValue: 6,
+    flag: "-eebr",
+    helperText:
+      "Each esper equipable by {{ . }} random characters. The total number of espers equipable by each character is balanced",
+    label: "Balanced Random",
+    Renderable: ({ children }) => (
+      <FlagSlider helperText="" flag="-eebr" label={children} />
     ),
   },
 ];
@@ -88,6 +138,22 @@ export const Espers = () => {
           label="Bonuses"
           nullable={{
             description: "Esper bonuses are unchanged",
+            label: "Original",
+          }}
+        />
+        <FlagSubflagSelect
+          options={mpOptions}
+          label="MP"
+          nullable={{
+            description: "Esper MP costs are unchanged",
+            label: "Original",
+          }}
+        />
+        <FlagSubflagSelect
+          options={equipableOptions}
+          label="Equipable"
+          nullable={{
+            description: "Espers can be equipped by all characters",
             label: "Original",
           }}
         />

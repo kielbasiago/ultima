@@ -1,17 +1,20 @@
 import { TabLabel } from "@ff6wc/ui";
-import {
-  GiPaintBrush,
-  GiRetroController,
-  GiDrinkMe,
-  GiWizardStaff,
-  GiLightningTrio,
-  GiRelicBlade,
-  GiUprising,
-  GiMagnifyingGlass,
-} from "react-icons/gi";
-import type { IconType } from "react-icons";
+import { Tab } from "@headlessui/react";
+import { cx } from "cva";
 import type { NextPage } from "next";
 import React, { useEffect, useMemo, useState } from "react";
+import type { IconType } from "react-icons";
+import {
+  GiDrinkMe,
+  GiElectric,
+  GiGladius,
+  GiMagnifyingGlass,
+  GiPaintBrush,
+  GiRetroController,
+  GiUprising,
+  GiWizardStaff,
+} from "react-icons/gi";
+import { HiCog, HiOutlineViewList, HiUserGroup } from "react-icons/hi";
 import { useDispatch } from "react-redux";
 import { FlagsCard } from "~/card-components/Flags";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
@@ -19,22 +22,23 @@ import { GenerateCard } from "~/components/GenerateCard/GenerateCard";
 import { AccessibilityAndFixes } from "~/page-components/Accessibility";
 import { Battle } from "~/page-components/Battle";
 import { Commands } from "~/page-components/Commands";
+import { Gameplay } from "~/page-components/Gameplay";
 import { Graphics } from "~/page-components/Graphics";
 import { Items } from "~/page-components/Items";
 import { Magic } from "~/page-components/Magic";
-import { Gameplay } from "~/page-components/Gameplay";
+import { Objectives } from "~/page-components/Objectives";
 import { Party } from "~/page-components/Party";
 import {
-  Presets,
   SeedbotPreset,
   SeedOfTheWeek,
-} from "~/page-components/Presets";
+  Settings,
+} from "~/page-components/Settings";
 import { RawFlagMetadata, setSchema } from "~/state/schemaSlice";
 import { wrapper } from "~/state/store";
-import { cx } from "cva";
-import { Tab } from "@headlessui/react";
+import { ObjectiveMetadata } from "~/types/objectives";
 
 type PageProps = {
+  objectives: ObjectiveMetadata;
   presets: Record<string, SeedbotPreset>;
   schema: Record<string, RawFlagMetadata>;
 };
@@ -55,12 +59,20 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
       const protocol =
         process.env.NODE_ENV === "development" ? "http" : "https";
-      const url = `${protocol}://${process.env.VERCEL_URL}/api/metadata/flag`;
-      const response = await fetch(url);
+      const response = await fetch(
+        `${protocol}://${process.env.VERCEL_URL}/api/metadata/flag`
+      );
       const schema = await response.json();
       await store.dispatch(setSchema(schema));
+
+      const objectivesResponse = await fetch(
+        `${protocol}://${process.env.VERCEL_URL}/api/metadata/objective`
+      );
+      const objectives = await objectivesResponse.json();
+
       return {
         props: {
+          objectives,
           presets,
           schema,
         },
@@ -93,24 +105,38 @@ const TabIcon = ({ className, Icon }: WithIcon) => {
   );
 };
 
-const Home: NextPage<PageProps> = ({ presets, schema }: PageProps) => {
+const Home: NextPage<PageProps> = ({
+  objectives,
+  presets,
+  schema,
+}: PageProps) => {
   const tabs: TabItem[] = useMemo(
     () => [
       {
         label: (
           <TabContainer>
-            <TabIcon Icon={GiWizardStaff} />
-            Presets
+            <TabIcon Icon={HiCog} />
+            Settings
           </TabContainer>
         ),
 
-        id: "presets",
-        content: <Presets presets={presets} />,
+        id: "settings",
+        content: <Settings presets={presets} />,
       },
+      // {
+      //   label: (
+      //     <TabContainer>
+      //       <TabIcon Icon={HiOutlineViewList} />
+      //       Objectives
+      //     </TabContainer>
+      //   ),
+      //   content: <Objectives objectives={objectives} />,
+      //   id: "objectives",
+      // },
       {
         label: (
           <TabContainer>
-            <TabIcon Icon={GiUprising} />
+            <TabIcon Icon={HiUserGroup} />
             Party
           </TabContainer>
         ),
@@ -130,7 +156,7 @@ const Home: NextPage<PageProps> = ({ presets, schema }: PageProps) => {
       {
         label: (
           <TabContainer>
-            <TabIcon Icon={GiRelicBlade} />
+            <TabIcon Icon={GiGladius} />
             Battle
           </TabContainer>
         ),
@@ -140,7 +166,7 @@ const Home: NextPage<PageProps> = ({ presets, schema }: PageProps) => {
       {
         label: (
           <TabContainer>
-            <TabIcon Icon={GiLightningTrio} />
+            <TabIcon Icon={GiElectric} />
             Magic
           </TabContainer>
         ),
@@ -188,7 +214,7 @@ const Home: NextPage<PageProps> = ({ presets, schema }: PageProps) => {
         content: <AccessibilityAndFixes />,
       },
     ],
-    [presets]
+    [objectives, presets]
   );
 
   const [selected, setSelected] = useState<TabItem | null>(tabs[0]);

@@ -3,14 +3,17 @@ import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { Deprecated } from "~/components/Deprecated/Deprecated";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
 
-export const RNG = () => {
+export const OtherCommands = () => {
   return (
-    <Card title={"RNG"}>
+    <Card title={"Other"}>
       <CardColumn>
         <Deprecated>
-          <FlagSwitch flag="-rr" label="Random RNG" />
+          <FlagSwitch
+            flag="-stra"
+            label="SwdTech Runic All"
+            helperText="All weapons enable SwdTech and Runic"
+          />
         </Deprecated>
-        <FlagSwitch flag="-rc" label="Random Zozo Clock" />
       </CardColumn>
     </Card>
   );

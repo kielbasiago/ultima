@@ -3,6 +3,7 @@ import { authSlice } from "./authSlice";
 import { createWrapper } from "next-redux-wrapper";
 import { flagSlice } from "./flagSlice";
 import { schemaSlice } from "~/state/schemaSlice";
+import { settingsSlice } from "~/state/settingsSlice";
 
 const makeStore = () =>
   configureStore({
@@ -10,6 +11,7 @@ const makeStore = () =>
       [authSlice.name]: authSlice.reducer,
       [flagSlice.name]: flagSlice.reducer,
       [schemaSlice.name]: schemaSlice.reducer,
+      [settingsSlice.name]: settingsSlice.reducer,
     },
     devTools: true,
   });

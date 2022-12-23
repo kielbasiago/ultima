@@ -7,11 +7,6 @@ export const Challenges = () => {
   return (
     <Card title={"Challenges"}>
       <CardColumn>
-        <FlagSwitch flag="-nmc" label="No Moogle Charms" />
-        <FlagSwitch flag="-nee" label="No Exp. Eggs" />
-        <FlagSwitch flag="-nil" label="No Illuminas" />
-        <FlagSwitch flag="-nfps" label="No Free Paladin Shields" />
-        <Divider />
         <FlagSwitch flag="-pd" label="Permadeath" />
         <FlagSwitch flag="-bnds" label="Normalize & Distort Boss Stats" />
         <FlagSwitch

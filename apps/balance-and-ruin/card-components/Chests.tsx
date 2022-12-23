@@ -23,7 +23,7 @@ const contentOptions: SubflagOption[] = [
     defaultValue: true,
     flag: "-ccrt",
     helperText:
-      "Chest contents are categorized by tier and chosen at random. Higher tier items and equipment are less likely to be chosen. Items and GP values not originally found in chests may be selected. Chest types are shuffled",
+      "Chest contents are categorized by tier and chosen at random. Higher tier items and equipment are less likely to be chosen",
     label: "Random Tiered",
     isStatic: true,
   },
@@ -31,7 +31,7 @@ const contentOptions: SubflagOption[] = [
     defaultValue: true,
     flag: "-ccrs",
     helperText:
-      "Chest contents are categorized by tier and chosen at random. The odds of higher tier items and equipment increases as more chests are opened. Items and GP values not originally found in chests may be selected. Chest types are shuffled",
+      "Chest contents are categorized by tier and chosen at random. The odds of higher tier items and equipment increases as more chests are opened",
     label: "Random Scaled",
     isStatic: true,
   },

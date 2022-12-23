@@ -20,6 +20,7 @@ import SpriteDrawLoad from "~/components/SpriteDrawLoad/SpriteDrawLoad";
 import {
   defaultPaletteString,
   defaultSpritePaletteString,
+  defaultSpriteString,
 } from "~/constants/graphicConstants";
 import { Divider } from "~/design-components/Divider/Divider";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
@@ -70,37 +71,22 @@ const usePartyOption = (flag: string) => {
   return option;
 };
 
-export const SelectPartyOption = <T extends SelectOption>({
-  children,
-  data,
-  ...rest
-}: OptionProps<T, false>) => {
-  const { label, value } = data;
-  const characterIdx = characterNames.indexOf(value as FF6Character);
+const useSpriteId = (characterId: number) => {
+  const rawSprites =
+    useFlagValueSelector<string>("-cspr") ?? defaultSpriteString;
 
-  const isRandom = randomValues.includes(value);
-
+  if (characterId === -1) {
+    return -1;
+  }
   return (
-    <components.Option data={data} {...rest}>
-      <span className="flex items-center">
-        <span className={"min-h-[24px]"}>
-          <SpriteDrawLoad
-            className={isRandom ? "brightness-0" : undefined}
-            spriteId={isRandom ? 1 : characterIdx}
-            paletteId={2}
-            poseId={1}
-            scale={1}
-          />
-        </span>
-        <span>{label}</span>
-      </span>
-    </components.Option>
+    rawSprites.split(".").map((val) => Number.parseInt(val))[characterId] ?? -1
   );
 };
 
 const useSpritePaletteId = (characterId: number) => {
   const rawPalettes =
     useFlagValueSelector<string>("-cpal") ?? defaultPaletteString;
+
   const rawSpritePalettes =
     useFlagValueSelector<string>("-cspp") ?? defaultSpritePaletteString;
 
@@ -125,31 +111,35 @@ const SelectPartyControl = ({
   const isRandom = randomValues.includes(characterValue);
   const isNgu = characterValue === RANDOM_NGU;
 
-  const cn = [...characterNames];
-  const characterIdx = cn.indexOf(value?.value as FF6Character);
+  const characterIdx = characterNames.indexOf(value?.value as FF6Character);
   const poseId = value?.poseId ?? 1;
+  const rawSpriteId = useSpriteId(characterIdx);
   const spriteId = useMemo(
-    () => (isNgu ? random(0, 11) : isRandom ? random(0, 14) : characterIdx),
-    [isNgu, isRandom, characterIdx]
+    () => (isNgu ? random(0, 11) : isRandom ? random(0, 13) : rawSpriteId),
+    [isNgu, isRandom, rawSpriteId]
   );
 
-  const paletteId = useSpritePaletteId(spriteId);
+  const showSprite = spriteId !== -1;
+  const colorSprite = characterIdx !== -1;
+  const paletteId = useSpritePaletteId(colorSprite ? characterIdx : 0);
 
   return (
     <components.Control
       {...props}
       selectProps={selectProps}
-      className={"WC-SelectPartyControl pl-4 min-h-[100px]"}
+      className={"WC-SelectPartyControl pl-4"}
     >
-      <span>
-        <SpriteDrawLoad
-          className={isRandom ? "brightness-0" : undefined}
-          spriteId={spriteId}
-          paletteId={paletteId}
-          poseId={poseId}
-          scale={3}
-        />
-      </span>
+      {showSprite ? (
+        <span>
+          <SpriteDrawLoad
+            className={colorSprite ? undefined : "brightness-0"}
+            spriteId={spriteId}
+            paletteId={paletteId}
+            poseId={poseId}
+            scale={3}
+          />
+        </span>
+      ) : null}
       {children}
     </components.Control>
   );

@@ -1,5 +1,6 @@
 import { Card } from "@ff6wc/ui";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
+import { Deprecated } from "~/components/Deprecated/Deprecated";
 import { FlagRange } from "~/components/FlagRange/FlagRange";
 import {
   FlagSelect,
@@ -18,7 +19,7 @@ const inventoryOptions: SubflagOption[] = [
     defaultValue: 20,
     flag: "-sisr",
     helperText:
-      "Shop content is shuffled between shops. Items then have a {{.}}% to be randomized. Shops are shuffled by type (i.e. weapon shops are shuffled, armor shops are shuffled, etc…)",
+      "Shop content is shuffled between shops. Items then have a {{.}}% to be randomized",
     label: "Shuffle + Random",
     Renderable: ({ children }) => (
       <FlagSlider helperText={""} flag="-sisr" label={children} />
@@ -128,7 +129,9 @@ export const Shops = () => {
           label="Expensive Super Balls"
         />
         <Divider />
-        <FlagSwitch flag="-npi" label="No Priceless Items" />
+        <Deprecated>
+          <FlagSwitch flag="-npi" label="No Priceless Items" />
+        </Deprecated>
         <FlagSwitch flag="-snes" label="No Elemental Shields" />
         <FlagSwitch flag="-snee" label="No Exp. Eggs" />
         <FlagSwitch flag="-snil" label="No Illuminas" />

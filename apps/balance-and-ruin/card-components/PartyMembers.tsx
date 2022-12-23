@@ -1,6 +1,7 @@
 import { characterNames } from "@ff6wc/ff6-types";
 import { Card } from "@ff6wc/ui";
 import startCase from "lodash/startCase";
+import { Deprecated } from "~/components/Deprecated/Deprecated";
 import { FlagRange } from "~/components/FlagRange/FlagRange";
 import { FlagSelectOption } from "~/components/FlagSelect/FlagSelect";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
@@ -28,7 +29,9 @@ export const PartyMembers = () => {
       <div className="flex flex-col flex-wrap gap-2">
         <FlagSwitch flag={"-sal"} label={"Start Average Level"} />
         <FlagSwitch flag={"-sn"} label={"Start Naked"} />
-        <FlagSwitch flag={"-eu"} label={"Equipable Umaro"} />
+        <Deprecated>
+          <FlagSwitch flag={"-eu"} label={"Equipable Umaro"} />
+        </Deprecated>
         <FlagRange flag={"-csrp"} label={"Character Stats"} />
       </div>
     </Card>

@@ -2,7 +2,7 @@ import React, { useId, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import BaseSelect from "react-select";
 import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
-import { FlagSelectOption } from "~/components/FlagSelectOption/FlagSelectOption";
+import { components, OptionProps } from "react-select";
 import {
   EMPTY_FLAG_VALUE,
   selectActiveMutuallyExclusiveFlag,
@@ -30,6 +30,21 @@ export type FlagSubflagSelectProps = {
     label: string;
   };
   defaultSelected?: SubflagOption;
+};
+
+export const FlagSelectOption = <T extends SubflagOption>({
+  children,
+  data,
+  ...rest
+}: OptionProps<T, false>) => {
+  const { helperText, defaultValue } = data;
+  const description = renderDescription(helperText ?? "", defaultValue);
+  return (
+    <components.Option data={data} {...rest}>
+      <p className="text-base pt-1 px-2">{children}</p>
+      <p className="text-xs pb-1 px-2">{description}</p>
+    </components.Option>
+  );
 };
 
 export const FlagSubflagSelect = ({

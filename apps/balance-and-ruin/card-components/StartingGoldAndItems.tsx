@@ -15,7 +15,7 @@ export const StartingGoldAndItems = () => {
         />
         <FlagSlider
           flag="-smc"
-          helperText="Begin the game with {{ . }} Moogle Charms. Overrides the 'No Moogle Charms' option"
+          helperText="Begin the game with {{ . }} Moogle Charms"
           label="Starting Moogle Charms"
         />
         <FlagSlider

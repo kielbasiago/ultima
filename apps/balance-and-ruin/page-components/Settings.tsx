@@ -1,9 +1,10 @@
 import { PresetsCard } from "~/card-components/PresetsCard";
 import { PageColumn } from "~/components/PageColumn/PageColumn";
 import { PageContainer } from "~/components/PageContainer/PageContainer";
-import useSWR from "swr";
+import startCase from "lodash/startCase";
 import { SelectOption } from "~/components/Select/Select";
 import { useMemo } from "react";
+import { SettingsCard } from "~/card-components/SettingsCard";
 
 export type SeedOfTheWeek = {
   create_date: string;
@@ -49,7 +50,7 @@ type PresetsProps = {
   presets: Record<string, SeedbotPreset>;
 };
 
-export const Presets = ({ presets: rawPresets }: PresetsProps) => {
+export const Settings = ({ presets: rawPresets }: PresetsProps) => {
   const presets = useMemo(() => {
     const options = [
       rawPresets["ultrosleague"],
@@ -72,18 +73,20 @@ export const Presets = ({ presets: rawPresets }: PresetsProps) => {
     return options.map<SelectOption>(
       ({ creator, description, name, flags }) => {
         return {
-          label: name,
+          label: startCase(name),
           value: flags,
-          helperText: `${description} Created by ${creator}`,
+          helperText: [description, `Created by ${creator}`]
+            .filter((z) => !!z)
+            .join(". "),
         };
       }
     );
   }, [rawPresets]);
+
   return (
-    <PageContainer>
-      <PageColumn>
-        <PresetsCard presets={presets ?? []} />
-      </PageColumn>
+    <PageContainer className={"flex flex-wrap"}>
+      <PresetsCard presets={presets ?? []} />
+      <SettingsCard />
     </PageContainer>
   );
 };

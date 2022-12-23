@@ -1,31 +1,24 @@
-import {
-  CharacterSprites,
-  type CharacterSpritesProps,
-} from "~/card-components/CharacterSprites";
+import { useMemo } from "react";
+import { ObjectiveCard } from "~/card-components/ObjectiveCard";
 import { PageColumn } from "~/components/PageColumn/PageColumn";
 import { PageContainer } from "~/components/PageContainer/PageContainer";
-import useSWR from "swr";
-import { SpritePalettes } from "~/card-components/SpritePalettes";
-import { OtherSprites } from "~/card-components/OtherSprites";
+import { SelectOption } from "~/components/Select/Select";
+import { Button } from "~/design-components";
+import { ObjectiveMetadata } from "~/types/objectives";
 
-export const Graphics = () => {
-  const { data } = useSWR<CharacterSpritesProps>(["/api/sprites"], async () => {
-    const response = await fetch("/api/sprites");
-    const result = await response.json();
-    return result as CharacterSpritesProps;
-  });
+type ObjectivesProps = {
+  objectives: ObjectiveMetadata;
+};
 
-  const { palettes = [], portraits = [], sprites = [] } = data || {};
-
+export const Objectives = ({ objectives }: ObjectivesProps) => {
   return (
-    <PageContainer>
-      <PageColumn>
-        <CharacterSprites
-          palettes={palettes}
-          portraits={portraits}
-          sprites={sprites}
-        />
-      </PageColumn>
-    </PageContainer>
+    <div>
+      <div>
+        <Button variant="primary">Add Objective</Button>
+      </div>
+      <PageContainer columns={2}>
+        <ObjectiveCard letter={"a"} metadata={objectives} />
+      </PageContainer>
+    </div>
   );
 };

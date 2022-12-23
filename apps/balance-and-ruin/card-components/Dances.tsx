@@ -1,4 +1,5 @@
 import { Card } from "@ff6wc/ui";
+import { Deprecated } from "~/components/Deprecated/Deprecated";
 import { FlagRange } from "~/components/FlagRange/FlagRange";
 import {
   FlagSubflagSelect,
@@ -30,8 +31,10 @@ export const Dances = () => {
           label="Starting Dances"
         />
         <FlagSwitch flag="-das" label="Shuffle Abilities" />
-        <FlagSwitch flag="-dda" label="Display Abilities" />
-        <FlagSwitch flag="-dns" label="No Stumble" />
+        <Deprecated>
+          <FlagSwitch flag="-dda" label="Display Abilities" />
+          <FlagSwitch flag="-dns" label="No Stumble" />
+        </Deprecated>
         <FlagSwitch flag="-del" label="Everyone Learns" />
       </div>
     </Card>

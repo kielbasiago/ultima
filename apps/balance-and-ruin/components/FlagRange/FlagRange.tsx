@@ -109,9 +109,6 @@ export const FlagRange = ({
             type="number"
             value={maxVal ?? defaults[1]}
           />
-          {/* <span className={"flex-shrink font-semibold"}>
-            {type === "percent" ? "%" : null}
-          </span> */}
         </div>
       </div>
       <div>

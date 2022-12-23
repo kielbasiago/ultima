@@ -2,6 +2,7 @@ import { characterNames } from "@ff6wc/ff6-types/wc";
 import { Card } from "@ff6wc/ui";
 import startCase from "lodash/startCase";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
+import { Deprecated } from "~/components/Deprecated/Deprecated";
 import {
   FlagSelect,
   FlagSelectOption,
@@ -53,8 +54,11 @@ export const NaturalMagic = () => {
 
         <FlagSwitch flag="-rnl2" label="Randomize Levels" />
         <FlagSwitch flag="-rns2" label="Randomize Spells" />
-
         <Divider />
+        <Deprecated>
+          <FlagSwitch flag="-nmmi" label="Menu Indicator" />
+          <Divider />
+        </Deprecated>
 
         <FlagSwitch
           flag="-scan"

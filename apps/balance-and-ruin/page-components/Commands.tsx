@@ -3,6 +3,7 @@ import { CommandsExcluded } from "~/card-components/CommandsExcluded";
 import { CommandsList } from "~/card-components/CommandsList";
 import { Dances } from "~/card-components/Dances";
 import { Lores } from "~/card-components/Lores";
+import { OtherCommands } from "~/card-components/OtherCommands";
 import { Rages } from "~/card-components/Rages";
 import { SketchControl } from "~/card-components/SketchControl";
 import { StealCapture } from "~/card-components/StealCapture";
@@ -24,6 +25,7 @@ export const Commands = () => {
       <SketchControl />
       <Dances />
       <Rages />
+      <OtherCommands />
     </PageContainer>
   );
 };

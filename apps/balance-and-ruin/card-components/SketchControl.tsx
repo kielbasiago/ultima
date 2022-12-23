@@ -1,6 +1,7 @@
 import { Card } from "@ff6wc/ui";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
+import { Divider } from "~/design-components/Divider/Divider";
 
 export const SketchControl = () => {
   return (
@@ -11,6 +12,8 @@ export const SketchControl = () => {
           helperText="When enabled, Sketch and Control commands have 100% accuracy, and use the caster's stats instead of the enemy's"
           label="Improved Sketch/Control"
         />
+        <Divider />
+        <FlagSwitch flag="-fs" invert label="Enable Sketch Glitch" />
       </CardColumn>
     </Card>
   );

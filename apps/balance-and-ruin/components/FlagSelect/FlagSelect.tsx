@@ -11,6 +11,7 @@ import { selectAllowedValues, selectDescription } from "~/state/schemaSlice";
 export type FlagSelectOption = {
   readonly id: string;
   readonly label: string;
+  helperText?: string;
 };
 
 const EMPTY_ID = "none";

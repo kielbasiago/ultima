@@ -1,4 +1,5 @@
 import { Card } from "@ff6wc/ui";
+import { Deprecated } from "~/components/Deprecated/Deprecated";
 import { FlagRange } from "~/components/FlagRange/FlagRange";
 import {
   FlagSubflagSelect,
@@ -29,8 +30,10 @@ export const Rages = () => {
           }}
           options={startingRages}
         />
-        <FlagSwitch flag="-rnl" label="No Leap" />
-        <FlagSwitch flag="-rnc" label="No Charm" />
+        <Deprecated>
+          <FlagSwitch flag="-rnl" label="No Leap" />
+          <FlagSwitch flag="-rnc" label="No Charm" />
+        </Deprecated>
       </div>
     </Card>
   );

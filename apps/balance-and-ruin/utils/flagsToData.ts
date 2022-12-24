@@ -1,6 +1,6 @@
 import { FlagValue } from "~/state/schemaSlice";
 
-const COMMAND_REGEX = /^(-com)$/;
+const SPECIAL_FLAG_REGEX = /^-(com|cspr|cpal|cpor|name)$/;
 const OBJECTIVE_REGEX = /^(-o[a-z])$/;
 export const flagsToData = (rawFlags: string): Record<string, FlagValue> => {
   const flags = rawFlags
@@ -10,8 +10,9 @@ export const flagsToData = (rawFlags: string): Record<string, FlagValue> => {
 
   return flags.reduce((acc, flagWithValue) => {
     const [key, val1, val2] = flagWithValue.split(" ");
-    const isCommands = COMMAND_REGEX.test(key);
+    const isCommands = SPECIAL_FLAG_REGEX.test(key);
     const isObjective = OBJECTIVE_REGEX.test(key);
+
     // is number array
     if (val1 && val2) {
       const min = Number.parseFloat(val1);

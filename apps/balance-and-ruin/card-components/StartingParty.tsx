@@ -59,7 +59,7 @@ const useCharacterNames = () => {
 };
 
 const useOptions = () => {
-  const charNames = useCharacterNames();
+  const customCharacterNames = useCharacterNames();
 
   return useMemo(() => {
     const options = [
@@ -71,7 +71,7 @@ const useOptions = () => {
           ({
             value: characterName,
             poseId: 1,
-            label: charNames[idx],
+            label: customCharacterNames[idx],
           } as SelectOption)
       ),
     ];
@@ -80,7 +80,21 @@ const useOptions = () => {
     }, {} as Record<string, SelectOption>);
 
     return { options, optionsById };
-  }, [characterNames]);
+  }, [customCharacterNames]);
+};
+
+const useAllStartingPartyValues = (): Record<string, string> => {
+  const sc1 = useFlagValueSelector<string>("-sc1") ?? NONE;
+  const sc2 = useFlagValueSelector<string>("-sc2") ?? NONE;
+  const sc3 = useFlagValueSelector<string>("-sc3") ?? NONE;
+  const sc4 = useFlagValueSelector<string>("-sc4") ?? NONE;
+
+  return {
+    "-sc1": sc1,
+    "-sc2": sc2,
+    "-sc3": sc3,
+    "-sc4": sc4,
+  };
 };
 
 const usePartyOption = (flag: string) => {
@@ -178,10 +192,27 @@ export const StartingParty = () => {
   const dispatch = useDispatch();
 
   const { options } = useOptions();
+
+  const values = useAllStartingPartyValues();
+
   const sc1Option = usePartyOption("-sc1");
   const sc2Option = usePartyOption("-sc2");
   const sc3Option = usePartyOption("-sc3");
   const sc4Option = usePartyOption("-sc4");
+
+  const filterData: Record<string, string[]> = {
+    "-sc1": ["-sc2", "-sc3", "-sc4"],
+    "-sc2": ["-sc1", "-sc3", "-sc4"],
+    "-sc3": ["-sc1", "-sc2", "-sc4"],
+    "-sc4": ["-sc1", "-sc2", "-sc3"],
+  };
+
+  const filterOptions = (flag: string, options: SelectOption[]) => {
+    const exclude = filterData[flag]
+      .map((flag) => values[flag])
+      .filter((val) => characterNames.includes(val as FF6Character));
+    return options.filter(({ value }) => !exclude.includes(value));
+  };
 
   const onChange = (flag: string) => (selected: SelectOption | null) => {
     if (selected?.value === NONE) {
@@ -207,28 +238,28 @@ export const StartingParty = () => {
         <Select
           {...partySelectProps}
           onChange={onChange("-sc1")}
-          options={options}
+          options={filterOptions("-sc1", options)}
           value={sc1Option}
         />
 
         <Select
           {...partySelectProps}
           onChange={onChange("-sc2")}
-          options={options}
+          options={filterOptions("-sc2", options)}
           value={sc2Option}
         />
 
         <Select
           {...partySelectProps}
           onChange={onChange("-sc3")}
-          options={options}
+          options={filterOptions("-sc3", options)}
           value={sc3Option}
         />
 
         <Select
           {...partySelectProps}
           onChange={onChange("-sc4")}
-          options={options}
+          options={filterOptions("-sc4", options)}
           value={sc4Option}
         />
       </div>

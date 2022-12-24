@@ -1,8 +1,5 @@
 # Balance and Ruin
 
-- Add No Sprint Shoes flag
-- Move item restrictions into the item tab (???)
-
 # Worlds Collide
 
 - Curate "random" objectives

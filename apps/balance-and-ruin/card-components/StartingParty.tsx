@@ -18,6 +18,7 @@ import { FlagSlider } from "~/components/FlagSlider/FlagSlider";
 import { Select, SelectOption as BaseOption } from "~/components/Select/Select";
 import SpriteDrawLoad from "~/components/SpriteDrawLoad/SpriteDrawLoad";
 import {
+  defaultCharacterNameString,
   defaultPaletteString,
   defaultSpritePaletteString,
   defaultSpriteString,
@@ -41,18 +42,36 @@ const [randomOption, randomnguOption, noneOption]: SelectOption[] = [
 
 const randomValues = [RANDOM, RANDOM_NGU];
 
+const useCharacterNames = () => {
+  const rawNames = (
+    useFlagValueSelector<string>("-name") ?? defaultCharacterNameString
+  ).split(".");
+  const actualNames = defaultCharacterNameString.split(".");
+
+  return characterNames.map((name, characterId) => {
+    const regularName = startCase(actualNames[characterId].toLowerCase());
+    if (actualNames[characterId] === rawNames[characterId]) {
+      return regularName;
+    }
+
+    return `${rawNames[characterId]} (${regularName})`;
+  });
+};
+
 const useOptions = () => {
+  const charNames = useCharacterNames();
+
   return useMemo(() => {
     const options = [
       randomOption,
       randomnguOption,
       noneOption,
       ...characterNames.map(
-        (id) =>
+        (characterName, idx) =>
           ({
-            value: id,
+            value: characterName,
             poseId: 1,
-            label: startCase(id),
+            label: charNames[idx],
           } as SelectOption)
       ),
     ];
@@ -61,7 +80,7 @@ const useOptions = () => {
     }, {} as Record<string, SelectOption>);
 
     return { options, optionsById };
-  }, []);
+  }, [characterNames]);
 };
 
 const usePartyOption = (flag: string) => {
@@ -89,8 +108,6 @@ const useSpritePaletteId = (characterId: number) => {
 
   const rawSpritePalettes =
     useFlagValueSelector<string>("-cspp") ?? defaultSpritePaletteString;
-
-  console.log(rawPalettes, rawSpritePalettes);
 
   const spritePalette = rawSpritePalettes
     .split(".")
@@ -149,7 +166,6 @@ const SelectPartyControl = ({
 
 const partyComponents = {
   Control: SelectPartyControl,
-  // Option: SelectPartyOption,
 };
 
 const partySelectProps = {

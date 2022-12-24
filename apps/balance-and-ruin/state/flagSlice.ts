@@ -45,7 +45,7 @@ const flagValues = {};
 //   rawFlags: valuesToString(flagValues),
 // };
 
-const startingFlags = `-cg -sc1 terra -name FRICK.Umaro.Umaro.Umaro.Umaro.Umaro.Umaro.Umaro.Umaro.Umaro.Umaro.Umaro.Umaro.Umaro`;
+const startingFlags = `-cg -oa 2.2.2.2.6.6.4.9.9 -ob 3.1.1.2.9.9.4.12.12 -oc 30.8.8.1.1.11.8 -sc1 random -sc2 random -sc3 random -sal -eu -csrp 80 125 -fst -brl -slr 3 5 -lmprp 75 125 -lel -srr 20 30 -rnl -rnc -sdr 1 2 -das -dda -dns -sch -com 98989898989898989898989898 -rec1 28 -rec2 27 -rec3 29 -xpm 3 -mpm 5 -gpm 5 -nxppd -lsced 2 -hmced 2 -xgced 2 -ase 2 -msl 40 -sed -bbs -be -bnu -res -fer 0 -escr 100 -dgne -wnz -mmnu -cmd -esr 1 5 -ebr 68 -emprp 75 125 -nm1 random -rnl1 -nm2 random -rnl2 -nmmi -gp 5000 -smc 3 -ieor 33 -ieror 33 -csb 3 14 -mca -stra -saw -sisr 20 -sprp 75 125 -sdm 4 -npi -snbr -ccsr 20 -cms -cor -crr -crvr 50 60 -crm -ari -anca -adeh -nmc -nfps -nu -fs -fe -fvd -fr -fj -fbs -fedc -as -ond -rr -etn -frw`;
 const initialState: FlagState = {
   flagValues: flagsToData(startingFlags),
   rawFlags: startingFlags,

@@ -10,10 +10,12 @@ import {
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 import sampleSize from "lodash/sampleSize";
 import {
+  defaultCharacterNameString,
   defaultPaletteString,
   defaultPortraitString,
   defaultSpriteString,
 } from "~/constants/graphicConstants";
+import { CharacterNameInput } from "~/components/CharacterNameInput/CharacterNameInput";
 
 export type CharacterSpritesProps = {
   palettes: LoadPalettesResponse;
@@ -27,9 +29,6 @@ export const CharacterSprites = ({
   sprites: spriteDefs = [],
 }: CharacterSpritesProps) => {
   const dispatch = useDispatch();
-
-  const paletteValues =
-    useFlagValueSelector<string>("-cpal") ?? defaultPaletteString;
 
   const portraitValues =
     useFlagValueSelector<string>("-cpor") ?? defaultPortraitString;
@@ -97,12 +96,7 @@ export const CharacterSprites = ({
             <CharacterGraphicSelector
               key={character}
               id={idx}
-              Label={
-                <Input
-                  defaultValue={characterNames[idx].toUpperCase()}
-                  disabled
-                />
-              }
+              Label={<CharacterNameInput characterId={idx} />}
               paletteOptionCount={5}
               palettes={paletteDefs}
               portraitId={idx}

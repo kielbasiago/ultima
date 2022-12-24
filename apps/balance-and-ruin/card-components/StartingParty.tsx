@@ -90,6 +90,8 @@ const useSpritePaletteId = (characterId: number) => {
   const rawSpritePalettes =
     useFlagValueSelector<string>("-cspp") ?? defaultSpritePaletteString;
 
+  console.log(rawPalettes, rawSpritePalettes);
+
   const spritePalette = rawSpritePalettes
     .split(".")
     .map((val) => Number.parseInt(val))[characterId];

@@ -1,24 +1,61 @@
-import { useMemo } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ObjectiveCard } from "~/card-components/ObjectiveCard";
-import { PageColumn } from "~/components/PageColumn/PageColumn";
-import { PageContainer } from "~/components/PageContainer/PageContainer";
-import { SelectOption } from "~/components/Select/Select";
 import { Button } from "~/design-components";
-import { ObjectiveMetadata } from "~/types/objectives";
+import { selectRawFlags, setFlag } from "~/state/flagSlice";
+import {
+  addObjective,
+  alphabet,
+  DEFAULT_OBJECTIVE_VALUE,
+  MAX_OBJECTIVE_COUNT,
+  selectObjectives,
+  setRawObjectives,
+} from "~/state/objectiveSlice";
 
-type ObjectivesProps = {
-  objectives: ObjectiveMetadata;
-};
+export const Objectives = () => {
+  const dispatch = useDispatch();
+  const rawFlags = useSelector(selectRawFlags);
 
-export const Objectives = ({ objectives }: ObjectivesProps) => {
+  const objectives = useSelector(selectObjectives);
+
+  useEffect(() => {
+    dispatch(setRawObjectives(rawFlags));
+  }, [dispatch, rawFlags]);
+
+  const onAddObjective = () => {
+    const nextObjectiveId = objectives.length;
+    const letter = alphabet[nextObjectiveId];
+    const flag = `-o${letter}`;
+    dispatch(
+      addObjective({
+        flag,
+        letter,
+      })
+    );
+    dispatch(
+      setFlag({
+        flag,
+        value: DEFAULT_OBJECTIVE_VALUE,
+      })
+    );
+  };
+
   return (
     <div>
       <div>
-        <Button variant="primary">Add Objective</Button>
+        <Button
+          disabled={objectives.length >= MAX_OBJECTIVE_COUNT}
+          onClick={onAddObjective}
+          variant="primary"
+        >
+          Add Objective
+        </Button>
       </div>
-      <PageContainer columns={2}>
-        <ObjectiveCard letter={"a"} metadata={objectives} />
-      </PageContainer>
+      <div className="flex flex-row flex-wrap">
+        {objectives.map(({ flag, letter }) => (
+          <ObjectiveCard key={flag} letter={letter} />
+        ))}
+      </div>
     </div>
   );
 };

@@ -33,6 +33,7 @@ import {
   SeedOfTheWeek,
   Settings,
 } from "~/page-components/Settings";
+import { setObjectiveMetadata } from "~/state/objectiveSlice";
 import { RawFlagMetadata, setSchema } from "~/state/schemaSlice";
 import { wrapper } from "~/state/store";
 import { ObjectiveMetadata } from "~/types/objectives";
@@ -69,6 +70,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
         `${protocol}://${process.env.VERCEL_URL}/api/metadata/objective`
       );
       const objectives = await objectivesResponse.json();
+
+      await store.dispatch(setObjectiveMetadata(objectives));
 
       return {
         props: {
@@ -123,16 +126,16 @@ const Home: NextPage<PageProps> = ({
         id: "settings",
         content: <Settings presets={presets} />,
       },
-      // {
-      //   label: (
-      //     <TabContainer>
-      //       <TabIcon Icon={HiOutlineViewList} />
-      //       Objectives
-      //     </TabContainer>
-      //   ),
-      //   content: <Objectives objectives={objectives} />,
-      //   id: "objectives",
-      // },
+      {
+        label: (
+          <TabContainer>
+            <TabIcon Icon={HiOutlineViewList} />
+            Objectives
+          </TabContainer>
+        ),
+        content: <Objectives />,
+        id: "objectives",
+      },
       {
         label: (
           <TabContainer>
@@ -214,7 +217,7 @@ const Home: NextPage<PageProps> = ({
         content: <AccessibilityAndFixes />,
       },
     ],
-    [objectives, presets]
+    []
   );
 
   const [selected, setSelected] = useState<TabItem | null>(tabs[0]);
@@ -222,7 +225,8 @@ const Home: NextPage<PageProps> = ({
 
   useEffect(() => {
     dispatch(setSchema(schema));
-  }, [dispatch, schema]);
+    dispatch(setObjectiveMetadata(objectives));
+  }, [dispatch, objectives, schema]);
 
   return (
     <>

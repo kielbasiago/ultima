@@ -5,6 +5,7 @@ import { components, GroupProps } from "react-select";
 import { InputLabel } from "~/components/InputLabel/InputLabel";
 import { Select, SelectOption } from "~/components/Select/Select";
 import { setRawFlags } from "~/state/flagSlice";
+import { setRawObjectives } from "~/state/objectiveSlice";
 
 export type PresetsCardProps = {
   presets: SelectOption[];
@@ -110,6 +111,7 @@ export const PresetsCard = ({ presets }: PresetsCardProps) => {
             if (option) {
               setSelected(option);
               dispatch(setRawFlags(option.value));
+              dispatch(setRawObjectives(option.value));
             }
           }}
           value={selected}

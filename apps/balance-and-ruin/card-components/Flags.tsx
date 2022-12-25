@@ -3,13 +3,15 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
-import { setFlags, setRawFlags } from "~/state/flagSlice";
+import { setRawFlags } from "~/state/flagSlice";
+import { setRawObjectives } from "~/state/objectiveSlice";
 
 export const FlagsCard = () => {
   const [flags, setFlags] = useState("");
   const dispatch = useDispatch();
   const onClick = () => {
     dispatch(setRawFlags(flags));
+    dispatch(setRawObjectives(flags));
   };
 
   return (

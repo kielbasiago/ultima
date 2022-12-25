@@ -4,12 +4,14 @@ import { createWrapper } from "next-redux-wrapper";
 import { flagSlice } from "./flagSlice";
 import { schemaSlice } from "~/state/schemaSlice";
 import { settingsSlice } from "~/state/settingsSlice";
+import { objectiveSlice } from "~/state/objectiveSlice";
 
 const makeStore = () =>
   configureStore({
     reducer: {
       [authSlice.name]: authSlice.reducer,
       [flagSlice.name]: flagSlice.reducer,
+      [objectiveSlice.name]: objectiveSlice.reducer,
       [schemaSlice.name]: schemaSlice.reducer,
       [settingsSlice.name]: settingsSlice.reducer,
     },

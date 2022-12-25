@@ -2,6 +2,7 @@ import { FlagValue } from "~/state/schemaSlice";
 
 const SPECIAL_FLAG_REGEX = /^-(com|cspr|cpal|cpor|name)$/;
 const OBJECTIVE_REGEX = /^(-o[a-z])$/;
+
 export const flagsToData = (rawFlags: string): Record<string, FlagValue> => {
   const flags = rawFlags
     .split("-")
@@ -29,4 +30,23 @@ export const flagsToData = (rawFlags: string): Record<string, FlagValue> => {
     }
     return acc;
   }, {} as Record<string, FlagValue>);
+};
+
+export const objectivesToData = (rawFlags: string): Record<string, string> => {
+  const flags = rawFlags
+    .split("-")
+    .filter((flag) => flag)
+    .map((flag) => `-${flag.trim()}`);
+
+  return flags.reduce((acc, flagWithValue) => {
+    const [key, val1, val2] = flagWithValue.split(" ");
+    const isObjective = OBJECTIVE_REGEX.test(key);
+
+    // is number array
+    if (!isObjective) {
+      return acc;
+    }
+    acc[key] = val1;
+    return acc;
+  }, {} as Record<string, string>);
 };

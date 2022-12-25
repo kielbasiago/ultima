@@ -1,3 +1,11 @@
+export type ObjectiveValue =
+  | string
+  | number
+  | string[]
+  | number[]
+  | boolean
+  | null;
+
 export type RawObjectiveCondition = {
   condition_type_name: string;
   id: number;
@@ -15,41 +23,37 @@ export type RawObjectiveResult = {
   id: number;
   name: string;
   value_range: (string | number)[];
-  format_string: "Random";
-  group: "Random";
-};
-
-export type Objective = {
-  conditions: ObjectiveCondition[];
-  /** `-oa`, `-ob`, `-oc`, etc. */
-  flag: string;
-  /** `a`, `b`, `c`, etc. */
-  letter: string;
-  value: string;
-};
-
-export type ObjectiveGroup = {
-  label: string;
-  options: ObjectiveResult[];
+  format_string: string;
+  group: string;
 };
 
 export type ObjectiveResult = {
   group: string;
   label: string;
   id: string;
-};
-
-export type ObjectiveConditionValue = {
-  description: string;
-  id: string;
+  value?: number[];
 };
 
 export type ObjectiveCondition = {
   name: string;
   id: string;
-
   /**  */
   range: boolean;
-  /** Only available when range = true */
-  values: ObjectiveConditionValue[];
+  values: (number | string)[];
+};
+
+export type Objective = {
+  result: ObjectiveResult;
+  conditions: ObjectiveCondition[];
+  requiredConditions: [number, number];
+  /** `-oa`, `-ob`, `-oc`, etc. */
+  flag: string;
+  /** `a`, `b`, `c`, etc. */
+  letter: string;
+  // value: string;
+};
+
+export type ObjectiveGroup = {
+  label: string;
+  options: ObjectiveResult[];
 };

@@ -1,100 +1,258 @@
-export const slice = {};
-// import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-// import { HYDRATE } from "next-redux-wrapper";
-// import { FlagValue } from "~/state/schemaSlice";
-// import { AppState } from "./store";
+import { Action, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AppState } from "./store";
+import { HYDRATE } from "next-redux-wrapper";
+import last from "lodash/last";
+import {
+  Objective,
+  ObjectiveCondition,
+  ObjectiveMetadata,
+  ObjectiveResult,
+  RawObjectiveCondition,
+  RawObjectiveResult,
+} from "~/types/objectives";
+import { objectivesToData } from "~/utils/flagsToData";
+import { objectiveToString } from "~/utils/objectiveToString";
 
-// type Condition = {
-//   condition_type_name: string;
-//   range: boolean;
-//   value_descriptions: string[];
-//   value_range: FlagValue[] | null;
-// };
-// type Objectives = {
-//   id: number;
-//   name: string;
-//   value_range: null | string[];
-//   format_string: string;
-// };
-// export type ObjectiveMetadataPayload = {
-//   conditions: Condition[];
-//   objectives: Objective[];
-// };
-// export type ObjectiveMetadata = {};
+/*
+   Objective String:
+    0.2.2.2.7.7.4.10.10
 
-// export type Objective = Record<string, ObjectiveMetadata>;
+    resultId.conditionMin.conditionMax.conditonOneId.conditionOneValue1.conditionValue2.conditionTwoValue1.conditionTwoValue2, etc.
+ */
 
-// export interface ObjectiveState {
-//   /** Objective created from a generated backend json. Generates item for every flag  */
-//   objectives: Objective;
-// }
+// Type for our state
+export interface ObjectiveState {
+  metadata: ObjectiveMetadata;
 
-// const objective = {};
-// const initialState: ObjectiveState = {
-//   objectives: objective,
-// };
+  metadataById: {
+    conditions: Record<string | number, RawObjectiveCondition>;
+    results: Record<string | number, RawObjectiveResult>;
+  };
+  objectives: Objective[];
+  objectivesByFlag: Record<string, Objective>;
+}
 
-// // Actual Slice
-// export const objectiveSlice = createSlice({
-//   name: "objective",
-//   initialState,
-//   reducers: {
-//     setObjective: (
-//       state,
-//       action: PayloadAction<Record<string, ObjectiveMetadata>>
-//     ) => {
-//       Object.values(action.payload).forEach((item) => {
-//         const allowedValues = item.allowed_values || [];
-//         let step: number = item.options?.step ?? 0;
-//         if (!step && allowedValues) {
-//           const interpreted = (allowedValues as number[]).find(
-//             (val) => val % 1
-//           );
-//           step = interpreted ? interpreted % 1 : 1;
-//         }
-//         // const step = item.options?.step ??  % 1
-//         state.objectives[item.flag] = {
-//           allowedValues: item.allowed_values || [],
-//           defaultValue: item.default ?? null,
-//           description: item.description ?? null,
-//           flag: item.flag,
-//           label: item.label ?? null,
-//           max: item.options?.max_val ?? null,
-//           min: item.options?.min_val ?? null,
-//           step,
-//         };
-//       });
-//     },
-//   },
-//   // Special reducer for hydrating the state. Special case for next-redux-wrapper
-//   extraReducers: {
-//     [HYDRATE]: (state, action) => {
-//       return {
-//         ...state,
-//         ...action.payload.objective,
-//       };
-//     },
-//   },
-// });
+// Initial state
+const initialState: ObjectiveState = {
+  metadata: {
+    conditions: [],
+    objectives: [],
+  },
+  metadataById: {
+    conditions: {},
+    results: {},
+  },
+  objectives: [],
+  objectivesByFlag: {},
+};
 
-// export const { setObjective, setOverride } = objectiveSlice.actions;
+export const MAX_OBJECTIVE_COUNT = 24;
+export const DEFAULT_OBJECTIVE_VALUE = "0.0.0";
 
-// export const objectiveSelector =
-//   <TKey extends keyof FlagMetadataNode>(flag: string, key: TKey) =>
-//   (state: AppState): FlagMetadataNode[TKey] => {
-//     const objective = state.objective.objective[flag];
-//     const overrides = state.objective.overrides[flag];
-//     return overrides?.[key] ?? objective?.[key] ?? null;
-//   };
-// export const selectAllowedValues = (flag: string) =>
-//   objectiveSelector(flag, "allowedValues");
-// export const selectDefaultValue = (flag: string) =>
-//   objectiveSelector(flag, "defaultValue");
-// export const selectDescription = (flag: string) =>
-//   objectiveSelector(flag, "description");
-// export const selectLabel = (flag: string) => objectiveSelector(flag, "label");
-// export const selectMax = (flag: string) => objectiveSelector(flag, "max");
-// export const selectMin = (flag: string) => objectiveSelector(flag, "min");
-// export const selectStep = (flag: string) => objectiveSelector(flag, "step");
+export const alphabet = Array.from(new Array(MAX_OBJECTIVE_COUNT)).map(
+  (_, idx) => String.fromCharCode(97 + idx)
+);
 
-// export default objectiveSlice.reducer;
+export const objectiveFlags = alphabet.map((letter) => `-o${letter}`);
+
+type SetObjectivePayload = {
+  flag: string;
+  value: string;
+};
+
+// Actual Slice
+export const objectiveSlice = createSlice({
+  name: "objective",
+  initialState,
+  reducers: {
+    setObjectiveMetadata(state, action: PayloadAction<ObjectiveMetadata>) {
+      const conditionsById = action.payload.conditions.reduce((acc, val) => {
+        acc[val.id] = val;
+        return acc;
+      }, {} as Record<string, RawObjectiveCondition>);
+
+      const resultsById = action.payload.objectives.reduce((acc, val) => {
+        acc[val.id] = val;
+        return acc;
+      }, {} as Record<string, RawObjectiveResult>);
+
+      state.metadata = action.payload;
+      state.metadataById = {
+        conditions: conditionsById,
+        results: resultsById,
+      };
+    },
+    setRawObjectives(state, action: PayloadAction<string>) {
+      const objectiveValues = objectivesToData(action.payload);
+      state.objectives = Object.entries(objectiveValues).map(
+        ([flag, value]) => {
+          const values = value.split(".");
+          const resultId = values[0];
+          const metadata = state.metadataById.results[resultId];
+          const hasRange = Boolean(metadata.value_range);
+
+          // result id, condition min/max
+          const conditions: ObjectiveCondition[] = [];
+          let conditionStart = 3;
+          if (hasRange) {
+            conditionStart += 2;
+          }
+
+          const conditionString = values.slice(conditionStart, values.length);
+
+          let nextConditionIdx = 0;
+          conditionString.forEach((val, idx) => {
+            if (idx === nextConditionIdx) {
+              nextConditionIdx += 2;
+              const conditionMetadata = state.metadataById.conditions[val];
+              if (!conditionMetadata) {
+                return;
+              }
+              const { id, condition_type_name, range, value_range } =
+                conditionMetadata;
+
+              if (range) {
+                nextConditionIdx += 2;
+              }
+
+              const rawMin = conditionString[idx + 1];
+              const rawMax = conditionString[idx + 2];
+              const minValNum = Number.parseInt(rawMin);
+              const maxValNum = Number.parseInt(rawMax);
+
+              const values = [
+                Number.isFinite(minValNum) ? minValNum : rawMin,
+                Number.isFinite(maxValNum) ? maxValNum : rawMax,
+              ].filter((val) => val != null);
+
+              conditions.push({
+                id: id.toString(),
+                name: condition_type_name,
+                range,
+                values,
+              });
+            }
+          });
+
+          const minConditions = Number.parseInt(
+            hasRange ? values[3] : values[1]
+          );
+
+          const maxConditions = Number.parseInt(
+            hasRange ? values[4] : values[2]
+          );
+
+          const { group, id, format_string } =
+            state.metadata.objectives[Number.parseInt(resultId)];
+
+          const result: ObjectiveResult = {
+            group,
+            label: format_string,
+            id: id.toString(),
+            value: hasRange
+              ? [Number.parseInt(values[1]), Number.parseInt(values[2])]
+              : undefined,
+          };
+
+          const objective: Omit<Objective, "value"> = {
+            conditions,
+            flag,
+            letter: `${last(flag)}`,
+            requiredConditions: [
+              Number.isFinite(minConditions) ? minConditions : 0,
+              Number.isFinite(maxConditions) ? maxConditions : 0,
+            ],
+            result,
+          };
+
+          return {
+            ...objective,
+          } as Objective;
+        }
+      );
+      state.objectivesByFlag = state.objectives.reduce((acc, val) => {
+        acc[val.flag] = val;
+        return acc;
+      }, {} as Record<string, Objective>);
+    },
+    setResultValue(
+      state,
+      action: PayloadAction<{ flag: string; value: number[] }>
+    ) {
+      const objective = {
+        ...state.objectives.find(({ flag }) => flag === action.payload.flag),
+      } as Objective;
+
+      objective.result.value = action.payload.value as [number, number];
+      state.objectivesByFlag[action.payload.flag] = objective;
+    },
+    addObjective(
+      state,
+      action: PayloadAction<
+        Omit<Objective, "conditions" | "requiredConditions" | "result">
+      >
+    ) {
+      const objectiveCount = state.objectives.length;
+      if (objectiveCount >= MAX_OBJECTIVE_COUNT) {
+        return;
+      }
+
+      const { format_string, group, id } = state.metadata.objectives[0];
+
+      state.objectives.push({
+        conditions: [],
+        result: {
+          group,
+          id: id.toString(),
+          label: format_string,
+        },
+        requiredConditions: [0, 0],
+        ...action.payload,
+      });
+    },
+    addCondition(state, action: PayloadAction<ObjectiveCondition>) {},
+    removeCondition(state, action: PayloadAction<ObjectiveCondition>) {},
+  },
+  // Special reducer for hydrating the state. Special case for next-redux-wrapper
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload.objective,
+      };
+    },
+  },
+});
+
+export const {
+  addCondition,
+  addObjective,
+  removeCondition,
+  setObjectiveMetadata,
+  setResultValue,
+  setRawObjectives,
+} = objectiveSlice.actions;
+
+export const selectObjectives = (state: AppState) => state.objective.objectives;
+export const selectObjectivesByFlag = (state: AppState) =>
+  state.objective.objectivesByFlag;
+
+export const selectObjective = (flag: string) => (state: AppState) =>
+  state.objective.objectivesByFlag[flag];
+
+export const selectObjectiveResultMetadata = (state: AppState) =>
+  state.objective.metadata.objectives;
+
+export const selectObjectiveResultMetadataById = (state: AppState) =>
+  state.objective.metadataById.results;
+
+export const selectObjectiveConditionMetadata = (state: AppState) =>
+  state.objective.metadata.conditions;
+
+export const selectObjectiveConditionMetadataById = (state: AppState) =>
+  state.objective.metadataById.conditions;
+
+export const selectObjectiveConditions = (id: number) => (state: AppState) =>
+  state.objective.objectives[id];
+
+export default objectiveSlice.reducer;

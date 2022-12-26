@@ -1,11 +1,10 @@
 import groupBy from "lodash/groupBy";
-import last from "lodash/last";
 import { useId, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import BaseSelect, { Props, SingleValue } from "react-select";
+import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
 import { FlagSelectOption } from "~/components/FlagSelectOption/FlagSelectOption";
-import { InputLabel } from "~/components/InputLabel/InputLabel";
-import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
+import { useFlagValueSelector } from "~/state/flagSlice";
 import {
   selectObjectiveResultMetadata,
   selectObjectiveResultMetadataById,
@@ -113,7 +112,9 @@ export const ObjectiveResultSelect = ({
 
   return (
     <div key={id}>
-      <InputLabel htmlFor={id}>Result</InputLabel>
+      <div>
+        <FlagLabel flag={flag} helperText="" label="Result" />
+      </div>
       <BaseSelect
         className="ff6wc-select-container"
         classNamePrefix="ff6wc-select"

@@ -1,30 +1,41 @@
-import { Card } from "@ff6wc/ui";
-import { useEffect } from "react";
+import { Button, Card } from "@ff6wc/ui";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SingleValue } from "react-select";
+import { ObjectiveConditionSelect } from "~/components/ObjectiveConditionSelect/ObjectiveConditionSelect";
+import { ObjectiveConditionsRequired } from "~/components/ObjectiveConditionsRequired/ObjectiveConditionsRequired";
 import { ObjectiveResultSelect } from "~/components/ObjectiveResultSelect/ObjectiveResultSelect";
 import { ObjectiveResultValue } from "~/components/ObjectiveResultValue/ObjectiveResultValue";
+import { Divider } from "~/design-components/Divider/Divider";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 import {
+  addCondition,
+  MAX_CONDITION_COUNT,
+  removeObjective,
   selectObjectiveResultMetadataById,
-  selectObjectivesByFlag,
+  selectObjectives,
+  setObjective,
   setResultValue,
 } from "~/state/objectiveSlice";
-import { ObjectiveResult } from "~/types/objectives";
+import {
+  Objective,
+  ObjectiveCondition,
+  ObjectiveResult,
+} from "~/types/objectives";
 import { createObjective } from "~/utils/createObjective";
 import { objectiveToString } from "~/utils/objectiveToString";
 
 type ObjectiveCardProps = {
-  letter: string;
+  objective: Objective;
 };
 
-export const ObjectiveCard = ({ letter }: ObjectiveCardProps) => {
+export const ObjectiveCard = ({ objective }: ObjectiveCardProps) => {
+  const { flag, letter } = objective;
   const dispatch = useDispatch();
+
   const value = useFlagValueSelector<string>(`-o${letter}`)?.split(".") ?? [];
 
   const [resultId] = value;
-  const flag = `-o${letter}`;
-  const objective = useSelector(selectObjectivesByFlag)[flag];
   const metadata = useSelector(selectObjectiveResultMetadataById);
 
   const resultMetadata = metadata[resultId] ?? {};
@@ -78,8 +89,65 @@ export const ObjectiveCard = ({ letter }: ObjectiveCardProps) => {
     );
   };
 
+  const onObjectiveChange = (obj: Objective) => {
+    dispatch(setObjective(obj));
+    dispatch(
+      setFlag({
+        flag: obj.flag,
+        value: objectiveToString(obj, resultMetadata),
+      })
+    );
+  };
+
+  const deleteObjective = () => {
+    dispatch(
+      removeObjective({
+        flag,
+      })
+    );
+    dispatch(
+      setFlag({
+        flag,
+        value: null,
+      })
+    );
+  };
+
+  const addObjectiveCondition = () => {
+    dispatch(
+      addCondition({
+        flag,
+      })
+    );
+
+    dispatch(
+      setFlag({
+        flag,
+        value: [...value.concat("1", "r")].join("."),
+      })
+    );
+  };
+
+  const title = (
+    <div className={"flex items-center justify-between"}>
+      <span className="flex items-center gap-4">
+        <span>Objective {letter.toUpperCase()}</span>
+        <Button
+          disabled={objective.conditions.length >= MAX_CONDITION_COUNT}
+          onClick={addObjectiveCondition}
+          variant="primary"
+        >
+          Add Condition
+        </Button>
+      </span>
+      <Button onClick={deleteObjective} variant="primary">
+        Delete
+      </Button>
+    </div>
+  );
+
   return (
-    <Card title={`Objective ${letter.toUpperCase()}`}>
+    <Card title={title as unknown as any}>
       <ObjectiveResultSelect flag={flag} onChange={onResultChange} />
       {value_range ? (
         <ObjectiveResultValue
@@ -88,6 +156,19 @@ export const ObjectiveCard = ({ letter }: ObjectiveCardProps) => {
           onChange={onValueChange}
         />
       ) : null}
+      {objective.conditions.map((c, idx) => (
+        <ObjectiveConditionSelect
+          condition={c}
+          key={idx}
+          objective={objective}
+          onChange={onObjectiveChange}
+        />
+      ))}
+      <Divider />
+      <ObjectiveConditionsRequired
+        objective={objective}
+        onChange={onObjectiveChange}
+      />
     </Card>
   );
 };

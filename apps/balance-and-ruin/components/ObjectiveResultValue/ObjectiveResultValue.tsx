@@ -1,16 +1,7 @@
 import { RawObjectiveResult } from "~/types/objectives";
 import last from "lodash/last";
-import { Input, Slider, SliderProps } from "@ff6wc/ui";
+import { Input, Slider } from "@ff6wc/ui";
 import { useDispatch, useSelector } from "react-redux";
-import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
-import {
-  selectAllowedValues,
-  selectDefaultValue,
-  selectDescription,
-  selectMax,
-  selectMin,
-  selectStep,
-} from "~/state/schemaSlice";
 import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
 import { useRef } from "react";
 import { useNumberScroll } from "~/utils/useNumberScroll";

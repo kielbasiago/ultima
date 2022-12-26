@@ -6,7 +6,7 @@ export type CardProps = React.DetailedHTMLProps<
   HTMLDivElement
 > & {
   contentClassName?: string;
-  title: React.ReactNode;
+  title: React.ReactNode | JSX.Element;
   variant?: "default" | "primary";
 };
 

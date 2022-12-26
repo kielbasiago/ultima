@@ -8,8 +8,11 @@ export const objectiveToString = (
   const { value_range } = metadata;
   const { conditions, result, requiredConditions } = objective;
   const hasRange = Boolean(value_range);
-  const conditionString = conditions.length
-    ? conditions
+
+  const validConditions = conditions.filter((c) => Number.parseInt(c.id) > 0);
+  const conditionString = validConditions.length
+    ? validConditions
+        .filter((c) => Number.parseInt(c.id) > 0)
         .map((c) => {
           return `${c.id}.${c.values.join(".")}`;
         })
@@ -26,6 +29,6 @@ export const objectiveToString = (
   ].filter((z) => z != null);
 
   return [values.join("."), requiredConditions.join("."), conditionString]
-    .filter((val) => val != null)
+    .filter((val) => val != null && val !== "")
     .join(".");
 };

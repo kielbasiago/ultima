@@ -16,11 +16,11 @@ export const Objectives = () => {
   const dispatch = useDispatch();
   const rawFlags = useSelector(selectRawFlags);
 
-  const objectives = useSelector(selectObjectives);
+  const objectives = Object.values(useSelector(selectObjectives) ?? {});
 
   useEffect(() => {
     dispatch(setRawObjectives(rawFlags));
-  }, [dispatch, rawFlags]);
+  }, [dispatch]);
 
   const onAddObjective = () => {
     const nextObjectiveId = objectives.length;
@@ -52,8 +52,8 @@ export const Objectives = () => {
         </Button>
       </div>
       <div className="flex flex-row flex-wrap">
-        {objectives.map(({ flag, letter }) => (
-          <ObjectiveCard key={flag} letter={letter} />
+        {objectives.map((objective) => (
+          <ObjectiveCard key={objective.flag} objective={objective} />
         ))}
       </div>
     </div>

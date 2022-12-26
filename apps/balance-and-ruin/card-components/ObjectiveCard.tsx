@@ -129,7 +129,7 @@ export const ObjectiveCard = ({ objective }: ObjectiveCardProps) => {
   };
 
   const title = (
-    <div className={"flex items-center justify-between"}>
+    <div className={"flex flex-grow items-center justify-between"}>
       <span className="flex items-center gap-4">
         <span>Objective {letter.toUpperCase()}</span>
         <Button

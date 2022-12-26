@@ -41,7 +41,7 @@ export const Objectives = () => {
   };
 
   return (
-    <div>
+    <div className={"flex flex-col gap-4"}>
       <div>
         <Button
           disabled={objectives.length >= MAX_OBJECTIVE_COUNT}

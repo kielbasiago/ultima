@@ -2,6 +2,7 @@ import { TabLabel } from "@ff6wc/ui";
 import { Tab } from "@headlessui/react";
 import { cx } from "cva";
 import type { NextPage } from "next";
+import Head from "next/head";
 import React, { useEffect, useMemo, useState } from "react";
 import type { IconType } from "react-icons";
 import {
@@ -18,7 +19,9 @@ import { HiCog, HiOutlineViewList, HiUserGroup } from "react-icons/hi";
 import { useDispatch } from "react-redux";
 import { FlagsCard } from "~/card-components/Flags";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
+import { Disclaimer } from "~/components/Disclaimer/Disclaimer";
 import { GenerateCard } from "~/components/GenerateCard/GenerateCard";
+import { Header } from "~/components/Header/Header";
 import { AccessibilityAndFixes } from "~/page-components/Accessibility";
 import { Battle } from "~/page-components/Battle";
 import { Commands } from "~/page-components/Commands";
@@ -230,6 +233,15 @@ const Home: NextPage<PageProps> = ({
 
   return (
     <>
+      <Head>
+        <title>FF6WC</title>
+        <meta
+          name="description"
+          content="A Final Fantasy 6 open-world randomizer"
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Header />
       <div className="WC-Page">
         <main className={"w-11/12 lg:w-10/12  m-auto"}>
           <Tab.Group onChange={(idx) => setSelected(tabs[idx])}>
@@ -258,6 +270,7 @@ const Home: NextPage<PageProps> = ({
           <GenerateCard />
         </CardColumn>
       </div>
+      <Disclaimer />
     </>
   );
 };

@@ -63,13 +63,24 @@ const normalizeObjectivesArr = (objectives: Objective[]) => {
   );
 
   const normalized = ordered.map(
-    ({ conditions, requiredConditions, result }, idx) => ({
-      flag: `-o${alphabet[idx]}`,
-      letter: alphabet[idx],
-      conditions,
-      requiredConditions,
-      result,
-    })
+    ({ conditions, requiredConditions, result }, idx) => {
+      const [minReq, maxReq] = requiredConditions;
+      const logicalConditions = conditions.filter((z) => z.id !== "0");
+
+      const minRequired = Math.min(minReq ?? 0, logicalConditions.length);
+      const maxRequired = Math.min(
+        maxReq ?? conditions.length,
+        logicalConditions.length
+      );
+
+      return {
+        flag: `-o${alphabet[idx]}`,
+        letter: alphabet[idx],
+        conditions,
+        requiredConditions: [minRequired, maxRequired] as [number, number],
+        result,
+      };
+    }
   );
 
   return normalized;

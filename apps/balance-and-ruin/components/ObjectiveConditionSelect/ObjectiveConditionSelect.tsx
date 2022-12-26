@@ -8,6 +8,7 @@ import { SelectOption } from "~/components/Select/Select";
 import { selectObjectiveConditionMetadataById } from "~/state/objectiveSlice";
 import { Objective, ObjectiveCondition } from "~/types/objectives";
 import { Slider } from "~/design-components";
+import { HiTrash } from "react-icons/hi";
 
 export type ObjectiveConditionsRequiredProps = {
   condition: ObjectiveCondition;
@@ -26,6 +27,7 @@ export const ObjectiveConditionSelect = ({
   const myMeta = meta[id];
   const metaMin = first(myMeta.value_range);
   const metaMax = last(myMeta.value_range);
+
   const options = useMemo(
     () =>
       Object.values(meta).map<SelectOption>((c) => ({
@@ -34,6 +36,7 @@ export const ObjectiveConditionSelect = ({
       })),
     [meta]
   );
+
   const optionsById = useMemo(
     () =>
       options.reduce((acc, val) => {
@@ -127,11 +130,16 @@ export const ObjectiveConditionSelect = ({
     );
 
   const showSubselect = !["0", "1"].includes(id);
+  const description = "";
 
   return (
     <div className="flex flex-col gap-2">
       <div>
-        <FlagLabel flag={objective.flag} helperText="" label="Condition" />
+        <FlagLabel
+          flag={objective.flag}
+          helperText={description}
+          label={"Condition"}
+        />
       </div>
 
       <BaseSelect

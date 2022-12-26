@@ -130,7 +130,7 @@ const Home: NextPage<PageProps> = ({
           id: "settings",
           content: <Settings presets={presets} />,
         },
-        process.env.SHOW_OBJECTIVES === "true" && {
+        process.env.NEXT_PUBLIC_SHOW_OBJECTIVES === "true" && {
           label: (
             <TabContainer>
               <TabIcon Icon={HiOutlineViewList} />

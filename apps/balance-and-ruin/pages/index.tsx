@@ -117,110 +117,111 @@ const Home: NextPage<PageProps> = ({
   schema,
 }: PageProps) => {
   const tabs: TabItem[] = useMemo(
-    () => [
-      {
-        label: (
-          <TabContainer>
-            <TabIcon Icon={HiCog} />
-            Settings
-          </TabContainer>
-        ),
+    () =>
+      [
+        {
+          label: (
+            <TabContainer>
+              <TabIcon Icon={HiCog} />
+              Settings
+            </TabContainer>
+          ),
 
-        id: "settings",
-        content: <Settings presets={presets} />,
-      },
-      {
-        label: (
-          <TabContainer>
-            <TabIcon Icon={HiOutlineViewList} />
-            Objectives
-          </TabContainer>
-        ),
-        content: <Objectives />,
-        id: "objectives",
-      },
-      {
-        label: (
-          <TabContainer>
-            <TabIcon Icon={HiUserGroup} />
-            Party
-          </TabContainer>
-        ),
-        id: "party",
-        content: <Party />,
-      },
-      {
-        label: (
-          <TabContainer>
-            <TabIcon Icon={GiWizardStaff} />
-            Commands
-          </TabContainer>
-        ),
-        id: "commands",
-        content: <Commands />,
-      },
-      {
-        label: (
-          <TabContainer>
-            <TabIcon Icon={GiGladius} />
-            Battle
-          </TabContainer>
-        ),
-        id: "battle",
-        content: <Battle />,
-      },
-      {
-        label: (
-          <TabContainer>
-            <TabIcon Icon={GiElectric} />
-            Magic
-          </TabContainer>
-        ),
-        id: "magic",
-        content: <Magic />,
-      },
-      {
-        label: (
-          <TabContainer>
-            <TabIcon Icon={GiDrinkMe} />
-            Items
-          </TabContainer>
-        ),
-        id: "items",
-        content: <Items />,
-      },
-      {
-        label: (
-          <TabContainer>
-            <TabIcon Icon={GiRetroController} />
-            Gameplay
-          </TabContainer>
-        ),
-        id: "misc",
-        content: <Gameplay />,
-      },
-      {
-        label: (
-          <TabContainer>
-            <TabIcon Icon={GiPaintBrush} />
-            <span>Graphics</span>
-          </TabContainer>
-        ),
-        id: "Graphics",
-        content: <Graphics />,
-      },
-      {
-        label: (
-          <TabContainer>
-            <TabIcon Icon={GiMagnifyingGlass} />
-            Accessibility & Fixes
-          </TabContainer>
-        ),
-        id: "accessibility",
-        content: <AccessibilityAndFixes />,
-      },
-    ],
-    []
+          id: "settings",
+          content: <Settings presets={presets} />,
+        },
+        process.env.SHOW_OBJECTIVES === "true" && {
+          label: (
+            <TabContainer>
+              <TabIcon Icon={HiOutlineViewList} />
+              Objectives
+            </TabContainer>
+          ),
+          content: <Objectives />,
+          id: "objectives",
+        },
+        {
+          label: (
+            <TabContainer>
+              <TabIcon Icon={HiUserGroup} />
+              Party
+            </TabContainer>
+          ),
+          id: "party",
+          content: <Party />,
+        },
+        {
+          label: (
+            <TabContainer>
+              <TabIcon Icon={GiWizardStaff} />
+              Commands
+            </TabContainer>
+          ),
+          id: "commands",
+          content: <Commands />,
+        },
+        {
+          label: (
+            <TabContainer>
+              <TabIcon Icon={GiGladius} />
+              Battle
+            </TabContainer>
+          ),
+          id: "battle",
+          content: <Battle />,
+        },
+        {
+          label: (
+            <TabContainer>
+              <TabIcon Icon={GiElectric} />
+              Magic
+            </TabContainer>
+          ),
+          id: "magic",
+          content: <Magic />,
+        },
+        {
+          label: (
+            <TabContainer>
+              <TabIcon Icon={GiDrinkMe} />
+              Items
+            </TabContainer>
+          ),
+          id: "items",
+          content: <Items />,
+        },
+        {
+          label: (
+            <TabContainer>
+              <TabIcon Icon={GiRetroController} />
+              Gameplay
+            </TabContainer>
+          ),
+          id: "misc",
+          content: <Gameplay />,
+        },
+        {
+          label: (
+            <TabContainer>
+              <TabIcon Icon={GiPaintBrush} />
+              <span>Graphics</span>
+            </TabContainer>
+          ),
+          id: "Graphics",
+          content: <Graphics />,
+        },
+        {
+          label: (
+            <TabContainer>
+              <TabIcon Icon={GiMagnifyingGlass} />
+              Accessibility & Fixes
+            </TabContainer>
+          ),
+          id: "accessibility",
+          content: <AccessibilityAndFixes />,
+        },
+      ].filter((z) => !!z) as TabItem[],
+    [presets]
   );
 
   const [selected, setSelected] = useState<TabItem | null>(tabs[0]);

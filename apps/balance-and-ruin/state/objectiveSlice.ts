@@ -121,7 +121,7 @@ export const objectiveSlice = createSlice({
       };
     },
     setObjectives(state, action: PayloadAction<Objective[]>) {
-      state.objectives = action.payload;
+      state.objectives = normalizeObjectivesArr(action.payload);
       state.objectivesByFlag = objectivesToDict(action.payload);
     },
     setObjective(state, action: PayloadAction<Objective>) {

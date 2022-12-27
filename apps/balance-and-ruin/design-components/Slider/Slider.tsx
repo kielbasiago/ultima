@@ -4,6 +4,7 @@ import { GetServerSideProps } from "next";
 import BaseSlider, { SliderProps as BaseSliderProps } from "rc-slider";
 
 export type SliderProps<T extends number | number[]> = BaseSliderProps<T> & {
+  markActiveValues?: boolean;
   onChange?: (val: T) => void;
   value?: T;
 };
@@ -25,6 +26,7 @@ export const Slider = <T extends number | number[]>({
   onChange,
   min = 0,
   max = 100,
+  markActiveValues = false,
   step: untypedStep = 1,
   value,
   ...rest
@@ -39,10 +41,10 @@ export const Slider = <T extends number | number[]>({
       : value
       ? { [value[0]]: value[0], [value[1]]: value[1] }
       : {};
-  const defaultMarks = {
+  const defaultMarks: Record<number, number> = {
     [min]: min,
     [max]: max,
-    // ...currentValMark,
+    ...(markActiveValues ? currentValMark : {}),
   };
 
   return (

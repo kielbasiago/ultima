@@ -168,6 +168,7 @@ export const ObjectiveConditionSelect = ({
 
       {showSubselect && range ? (
         <Slider
+          markActiveValues
           min={metaMin as number}
           max={metaMax as number}
           step={1}

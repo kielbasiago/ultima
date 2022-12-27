@@ -34,7 +34,7 @@ export const Header = ({}: DisclaimerProps) => {
           </Link>
         </div>
       </div>
-      <div className="absolute top-0 bottom-0 left-0 right-0 bg-[url('/hero.png')] opacity-60 bg-no-repeat bg-cover bg-center z-0"></div>
+      <div className="absolute top-0 bottom-0 left-0 right-0 bg-[url('/hero.png')] opacity-80 brightness-75 bg-no-repeat bg-cover bg-center z-0"></div>
     </nav>
   );
 };

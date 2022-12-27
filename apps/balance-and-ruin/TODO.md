@@ -3,9 +3,7 @@
 - Figure out a better way to handle manual flag entering
 - Objectives screen does not properly render when it is the landing screen (only once you navigate away and return)
 - Add clone objective button
-- Add question mark to center of character silhouette
-  add y-npc softlock helper text
--
+- Add y-npc softlock helper text
 
 # Worlds Collide
 

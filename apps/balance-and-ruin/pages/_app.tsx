@@ -21,12 +21,7 @@ type Props = {
 const App: AppType<Props> = ({ Component, ...rest }: AppProps<Props>) => {
   const { store, props } = wrapper.useWrappedStore(rest);
   return (
-    <div
-      className={cx(
-        roboto.className,
-        "bg-white dark:bg-slate-800 text-grey dark:text-white"
-      )}
-    >
+    <div className={cx(roboto.className, "text-grey dark:text-white")}>
       <Provider store={store}>
         <QueryClientProvider client={client}>
           <Component {...props.pageProps} />

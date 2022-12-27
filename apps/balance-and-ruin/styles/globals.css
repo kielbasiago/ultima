@@ -45,6 +45,9 @@ div#__next > div {
     @apply text-zinc-600 dark:text-white;
   }
 
+  .ff6-slider.rc-slider .rc-slider-rail {
+    @apply bg-white dark:bg-transparent;
+  }
   .ff6-slider .rc-slider-handle,
   .ff6-slider .rc-slider-rail,
   .ff6-slider .rc-slider-track {

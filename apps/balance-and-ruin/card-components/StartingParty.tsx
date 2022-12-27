@@ -163,7 +163,7 @@ const SelectPartyControl = ({
       className={"WC-SelectPartyControl pl-4"}
     >
       {showSprite ? (
-        <span>
+        <span className="relative">
           <SpriteDrawLoad
             className={colorSprite ? undefined : "brightness-0"}
             spriteId={spriteId}
@@ -171,6 +171,12 @@ const SelectPartyControl = ({
             poseId={poseId}
             scale={3}
           />
+
+          {!colorSprite ? (
+            <span className="absolute flex top-0 bottom-0 left-0 right-0 items-center justify-center text-3xl">
+              ?
+            </span>
+          ) : null}
         </span>
       ) : null}
       {children}

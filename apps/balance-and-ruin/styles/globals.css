@@ -20,6 +20,7 @@ div#__next > div {
   }
   
   .ff6-slider .rc-slider-handle {
+    @apply select-none;
     width: 16px;
     height: 16px;
     @apply border-1 border-black;  

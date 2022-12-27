@@ -94,7 +94,7 @@ const mpOptions: SubflagOption[] = [
     helperText: "Each esper has an MP cost of {{ . }}% of its original value",
     label: "Random",
     Renderable: ({ children }) => (
-      <FlagSlider helperText="" flag="-emprv" label={children} />
+      <FlagSlider helperText="" flag="-emprp" label={children} />
     ),
   },
 ];

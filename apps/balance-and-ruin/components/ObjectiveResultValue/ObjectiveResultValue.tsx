@@ -96,6 +96,7 @@ export const ObjectiveResultValue = ({
       </div>
       <div>
         <Slider
+          markActiveValues
           min={metaMin}
           max={metaMax}
           step={step}

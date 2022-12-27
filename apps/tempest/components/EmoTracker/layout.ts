@@ -486,18 +486,18 @@ const layout = [
   ],
   /** ********************* ROW 7 ********************** */
   [
-    new LayoutGroup("umaro", "", [
+    new LayoutGroup("gogo", "", [
       new CharacterCell(
-        "umaro",
-        "umaro",
-        ({ characters }) => characters.umaro,
-        ({ characters }) => characters.umaro
+        "gogo",
+        "gogo",
+        ({ characters }) => characters.gogo,
+        ({ characters }) => characters.gogo
       ),
       new LayoutCell(
-        "umarosCave",
-        "umarosCave",
-        ({ events }) => events.umarosCave,
-        ({ characters }) => characters.umaro
+        "zoneEater",
+        "zoneEater",
+        ({ events }) => events.zoneEater,
+        ({ characters }) => characters.gogo
       ),
     ]),
     new LayoutGroup("none", "justify-center", [
@@ -531,18 +531,19 @@ const layout = [
       new LayoutCell("doomGaze", "doomGaze", ({ events }) => events.doomGaze),
       new LayoutCell("tritoch", "tritoch", ({ events }) => events.tritoch),
     ]),
-    new LayoutGroup("gogo", "", [
+
+    new LayoutGroup("umaro", "", [
       new LayoutCell(
-        "zoneEater",
-        "zoneEater",
-        ({ events }) => events.zoneEater,
-        ({ characters }) => characters.gogo
+        "umarosCave",
+        "umarosCave",
+        ({ events }) => events.umarosCave,
+        ({ characters }) => characters.umaro
       ),
       new CharacterCell(
-        "gogo",
-        "gogo",
-        ({ characters }) => characters.gogo,
-        ({ characters }) => characters.gogo
+        "umaro",
+        "umaro",
+        ({ characters }) => characters.umaro,
+        ({ characters }) => characters.umaro
       ),
     ]),
   ],

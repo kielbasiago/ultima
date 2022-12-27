@@ -17,8 +17,9 @@ const tabStyles = cva(
   {
     variants: {
       selected: {
-        true: "text-gray-900",
-        false: "text-gray-500 hover:text-gray-700",
+        true: "text-gray-900 dark:text-white",
+        false:
+          "text-gray-500 hover:text-gray-700 dark:text-gray-300 hover:text-gray-200",
       },
     },
     defaultVariants: {

@@ -11,7 +11,7 @@ export type CardProps = React.DetailedHTMLProps<
 };
 
 const containerStyles = cva([
-  "bg-panel-background",
+  "bg-panel-background dark:bg-slate-900",
   "rounded-none",
   "shadow-[0px_0px_1px_0px_rgba(0,0,0,0.75)]",
 ]);
@@ -20,15 +20,15 @@ const contentStyles = cva([
   "flex flex-col gap-4",
   "mb-6",
   "px-4 py-3",
-  "bg-panel-background",
+  "bg-panel-background dark:bg-gray-500",
   " border-panel-border",
 ]);
 
 const headingStyles = cva(["px-4 py-2", "font-medium"], {
   variants: {
     variant: {
-      default: ["bg-panel-header-background"],
-      primary: ["bg-blue-700", "text-white"],
+      default: ["bg-panel-header-background dark:bg-gray-600"],
+      primary: ["bg-blue-700", "text-white "],
     },
   },
   defaultVariants: {

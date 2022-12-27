@@ -6,7 +6,7 @@ export type DisclaimerProps = Record<string, unknown>;
 
 export const Header = ({}: DisclaimerProps) => {
   return (
-    <div className="relative flex flex-col w-full min-h-[200px] justify-center items-center text-white text-xs shadow-lg">
+    <nav className="relative flex flex-col w-full min-h-[200px] justify-center items-center text-white text-xs shadow-lg">
       <div className="flex flex-col p-3 z-10 gap-3">
         <Link href="/">
           <Image
@@ -31,6 +31,6 @@ export const Header = ({}: DisclaimerProps) => {
         </div>
       </div>
       <div className="absolute top-0 bottom-0 left-0 right-0 bg-[url('/hero.png')] opacity-60 bg-no-repeat bg-cover bg-center z-0"></div>
-    </div>
+    </nav>
   );
 };

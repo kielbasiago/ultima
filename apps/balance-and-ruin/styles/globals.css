@@ -10,7 +10,7 @@ body,
 body > div:first-child,
 div#__next,
 div#__next > div {
-  height: 100%;
+  height: 100vh;
 }
 
 @layer components {
@@ -24,7 +24,7 @@ div#__next > div {
     width: 16px;
     height: 16px;
     @apply border-1 border-black;  
-    @apply bg-black;
+    @apply bg-black dark:bg-white;
     opacity: 1;
 
     @apply focus-visible:shadow-range-focus;
@@ -36,13 +36,13 @@ div#__next > div {
   }
 
   .ff6-slider .rc-slider-mark-text {
-    @apply text-zinc-400;
+    @apply text-zinc-400 dark:text-zinc-200;
     @apply transition-all;
     @apply duration-100;
   }
 
   .ff6-slider .rc-slider-mark-text-active {
-    @apply text-zinc-600;
+    @apply text-zinc-600 dark:text-white;
   }
 
   .ff6-slider .rc-slider-handle,

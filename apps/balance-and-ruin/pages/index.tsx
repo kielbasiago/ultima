@@ -243,8 +243,8 @@ const Home: NextPage<PageProps> = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <div className="WC-Page">
-        <main className={"w-11/12 lg:w-10/12  m-auto"}>
+      <main className="WC-Page dark:bg-slate-800">
+        <div className={"w-11/12 lg:w-10/12  m-auto"}>
           <Tab.Group onChange={(idx) => setSelected(tabs[idx])}>
             <div className="flex justify-center items-center">
               <Tab.List className="p-5">
@@ -263,9 +263,9 @@ const Home: NextPage<PageProps> = ({
               ))}
             </Tab.Panels>
           </Tab.Group>
-        </main>
-      </div>
-      <div className="flex p-8">
+        </div>
+      </main>
+      <div className="flex p-8 dark:bg-slate-800">
         <CardColumn>
           <FlagsCard />
           <GenerateCard />

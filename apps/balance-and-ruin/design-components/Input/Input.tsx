@@ -12,13 +12,13 @@ const styles = cva("", {
       default: [
         "focus-visible:shadow-input-focus focus-visible:border-inputs-focus focus-visible:outline-none",
         "border-inputs-border border-1",
-        "bg-inputs-background",
+        "bg-inputs-background dark:bg-transparent",
         "px-2 py-1",
         "text-sm",
       ],
     },
     disabled: {
-      true: "select-none opacity-60 text-gray-500",
+      true: "select-none opacity-60 text-gray-500 dark:text-gray-200",
     },
   },
   defaultVariants: {

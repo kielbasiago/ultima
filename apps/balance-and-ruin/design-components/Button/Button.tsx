@@ -23,6 +23,7 @@ const b = cva(["px-4 py-2", "text-base", "rounded-none", "transition-all"], {
         "focus-visible:border-blue-300 focus-visible:outline-2",
       ],
       outline: [
+        "dark:text-gray-600",
         "focus-visible:shadow-input-focus focus-visible:border-inputs-focus focus-visible:outline-none",
         "border-inputs-border border-1",
         "bg-inputs-background",

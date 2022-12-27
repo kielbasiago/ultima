@@ -3,5 +3,9 @@ export type HelperTextProps = {
 };
 
 export const HelperText = ({ children }: HelperTextProps) => {
-  return <span className="text-xs text-slate-500">{children}</span>;
+  return (
+    <span className="text-xs text-slate-500 dark:text-gray-200">
+      {children}
+    </span>
+  );
 };

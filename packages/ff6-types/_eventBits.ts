@@ -193,3 +193,5 @@ export const DISABLE_MENU_ACCESS = 0x1c2;
 export const TEMP_SONG_OVERRIDE = 0x1cc;
 export const ENABLE_Y_PARTY_SWITCHING = 0x1ce;
 export const ALWAYS_CLEAR = 0x176; //this event_bit is always clear, used for branching
+
+export const ARVIS = 0x12e;

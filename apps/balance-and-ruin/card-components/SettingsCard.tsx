@@ -1,5 +1,6 @@
 import { Card } from "@ff6wc/ui";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
+import { FlagTextInput } from "~/components/FlagInput/FlagInput";
 import {
   FlagSubflagSelect,
   SubflagOption,
@@ -34,6 +35,8 @@ export const SettingsCard = () => {
           options={modeOptions}
           defaultSelected={OPEN_WORLD}
         />
+
+        <FlagTextInput flag="-s" label="Seed" type="text" />
 
         <FlagSwitch flag="-sl" label="Spoiler Log" />
       </CardColumn>

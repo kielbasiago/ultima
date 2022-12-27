@@ -32,7 +32,7 @@ export const FlagTextInput = ({
     dispatch(
       setFlag({
         flag,
-        value,
+        value: value ? value : null,
       })
     );
   };

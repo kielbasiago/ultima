@@ -172,6 +172,11 @@ export const EVENT_BIT: Record<FF6Event, CheckBit> = {
     "Mobliz Attack",
     event_bits.RECRUITED_TERRA_MOBLIZ
   ),
+  moogleDefense: new CheckBit(
+    "moogleDefense",
+    "Moogle Defense",
+    event_bits.COMPLETED_MOOGLE_DEFENSE
+  ),
   mtKoltz: new CheckBit("mtKoltz", "Mt. Kolts", event_bits.DEFEATED_VARGAS),
   mtZozo: new CheckBit("mtZozo", "Mt. Zozo", event_bits.FINISHED_MT_ZOZO),
   kefkaAtNarshe: new CheckBit(

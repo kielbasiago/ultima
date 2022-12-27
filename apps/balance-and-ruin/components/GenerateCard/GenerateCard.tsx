@@ -7,12 +7,19 @@ import { useSelector } from "react-redux";
 import useSWRMutation from "swr/mutation";
 import { selectRawFlags } from "~/state/flagSlice";
 import { base64ToByteArray } from "~/utils/base64ToByteArray";
-import { downloadByteArray } from "~/utils/downloadByteArray";
 import { isValidROM, removeHeader } from "~/utils/romUtils";
 import { XDelta3Decoder } from "~/utils/xdelta3_decoder";
+import JSZip from "jszip";
 
 export type FlagsCardProps = {
   className?: string;
+};
+
+type GenerateResponse = {
+  filename: string;
+  patch: string;
+  seed: string;
+  spoiler_log: string;
 };
 
 export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
@@ -20,7 +27,8 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
   const flags = useSelector(selectRawFlags);
   const [romData, setRomData] = useState<string | null>(null);
   const [romName, setRomName] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [generateError, setGenerateError] = useState<string | null>(null);
+  const [romSelectError, setRomSelectError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
   const hasRomData = Boolean(romData);
@@ -32,8 +40,6 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
     const savedRomData = localStorage.getItem("rom_data");
     const savedRomName = localStorage.getItem("rom_name");
 
-    // inputRef.current.textContent = savedRomName;
-
     if (savedRomData) {
       setRomData(savedRomData);
       setSuccess(true);
@@ -44,7 +50,7 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
     }
   }, [inputRef]);
 
-  const { trigger, isMutating } = useSWRMutation(
+  const { error, trigger, isMutating } = useSWRMutation(
     ["/api/generate", flags],
     async (key, { arg }) => {
       const result = await fetch("/api/generate", {
@@ -53,15 +59,24 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
         method: "POST",
       });
 
-      const b64result = await result.text();
-      return b64result;
+      if (result.status !== 200) {
+        const error = await result.text();
+        throw new Error(`Error creating seed ${error}`);
+      }
+
+      const data = await result.json();
+      return data as GenerateResponse;
     }
   );
   const generate = async () => {
     if (isMutating) {
       return;
     }
-    const patch = await trigger(flags);
+    const generateResult = await trigger(flags);
+    if (!generateResult) {
+      throw new Error("There was an error generating the rom");
+    }
+    const { filename, patch, seed, spoiler_log } = generateResult;
     const rom = romData as string;
 
     const patched = XDelta3Decoder.decode(
@@ -69,7 +84,15 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
       base64ToByteArray(rom)
     );
 
-    downloadByteArray("ff3-wc.smc", patched as Uint8Array);
+    const jsz = new JSZip();
+    let zip = jsz.file(`${filename}.smc`, patched, { binary: true });
+    zip = jsz.file(`${filename}.txt`, spoiler_log);
+    zip.generateAsync({ type: "blob" }).then((content) => {
+      var link = document.createElement("a");
+      link.href = window.URL.createObjectURL(content);
+      link.download = `${filename}.zip`;
+      link.click();
+    });
   };
 
   const clearRomValues = () => {
@@ -78,7 +101,7 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
     setRomName("");
     setRomData(null);
     setSuccess(false);
-    setError(null);
+    setRomSelectError(null);
   };
 
   const onRomSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,7 +114,7 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
 
         let result = await isValidROM(rom_data);
         if (!result.success) {
-          setError(`${result.message}`);
+          setRomSelectError(`${result.message}`);
           return;
         }
 
@@ -105,7 +128,7 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
         data_string = btoa(data_string);
 
         setSuccess(true);
-        setError(null);
+        setRomSelectError(null);
 
         try {
           localStorage.setItem("rom_data", data_string);
@@ -175,7 +198,7 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
         />
       </div>
       <div className="pl-3">
-        {!success && !error && (
+        {!success && !romSelectError && (
           <div className="text-yellow-500 font-semibold">
             Waiting for ROM upload
           </div>
@@ -183,7 +206,9 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
         {success && (
           <div className={"text-green-500 font-semibold"}>Valid ROM </div>
         )}
-        {error && <div className={"text-red-500 font-semibold"}>{error}</div>}
+        {romSelectError ? (
+          <div className={"text-red-500 font-semibold"}>{romSelectError}</div>
+        ) : null}
       </div>
 
       <div className="flex flex-col gap-2">
@@ -193,10 +218,17 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
         </HelperText>
       </div>
 
-      <div className="pl-3">
-        <Button disabled={!hasRomData} onClick={generate} variant="primary">
+      <div className="fle flex-col gap-2 pl-3">
+        <Button
+          disabled={!hasRomData || isMutating}
+          onClick={generate}
+          variant="primary"
+        >
           Generate
         </Button>
+        {generateError ? (
+          <div className={"text-red-500 font-semibold"}>{generateError}</div>
+        ) : null}{" "}
       </div>
     </Card>
   );

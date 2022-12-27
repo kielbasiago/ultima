@@ -3,14 +3,21 @@ import xdelta3
 import os
 import shutil
 import subprocess
+import sys 
 import tempfile
 import urllib.request
 
 class handler(BaseHTTPRequestHandler):
   def do_POST(self):
+    sys.path.append("WorldsCollide")
+
     with tempfile.TemporaryDirectory() as temp_dir:
       in_filename = temp_dir + "ff3.smc"
-      out_filename = temp_dir + "ff3-out.smc"
+      from WorldsCollide.seed import generate_seed
+      seed = generate_seed()
+      base_filename = f"ff6wc_{seed}";
+      out_filename = temp_dir + f"{base_filename}.smc"
+      log_filename = temp_dir + f"{base_filename}.txt"
 
 
       content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
@@ -26,15 +33,22 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(json.dumps({}))
       else:
-        with open(in_filename, "rb") as old, open(out_filename, "rb") as new:
+        with open(in_filename, "rb") as old, open(out_filename, "rb") as new, open(log_filename, "rb") as log:
             import base64
               
             delta = xdelta3.encode(old.read(), new.read())
             self.send_response(200)
             self.send_header('Content-type','text/plain')
             self.end_headers()
-
-            self.wfile.write(base64.b64encode(delta))
+            
+            val = {
+              'patch': base64.b64encode(delta).decode('utf-8'),
+              'spoiler_log': log.read().decode(),
+              'seed': seed,
+              'filename': base_filename
+            }
+            
+            self.wfile.write(json.dumps(val).encode())
 
   def _generate(self, flags, in_filename, out_filename):
     src_file = os.getenv("INPUT_ROM") or 'ff3.smc'

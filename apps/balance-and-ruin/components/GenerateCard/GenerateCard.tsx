@@ -27,7 +27,6 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
   const flags = useSelector(selectRawFlags);
   const [romData, setRomData] = useState<string | null>(null);
   const [romName, setRomName] = useState("");
-  const [generateError, setGenerateError] = useState<string | null>(null);
   const [romSelectError, setRomSelectError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
@@ -226,8 +225,8 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
         >
           Generate
         </Button>
-        {generateError ? (
-          <div className={"text-red-500 font-semibold"}>{generateError}</div>
+        {error ? (
+          <div className={"text-red-500 font-semibold"}>{error}</div>
         ) : null}{" "}
       </div>
     </Card>

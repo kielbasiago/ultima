@@ -1,5 +1,8 @@
 import { cx } from "cva";
-import { useId } from "react";
+import first from "lodash/first";
+import last from "lodash/last";
+import { KeyboardEvent, useCallback, useId, useRef } from "react";
+import { useDebouncedCallback } from "use-debounce";
 
 export type SelectOption = {
   readonly helperText?: string;
@@ -9,10 +12,12 @@ export type SelectOption = {
 
 type SelectProps = {
   className?: string;
+  components?: SelectComponentsConfig<SelectOption, false, any>;
   defaultValue?: SelectOption;
+  /** When true, pressing arrow key up/down on a closed select option will select the next option. */
+  nextOnArrowKeys?: boolean;
   onChange: (selected: SelectOption | null) => void;
   options: SelectOption[];
-  components?: SelectComponentsConfig<SelectOption, false, any>;
   placeholder?: string;
   value: SelectOption | null;
 };
@@ -43,6 +48,9 @@ export const FlagSelectOption = <T extends FlagSelectOptionData>({
   );
 };
 
+const ARROW_DOWN = "ArrowDown";
+const ARROW_UP = "ArrowUp";
+const triggerableKeys = [ARROW_DOWN, ARROW_UP];
 export const Select = ({
   className,
   components = {},
@@ -50,10 +58,34 @@ export const Select = ({
   options,
   onChange,
   placeholder,
+  nextOnArrowKeys,
   value,
 }: SelectProps) => {
   const id = useId();
   const { Option = FlagSelectOption, ...restComponents } = components;
+  const ref = useRef<any>();
+
+  const _selectNextItem = useCallback(
+    (e: KeyboardEvent<HTMLDivElement>) => {
+      const idx = options.indexOf(value as SelectOption);
+
+      if (options.length && idx === -1) {
+        console.warn("item not found in options");
+        return;
+      } else if (e.key === ARROW_DOWN) {
+        const nextIdx = idx + 1;
+        onChange(options[nextIdx] ?? last(options));
+        e.preventDefault();
+      } else if (e.key === ARROW_UP) {
+        const nextIdx = idx - 1;
+        onChange(options[nextIdx] ?? first(options));
+        e.preventDefault();
+      }
+    },
+    [onChange, options, value]
+  );
+
+  const selectNextItem = useDebouncedCallback(_selectNextItem, 0);
 
   return (
     <div className="flex flex-col gap-1">
@@ -69,7 +101,19 @@ export const Select = ({
           onChange(val as SelectOption);
         }}
         placeholder={placeholder}
+        ref={ref}
         value={value ?? defaultValue}
+        onKeyDown={(e) => {
+          if (
+            nextOnArrowKeys &&
+            !ref.current.props.menuIsOpen &&
+            !e.ctrlKey &&
+            triggerableKeys.includes(e.key)
+          ) {
+            e.preventDefault();
+            selectNextItem(e);
+          }
+        }}
       />
     </div>
   );

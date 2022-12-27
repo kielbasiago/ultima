@@ -1,17 +1,16 @@
+import { CHARACTER_POSES } from "@ff6wc/ff6-types";
 import { useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
-import SpriteDrawLoad from "~/components/SpriteDrawLoad/SpriteDrawLoad";
-import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
-
 import PortraitDrawLoad from "~/components/PortraitDrawLoad/PortraitDrawLoad";
 import { Select, SelectOption } from "~/components/Select/Select";
+import SpriteDrawLoad from "~/components/SpriteDrawLoad/SpriteDrawLoad";
 import {
-  defaultSpritePaletteString,
   defaultPaletteString,
   defaultPortraitString,
+  defaultSpritePaletteString,
   defaultSpriteString,
 } from "~/constants/graphicConstants";
-import { CHARACTER_POSES } from "@ff6wc/ff6-types";
+import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 
 export type LoadPalettesResponse = {
   id: string;
@@ -154,6 +153,7 @@ export const CharacterGraphicSelector = ({
         {portraitId != null ? (
           <Select
             options={portraitOptions}
+            nextOnArrowKeys
             onChange={(val) => {
               if (val) {
                 const pors = [...portraitValues];
@@ -171,6 +171,7 @@ export const CharacterGraphicSelector = ({
         ) : null}
         {/* SPRITE */}
         <Select
+          nextOnArrowKeys
           onChange={(val) => {
             if (val) {
               const sprs = [...spriteValues];
@@ -188,6 +189,7 @@ export const CharacterGraphicSelector = ({
         />
         {/* PALETTE */}
         <Select
+          nextOnArrowKeys
           options={paletteOptions}
           onChange={(val) => {
             if (val) {

@@ -23,7 +23,7 @@ div#__next > div {
     @apply select-none;
     width: 16px;
     height: 16px;
-    @apply border-1 border-black;  
+    @apply border-1 border-black dark:border-2;  
     @apply bg-black dark:bg-white;
     opacity: 1;
 
@@ -58,6 +58,7 @@ div#__next > div {
   .ff6-slider .rc-slider-track {
     @apply bg-blue-600;
     @apply border-0 bg-blue-600;
+    @apply dark:border-1 dark:border-black;
   }
 
   .ff6-slider .rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging {
@@ -92,20 +93,20 @@ div#__next > div {
   }
 }
 
-
-
 @layer components {
   .ff6wc-select-container * {
     @apply transition-colors duration-75;
+    @apply outline-0;
   }
 
   .ff6wc-select-container .ff6wc-select__control {
     @apply max-h-[30px];
     @apply min-h-[30px];
     @apply border-1;
+    @apply cursor-text;
     @apply bg-white dark:bg-transparent;      
-    @apply border-neutral-300 dark:border-neutral-700;
-    @apply hover:border-neutral-400 dark:hover:border-neutral-500;
+    @apply border-inputs-border;
+    @apply hover:border-neutral-400;
     @apply rounded-none;
   }
 

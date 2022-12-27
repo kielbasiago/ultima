@@ -11,20 +11,24 @@ export const Header = ({}: DisclaimerProps) => {
         <Link href="/">
           <Image
             alt="Final Fantasy VI: Worlds Collide"
-            src="/thumbnaillogoblack.png"
-            height={526 / 5}
-            width={1356 / 5}
+            src="/thumbnaillogowhite.png"
+            height={526 / 4}
+            width={1356 / 4}
           />
         </Link>
 
         <div className="flex justify-center">
-          <Link href="https://discord.gg/5MPeng5" target="_blank">
+          <Link
+            className={`max-w-[500px]`}
+            href="https://discord.gg/5MPeng5"
+            target="_blank"
+          >
             <Button variant="default" className={"bg-white"}>
               <Image
                 alt="Join our Discord community"
-                src="/discord.svg"
-                width={100}
-                height={50}
+                src="/discordblack.png"
+                width={125}
+                height={55}
               />
             </Button>
           </Link>

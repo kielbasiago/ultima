@@ -5,8 +5,8 @@ import { EmoTrackerLayout } from "~/components/EmoTracker/EmoTrackerLayout";
 import { PageContainer } from "~/components/PageContainer";
 import { wrapper } from "~/state/store";
 import { TrackerMode } from "~/types/tracker";
-import { Disclaimer } from "../../balance-and-ruin/components/Disclaimer/Disclaimer";
-import { Header } from "../../balance-and-ruin/components/Header/Header";
+import { Disclaimer } from "~/components/Disclaimer/Disclaimer";
+import { Header } from "~/components/Header/Header";
 type PageProps = {};
 
 export const getServerSideProps = wrapper.getServerSideProps(

@@ -22,10 +22,10 @@ const Auto: NextPage<PageProps> = ({}: PageProps) => {
   return (
     <>
       <Head>
-        <title>FF6WC</title>
+        <title>FF6WC Tracker</title>
         <meta
           name="description"
-          content="A Final Fantasy 6 open-world randomizer"
+          content="A Final Fantasy 6 tracker interfacing with SNI"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>

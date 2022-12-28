@@ -36,7 +36,7 @@ class handler(BaseHTTPRequestHandler):
       seed = generate_seed()
       base_filename = f"ff6wc_{seed}-tunes"
 
-      dir = "/home/nolanlocke/dev/ultima/apps/balance-and-ruin/dist"
+      dir = temp_dir
       in_filename = dir + "/ff6wc.smc"
       out_filename = dir + f"/{base_filename}.smc"
       log_filename = dir + f"/{base_filename}.txt"

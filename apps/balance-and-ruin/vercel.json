@@ -1,10 +1,7 @@
 {
   "functions": {
-    "api/music/*.py": {
-      "includeFiles": "{api,johnnydmad,WorldsCollide}/**/*"
-    },
     "api/**/*.py": {
-      "includeFiles": "{api,WorldsCollide}/**/*"
+      "includeFiles": "{api,johnnydmad,WorldsCollide}/**/*"
     }
   }
 }

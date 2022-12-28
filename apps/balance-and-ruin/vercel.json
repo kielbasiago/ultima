@@ -1,12 +1,12 @@
 {
   "functions": {
-    "api/**/*.py": {
-      "includeFiles": "{api,johnnydmad,WorldsCollide}/**/*"
-    },
-    "api/music/generate.py": {
+    "api/**/generate.py": {
       "includeFiles": "{api,johnnydmad,WorldsCollide}/**/*",
       "maxDuration": 30,
       "memory": 1024
+    },
+    "api/**/*.py": {
+      "includeFiles": "{api,johnnydmad,WorldsCollide}/**/*"
     }
   }
 }

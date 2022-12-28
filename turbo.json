@@ -2,12 +2,14 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "dependsOn": [
-        "^build",
-        "$NODE_ENV",
-        "$VERCEL_URL",
-        "$NEXT_PUBLIC_SHOW_OBJECTIVES"
+      "env": [
+        "NODE_ENV",
+        "VERCEL_URL",
+        "FF3_INPUT_ROM",
+        "FF6WC_INPUT_ROM",
+        "NEXT_PUBLIC_SHOW_OBJECTIVES"
       ],
+      "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**"]
     },
     "lint": {

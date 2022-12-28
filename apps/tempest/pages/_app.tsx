@@ -21,7 +21,7 @@ const App: AppType<Props> = ({ Component, ...rest }: AppProps<Props>) => {
     <div
       className={cx(
         roboto.className,
-        "text-grey dark:text-white w-full flex flex-col"
+        "text-grey dark:text-white w-full flex flex-col h-full"
       )}
     >
       {/* <Provider store={store}> */}

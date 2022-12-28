@@ -51,30 +51,35 @@ class handler(BaseHTTPRequestHandler):
             self.wfile.write(json.dumps(val).encode())
 
   def _generate(self, flags, in_filename, out_filename):
-    src_file = os.getenv("INPUT_ROM") or 'ff3.smc'
-    print("GENERATING WITH FLAGS", flags)
+    src_file = os.getenv("FF3_INPUT_ROM") or 'ff3.smc'
     
     if src_file.startswith('http'):
       urllib.request.urlretrieve(src_file, in_filename)
     else:
       shutil.copyfile(src_file, in_filename)
-      
+
     cwd = os.getcwd()  + "/WorldsCollide"
-    
+
     executable = cwd + "/wc.py"
 
-    print('cwd', cwd)
     return subprocess.Popen(['python', executable, '-i', in_filename, '-o', out_filename] + flags.split(), cwd = cwd).wait()
 
   def do_GET(self):
     with tempfile.TemporaryDirectory() as temp_dir:
-      in_filename = temp_dir + "ff3.smc"
+      in_filename = temp_dir + "/ff3.smc"
       from WorldsCollide.seed import generate_seed
       seed = generate_seed()
       base_filename = f"ff6wc_{seed}";
-      out_filename = temp_dir + f"{base_filename}.smc"
-      log_filename = temp_dir + f"{base_filename}.txt"
+      out_filename = temp_dir + f"/{base_filename}.smc"
+      log_filename = temp_dir + f"/{base_filename}.txt"
 
+      # print('---------------------------------------------------------------------------')
+      # print(f'   temp_dir: {temp_dir}')
+      # print(f'   in_filename: {in_filename}')
+      # print(f'   base_filename: {base_filename}')
+      # print(f'   out_filename: {out_filename}')
+      # print(f'   log_filename: {log_filename}')
+      # print('---------------------------------------------------------------------------')
 
       flags = f"-i {in_filename}"
       result = self._generate(flags, in_filename, out_filename)

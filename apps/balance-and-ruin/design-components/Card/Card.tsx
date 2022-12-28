@@ -1,9 +1,9 @@
 import { cva, cx } from "cva";
 import React from "react";
 
-export type CardProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
+export type CardProps = Omit<
+  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+  "title"
 > & {
   contentClassName?: string;
   title: React.ReactNode | JSX.Element;

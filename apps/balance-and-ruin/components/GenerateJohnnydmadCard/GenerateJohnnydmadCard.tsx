@@ -150,6 +150,7 @@ export const GenerateJohnnydmadCard = ({
     }
   };
 
+  const showHelperText = !hasRomData;
   const disableGenerate = !hasRomData || isMutating;
 
   return (
@@ -231,7 +232,7 @@ export const GenerateJohnnydmadCard = ({
 
       <div className="flex flex-col gap-2">
         <h2 className={"font-medium text-lg"}>Step 3: Click Generate!</h2>
-        {disableGenerate ? (
+        {showHelperText ? (
           <HelperText>
             Please upload a valid FF6WC zip above to continue
           </HelperText>

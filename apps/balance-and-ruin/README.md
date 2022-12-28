@@ -1,30 +1,45 @@
-## Getting Started
+# Development
 
-First, run the development server:
+## Setup
 
-```bash
-yarn dev
+### Repo and Vercel
+
+1. Fork the repository on your Github account
+2. Create an account on [vercel.com](https://vercel.com) - It is free, and we are tightly coupled with them for their api use.
+3. Create a project and connect it to the forked repository
+4. Set the `Root Directory` in the vercel project to empty ![image](https://i.imgur.com/8pLWN4R.png)
+
+### Dependencies
+
+- Python3.9
+  - Admittedly i dont remember where i got this from
+- [nvm](https://github.com/nvm-sh/nvm)
+
+```
+git clone https://github.com/<YOUR_ACCOUNT_NAME>/ultima.git
+cd ultima
+git submodule update --init
+nvm install 18.12.1
+nvm use 18.12.1
+npm install --global pnpm
+pnpm i
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Code Changes
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- Create a `.env.local` file - This is gitignored but is used to house local development env
+- Set the contents of `.env.local` to:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+```
+INPUT_ROM=ff3.smc # this should be your local 1.0 rom location - Will download rom if specificying url
+VERCEL_URL=http://localhost:3000
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Running
 
-## Learn More
+```
+cd apps/balance-and-ruin
+pnpm vercel
+```
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn/foundations/about-nextjs) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_source=github.com&utm_medium=referral&utm_campaign=turborepo-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+**NOTE:** The first time running `pnpm vercel` it will want to connect to your repo/project - Sign in using github and connect to the project you created earlier

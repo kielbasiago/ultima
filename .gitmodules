@@ -4,5 +4,5 @@
 	branch = api-1.2.0
 [submodule "apps/balance-and-ruin/johnnydmad"]
 	path = apps/balance-and-ruin/johnnydmad
-	url = https://github.com/kielbasiago/johnnydmad.git
+	url = https://github.com/kielbasiago/johnnydmad
 	branch = ff6wc

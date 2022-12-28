@@ -175,6 +175,12 @@ export const GenerateJohnnydmadCard = ({
           </span>
         </h2>
       </div>
+      <div className="flex flex-col gap-2">
+        <h2 className={"font-medium text-lg"}>
+          Step 2: Upload the created zip
+        </h2>
+      </div>
+
       <div className="flex min-h-[30px] gap-1 pl-3">
         <Button
           className="flex items-center gap-1"

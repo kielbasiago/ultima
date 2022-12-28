@@ -1,11 +1,5 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import { FlagsCard } from "~/card-components/Flags";
-import { CardColumn } from "~/components/CardColumn/CardColumn";
-import { Disclaimer } from "~/components/Disclaimer/Disclaimer";
-import { GenerateCard } from "~/components/GenerateCard/GenerateCard";
-import { GenerateJohnnydmadCard } from "~/components/GenerateJohnnydmadCard/GenerateJohnnydmadCard";
-import { Header } from "~/components/Header/Header";
+import MusicPage from "~/pages/music";
 import { wrapper } from "~/state/store";
 
 type PageProps = {};
@@ -20,25 +14,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 );
 
 const Home: NextPage<PageProps> = ({}: PageProps) => {
-  return (
-    <>
-      <Head>
-        <title>FF6WC</title>
-        <meta
-          name="description"
-          content="A Final Fantasy 6 open-world randomizer"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Header />
-      <div className="flex-grow p-8 dark:bg-slate-800">
-        <CardColumn>
-          <GenerateJohnnydmadCard />
-        </CardColumn>
-      </div>
-      <Disclaimer />
-    </>
-  );
+  return <MusicPage />;
 };
 
 export default Home;

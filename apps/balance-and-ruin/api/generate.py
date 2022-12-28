@@ -62,7 +62,10 @@ class handler(BaseHTTPRequestHandler):
 
     executable = cwd + "/wc.py"
 
-    return subprocess.Popen(['python', executable, '-i', in_filename, '-o', out_filename] + flags.split(), cwd = cwd).wait()
+    args = ['python', executable, '-i', in_filename, '-o', out_filename] + flags.split()
+    print(f'running command {args}')
+
+    return subprocess.Popen(args, cwd = cwd).wait()
 
   def do_GET(self):
     with tempfile.TemporaryDirectory() as temp_dir:

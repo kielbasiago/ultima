@@ -23,11 +23,11 @@ export const BossAI = () => {
           label=" Doom Gaze Escapes"
         />
 
-        <FlagSwitch
+        {/* <FlagSwitch
           flag="-bmkl"
           helperText="Marshal will always accompanied by 2x Lobo"
           label="Marshal Minions are Lobos"
-        />
+        /> */}
 
         <FlagSwitch
           flag="-mmnu"

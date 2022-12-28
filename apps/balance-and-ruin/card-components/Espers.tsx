@@ -83,18 +83,18 @@ const mpOptions: SubflagOption[] = [
     defaultValue: [1, 128],
     flag: "-emprv",
     helperText: "Each esper has an MP cost of {{ . }}",
-    label: "Random Value",
+    label: "Random Flat Value",
     Renderable: ({ children }) => (
-      <FlagSlider helperText="" flag="-emprv" label={children} />
+      <FlagRange helperText="" flag="-emprv" label={children} />
     ),
   },
   {
     defaultValue: [75, 125],
     flag: "-emprp",
     helperText: "Each esper has an MP cost of {{ . }}% of its original value",
-    label: "Random",
+    label: "Random Percent",
     Renderable: ({ children }) => (
-      <FlagSlider helperText="" flag="-emprp" label={children} />
+      <FlagRange helperText="" flag="-emprp" label={children} />
     ),
   },
 ];

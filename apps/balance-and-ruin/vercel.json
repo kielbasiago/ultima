@@ -1,7 +1,8 @@
 {
   "functions": {
     "api/**/*.py": {
-      "includeFiles": "{api,johnnydmad,WorldsCollide}/**/*"
+      "includeFiles": "{api,johnnydmad,WorldsCollide}/**/*",
+      "maxDuration": 30
     }
   }
 }

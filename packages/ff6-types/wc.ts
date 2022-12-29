@@ -351,7 +351,7 @@ export const characterChecks: Record<FF6Character, Array<FF6Event>> = {
   strago: ["burningHouse", "ebotsRock", "fanaticsTower1"],
   relm: ["esperMountain", "owzersMansion"],
   setzer: ["darill", "kohligen"],
-  mog: ["loneWolf1"],
+  mog: ["loneWolf1", "loneWolf2", "moogleDefense"],
   gau: ["veldt", "serpentTrench"],
   gogo: ["zoneEater"],
   umaro: ["umarosCave"],

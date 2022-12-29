@@ -224,6 +224,7 @@ export const ff6Events = {
   /** Mog checks */
   loneWolf1: "loneWolf1",
   loneWolf2: "loneWolf2",
+  moogleDefense: "moogleDefense",
   /** Edgar checks */
   figaroThrone: "figaroThrone",
   figaroCastleEngineRoom: "figaroCastleEngineRoom",

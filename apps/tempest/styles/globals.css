@@ -21,6 +21,10 @@ div#__next > div {
     z-index: 10;
     top: 0;
   }
+
+  .overlay-content {
+    text-shadow: 3px 3px 5px black;
+  }
   
   #cell-shadow.gated-cell {
     opacity: 0.8;

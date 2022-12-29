@@ -9,6 +9,7 @@ module.exports = {
     "./page-components/*.{ts,tsx}",
     "./styles/*.css",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       screens: {

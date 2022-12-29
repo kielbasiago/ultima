@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
@@ -16,7 +17,11 @@ const roboto = Roboto({ weight: ["500", "700", "400"] });
 type Props = {};
 
 const App: AppType<Props> = ({ Component, ...rest }: AppProps<Props>) => {
-  const { store, props } = wrapper.useWrappedStore(rest);
+  // const { store, props } = wrapper.useWrappedStore(rest);
+  useEffect(() => {
+    document.documentElement.classList.remove("light");
+    document.documentElement.style.colorScheme = "dark";
+  }, []);
   return (
     <div
       className={cx(
@@ -26,7 +31,7 @@ const App: AppType<Props> = ({ Component, ...rest }: AppProps<Props>) => {
     >
       {/* <Provider store={store}> */}
       <QueryClientProvider client={client}>
-        <Component {...props.pageProps} />
+        <Component />
       </QueryClientProvider>
       {/* </Provider> */}
     </div>

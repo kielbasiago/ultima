@@ -10,6 +10,7 @@ module.exports = {
     "./styles/*.css",
     "../balance-and-ruin/**/*.{ts,tsx}"
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       screens: {

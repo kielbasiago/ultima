@@ -35,10 +35,10 @@ type ObjectiveFilter = Props<
 const useResultOptions = (results: RawObjectiveResult[]) => {
   return useMemo<ObjectiveResult[]>(
     () =>
-      results.map(({ group, id, name }) => ({
+      results.map(({ group, id, format_string }) => ({
         group,
         id: id.toString(),
-        label: name,
+        label: format_string.replace("{{ . }}", ""),
       })),
     [results]
   );
@@ -49,8 +49,6 @@ export const ObjectiveResultSelect = ({
   onChange,
 }: ObjectiveCardProps) => {
   const resultMetadata = useSelector(selectObjectiveResultMetadata);
-  const resultMetadataById = useSelector(selectObjectiveResultMetadataById);
-  const dispatch = useDispatch();
   const rawValue = useFlagValueSelector<string>(flag) ?? "0.0.0";
 
   const [resultId] = rawValue?.split(".") ?? [];
@@ -110,6 +108,11 @@ export const ObjectiveResultSelect = ({
     return label.toLowerCase().includes(needle.toLowerCase());
   };
 
+  const getOptionLabel = (option: ObjectiveResult) => {
+    const label = `${resultsById[option.id]?.name}`;
+    return label === option.group ? "Random" : label;
+  };
+
   return (
     <div key={id}>
       <div>
@@ -121,7 +124,7 @@ export const ObjectiveResultSelect = ({
         components={{ Option: FlagSelectOption }}
         filterOption={filterOption}
         instanceId={id}
-        getOptionLabel={(option) => `${resultsById[option.id]?.name}`}
+        getOptionLabel={getOptionLabel}
         getOptionValue={(option) => option.id.toString()}
         options={groupOptions}
         onChange={(val) => onChange(val)}

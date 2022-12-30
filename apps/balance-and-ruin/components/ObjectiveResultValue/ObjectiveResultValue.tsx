@@ -1,26 +1,26 @@
-import { RawObjectiveResult } from "~/types/objectives";
-import last from "lodash/last";
 import { Input, Slider } from "@ff6wc/ui";
-import { useDispatch, useSelector } from "react-redux";
-import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
+import last from "lodash/last";
 import { useRef } from "react";
-import { useNumberScroll } from "~/utils/useNumberScroll";
+import { useDispatch } from "react-redux";
+import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
+import { setFlag } from "~/state/flagSlice";
+import { setResultValue } from "~/state/objectiveSlice";
+import { Objective, RawObjectiveResult } from "~/types/objectives";
+import { createObjective } from "~/utils/createObjective";
+import { objectiveToString } from "~/utils/objectiveToString";
 import { renderDescription } from "~/utils/renderDescription";
-import { selectObjective, setResultValue } from "~/state/objectiveSlice";
+import { useNumberScroll } from "~/utils/useNumberScroll";
 
 export type ObjectiveResultValueProps = {
-  flag: string;
+  objective: Objective;
   metadata: RawObjectiveResult;
-  onChange: (val: number[]) => any;
 };
 
 export const ObjectiveResultValue = ({
-  flag,
+  objective,
   metadata,
-  onChange,
 }: ObjectiveResultValueProps) => {
   const dispatch = useDispatch();
-  const objective = useSelector(selectObjective(flag));
   const value = objective.result.value ?? [];
   const { value_range: allowedValues } = metadata as { value_range: number[] };
   const minRef = useRef<HTMLInputElement>(null);
@@ -47,7 +47,26 @@ export const ObjectiveResultValue = ({
   const helperText = renderDescription(description, value ?? defaults);
 
   const onValueChange = (value: number[]) => {
-    onChange(value);
+    // update objective store
+    dispatch(
+      setResultValue({
+        flag: objective.flag,
+        value,
+      })
+    );
+
+    console.log("before objective", objective);
+    const newObjective = createObjective(objective, metadata);
+    newObjective.result.value = value;
+    console.log("after objective", newObjective);
+    const newValue = objectiveToString(newObjective, value);
+
+    dispatch(
+      setFlag({
+        flag: objective.flag,
+        value: newValue,
+      })
+    );
   };
 
   return (
@@ -55,7 +74,7 @@ export const ObjectiveResultValue = ({
       <div className={"flex justify-between items-center gap-4"}>
         <div className="w-full">
           <FlagLabel
-            flag={flag}
+            flag={objective.flag}
             helperText={helperText ?? description}
             label={label}
           />

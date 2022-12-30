@@ -40,7 +40,7 @@ export const ObjectiveDeleteButton = ({ objective }: ObjectiveCardProps) => {
       dispatch(
         setFlag({
           flag: obj.flag,
-          value: objectiveToString(obj, meta[obj.result.id]),
+          value: objectiveToString(obj),
         })
       );
     });

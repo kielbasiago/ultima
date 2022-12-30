@@ -10,7 +10,6 @@ import {
   setObjectives,
 } from "~/state/objectiveSlice";
 import { Objective } from "~/types/objectives";
-import { objectiveToString } from "~/utils/objectiveToString";
 
 type ObjectiveCardProps = {
   objective: Objective;

@@ -43,6 +43,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
       );
       const objectives = await objectivesResponse.json();
 
+      console.log("OBJECTIVOES", objectives);
+
       await store.dispatch(setObjectiveMetadata(objectives));
 
       return {

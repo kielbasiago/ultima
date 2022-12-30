@@ -1,31 +1,23 @@
-import { Button, Card } from "@ff6wc/ui";
-import React, { useEffect } from "react";
+import { Card } from "@ff6wc/ui";
+import { Divider } from "@ff6wc/ui/Divider/Divider";
+import first from "lodash/first";
 import { useDispatch, useSelector } from "react-redux";
 import { SingleValue } from "react-select";
+import { ObjectiveAddConditionButton } from "~/components/ObjectiveAddConditionButton/ObjectiveAddConditionButton";
 import { ObjectiveConditionSelect } from "~/components/ObjectiveConditionSelect/ObjectiveConditionSelect";
 import { ObjectiveConditionsRequired } from "~/components/ObjectiveConditionsRequired/ObjectiveConditionsRequired";
+import { ObjectiveDeleteButton } from "~/components/ObjectiveDeleteButton/ObjectiveDeleteButton";
 import { ObjectiveResultSelect } from "~/components/ObjectiveResultSelect/ObjectiveResultSelect";
 import { ObjectiveResultValue } from "~/components/ObjectiveResultValue/ObjectiveResultValue";
-import { Divider } from "@ff6wc/ui/Divider/Divider";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 import {
-  addCondition,
-  MAX_CONDITION_COUNT,
-  removeObjective,
   selectObjectiveResultMetadataById,
-  selectObjectives,
   setObjective,
   setResultValue,
 } from "~/state/objectiveSlice";
-import {
-  Objective,
-  ObjectiveCondition,
-  ObjectiveResult,
-} from "~/types/objectives";
+import { Objective, ObjectiveResult } from "~/types/objectives";
 import { createObjective } from "~/utils/createObjective";
 import { objectiveToString } from "~/utils/objectiveToString";
-import { ObjectiveDeleteButton } from "~/components/ObjectiveDeleteButton/ObjectiveDeleteButton";
-import { ObjectiveAddConditionButton } from "~/components/ObjectiveAddConditionButton/ObjectiveAddConditionButton";
 
 type ObjectiveCardProps = {
   objective: Objective;
@@ -60,35 +52,30 @@ export const ObjectiveCard = ({ objective }: ObjectiveCardProps) => {
     const newMetadata = metadata[val.id];
     const newObjective = createObjective(objective, newMetadata);
 
-    const newValue = objectiveToString(newObjective, newMetadata);
-
-    dispatch(
-      setFlag({
-        flag,
-        value: newValue,
-      })
-    );
-  };
-
-  const onValueChange = (value: number[]) => {
-    // update objective store
-    dispatch(
-      setResultValue({
-        flag,
-        value,
-      })
-    );
-
-    const newObjective = createObjective(objective, resultMetadata);
-    newObjective.result.value = value;
-    const newValue = objectiveToString(newObjective, resultMetadata);
-
-    dispatch(
-      setFlag({
-        flag,
-        value: newValue,
-      })
-    );
+    // allow range of values
+    if (newMetadata.value_range) {
+      const minVal = Number.parseInt(newMetadata.value_range[0].toString());
+      const newResultValue = [minVal, minVal];
+      const newValue = objectiveToString(newObjective, [minVal, minVal]);
+      newObjective.result.value = newResultValue;
+      dispatch(
+        setFlag({
+          flag,
+          value: newValue,
+        })
+      );
+      dispatch(setObjective(newObjective));
+    } else {
+      const newValue = objectiveToString(newObjective);
+      newObjective.result.value = undefined;
+      dispatch(
+        setFlag({
+          flag,
+          value: newValue,
+        })
+      );
+      dispatch(setObjective(newObjective));
+    }
   };
 
   const onObjectiveChange = (obj: Objective) => {
@@ -96,7 +83,7 @@ export const ObjectiveCard = ({ objective }: ObjectiveCardProps) => {
     dispatch(
       setFlag({
         flag: obj.flag,
-        value: objectiveToString(obj, resultMetadata),
+        value: objectiveToString(obj),
       })
     );
   };
@@ -115,11 +102,7 @@ export const ObjectiveCard = ({ objective }: ObjectiveCardProps) => {
     <Card className="" title={title as unknown as any}>
       <ObjectiveResultSelect flag={flag} onChange={onResultChange} />
       {value_range ? (
-        <ObjectiveResultValue
-          flag={flag}
-          metadata={resultMetadata}
-          onChange={onValueChange}
-        />
+        <ObjectiveResultValue objective={objective} metadata={resultMetadata} />
       ) : null}
       {objective.conditions.map((c, idx) => (
         <ObjectiveConditionSelect

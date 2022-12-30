@@ -1,13 +1,10 @@
-import { Objective, RawObjectiveResult } from "~/types/objectives";
-import last from "lodash/last";
+import { Objective } from "~/types/objectives";
 
 export const objectiveToString = (
   objective: Objective,
-  metadata: RawObjectiveResult
+  value: number[] = []
 ) => {
-  const { value_range } = metadata;
   const { conditions, result, requiredConditions } = objective;
-  const hasRange = Boolean(value_range);
 
   const validConditions = conditions.filter((c) => Number.parseInt(c.id) > 0);
   const conditionString = validConditions.length
@@ -19,16 +16,17 @@ export const objectiveToString = (
         .join(".")
     : "";
 
-  const resultValue = objective.result.value;
-  const [min, max] = resultValue ? resultValue : [];
-  const hasValue = Number.isFinite(min) && Number.isFinite(max);
-  const values = [
-    result.id,
-    hasRange ? (hasValue ? min : value_range[0]) : null,
-    hasRange ? (hasValue ? max : last(value_range)) : null,
-  ].filter((z) => z != null);
+  const values = [result.id, ...value].filter((z) => z != null);
 
-  return [values.join("."), requiredConditions.join("."), conditionString]
+  const returnValue = [
+    values.join("."),
+    requiredConditions.join("."),
+    conditionString,
+  ]
     .filter((val) => val != null && val !== "")
     .join(".");
+
+  console.log("VALUES", values);
+  console.log("RETURN VALUE", returnValue);
+  return returnValue;
 };

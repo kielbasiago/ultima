@@ -70,10 +70,7 @@ export default function SeedId({ seed, seedId }: Props) {
     <>
       <Head>
         <title>{title}</title>
-        <meta
-          name="description"
-          content="A Final Fantasy 6 tracker interfacing with SNI"
-        />
+        <meta name="description" content={log} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />

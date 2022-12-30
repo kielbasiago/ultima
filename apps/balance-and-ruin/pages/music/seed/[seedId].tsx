@@ -64,7 +64,7 @@ export default function SeedId({ seed, seedId }: Props) {
   const dispatch = useDispatch();
   const { flags, log, patch } = seed;
 
-  const title = `FF6WC seed ${seedId}`;
+  const title = `FF6WC music seed ${seedId}`;
 
   useEffect(() => {
     dispatch(setRawFlags(flags));

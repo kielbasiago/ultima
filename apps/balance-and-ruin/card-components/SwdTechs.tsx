@@ -12,7 +12,12 @@ export const SwdTechs = () => {
 
         <Divider />
 
-        <FlagSwitch flag="-fr" invert label="Enable Retort Glitch" />
+        <FlagSwitch
+          flag="-fr"
+          invert
+          label="Restore Retort Glitch"
+          helperText="Restore glitch where Retort can counter various actions infinitely using the Imp status"
+        />
       </CardColumn>
     </Card>
   );

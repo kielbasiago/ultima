@@ -13,7 +13,12 @@ export const SketchControl = () => {
           label="Improved Sketch/Control"
         />
         <Divider />
-        <FlagSwitch flag="-fs" invert label="Enable Sketch Glitch" />
+        <FlagSwitch
+          flag="-fs"
+          invert
+          label="Restore Sketch Glitch"
+          helperText="Restore potential game-breaking glitch that occur when sketch misses its target"
+        />
       </CardColumn>
     </Card>
   );

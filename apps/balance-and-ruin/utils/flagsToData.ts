@@ -3,9 +3,14 @@ import { FlagValue } from "~/state/schemaSlice";
 const SPECIAL_FLAG_REGEX = /^-(com|cspr|cpal|cpor|name)$/;
 const OBJECTIVE_REGEX = /^(-o[a-z])$/;
 
+var foo = "-oa 45.-61.45.2.2.2.7.7.4.10.10 -ob 30.8.8.1.1.11.8";
+var FLAG_START_REGEX = /-(?=[a-z])/g;
+
+foo.split(FLAG_START_REGEX);
+
 export const flagsToData = (rawFlags: string): Record<string, FlagValue> => {
   const flags = rawFlags
-    .split("-")
+    .split(FLAG_START_REGEX)
     .filter((flag) => flag)
     .map((flag) => `-${flag.trim()}`);
 
@@ -34,7 +39,7 @@ export const flagsToData = (rawFlags: string): Record<string, FlagValue> => {
 
 export const objectivesToData = (rawFlags: string): Record<string, string> => {
   const flags = rawFlags
-    .split("-")
+    .split(FLAG_START_REGEX)
     .filter((flag) => flag)
     .map((flag) => `-${flag.trim()}`);
 

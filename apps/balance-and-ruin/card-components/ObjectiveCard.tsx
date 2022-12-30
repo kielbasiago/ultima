@@ -24,6 +24,7 @@ import {
 } from "~/types/objectives";
 import { createObjective } from "~/utils/createObjective";
 import { objectiveToString } from "~/utils/objectiveToString";
+import { ObjectiveDeleteButton } from "~/components/ObjectiveDeleteButton/ObjectiveDeleteButton";
 
 type ObjectiveCardProps = {
   objective: Objective;
@@ -99,20 +100,6 @@ export const ObjectiveCard = ({ objective }: ObjectiveCardProps) => {
     );
   };
 
-  const deleteObjective = () => {
-    dispatch(
-      removeObjective({
-        flag,
-      })
-    );
-    dispatch(
-      setFlag({
-        flag,
-        value: null,
-      })
-    );
-  };
-
   const addObjectiveCondition = () => {
     dispatch(
       addCondition({
@@ -140,9 +127,7 @@ export const ObjectiveCard = ({ objective }: ObjectiveCardProps) => {
           Add Condition
         </Button>
       </span>
-      <Button onClick={deleteObjective} variant="primary">
-        Delete
-      </Button>
+      <ObjectiveDeleteButton objective={objective} />
     </div>
   );
 

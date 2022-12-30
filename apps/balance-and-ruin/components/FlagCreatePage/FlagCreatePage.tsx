@@ -211,7 +211,7 @@ export const FlagCreatePage = ({ objectives, presets, schema }: PageProps) => {
           </Tab.Group>
         </div>
       </main>
-      <div className="flex p-8 dark:bg-slate-800">
+      <div className="flex p-8 dark:bg-slate-800 justify-center">
         <CardColumn>
           <FlagsCard />
           <GenerateCard />

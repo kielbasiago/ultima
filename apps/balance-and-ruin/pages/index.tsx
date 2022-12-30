@@ -15,16 +15,20 @@ type PageProps = {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async ({}) => {
-      const sotwResponse = await fetch(
+      const sotwPromise = fetch(
         "https://storage.googleapis.com/seedbot/sotw_db.json"
       );
-      const sotw: Record<string, SeedOfTheWeek> = await sotwResponse.json();
 
-      const presetResponse = await fetch(
+      const presetPromise = fetch(
         "https://storage.googleapis.com/seedbot/user_presets.json"
       );
-      const presets: Record<string, SeedbotPreset> =
-        await presetResponse.json();
+      const sotw: Record<string, SeedOfTheWeek> = await (
+        await sotwPromise
+      ).json();
+
+      const presets: Record<string, SeedbotPreset> = await (
+        await presetPromise
+      ).json();
 
       const protocol =
         process.env.NODE_ENV === "development" ? "http" : "https";

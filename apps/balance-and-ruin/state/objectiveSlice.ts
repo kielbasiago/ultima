@@ -57,7 +57,7 @@ export const alphabet = Array.from(new Array(MAX_OBJECTIVE_COUNT)).map(
 
 export const objectiveFlags = alphabet.map((letter) => `-o${letter}`);
 
-const normalizeObjectivesArr = (objectives: Objective[]) => {
+export const normalizeObjectivesArr = (objectives: Objective[]) => {
   const ordered = orderBy(Object.values(objectives), ({ letter }) =>
     letter.charCodeAt(0)
   );
@@ -93,7 +93,7 @@ const objectivesToDict = (objectives: Objective[]) => {
   }, {} as Record<string, Objective>);
 };
 
-const normalizeObjectives = (
+export const normalizeObjectives = (
   objectives: Record<string, Objective>
 ): Objective[] => {
   return normalizeObjectivesArr(Object.values(objectives));
@@ -318,6 +318,7 @@ export const {
   removeCondition,
   removeObjective,
   setObjective,
+  setObjectives,
   setObjectiveMetadata,
   setResultValue,
   setRawObjectives,

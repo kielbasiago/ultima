@@ -28,7 +28,7 @@ class handler(BaseHTTPRequestHandler):
       data = json.loads(post_data)
       original_flags = data['flags']
       description = getattr(data, 'description', None)
-      flags = original_flags +  f' -sid {seed_id} -url {website_url}'
+      flags = original_flags +  f' -url {website_url}'
       result = self._generate(flags, in_filename, out_filename)      
 
       if result:

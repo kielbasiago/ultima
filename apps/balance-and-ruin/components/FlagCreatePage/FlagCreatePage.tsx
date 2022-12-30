@@ -17,7 +17,7 @@ import { HiCog, HiOutlineViewList, HiUserGroup } from "react-icons/hi";
 import { useDispatch } from "react-redux";
 import { FlagsCard } from "~/card-components/Flags";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
-import { Footer } from "~/components/Disclaimer/Disclaimer";
+import { Footer } from "~/components/Footer/Footer";
 import { GenerateCard } from "~/components/GenerateCard/GenerateCard";
 import { Header } from "@ff6wc/ui";
 import { AccessibilityAndFixes } from "~/page-components/Accessibility";

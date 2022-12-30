@@ -4,7 +4,7 @@ import Head from "next/head";
 import { PropsWithChildren, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
-import { Footer } from "~/components/Disclaimer/Disclaimer";
+import { Footer } from "~/components/Footer/Footer";
 import { Header } from "@ff6wc/ui";
 import { SeedCard, SeedData } from "~/components/SeedCard/SeedCard";
 import { Card } from "@ff6wc/ui";

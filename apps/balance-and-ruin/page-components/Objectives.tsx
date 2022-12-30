@@ -51,7 +51,7 @@ export const Objectives = () => {
           Add Objective
         </Button>
       </div>
-      <div className="flex flex-row flex-wrap">
+      <div className="flex flex-row">
         {objectives.map((objective) => (
           <ObjectiveCard key={objective.flag} objective={objective} />
         ))}

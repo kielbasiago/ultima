@@ -129,7 +129,7 @@ export const ObjectiveCard = ({ objective }: ObjectiveCardProps) => {
   };
 
   const title = (
-    <div className={"flex flex-grow items-center justify-between"}>
+    <div className={"flex flex-grow items-center justify-between "}>
       <span className="flex items-center gap-4">
         <span>Objective {letter.toUpperCase()}</span>
         <Button
@@ -147,7 +147,7 @@ export const ObjectiveCard = ({ objective }: ObjectiveCardProps) => {
   );
 
   return (
-    <Card title={title as unknown as any}>
+    <Card className="" title={title as unknown as any}>
       <ObjectiveResultSelect flag={flag} onChange={onResultChange} />
       {value_range ? (
         <ObjectiveResultValue

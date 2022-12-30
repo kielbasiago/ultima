@@ -7,7 +7,6 @@ class handler(BaseHTTPRequestHandler):
   def do_GET(self):
     import json
     nonce = 'ff6wc'
-    # (api_key, seed_id) = self.parse_request()
 
     qs = parse_qs(urlparse(self.path).query)
 
@@ -47,7 +46,7 @@ class handler(BaseHTTPRequestHandler):
     log = get_db().get_collection(SPOILER_LOGS).find_one(filter)
     patch = get_db().get_collection(PATCHES).find_one(filter)
     seed = get_db().get_collection(SEEDS).find_one(filter)
-    website_url = f"https://{os.getenv('VERCEL_URL')}/seed/{seed_id}"
+    website_url = f"{os.getenv('PUBLIC_URL')}/seed/{seed_id}"
     filename = f"ff6wc_{seed_id}"
 
     val = {

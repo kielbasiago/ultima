@@ -10,6 +10,7 @@ import { base64ToByteArray } from "~/utils/base64ToByteArray";
 import { isValidROM, removeHeader } from "~/utils/romUtils";
 import { XDelta3Decoder } from "~/utils/xdelta3_decoder";
 import JSZip from "jszip";
+import { useRouter } from "next/router";
 
 export type FlagsCardProps = {
   className?: string;
@@ -18,7 +19,7 @@ export type FlagsCardProps = {
 type GenerateResponse = {
   filename: string;
   patch: string;
-  seed: string;
+  seed_id: string;
   log: string;
 };
 
@@ -29,6 +30,8 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
   const [romName, setRomName] = useState("");
   const [romSelectError, setRomSelectError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+
+  const router = useRouter();
 
   const hasRomData = Boolean(romData);
 
@@ -75,7 +78,7 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
     if (!generateResult) {
       throw new Error("There was an error generating the rom");
     }
-    const { filename, patch, seed, log } = generateResult;
+    const { filename, patch, seed_id, log } = generateResult;
     const rom = romData as string;
 
     const patched = XDelta3Decoder.decode(
@@ -91,6 +94,7 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
       link.href = window.URL.createObjectURL(content);
       link.download = `${filename}.zip`;
       link.click();
+      router.push(`/seed/${seed_id}`);
     });
   };
 

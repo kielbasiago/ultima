@@ -21,7 +21,7 @@ class handler(BaseHTTPRequestHandler):
       base_filename = f"ff6wc_{seed_id}"
       out_filename = dir + f"/{base_filename}.smc"
       log_filename = dir + f"/{base_filename}.txt"
-      website_url = f"https://{os.getenv('VERCEL_URL')}/seed/{seed_id}"
+      website_url = f"{os.getenv('PUBLIC_URL')}/seed/{seed_id}"
 
       content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
       post_data = self.rfile.read(content_length) # <--- Gets the data itself

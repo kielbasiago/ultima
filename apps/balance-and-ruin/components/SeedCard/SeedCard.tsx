@@ -129,7 +129,7 @@ export const SeedCard = ({ className, seed, ...rest }: SeedCardProps) => {
     >
       <div className="flex flex-col gap-2">
         <h2 className={"font-medium text-base"}>
-          Step 1: Select your flags above
+          Step 1: Verify the following flags and seed are correct
         </h2>
         <span className="text-sm pl-3">{flags}&nbsp;</span>
       </div>

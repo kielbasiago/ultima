@@ -1,36 +1,17 @@
 import { Button, Card, HelperText, Input } from "@ff6wc/ui";
 import { cx } from "cva";
-import JSZip, { type JSZipObject } from "jszip";
 import first from "lodash/first";
-import BaseLink from "next/link";
-import { ReactNode, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdClear, MdFileUpload } from "react-icons/md";
-import useSWRMutation from "swr/mutation";
-import { ROM_FILE_EXTENSIONS } from "~/constants/romConstants";
 import { base64ToByteArray } from "~/utils/base64ToByteArray";
+import { isValidROM, removeHeader } from "~/utils/romUtils";
 import { XDelta3Decoder } from "~/utils/xdelta3_decoder";
+import JSZip from "jszip";
+import { SeedCardProps } from "~/components/SeedCard/SeedCard";
+import Link from "next/link";
+import { ROM_FILE_EXTENSIONS } from "~/constants/romConstants";
 
-export type GenerateJohnnydmadProps = {
-  className?: string;
-};
-
-type GenerateResponse = {
-  filename: string;
-  patch: string;
-  seed_id: string;
-  log: string;
-};
-
-const Link = ({ children, href }: { children: ReactNode; href: string }) => (
-  <BaseLink className="dark:text-sky-300 underline" href={href} target="_blank">
-    {children}
-  </BaseLink>
-);
-
-export const GenerateJohnnydmadCard = ({
-  className,
-  ...rest
-}: GenerateJohnnydmadProps) => {
+export const MusicSeedCard = ({ className, seed, ...rest }: SeedCardProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [romName, setRomName] = useState<string | null>(null);
   const [romData, setRomData] = useState<string | null>(null);
@@ -41,34 +22,11 @@ export const GenerateJohnnydmadCard = ({
 
   const hasRomData = Boolean(romData);
 
-  const { error, trigger, isMutating } = useSWRMutation(
-    ["/api/music/generate", romData],
-    async (key, { arg }) => {
-      const result = await fetch("/api/music/generate", {
-        headers: {},
-        method: "POST",
-      });
-
-      if (result.status !== 200) {
-        const error = await result.text();
-        throw new Error(`Error randomizing music: ${error}`);
-      }
-
-      const data = await result.json();
-      return data as GenerateResponse;
-    }
-  );
   const generate = async () => {
-    if (isMutating || !romData || !jsz || !romName) {
+    if (!romData || !jsz || !romName) {
       return;
     }
-    const generateResult = await trigger();
-
-    if (!generateResult) {
-      throw new Error("There was an error randomizing the music");
-    }
-
-    const { filename, patch, seed_id, log: spoiler_log } = generateResult;
+    const { filename, patch, seed_id, log: spoiler_log } = seed;
 
     const patched = XDelta3Decoder.decode(
       base64ToByteArray(patch),
@@ -147,7 +105,7 @@ export const GenerateJohnnydmadCard = ({
   };
 
   const showHelperText = !hasRomData;
-  const disableGenerate = !hasRomData || isMutating;
+  const disableGenerate = !hasRomData;
 
   return (
     <Card
@@ -239,9 +197,6 @@ export const GenerateJohnnydmadCard = ({
         <Button disabled={disableGenerate} onClick={generate} variant="primary">
           Generate
         </Button>
-        {error ? (
-          <div className={"text-red-500 font-semibold"}>{error}</div>
-        ) : null}{" "}
       </div>
     </Card>
   );

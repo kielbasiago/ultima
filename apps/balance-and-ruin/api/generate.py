@@ -1,5 +1,9 @@
 from http.server import BaseHTTPRequestHandler
-from api_utils.get_timestamp import get_timestamp
+
+from api_utils.get_seed_payload import get_seed_payload
+from api_utils.get_seed_url import get_seed_url
+from api_utils.create_seed import create_seed
+
 import xdelta3
 import json
 import os
@@ -21,7 +25,7 @@ class handler(BaseHTTPRequestHandler):
       base_filename = f"ff6wc_{seed_id}"
       out_filename = dir + f"/{base_filename}.smc"
       log_filename = dir + f"/{base_filename}.txt"
-      website_url = f"{os.getenv('PUBLIC_URL')}/seed/{seed_id}"
+      website_url = get_seed_url(seed_id)
 
       content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
       post_data = self.rfile.read(content_length) # <--- Gets the data itself
@@ -37,56 +41,18 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(json.dumps({}))
       else:
-        with open(in_filename, "rb") as old, open(out_filename, "rb") as new, open(log_filename, "rb") as log:
-            import base64
-              
-            delta = xdelta3.encode(old.read(), new.read())
+        with open(in_filename, "rb") as old, open(out_filename, "rb") as new, open(log_filename, "rb") as logfile:
+            patch = xdelta3.encode(old.read(), new.read())
             self.send_response(200)
             self.send_header('Content-type','text/plain')
             self.end_headers()
             
-            patch = base64.b64encode(delta).decode('utf-8')
-            spoiler_log = log.read().decode()
+            log_bytes = logfile.read()
+            log = log_bytes.decode('utf-8')
             
-            from api_utils.get_db import get_db
-            from api_utils.collections import PATCHES, SEEDS, SEED_DOWNLOADS, SPOILER_LOGS
+            seed = create_seed(seed_id, description, patch, log, website_url, base_filename)
             
-            seeds = get_db().get_collection(SEEDS)
-            seeds.insert_one({
-              'seed_id': seed_id,
-              'created_at': get_timestamp(),
-              'description': description,
-              'flags': original_flags
-            })
-            
-            patches = get_db().get_collection(PATCHES)
-            patches.insert_one({
-              'seed_id': seed_id,
-              'patch': patch
-            })
-
-            spoiler_logs = get_db().get_collection(SPOILER_LOGS)
-            spoiler_logs.insert_one({
-              'seed_id': seed_id,
-              'log': spoiler_log
-            })
-            
-            seed_downloads = get_db().get_collection(SEED_DOWNLOADS)
-            seed_downloads.insert_one({
-              'seed_id': seed_id,
-              'created_at': get_timestamp()
-            })
-            
-            val = {
-              'flags': flags,
-              'filename': base_filename,
-              'log': spoiler_log,
-              'patch': patch,
-              'seed_id': seed_id,
-              'url': website_url
-            }
-            
-            self.wfile.write(json.dumps(val).encode())
+            self.wfile.write(json.dumps(seed).encode())
 
   def _generate(self, flags, in_filename, out_filename):
     src_file = os.getenv("FF3_INPUT_ROM") or 'ff3.smc'
@@ -109,8 +75,8 @@ class handler(BaseHTTPRequestHandler):
     with tempfile.TemporaryDirectory() as temp_dir:
       in_filename = temp_dir + "/ff3.smc"
       from WorldsCollide.seed import generate_seed
-      seed = generate_seed()
-      base_filename = f"ff6wc_{seed}"
+      seed_id = generate_seed()
+      base_filename = f"ff6wc_{seed_id}"
       out_filename = temp_dir + f"/{base_filename}.smc"
       log_filename = temp_dir + f"/{base_filename}.txt"
 
@@ -134,16 +100,11 @@ class handler(BaseHTTPRequestHandler):
         with open(in_filename, "rb") as old, open(out_filename, "rb") as new, open(log_filename, "rb") as log:
             import base64
               
-            delta = xdelta3.encode(old.read(), new.read())
+            patch = xdelta3.encode(old.read(), new.read())
             self.send_response(200)
             self.send_header('Content-type','text/plain')
             self.end_headers()
             
-            val = {
-              'patch': base64.b64encode(delta).decode('utf-8'),
-              'spoiler_log': log.read().decode(),
-              'seed': seed,
-              'filename': base_filename
-            }
+            seed = get_seed_payload(seed_id, log.read().decode(), patch, base_filename)
             
-            self.wfile.write(json.dumps(val).encode())
+            self.wfile.write(json.dumps(seed).encode())

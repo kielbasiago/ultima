@@ -57,6 +57,8 @@ class handler(BaseHTTPRequestHandler):
       'seed_id': seed_id,
       'url': website_url
     }
+    
+    print(val)
             
     self.send_response(200)
     self.send_header('Content-type','application/json')

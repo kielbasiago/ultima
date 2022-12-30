@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Disclaimer } from "~/../balance-and-ruin/components/Disclaimer/Disclaimer";
-import { Header } from "~/../balance-and-ruin/components/Header/Header";
+import { Disclaimer } from "~/components/Disclaimer/Disclaimer";
+import { Header } from "@ff6wc/ui";
 import EmoTracker from "~/components/EmoTracker/EmoTracker";
 import { RowSimple } from "~/components/EmoTracker/RowSimple";
 import { PageContainer } from "~/components/PageContainer";

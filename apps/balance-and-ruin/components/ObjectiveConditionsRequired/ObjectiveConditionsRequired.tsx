@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
-import { Slider } from "~/design-components";
+import { Slider } from "@ff6wc/ui";
 import { setObjective } from "~/state/objectiveSlice";
 import { Objective } from "~/types/objectives";
 

@@ -2,3 +2,4 @@ cowpy==1.0.3
 ips.py
 pymongo[srv]
 xdelta3
+debugpy

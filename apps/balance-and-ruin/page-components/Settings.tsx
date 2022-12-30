@@ -69,7 +69,7 @@ export const Settings = ({ presets: rawPresets }: PresetsProps) => {
       rawPresets["coliseum mog"],
       rawPresets["coliseum gogo"],
       rawPresets["coliseum umaro"],
-    ];
+    ].filter((z) => !!z);
 
     return options.map<SelectOption>(
       ({ creator, description, name, flags }) => {

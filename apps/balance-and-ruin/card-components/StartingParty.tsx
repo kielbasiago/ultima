@@ -23,7 +23,7 @@ import {
   defaultSpritePaletteString,
   defaultSpriteString,
 } from "~/constants/graphicConstants";
-import { Divider } from "~/design-components/Divider/Divider";
+import { Divider } from "@ff6wc/ui/Divider/Divider";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 
 type SelectOption = BaseOption & {

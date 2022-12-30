@@ -1,0 +1,26 @@
+{
+  "name": "@ff6wc/ui",
+  "devDependencies": {
+    "@ff6wc/eslint-config-custom": "workspace:*",
+    "@ff6wc/tsconfig": "workspace:*",
+    "@headlessui/react": "1.7.4",
+    "@types/react": "18.0.25",
+    "@types/react-dom": "18.0.9",
+    "cva": "npm:class-variance-authority@0.4.0",
+    "eslint": "^7.23.0",
+    "next": "^13.1.1",
+    "rc-slider": "10.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsup": "6.5.0",
+    "typescript": "latest"
+  },
+  "scripts": {
+    "build": "tsup ./index.ts",
+    "lint": "eslint --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "@types/lodash": "4.14.188",
+    "lodash": "4.17.21"
+  }
+}

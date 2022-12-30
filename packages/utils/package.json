@@ -1,8 +1,5 @@
 {
-  "name": "@ff6wc/eslint-config-custom",
-  "version": "0.0.0",
-  "main": "index.js",
-  "license": "MIT",
+  "name": "@ff6wc/utils",
   "dependencies": {
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
@@ -13,12 +10,7 @@
     "eslint-plugin-react": "7.31.8",
     "next": "^13.1.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "typescript": "^4.7.4"
-  },
-  "publishConfig": {
-    "access": "public"
+    "react-dom": "^18.2.0",
+    "typescript": "latest"
   }
 }

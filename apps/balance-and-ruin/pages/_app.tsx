@@ -1,12 +1,12 @@
-import type { AppProps } from "next/app";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { Provider } from "react-redux";
-import { wrapper } from "~/state/store";
-
+import { useDarkMode } from "@ff6wc/utils/useDarkMode";
 import { Montserrat, Roboto } from "@next/font/google";
 import { cx } from "cva";
+import type { AppProps } from "next/app";
 import { AppType } from "next/app";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { Provider } from "react-redux";
 import { Schema } from "~/state/schemaSlice";
+import { wrapper } from "~/state/store";
 import "~/styles/globals.css";
 
 const client = new QueryClient({});
@@ -20,6 +20,8 @@ type Props = {
 
 const App: AppType<Props> = ({ Component, ...rest }: AppProps<Props>) => {
   const { store, props } = wrapper.useWrappedStore(rest);
+
+  useDarkMode();
   return (
     <div
       className={cx(

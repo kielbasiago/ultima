@@ -5,7 +5,7 @@ import { SnesSession } from "@ff6wc/tracker-core/SnesSession";
 import { getTrackerDefaults, TrackerContext } from "./TrackerProvider";
 import { TrackerMode } from "~/types/tracker";
 import isEqual from "lodash/isEqual";
-import { Button } from "~/design-components";
+import { Button } from "@ff6wc/ui";
 import { sleep } from "~/utils/sleep";
 import { useTrackerData } from "~/utils/useTrackerData";
 

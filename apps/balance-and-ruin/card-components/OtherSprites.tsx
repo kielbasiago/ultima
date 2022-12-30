@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { CharacterGraphicSelector } from "~/components/CharacterGraphicSelector/CharacterGraphicSelector";
 import { defaultSpriteString } from "~/constants/graphicConstants";
-import { Divider } from "~/design-components/Divider/Divider";
+import { Divider } from "@ff6wc/ui/Divider/Divider";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 
 export type LoadPalettesResponse = {

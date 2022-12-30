@@ -1,5 +1,5 @@
 import { InputLabel } from "~/components/InputLabel/InputLabel";
-import { HelperText } from "~/design-components";
+import { HelperText } from "@ff6wc/ui";
 
 export type FlagLabelProps = {
   helperText: React.ReactNode;

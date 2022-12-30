@@ -1,13 +1,13 @@
-import Image from "next/image";
+import { Button } from "../Button/Button";
 import Link from "next/link";
-import { Button } from "~/design-components";
+import Image from "next/image";
 
 export type HeaderProps = Record<string, unknown>;
 
 export const Header = ({}: HeaderProps) => {
   return (
     <nav className="relative flex flex-col w-full min-h-[200px] justify-center items-center text-white text-xs shadow-lg">
-      <div className="flex flex-col p-3 z-10 gap-3">
+      <div className={"z-20"}>
         <Link href="/">
           <Image
             alt="Final Fantasy VI: Worlds Collide"
@@ -16,8 +16,9 @@ export const Header = ({}: HeaderProps) => {
             width={1356 / 4}
           />
         </Link>
-
-        <div className="flex justify-center">
+      </div>
+      <div className="flex flex-col p-3 z-10 gap-3">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-4">
           <Link
             className={`max-w-[500px]`}
             href="https://discord.gg/5MPeng5"

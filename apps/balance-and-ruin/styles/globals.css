@@ -1,4 +1,3 @@
-
 @import "../node_modules/rc-slider/assets/index.css";
 
 @tailwind base;
@@ -11,6 +10,24 @@ body > div:first-child,
 div#__next,
 div#__next > div {
   height: 100vh;
+  width: 100%;
+}
+
+
+/* If the user prefers dark mode, 
+we of course apply color-scheme: dark, as usual */
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+
+/* If the user prefers light mode, 
+we still enforce color-scheme: dark, despite the user preference */
+@media (prefers-color-scheme: light) {
+  html {
+    color-scheme: dark;
+  }
 }
 
 @layer components {
@@ -182,5 +199,4 @@ div#__next > div {
     @apply text-neutral-600 dark:text-neutral-200;
     @apply text-lg;
   }
-
 }

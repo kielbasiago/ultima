@@ -8,5 +8,5 @@ module.exports = {
     ],
   },
   
-  transpilePackages: ["@ff6wc/ff6-types", "@ff6wc/ui", "@ff6wc/utils"],
+  transpilePackages: ["@ff6wc/ff6-types", "@ff6wc/utils"],
 };

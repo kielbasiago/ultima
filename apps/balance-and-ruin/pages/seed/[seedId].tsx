@@ -5,9 +5,9 @@ import { PropsWithChildren, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { Disclaimer } from "~/components/Disclaimer/Disclaimer";
-import { Header } from "~/components/Header/Header";
+import { Header } from "@ff6wc/ui";
 import { SeedCard, SeedData } from "~/components/SeedCard/SeedCard";
-import { Card } from "~/design-components";
+import { Card } from "@ff6wc/ui";
 import { setRawFlags } from "~/state/flagSlice";
 
 type PathParams = {

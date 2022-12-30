@@ -1,21 +1,17 @@
 {
-  "name": "@ff6wc/eslint-config-custom",
+  "name": "@ff6wc/next-config",
   "version": "0.0.0",
   "main": "index.js",
   "license": "MIT",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "@next/font": "13.0.5",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
     "eslint": "^7.23.0",
-    "eslint-config-next": "13.0.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-config-turbo": "latest",
-    "eslint-plugin-react": "7.31.8",
     "next": "^13.1.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
+    "react-dom": "^18.2.0",
     "typescript": "^4.7.4"
   },
   "publishConfig": {

@@ -6,6 +6,12 @@
 - Figure out a better way to handle manual flag entering
 - Add y-npc softlock helper text
 
+# Johnnydmad
+
+- Allow uploading own playlist
+- Add playlist editor
+- Add music player https://emberling.github.io/core/
+
 # Tempest
 
 - FF6 Pixel font

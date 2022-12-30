@@ -7,7 +7,7 @@ import {
   SubflagOption,
 } from "~/components/FlagSubflagSelect/FlagSubflagSelect";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
-import { Divider } from "~/design-components/Divider/Divider";
+import { Divider } from "@ff6wc/ui/Divider/Divider";
 
 const opponentOptions: SubflagOption[] = [
   {

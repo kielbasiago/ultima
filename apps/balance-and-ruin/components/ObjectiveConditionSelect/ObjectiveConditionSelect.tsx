@@ -7,7 +7,7 @@ import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
 import { SelectOption } from "~/components/Select/Select";
 import { selectObjectiveConditionMetadataById } from "~/state/objectiveSlice";
 import { Objective, ObjectiveCondition } from "~/types/objectives";
-import { Slider } from "~/design-components";
+import { Slider } from "@ff6wc/ui";
 import { HiTrash } from "react-icons/hi";
 
 export type ObjectiveConditionsRequiredProps = {

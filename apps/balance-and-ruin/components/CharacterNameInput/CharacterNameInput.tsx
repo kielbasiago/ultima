@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { defaultCharacterNameString } from "~/constants/graphicConstants";
-import { Input } from "~/design-components";
+import { Input } from "@ff6wc/ui";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 
 export type CharacterNameInputProps = {

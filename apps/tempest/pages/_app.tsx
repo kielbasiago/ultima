@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useDarkMode } from "@ff6wc/utils/useDarkMode";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
 
@@ -17,16 +17,13 @@ type Props = {};
 
 const App: AppType<Props> = ({ Component, ...rest }: AppProps<Props>) => {
   // const { store, props } = wrapper.useWrappedStore(rest);
-  useEffect(() => {
-    document.documentElement.classList.remove("light");
-    document.documentElement.style.colorScheme = "dark";
-  }, []);
+  useDarkMode;
   return (
     <div
       className={cx(
         roboto.className,
         robotoMono.className,
-        "text-grey dark:text-white w-full flex flex-col h-full"
+        "w-full flex flex-col h-full"
       )}
     >
       {/* <Provider store={store}> */}

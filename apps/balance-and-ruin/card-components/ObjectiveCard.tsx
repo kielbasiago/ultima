@@ -6,7 +6,7 @@ import { ObjectiveConditionSelect } from "~/components/ObjectiveConditionSelect/
 import { ObjectiveConditionsRequired } from "~/components/ObjectiveConditionsRequired/ObjectiveConditionsRequired";
 import { ObjectiveResultSelect } from "~/components/ObjectiveResultSelect/ObjectiveResultSelect";
 import { ObjectiveResultValue } from "~/components/ObjectiveResultValue/ObjectiveResultValue";
-import { Divider } from "~/design-components/Divider/Divider";
+import { Divider } from "@ff6wc/ui/Divider/Divider";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 import {
   addCondition,

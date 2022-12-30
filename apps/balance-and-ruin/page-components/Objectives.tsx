@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ObjectiveCard } from "~/card-components/ObjectiveCard";
-import { Button } from "~/design-components";
+import { Button } from "@ff6wc/ui";
 import { selectRawFlags, setFlag } from "~/state/flagSlice";
 import {
   addObjective,

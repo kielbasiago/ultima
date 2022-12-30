@@ -1,7 +1,7 @@
 from api_utils.get_timestamp import get_timestamp
 
 
-def create_seed(seed_id, description, raw_patch: bytes, log, website_url, filename):
+def create_seed(seed_id, description, raw_patch: bytes, log, website_url, filename, flags):
   import base64
   from api_utils.get_db import get_db
   from api_utils.collections import PATCHES, SEEDS, SEED_DOWNLOADS, SPOILER_LOGS
@@ -12,7 +12,7 @@ def create_seed(seed_id, description, raw_patch: bytes, log, website_url, filena
     'seed_id': seed_id,
     'created_at': get_timestamp(),
     'description': description,
-    'flags': 'N/A'
+    'flags': flags
   })
   
   patches = get_db().get_collection(PATCHES)
@@ -34,7 +34,7 @@ def create_seed(seed_id, description, raw_patch: bytes, log, website_url, filena
   })
   
   return  {
-    'flags': "N/A",
+    'flags': flags,
     'filename': filename,
     'log': log,
     'patch': patch,

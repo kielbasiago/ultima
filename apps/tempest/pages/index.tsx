@@ -6,7 +6,8 @@ import { PageContainer } from "~/components/PageContainer";
 import { wrapper } from "~/state/store";
 import { TrackerMode } from "~/types/tracker";
 import { Disclaimer } from "~/components/Disclaimer/Disclaimer";
-import { Header } from "~/components/Header/Header";
+import { Header } from "@ff6wc/ui";
+
 type PageProps = {};
 
 export const getServerSideProps = wrapper.getServerSideProps(

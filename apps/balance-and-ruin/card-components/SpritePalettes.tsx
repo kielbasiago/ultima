@@ -9,7 +9,7 @@ import PaletteSelect, {
 import { PaletteSwatch } from "~/components/PaletteSwatch/PaletteSwatch";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 import sampleSize from "lodash/sampleSize";
-import { Divider } from "~/design-components/Divider/Divider";
+import { Divider } from "@ff6wc/ui/Divider/Divider";
 
 export type LoadPalettesResponse = {
   id: string;

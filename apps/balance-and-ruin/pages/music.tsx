@@ -5,7 +5,7 @@ import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { Disclaimer } from "~/components/Disclaimer/Disclaimer";
 import { GenerateCard } from "~/components/GenerateCard/GenerateCard";
 import { GenerateJohnnydmadCard } from "~/components/GenerateJohnnydmadCard/GenerateJohnnydmadCard";
-import { Header } from "~/components/Header/Header";
+import { Header } from "@ff6wc/ui";
 import { wrapper } from "~/state/store";
 
 type PageProps = {};

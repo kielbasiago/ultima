@@ -6,12 +6,6 @@
     "declaration": false,
     "declarationMap": false,
     "importHelpers": true,
-    "paths": {
-      "~/design-components": ["../../packages/ui"],
-      "~/design-components/*": ["../../packages/ui/*"],
-      "~/*": ["./*"],
-      "@ff6wc/ui": ["./design-components"],
-      "@ff6wc/ui/*": ["./design-components/*"]
-    }
+    "paths": {}
   }
 }

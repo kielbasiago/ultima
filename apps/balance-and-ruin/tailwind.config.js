@@ -41,6 +41,7 @@ module.exports = {
       fontFamily: {
         sans: "'Montserrat', sans-serif",
         montserrat: "'Montserrat', sans-serif",
+        mono: "'Roboto Mono', monospace",
         cinzel: "'Cinzel', sans-serif",
       },
       boxShadow: {

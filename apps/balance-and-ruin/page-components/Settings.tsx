@@ -54,6 +54,7 @@ export const Settings = ({ presets: rawPresets }: PresetsProps) => {
   const presets = useMemo(() => {
     const options = [
       rawPresets["ultrosleague"],
+      rawPresets["chuponsdelightnext"],
       rawPresets["coliseum terra"],
       rawPresets["coliseum locke"],
       rawPresets["coliseum edgar"],

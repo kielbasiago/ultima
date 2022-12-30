@@ -1,4 +1,5 @@
 from http.server import BaseHTTPRequestHandler
+from api_utils.get_timestamp import get_timestamp
 import xdelta3
 import json
 import os
@@ -13,19 +14,22 @@ class handler(BaseHTTPRequestHandler):
     sys.path.append("WorldsCollide")
 
     with tempfile.TemporaryDirectory() as temp_dir:
-      in_filename = temp_dir + "ff3.smc"
-      from WorldsCollide.seed import generate_seed
-      seed = generate_seed()
-      base_filename = f"ff6wc_{seed}";
-      out_filename = temp_dir + f"{base_filename}.smc"
-      log_filename = temp_dir + f"{base_filename}.txt"
-
+      dir = temp_dir
+      in_filename = dir + "/ff3.smc"
+      from api_utils.generate_seed import generate_seed
+      seed_id = generate_seed()
+      base_filename = f"ff6wc_{seed_id}"
+      out_filename = dir + f"/{base_filename}.smc"
+      log_filename = dir + f"/{base_filename}.txt"
+      website_url = f"https://{os.getenv('VERCEL_URL')}/seed/{seed_id}"
 
       content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
       post_data = self.rfile.read(content_length) # <--- Gets the data itself
       data = json.loads(post_data)
-      flags = data['flags']
-      result = self._generate(flags, in_filename, out_filename)
+      original_flags = data['flags']
+      description = getattr(data, 'description', None)
+      flags = original_flags +  f' -sid {seed_id} -url {website_url}'
+      result = self._generate(flags, in_filename, out_filename)      
 
       if result:
         self.send_response(400)
@@ -41,11 +45,45 @@ class handler(BaseHTTPRequestHandler):
             self.send_header('Content-type','text/plain')
             self.end_headers()
             
+            patch = base64.b64encode(delta).decode('utf-8')
+            spoiler_log = log.read().decode()
+            
+            from api_utils.get_db import get_db
+            from api_utils.collections import PATCHES, SEEDS, SEED_DOWNLOADS, SPOILER_LOGS
+            
+            seeds = get_db().get_collection(SEEDS)
+            seeds.insert_one({
+              'seed_id': seed_id,
+              'created_at': get_timestamp(),
+              'description': description,
+              'flags': original_flags
+            })
+            
+            patches = get_db().get_collection(PATCHES)
+            patches.insert_one({
+              'seed_id': seed_id,
+              'patch': patch
+            })
+
+            spoiler_logs = get_db().get_collection(SPOILER_LOGS)
+            spoiler_logs.insert_one({
+              'seed_id': seed_id,
+              'log': spoiler_log
+            })
+            
+            seed_downloads = get_db().get_collection(SEED_DOWNLOADS)
+            seed_downloads.insert_one({
+              'seed_id': seed_id,
+              'created_at': get_timestamp()
+            })
+            
             val = {
-              'patch': base64.b64encode(delta).decode('utf-8'),
-              'spoiler_log': log.read().decode(),
-              'seed': seed,
-              'filename': base_filename
+              'flags': flags,
+              'filename': base_filename,
+              'log': spoiler_log,
+              'patch': patch,
+              'seed_id': seed_id,
+              'url': website_url
             }
             
             self.wfile.write(json.dumps(val).encode())
@@ -72,7 +110,7 @@ class handler(BaseHTTPRequestHandler):
       in_filename = temp_dir + "/ff3.smc"
       from WorldsCollide.seed import generate_seed
       seed = generate_seed()
-      base_filename = f"ff6wc_{seed}";
+      base_filename = f"ff6wc_{seed}"
       out_filename = temp_dir + f"/{base_filename}.smc"
       log_filename = temp_dir + f"/{base_filename}.txt"
 

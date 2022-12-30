@@ -1,10 +1,8 @@
 import { useEffect } from "react";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Provider } from "react-redux";
-import { wrapper } from "~/state/store";
 
-import { Montserrat, Roboto } from "@next/font/google";
+import { Montserrat, Roboto, Roboto_Mono } from "@next/font/google";
 import { cx } from "cva";
 import { AppType } from "next/app";
 import "~/styles/globals.css";
@@ -13,6 +11,7 @@ const client = new QueryClient({});
 
 const montserrat = Montserrat();
 const roboto = Roboto({ weight: ["500", "700", "400"] });
+const robotoMono = Roboto_Mono({ weight: ["500"] });
 
 type Props = {};
 
@@ -26,6 +25,7 @@ const App: AppType<Props> = ({ Component, ...rest }: AppProps<Props>) => {
     <div
       className={cx(
         roboto.className,
+        robotoMono.className,
         "text-grey dark:text-white w-full flex flex-col h-full"
       )}
     >

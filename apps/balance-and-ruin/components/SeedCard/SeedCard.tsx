@@ -11,18 +11,21 @@ import { isValidROM, removeHeader } from "~/utils/romUtils";
 import { XDelta3Decoder } from "~/utils/xdelta3_decoder";
 import JSZip from "jszip";
 
-export type FlagsCardProps = {
-  className?: string;
-};
-
-type GenerateResponse = {
+export type SeedData = {
+  flags: string;
   filename: string;
-  patch: string;
-  seed: string;
   log: string;
+  patch: string;
+  seed_id: string;
+  url: string;
 };
 
-export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
+export type SeedCardProps = {
+  className?: string;
+  seed: SeedData;
+};
+
+export const SeedCard = ({ className, seed, ...rest }: SeedCardProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const flags = useSelector(selectRawFlags);
   const [romData, setRomData] = useState<string | null>(null);
@@ -49,33 +52,8 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
     }
   }, [inputRef]);
 
-  const { error, trigger, isMutating } = useSWRMutation(
-    ["/api/generate", flags],
-    async (key, { arg }) => {
-      const result = await fetch("/api/generate", {
-        body: JSON.stringify({ flags: arg }),
-        headers: {},
-        method: "POST",
-      });
-
-      if (result.status !== 200) {
-        const error = await result.text();
-        throw new Error(`Error creating seed ${error}`);
-      }
-
-      const data = await result.json();
-      return data as GenerateResponse;
-    }
-  );
   const generate = async () => {
-    if (isMutating) {
-      return;
-    }
-    const generateResult = await trigger(flags);
-    if (!generateResult) {
-      throw new Error("There was an error generating the rom");
-    }
-    const { filename, patch, seed, log } = generateResult;
+    const { filename, patch, seed_id, log } = seed;
     const rom = romData as string;
 
     const patched = XDelta3Decoder.decode(
@@ -212,22 +190,17 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
 
       <div className="flex flex-col gap-2">
         <h2 className={"font-medium text-lg"}>Step 3: Click Generate!</h2>
-        <HelperText>
-          This button will be disabled until a valid ROM is selected
-        </HelperText>
+        {!romData ? (
+          <HelperText>
+            This button will be disabled until a valid ROM is selected
+          </HelperText>
+        ) : null}
       </div>
 
       <div className="fle flex-col gap-2 pl-3">
-        <Button
-          disabled={!hasRomData || isMutating}
-          onClick={generate}
-          variant="primary"
-        >
+        <Button disabled={!hasRomData} onClick={generate} variant="primary">
           Generate
         </Button>
-        {error ? (
-          <div className={"text-red-500 font-semibold"}>{error}</div>
-        ) : null}{" "}
       </div>
     </Card>
   );

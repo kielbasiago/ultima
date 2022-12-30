@@ -58,8 +58,6 @@ class handler(BaseHTTPRequestHandler):
       'url': website_url
     }
     
-    print(val)
-            
     self.send_response(200)
     self.send_header('Content-type','application/json')
     self.end_headers()

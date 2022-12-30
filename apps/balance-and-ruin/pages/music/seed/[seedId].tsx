@@ -1,11 +1,11 @@
 import { cva } from "cva";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { PropsWithChildren, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { Footer } from "~/components/Footer/Footer";
-import { Header } from "@ff6wc/ui";
+import { CodeBlock, Header } from "@ff6wc/ui";
 import { MusicSeedCard } from "~/components/MusicSeedCard/MusicSeedCard";
 import { SeedData } from "~/components/SeedCard/SeedCard";
 import { Card } from "@ff6wc/ui";
@@ -48,17 +48,6 @@ export const getServerSideProps: GetServerSideProps<
     },
   };
 };
-
-const codeBlock = cva([
-  "text-sm",
-  "max-h-[600px] bg-gray-200 p-4",
-  "whitespace-pre-wrap font-mono break-words box-decoration-clone",
-  "overflow-auto",
-]);
-
-const CodeBlock = ({ children }: PropsWithChildren) => (
-  <code className={codeBlock()}>{children}</code>
-);
 
 export default function SeedId({ seed, seedId }: Props) {
   const dispatch = useDispatch();

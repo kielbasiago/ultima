@@ -77,7 +77,7 @@ const tabs: TabItem[] = [
     id: "settings",
     content: <Settings presets={{}} />,
   },
-  process.env.NEXT_PUBLIC_SHOW_OBJECTIVES !== "true" && {
+  process.env.NEXT_PUBLIC_SHOW_OBJECTIVES === "true" && {
     label: (
       <TabContainer>
         <TabIcon Icon={HiOutlineViewList} />

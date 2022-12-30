@@ -53,7 +53,7 @@ class handler(BaseHTTPRequestHandler):
             website_url = get_music_seed_url(seed_id)
             description = "Randomized music patch for FF6 Worlds Collide"
             
-            create_seed(seed_id, description, patch, log, website_url, base_filename)
+            create_seed(seed_id, description, patch, log, website_url, base_filename, "N/A")
             
             seed = get_seed_payload(seed_id, log, patch, base_filename)            
 

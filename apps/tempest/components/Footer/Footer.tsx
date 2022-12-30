@@ -1,6 +1,6 @@
-export type DisclaimerProps = Record<string, unknown>;
+export type FooterProps = Record<string, unknown>;
 
-export const Disclaimer = ({}: DisclaimerProps) => {
+export const Footer = ({}: FooterProps) => {
   return (
     <div className="flex flex-col gap-2 w-full min-h-[75px] justify-center items-center bg-gray-600 text-white text-xs">
       <p>Created by Kielbasiago</p>

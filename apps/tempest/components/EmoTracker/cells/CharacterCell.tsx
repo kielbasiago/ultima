@@ -80,6 +80,7 @@ export function CharacterCell(props: Props): JSX.Element {
         <div
           className={cx(
             "overlay-content",
+            "font-mono",
             isRight ? "multicheck-cell-flex-end" : "multicheck-cell-flex-start",
             !complete ? "multicheck-cell-incomplete" : ""
           )}

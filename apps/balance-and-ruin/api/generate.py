@@ -50,7 +50,7 @@ class handler(BaseHTTPRequestHandler):
             log_bytes = logfile.read()
             log = log_bytes.decode('utf-8')
             
-            seed = create_seed(seed_id, description, patch, log, website_url, base_filename)
+            seed = create_seed(seed_id, description, patch, log, website_url, base_filename, flags)
             
             self.wfile.write(json.dumps(seed).encode())
 

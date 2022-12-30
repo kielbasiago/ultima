@@ -4,7 +4,7 @@ import Head from "next/head";
 import { PropsWithChildren, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
-import { Disclaimer } from "~/components/Disclaimer/Disclaimer";
+import { Footer } from "~/components/Disclaimer/Disclaimer";
 import { Header } from "@ff6wc/ui";
 import { MusicSeedCard } from "~/components/MusicSeedCard/MusicSeedCard";
 import { SeedData } from "~/components/SeedCard/SeedCard";
@@ -90,7 +90,7 @@ export default function SeedId({ seed, seedId }: Props) {
 
         <MusicSeedCard seed={seed} />
       </div>
-      <Disclaimer />
+      <Footer />
     </>
   );
 }

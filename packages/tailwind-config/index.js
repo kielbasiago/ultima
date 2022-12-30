@@ -33,6 +33,7 @@ module.exports = {
         sans: "'Montserrat', sans-serif",
         montserrat: "'Montserrat', sans-serif",
         mono: "'Roboto Mono', monospace",
+        roboto: "'Roboto', sans-serif",
         cinzel: "'Cinzel', sans-serif",
       },
       boxShadow: {

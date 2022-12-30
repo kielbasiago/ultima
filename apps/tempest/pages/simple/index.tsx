@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Disclaimer } from "~/components/Disclaimer/Disclaimer";
+import { Footer } from "~/components/Footer/Footer";
 import { Header } from "@ff6wc/ui";
 import EmoTracker from "~/components/EmoTracker/EmoTracker";
 import { RowSimple } from "~/components/EmoTracker/RowSimple";
@@ -35,7 +35,7 @@ const AutoSimple: NextPage<PageProps> = ({}: PageProps) => {
           <RowSimple />
         </EmoTracker>
       </PageContainer>
-      <Disclaimer />
+      <Footer />
     </>
   );
 };

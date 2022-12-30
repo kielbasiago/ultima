@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { FlagsCard } from "~/card-components/Flags";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
-import { Disclaimer } from "~/components/Disclaimer/Disclaimer";
+import { Footer } from "~/components/Disclaimer/Disclaimer";
 import { GenerateCard } from "~/components/GenerateCard/GenerateCard";
 import { GenerateJohnnydmadCard } from "~/components/GenerateJohnnydmadCard/GenerateJohnnydmadCard";
 import { Header } from "@ff6wc/ui";
@@ -36,7 +36,7 @@ const MusicPage: NextPage<PageProps> = ({}: PageProps) => {
           <GenerateJohnnydmadCard />
         </CardColumn>
       </div>
-      <Disclaimer />
+      <Footer />
     </>
   );
 };

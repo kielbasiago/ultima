@@ -5,7 +5,7 @@ import { EmoTrackerLayout } from "~/components/EmoTracker/EmoTrackerLayout";
 import { PageContainer } from "~/components/PageContainer";
 import { wrapper } from "~/state/store";
 import { TrackerMode } from "~/types/tracker";
-import { Disclaimer } from "~/components/Disclaimer/Disclaimer";
+import { Footer } from "~/components/Footer/Footer";
 import { Header } from "@ff6wc/ui";
 
 type PageProps = {};
@@ -36,7 +36,7 @@ const Manual: NextPage<PageProps> = ({}: PageProps) => {
           <EmoTrackerLayout />
         </EmoTracker>
       </PageContainer>
-      <Disclaimer />
+      <Footer />
     </>
   );
 };

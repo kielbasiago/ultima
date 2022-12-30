@@ -39,10 +39,6 @@ we still enforce color-scheme: dark, despite the user preference */
     top: 0;
   }
 
-  .overlay-content {
-    text-shadow: 3px 3px 5px black;
-  }
-  
   #cell-shadow.gated-cell {
     opacity: 0.8;
     filter: brightness(20%);
@@ -81,6 +77,7 @@ we still enforce color-scheme: dark, despite the user preference */
     bottom: 0;
     right: 0;
     padding: 1px;
+    text-shadow: 1px 1px 3px black;
   }
   
   .theme-mode-light.multicheck-cell-incomplete {

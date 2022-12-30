@@ -19,13 +19,7 @@ const App: AppType<Props> = ({ Component, ...rest }: AppProps<Props>) => {
   // const { store, props } = wrapper.useWrappedStore(rest);
   useDarkMode;
   return (
-    <div
-      className={cx(
-        roboto.className,
-        robotoMono.className,
-        "w-full flex flex-col h-full"
-      )}
-    >
+    <div className={cx(roboto.className, "w-full flex flex-col h-full")}>
       {/* <Provider store={store}> */}
       <QueryClientProvider client={client}>
         <Component />

@@ -295,6 +295,10 @@ export const objectiveSlice = createSlice({
 
       conditions.push(condition);
       objective.conditions = conditions;
+      objective.requiredConditions = [
+        objective.requiredConditions[0] + 1,
+        objective.requiredConditions[1] + 1,
+      ];
 
       state.objectivesByFlag[action.payload.flag] = objective;
       state.objectives = normalizeObjectives(state.objectivesByFlag);

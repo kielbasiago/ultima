@@ -25,6 +25,7 @@ import {
 import { createObjective } from "~/utils/createObjective";
 import { objectiveToString } from "~/utils/objectiveToString";
 import { ObjectiveDeleteButton } from "~/components/ObjectiveDeleteButton/ObjectiveDeleteButton";
+import { ObjectiveAddConditionButton } from "~/components/ObjectiveAddConditionButton/ObjectiveAddConditionButton";
 
 type ObjectiveCardProps = {
   objective: Objective;
@@ -100,32 +101,11 @@ export const ObjectiveCard = ({ objective }: ObjectiveCardProps) => {
     );
   };
 
-  const addObjectiveCondition = () => {
-    dispatch(
-      addCondition({
-        flag,
-      })
-    );
-
-    dispatch(
-      setFlag({
-        flag,
-        value: [...value.concat("1", "r")].join("."),
-      })
-    );
-  };
-
   const title = (
     <div className={"flex flex-grow items-center justify-between "}>
       <span className="flex items-center gap-4">
         <span>Objective {letter.toUpperCase()}</span>
-        <Button
-          disabled={objective.conditions.length >= MAX_CONDITION_COUNT}
-          onClick={addObjectiveCondition}
-          variant="primary"
-        >
-          Add Condition
-        </Button>
+        <ObjectiveAddConditionButton objective={objective} />
       </span>
       <ObjectiveDeleteButton objective={objective} />
     </div>

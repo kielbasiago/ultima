@@ -31,12 +31,16 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
 };
 
 const SotwId: NextPage<PageProps> = ({ sotw, sotwId }: PageProps) => {
-  const {} = sotw;
+  const { name, submitter, seed } = sotw;
+  const desc = `${name}\n\nCreated by ${submitter}\n\nDownload at ${seed}`;
+
   const head = (
     <Head>
-      <title>FF6WC - Seed of the Week {sotwId}</title>
-      <meta name="description" content={"idk"} />
-      <link rel="icon" href="/favicon.ico" />
+      <Head>
+        <title>FF6WC - Seed of the Week</title>
+        <meta name="description" content={desc} />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
     </Head>
   );
   return <SotwPage head={head} id={sotwId} sotw={sotw} />;

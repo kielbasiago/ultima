@@ -8,6 +8,7 @@ import { PageContainer } from "~/components/PageContainer";
 import { wrapper } from "~/state/store";
 import { TrackerMode } from "~/types/tracker";
 import { TempestHeader } from "~/components/TempestHeader/TempestHeader";
+import { TempestHead } from "~/components/TempestHead/TempestHead";
 type PageProps = {};
 
 export const getServerSideProps = wrapper.getServerSideProps(
@@ -22,14 +23,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 const AutoSimple: NextPage<PageProps> = ({}: PageProps) => {
   return (
     <>
-      <Head>
-        <title>FF6WC</title>
-        <meta
-          name="description"
-          content="A Final Fantasy 6 open-world randomizer"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <TempestHead />
       <TempestHeader />
       <PageContainer>
         <EmoTracker mode={TrackerMode.AUTO}>

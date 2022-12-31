@@ -18,7 +18,7 @@ export const DiscordButton = () => {
         alt="Join our Discord community"
         src="/discordwhite.svg"
         width={155}
-        height={40}
+        height={60}
       />
     </Link>
   );

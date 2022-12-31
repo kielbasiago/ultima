@@ -8,6 +8,7 @@ import { TrackerMode } from "~/types/tracker";
 import { Footer } from "~/components/Footer/Footer";
 import { Header } from "@ff6wc/ui";
 import { TempestHeader } from "~/components/TempestHeader/TempestHeader";
+import { TempestHead } from "~/components/TempestHead/TempestHead";
 
 type PageProps = {};
 
@@ -23,14 +24,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 const Manual: NextPage<PageProps> = ({}: PageProps) => {
   return (
     <>
-      <Head>
-        <title>FF6WC</title>
-        <meta
-          name="description"
-          content="A Final Fantasy 6 open-world randomizer"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <TempestHead />
       <TempestHeader />
       <PageContainer>
         <EmoTracker mode={TrackerMode.MANUAL}>

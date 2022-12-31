@@ -1,9 +1,8 @@
-import { Button, Card, HelperText, Input } from "@ff6wc/ui";
+import { Button, Card, HelperText, Input, Link } from "@ff6wc/ui";
 import { cx } from "cva";
-import JSZip, { type JSZipObject } from "jszip";
+import JSZip from "jszip";
 import first from "lodash/first";
-import BaseLink from "next/link";
-import { ReactNode, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { MdClear, MdFileUpload } from "react-icons/md";
 import useSWRMutation from "swr/mutation";
 import { ROM_FILE_EXTENSIONS } from "~/constants/romConstants";
@@ -20,12 +19,6 @@ type GenerateResponse = {
   seed_id: string;
   log: string;
 };
-
-const Link = ({ children, href }: { children: ReactNode; href: string }) => (
-  <BaseLink className="dark:text-sky-300 underline" href={href} target="_blank">
-    {children}
-  </BaseLink>
-);
 
 export const GenerateJohnnydmadCard = ({
   className,

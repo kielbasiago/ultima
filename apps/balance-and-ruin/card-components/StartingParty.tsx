@@ -173,7 +173,7 @@ const SelectPartyControl = ({
           />
 
           {!colorSprite ? (
-            <span className="absolute flex top-0 bottom-0 left-0 right-0 items-center justify-center text-3xl">
+            <span className="absolute flex top-0 bottom-0 left-0 right-0 items-center justify-center text-2xl">
               ?
             </span>
           ) : null}

@@ -1,15 +1,13 @@
-import { Button, Card, HelperText, Input } from "@ff6wc/ui";
+import { Button, Card, HelperText, Input, Link } from "@ff6wc/ui";
 import { cx } from "cva";
-import first from "lodash/first";
-import { useEffect, useRef, useState } from "react";
-import { MdClear, MdFileUpload } from "react-icons/md";
-import { base64ToByteArray } from "~/utils/base64ToByteArray";
-import { isValidROM, removeHeader } from "~/utils/romUtils";
-import { XDelta3Decoder } from "~/utils/xdelta3_decoder";
 import JSZip from "jszip";
+import first from "lodash/first";
+import { useRef, useState } from "react";
+import { MdClear, MdFileUpload } from "react-icons/md";
 import { SeedCardProps } from "~/components/SeedCard/SeedCard";
-import Link from "next/link";
 import { ROM_FILE_EXTENSIONS } from "~/constants/romConstants";
+import { base64ToByteArray } from "~/utils/base64ToByteArray";
+import { XDelta3Decoder } from "~/utils/xdelta3_decoder";
 
 export const MusicSeedCard = ({ className, seed, ...rest }: SeedCardProps) => {
   const inputRef = useRef<HTMLInputElement>(null);

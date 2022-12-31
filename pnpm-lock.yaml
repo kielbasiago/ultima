@@ -340,6 +340,7 @@ importers:
     specifiers:
       '@ff6wc/eslint-config-custom': workspace:*
       '@ff6wc/tsconfig': workspace:*
+      '@ff6wc/utils': workspace:*
       '@headlessui/react': 1.7.4
       '@types/lodash': 4.14.188
       '@types/react': 18.0.25
@@ -359,6 +360,7 @@ importers:
     devDependencies:
       '@ff6wc/eslint-config-custom': link:../eslint-config-custom
       '@ff6wc/tsconfig': link:../tsconfig
+      '@ff6wc/utils': link:../utils
       '@headlessui/react': 1.7.4_biqbaboplfbrettd7655fr4n2y
       '@types/react': 18.0.25
       '@types/react-dom': 18.0.9

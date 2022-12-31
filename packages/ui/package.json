@@ -3,6 +3,7 @@
   "devDependencies": {
     "@ff6wc/eslint-config-custom": "workspace:*",
     "@ff6wc/tsconfig": "workspace:*",
+    "@ff6wc/utils": "workspace:*",
     "@headlessui/react": "1.7.4",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",

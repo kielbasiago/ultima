@@ -1,4 +1,4 @@
-import BaseLink from "next/link";
+import { Footer as BaseFooter, Link } from "@ff6wc/ui";
 
 export type FooterProps = {};
 
@@ -7,24 +7,8 @@ const secondaryText =
 
 export const Footer = ({}: FooterProps) => {
   const primaryText = "Created by AtmaTek and maintained by the community";
-  return (
-    <div className="flex flex-col gap-2 w-full min-h-[75px] justify-center items-center bg-gray-600 text-white text-xs">
-      <p>{primaryText}</p>
-      <p>{secondaryText}</p>
-    </div>
-  );
+  return <BaseFooter messages={[primaryText, secondaryText]} />;
 };
-
-type LinkProps = {
-  children: React.ReactNode;
-  href: string;
-};
-
-const Link = ({ children, href }: LinkProps) => (
-  <BaseLink className="underline" href={href} target="_blank">
-    {children}
-  </BaseLink>
-);
 
 export const MusicFooter = ({}: FooterProps) => {
   const primaryText = (
@@ -34,10 +18,5 @@ export const MusicFooter = ({}: FooterProps) => {
       support!
     </p>
   );
-  return (
-    <div className="flex flex-col gap-2 w-full min-h-[75px] justify-center items-center bg-gray-600 text-white text-xs">
-      <p>{primaryText}</p>
-      <p>{secondaryText}</p>
-    </div>
-  );
+  return <BaseFooter messages={[primaryText, secondaryText]} />;
 };

@@ -1,8 +1,6 @@
-import { Button, Header } from "@ff6wc/ui";
-import SpriteDrawLoad from "~/components/SpriteDrawLoad/SpriteDrawLoad";
+import { ButtonLink, DiscordButton, Header } from "@ff6wc/ui";
 import useSWR from "swr";
-import { cx } from "cva";
-import { montserrat } from "@ff6wc/utils/fonts";
+import SpriteDrawLoad from "~/components/SpriteDrawLoad/SpriteDrawLoad";
 
 export type AppHeaderProps = Record<string, unknown>;
 
@@ -27,32 +25,25 @@ export const AppHeader = (props: AppHeaderProps) => {
     Number.isFinite(palette_id) &&
     Number.isFinite(pose_id) &&
     Number.isFinite(sprite_id);
-  const disabled = true;
-  const buttons = (
-    // <Link href="/sotw/active" className={disabled ? "select-none" : undefined}>
-    <Button
-      className={cx(
-        montserrat.className,
-        "inline-flex gap-2 items-center font-montserrat text-2xl font-bold"
-      )}
-      disabled={disabled}
-      variant="outline"
-    >
-      {showSprite ? (
-        <SpriteDrawLoad
-          paletteId={palette_id as number}
-          poseId={pose_id as number}
-          spriteId={sprite_id as number}
-          scale={2}
-          variant={"half"}
-        />
-      ) : null}
-      <div className="flex flex-col items-center">
-        <p>Seed of the Week</p>
-        <p className="text-sm">(Coming soon!)</p>
+  return (
+    <Header className="WC-header">
+      <div className="flex gap-3 flex-wrap justify-center">
+        <DiscordButton />
+        <ButtonLink href="/sotw/active">
+          {showSprite ? (
+            <SpriteDrawLoad
+              paletteId={palette_id as number}
+              poseId={pose_id as number}
+              spriteId={sprite_id as number}
+              scale={2}
+              variant={"half"}
+            />
+          ) : null}
+          <div className="flex flex-col items-center">
+            <p>Seed of the Week</p>
+          </div>
+        </ButtonLink>
       </div>
-    </Button>
-    // </Link>
+    </Header>
   );
-  return <Header buttons={buttons} className="WC-header" />;
 };

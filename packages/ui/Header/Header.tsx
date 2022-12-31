@@ -1,14 +1,13 @@
-import { Button, buttonStyles } from "../Button/Button";
-import Link from "next/link";
+import { Link } from "../Link/Link";
 import Image from "next/image";
 import { cx } from "cva";
 
 export type HeaderProps = {
-  buttons?: React.ReactNode;
   className?: string;
+  children?: React.ReactNode;
 };
 
-export const Header = ({ buttons = null, className }: HeaderProps) => {
+export const Header = ({ children = null, className }: HeaderProps) => {
   return (
     <nav
       className={cx(
@@ -26,27 +25,7 @@ export const Header = ({ buttons = null, className }: HeaderProps) => {
           />
         </Link>
       </div>
-      <div className="flex flex-col p-3 z-10">
-        <div className="flex flex-col md:flex-row justify-center items-center gap-3">
-          <Link
-            className={buttonStyles({
-              className: "max-w-[500px]",
-              variant: "outline",
-              p: "default",
-            })}
-            href="https://discord.gg/5MPeng5"
-            target="_blank"
-          >
-            <Image
-              alt="Join our Discord community"
-              src="/discordwhite.svg"
-              width={155}
-              height={40}
-            />
-          </Link>
-          {buttons}
-        </div>
-      </div>
+      <div className="flex flex-col p-3 z-10">{children}</div>
       <div className="WC-hero absolute top-0 bottom-0 left-0 right-0 bg-[url('/hero.png')] opacity-80 brightness-75 bg-no-repeat bg-cover bg-center z-0"></div>
     </nav>
   );

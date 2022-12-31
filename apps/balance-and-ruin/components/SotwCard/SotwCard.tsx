@@ -1,4 +1,4 @@
-import { Button } from "@ff6wc/ui";
+import { Button, Link } from "@ff6wc/ui";
 import { SeedOfTheWeek } from "~/types/sotw";
 
 type Props = {
@@ -12,9 +12,11 @@ export const SotwCard = ({ sotw, sotwId }: Props) => {
       <h3>{sotw.name}</h3>
       <h3>Submitted by {sotw.submitter}</h3>
 
-      <Button className="w-fit" variant="primary">
-        Play Seed
-      </Button>
+      <Link href={sotw.seed}>
+        <Button className="w-fit" variant="primary">
+          Play Seed
+        </Button>
+      </Link>
     </div>
   );
 };

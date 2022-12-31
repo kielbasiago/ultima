@@ -112,7 +112,7 @@ export const MusicSeedCard = ({ className, seed, ...rest }: SeedCardProps) => {
       title={
         <>
           Randomize music using{" "}
-          <Link href="https://github.com/emberling/johnnydmad">Johnnydmad</Link>
+          <Link href="https://github.com/emberling/johnnydmad">johnnydmad</Link>
         </>
       }
     >

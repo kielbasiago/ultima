@@ -12,11 +12,11 @@ export const Footer = ({}: FooterProps) => {
 
 export const MusicFooter = ({}: FooterProps) => {
   const primaryText = (
-    <p>
+    <span>
       Thanks to&nbsp;
       <Link href="https://github.com/emberling">emberling</Link>&nbsp;for the
       support!
-    </p>
+    </span>
   );
   return <BaseFooter messages={[primaryText, secondaryText]} />;
 };

@@ -55,10 +55,8 @@ export const ObjectiveResultValue = ({
       })
     );
 
-    console.log("before objective", objective);
     const newObjective = createObjective(objective, metadata);
     newObjective.result.value = value;
-    console.log("after objective", newObjective);
     const newValue = objectiveToString(newObjective, value);
 
     dispatch(

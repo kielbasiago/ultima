@@ -11,7 +11,7 @@ type LinkProps = {
 export const Link = ({ children, className, href, target }: LinkProps) => {
   const t = href.startsWith("https") ? "_blank" : undefined;
   return (
-    <BaseLink className={cx("text-blue-500", className)} href={href} target={t}>
+    <BaseLink className={cx("text-blue-400", className)} href={href} target={t}>
       {children}
     </BaseLink>
   );

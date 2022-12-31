@@ -25,9 +25,6 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({}) => {
   const sotwId = ordered[0];
   const sotw = sotws[sotwId];
 
-  console.log("keys", keys);
-  console.log("ordered", ordered);
-  console.log("sotwId", sotwId);
   return {
     props: {
       sotws,

@@ -3,6 +3,8 @@ import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
 import { Slider } from "@ff6wc/ui";
 import { setObjective } from "~/state/objectiveSlice";
 import { Objective } from "~/types/objectives";
+import { isValidCondition } from "~/utils/isValidCondition";
+import { renderDescription } from "~/utils/renderDescription";
 
 export type ObjectiveConditionsRequiredProps = {
   objective: Objective;
@@ -15,7 +17,7 @@ export const ObjectiveConditionsRequired = ({
 }: ObjectiveConditionsRequiredProps) => {
   const { conditions, requiredConditions } = objective;
   const [minVal, maxVal] = requiredConditions;
-  const max = conditions.length;
+  const max = conditions.filter(isValidCondition).length;
   const onRequirementsChange = (newRequirement: number[]) => {
     onChange({
       ...objective,
@@ -27,8 +29,11 @@ export const ObjectiveConditionsRequired = ({
       <div>
         <FlagLabel
           flag={objective.flag}
-          helperText=""
           label="Required Conditions"
+          helperText={renderDescription(
+            "{{ . }} conditions must be complete to receive the reward",
+            [minVal, maxVal]
+          )}
         />
       </div>
       <Slider

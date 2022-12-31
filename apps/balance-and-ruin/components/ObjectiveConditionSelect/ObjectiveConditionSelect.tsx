@@ -9,6 +9,7 @@ import { selectObjectiveConditionMetadataById } from "~/state/objectiveSlice";
 import { Objective, ObjectiveCondition } from "~/types/objectives";
 import { Slider } from "@ff6wc/ui";
 import { HiTrash } from "react-icons/hi";
+import { isValidCondition } from "~/utils/isValidCondition";
 
 export type ObjectiveConditionsRequiredProps = {
   condition: ObjectiveCondition;
@@ -82,6 +83,22 @@ export const ObjectiveConditionSelect = ({
     };
     conditions[idx] = newCondition;
     obj.conditions = conditions;
+    const validConditions = conditions.filter(isValidCondition).length;
+
+    const oldId = Number.parseInt(condition.id);
+    const newId = Number.parseInt(newCondition.id);
+    // if the current selected is "None" and we're selecting another condition, increse required conditions by 1
+    if (oldId === 0 && newId > 0) {
+      obj.requiredConditions = [
+        Math.min(obj.requiredConditions[0], validConditions) + 1,
+        Math.min(obj.requiredConditions[1], validConditions) + 1,
+      ];
+    } else if (newId === 0 && oldId > 0) {
+      obj.requiredConditions = [
+        Math.min(obj.requiredConditions[0], validConditions) - 1,
+        Math.min(obj.requiredConditions[1], validConditions) - 1,
+      ];
+    }
     onChange(obj);
   };
 

@@ -1,4 +1,5 @@
 import { Objective } from "~/types/objectives";
+import { isValidCondition } from "~/utils/isValidCondition";
 
 export const objectiveToString = (
   objective: Objective,
@@ -6,10 +7,9 @@ export const objectiveToString = (
 ) => {
   const { conditions, result, requiredConditions } = objective;
 
-  const validConditions = conditions.filter((c) => Number.parseInt(c.id) > 0);
+  const validConditions = conditions.filter(isValidCondition);
   const conditionString = validConditions.length
     ? validConditions
-        .filter((c) => Number.parseInt(c.id) > 0)
         .map((c) => {
           return `${c.id}.${c.values.join(".")}`;
         })
@@ -26,7 +26,5 @@ export const objectiveToString = (
     .filter((val) => val != null && val !== "")
     .join(".");
 
-  console.log("VALUES", values);
-  console.log("RETURN VALUE", returnValue);
   return returnValue;
 };

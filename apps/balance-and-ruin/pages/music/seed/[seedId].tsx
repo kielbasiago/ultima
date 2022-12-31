@@ -65,7 +65,7 @@ export default function SeedId({ seed, seedId }: Props) {
         <title>{title}</title>
         <meta
           name="description"
-          content={"Randomize the music of your FF6WC seed using Johnnydmad"}
+          content={"Randomize the music in your FF6WC seed!"}
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>

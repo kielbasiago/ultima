@@ -1,9 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { FlagsCard } from "~/card-components/Flags";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
-import { Footer } from "~/components/Footer/Footer";
-import { GenerateCard } from "~/components/GenerateCard/GenerateCard";
+import { MusicFooter } from "~/components/Footer/Footer";
 import { GenerateJohnnydmadCard } from "~/components/GenerateJohnnydmadCard/GenerateJohnnydmadCard";
 import { Header } from "@ff6wc/ui";
 import { wrapper } from "~/state/store";
@@ -26,7 +24,7 @@ const MusicPage: NextPage<PageProps> = ({}: PageProps) => {
         <title>FF6WC Music Randomizer</title>
         <meta
           name="description"
-          content="Randomize the music in your FF6WC seed - Powered by johnnydmad"
+          content="Randomize the music in your FF6WC seed!"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -36,7 +34,7 @@ const MusicPage: NextPage<PageProps> = ({}: PageProps) => {
           <GenerateJohnnydmadCard />
         </CardColumn>
       </div>
-      <Footer />
+      <MusicFooter />
     </>
   );
 };

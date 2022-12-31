@@ -7,7 +7,7 @@ type Props = {
 };
 export const SotwCard = ({ sotw, sotwId }: Props) => {
   return (
-    <div className="flex flex-col gap-3 p-5 items-center border-1 w-fit min-w-full">
+    <div className="flex flex-col gap-3 p-5 items-center border-1 w-fit px-16">
       <h2 className="text-3xl font-mono">SotW {sotwId}</h2>
       <h3>{sotw.name}</h3>
       <h3>Submitted by {sotw.submitter}</h3>

@@ -16,6 +16,7 @@ type SpriteDrawLoadProps = {
   poseId: number;
   scale?: number;
   spriteId: number;
+  variant?: "full" | "half";
 };
 
 export default function SpriteDrawLoad({
@@ -25,6 +26,7 @@ export default function SpriteDrawLoad({
   poseId,
   scale = 3,
   spriteId,
+  variant = "full",
 }: SpriteDrawLoadProps) {
   const { data, error } = useSWRImmutable<LoadSpriteResponse>(
     `/api/sprite/${spriteId}/${paletteId}/${poseId}`,
@@ -53,6 +55,7 @@ export default function SpriteDrawLoad({
       onClick={onClick}
       rgbBytes={rgbBytes}
       scale={scale}
+      variant={variant}
     />
   );
 }

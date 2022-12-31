@@ -29,14 +29,16 @@ import { Items } from "~/page-components/Items";
 import { Magic } from "~/page-components/Magic";
 import { Objectives } from "~/page-components/Objectives";
 import { Party } from "~/page-components/Party";
-import { SeedbotPreset, Settings } from "~/page-components/Settings";
+import { Settings } from "~/page-components/Settings";
 import { setObjectiveMetadata } from "~/state/objectiveSlice";
 import { RawFlagMetadata, setSchema } from "~/state/schemaSlice";
 import { ObjectiveMetadata } from "~/types/objectives";
+import { FlagPreset } from "~/types/preset";
+import { AppHeader } from "~/components/AppHeader/AppHeader";
 
 type PageProps = {
   objectives: ObjectiveMetadata;
-  presets: Record<string, SeedbotPreset>;
+  presets: Record<string, FlagPreset>;
   schema: Record<string, RawFlagMetadata>;
 };
 
@@ -65,111 +67,114 @@ const TabIcon = ({ className, Icon }: WithIcon) => {
   );
 };
 
-const tabs: TabItem[] = [
-  {
-    label: (
-      <TabContainer>
-        <TabIcon Icon={HiCog} />
-        Settings
-      </TabContainer>
-    ),
-
-    id: "settings",
-    content: <Settings presets={{}} />,
-  },
-  {
-    label: (
-      <TabContainer>
-        <TabIcon Icon={HiOutlineViewList} />
-        Objectives
-      </TabContainer>
-    ),
-    content: <Objectives />,
-    id: "objectives",
-  },
-  {
-    label: (
-      <TabContainer>
-        <TabIcon Icon={HiUserGroup} />
-        Party
-      </TabContainer>
-    ),
-    id: "party",
-    content: <Party />,
-  },
-  {
-    label: (
-      <TabContainer>
-        <TabIcon Icon={GiWizardStaff} />
-        Commands
-      </TabContainer>
-    ),
-    id: "commands",
-    content: <Commands />,
-  },
-  {
-    label: (
-      <TabContainer>
-        <TabIcon Icon={GiGladius} />
-        Battle
-      </TabContainer>
-    ),
-    id: "battle",
-    content: <Battle />,
-  },
-  {
-    label: (
-      <TabContainer>
-        <TabIcon Icon={GiElectric} />
-        Magic
-      </TabContainer>
-    ),
-    id: "magic",
-    content: <Magic />,
-  },
-  {
-    label: (
-      <TabContainer>
-        <TabIcon Icon={GiDrinkMe} />
-        Items
-      </TabContainer>
-    ),
-    id: "items",
-    content: <Items />,
-  },
-  {
-    label: (
-      <TabContainer>
-        <TabIcon Icon={GiRetroController} />
-        Gameplay
-      </TabContainer>
-    ),
-    id: "misc",
-    content: <Gameplay />,
-  },
-  {
-    label: (
-      <TabContainer>
-        <TabIcon Icon={GiPaintBrush} />
-        <span>Graphics</span>
-      </TabContainer>
-    ),
-    id: "Graphics",
-    content: <Graphics />,
-  },
-  {
-    label: (
-      <TabContainer>
-        <TabIcon Icon={GiMagnifyingGlass} />
-        Accessibility & Fixes
-      </TabContainer>
-    ),
-    id: "accessibility",
-    content: <AccessibilityAndFixes />,
-  },
-].filter((z) => !!z) as TabItem[];
-
 export const FlagCreatePage = ({ objectives, presets, schema }: PageProps) => {
+  const tabs: TabItem[] = useMemo(
+    () =>
+      [
+        {
+          label: (
+            <TabContainer>
+              <TabIcon Icon={HiCog} />
+              Settings
+            </TabContainer>
+          ),
+
+          id: "settings",
+          content: <Settings presets={presets} />,
+        },
+        {
+          label: (
+            <TabContainer>
+              <TabIcon Icon={HiOutlineViewList} />
+              Objectives
+            </TabContainer>
+          ),
+          content: <Objectives />,
+          id: "objectives",
+        },
+        {
+          label: (
+            <TabContainer>
+              <TabIcon Icon={HiUserGroup} />
+              Party
+            </TabContainer>
+          ),
+          id: "party",
+          content: <Party />,
+        },
+        {
+          label: (
+            <TabContainer>
+              <TabIcon Icon={GiWizardStaff} />
+              Commands
+            </TabContainer>
+          ),
+          id: "commands",
+          content: <Commands />,
+        },
+        {
+          label: (
+            <TabContainer>
+              <TabIcon Icon={GiGladius} />
+              Battle
+            </TabContainer>
+          ),
+          id: "battle",
+          content: <Battle />,
+        },
+        {
+          label: (
+            <TabContainer>
+              <TabIcon Icon={GiElectric} />
+              Magic
+            </TabContainer>
+          ),
+          id: "magic",
+          content: <Magic />,
+        },
+        {
+          label: (
+            <TabContainer>
+              <TabIcon Icon={GiDrinkMe} />
+              Items
+            </TabContainer>
+          ),
+          id: "items",
+          content: <Items />,
+        },
+        {
+          label: (
+            <TabContainer>
+              <TabIcon Icon={GiRetroController} />
+              Gameplay
+            </TabContainer>
+          ),
+          id: "misc",
+          content: <Gameplay />,
+        },
+        {
+          label: (
+            <TabContainer>
+              <TabIcon Icon={GiPaintBrush} />
+              <span>Graphics</span>
+            </TabContainer>
+          ),
+          id: "Graphics",
+          content: <Graphics />,
+        },
+        {
+          label: (
+            <TabContainer>
+              <TabIcon Icon={GiMagnifyingGlass} />
+              Accessibility & Fixes
+            </TabContainer>
+          ),
+          id: "accessibility",
+          content: <AccessibilityAndFixes />,
+        },
+      ].filter((z) => !!z) as TabItem[],
+    [presets]
+  );
   const [selected, setSelected] = useState<TabItem | null>(tabs[0]);
   const dispatch = useDispatch();
 
@@ -188,7 +193,7 @@ export const FlagCreatePage = ({ objectives, presets, schema }: PageProps) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
+      <AppHeader />
       <main className="WC-Page dark:bg-slate-800">
         <div className={"w-11/12 lg:w-10/12  m-auto"}>
           <Tab.Group onChange={(idx) => setSelected(tabs[idx])}>

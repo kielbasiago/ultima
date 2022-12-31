@@ -1,32 +1,25 @@
 import type { NextPage } from "next";
 import { FlagCreatePage } from "~/components/FlagCreatePage/FlagCreatePage";
-import { SeedbotPreset, SeedOfTheWeek } from "~/page-components/Settings";
 import { setObjectiveMetadata } from "~/state/objectiveSlice";
 import { RawFlagMetadata, setSchema } from "~/state/schemaSlice";
 import { wrapper } from "~/state/store";
 import { ObjectiveMetadata } from "~/types/objectives";
+import { FlagPreset } from "~/types/preset";
 
 type PageProps = {
   objectives: ObjectiveMetadata;
-  presets: Record<string, SeedbotPreset>;
+  presets: Record<string, FlagPreset>;
   schema: Record<string, RawFlagMetadata>;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async ({}) => {
-      const sotwPromise = fetch(
-        "https://storage.googleapis.com/seedbot/sotw_db.json"
-      );
-
       const presetPromise = fetch(
         "https://storage.googleapis.com/seedbot/user_presets.json"
       );
-      const sotw: Record<string, SeedOfTheWeek> = await (
-        await sotwPromise
-      ).json();
 
-      const presets: Record<string, SeedbotPreset> = await (
+      const presets: Record<string, FlagPreset> = await (
         await presetPromise
       ).json();
 
@@ -42,8 +35,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
         `${protocol}://${process.env.VERCEL_URL}/api/metadata/objective`
       );
       const objectives = await objectivesResponse.json();
-
-      console.log("OBJECTIVOES", objectives);
 
       await store.dispatch(setObjectiveMetadata(objectives));
 

@@ -8,6 +8,7 @@ export type SpriteDrawProps = {
   onClick?: () => void;
   rgbBytes: number[];
   scale: number;
+  variant?: "full" | "half";
 };
 
 const width = 16;
@@ -19,11 +20,12 @@ export const SpriteDraw = ({
   onClick,
   rgbBytes,
   scale = 3,
+  variant = "full",
 }: SpriteDrawProps) => {
   const ref = useRef<HTMLCanvasElement | null>(null);
   useEffect(() => {
     const canvas = ref.current;
-    if (!canvas) {
+    if (!canvas || !rgbBytes.length) {
       return;
     }
 
@@ -36,7 +38,7 @@ export const SpriteDraw = ({
       width * scale,
       height * scale
     );
-  }, [alphaBytes, ref, rgbBytes, scale]);
+  }, [alphaBytes, ref, rgbBytes, scale, variant]);
 
   return (
     <canvas

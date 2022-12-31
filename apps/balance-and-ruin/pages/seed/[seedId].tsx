@@ -9,6 +9,7 @@ import { CodeBlock, Header } from "@ff6wc/ui";
 import { SeedCard, SeedData } from "~/components/SeedCard/SeedCard";
 import { Card } from "@ff6wc/ui";
 import { setRawFlags } from "~/state/flagSlice";
+import { AppHeader } from "~/components/AppHeader/AppHeader";
 
 type PathParams = {
   seedId: string;
@@ -62,7 +63,7 @@ export default function SeedId({ seed, seedId }: Props) {
         <meta name="description" content={log} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
+      <AppHeader />
       <div className="flex flex-col gap-6 items-center px-12 py-6">
         <Card className="max-w-[1200px]" title={"Log"}>
           <CardColumn>

@@ -4,7 +4,7 @@ type BaseButtonProps = React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
   HTMLButtonElement
 >;
-const b = cva(["px-4 py-2", "text-base", "rounded-none", "transition-all"], {
+const b = cva(["px-4 py-3", "text-base", "rounded-none", "transition-all"], {
   variants: {
     disabled: {
       true: "opacity-40 cursor-not-allowed",
@@ -28,9 +28,11 @@ const b = cva(["px-4 py-2", "text-base", "rounded-none", "transition-all"], {
         "border-inputs-border border-1",
         "bg-inputs-background",
 
-        "border-1 border-inputs-border",
+        "border-2 border-inputs-border",
         "bg-inputs-background",
         "outline-transparent",
+
+        "dark:bg-transparent dark:border-white-500 dark:text-white dark:bg-black dark:bg-opacity-40",
       ],
     },
   },

@@ -2,8 +2,6 @@ import BaseLink from "next/link";
 
 export type FooterProps = {};
 
-const jdmUrl = "https://github.com/emberling/johnnydmad";
-
 const secondaryText =
   "Final Fantasy VI: Worlds Collide is an unofficial fan project not affiliated in any way with Square Enix";
 

@@ -1,53 +1,13 @@
 import { PresetsCard } from "~/card-components/PresetsCard";
-import { PageColumn } from "~/components/PageColumn/PageColumn";
 import { PageContainer } from "~/components/PageContainer/PageContainer";
 import startCase from "lodash/startCase";
 import { SelectOption } from "~/components/Select/Select";
 import { useMemo } from "react";
 import { SettingsCard } from "~/card-components/SettingsCard";
-
-export type SeedOfTheWeek = {
-  create_date: string;
-  creator: string;
-  header_msg_id: string;
-  leaderboard_header_id: string;
-  name: string;
-  participants_msg_id: string;
-  rankings_msg_id: string;
-  runners: Record<
-    string,
-    {
-      id: string;
-      finish_time: string;
-      timestamp: string;
-    }
-  >;
-  seed: string;
-  spoiler_splitter_id: string;
-  submitter: string;
-};
-
-export type SeedbotPreset = {
-  arguments: string;
-  creator: string;
-  creator_id: number;
-  description: string;
-  /** flags */
-  flags: string;
-  /** label */
-  name: string;
-};
-
-// const usePresets = () => {
-//   return useSWR(["presets"], async () => {
-//     const rawData: Record<string, SeedOfTheWeek> = await response.json();
-
-//     return sotw;
-//   });
-// };
+import { FlagPreset } from "~/types/preset";
 
 type PresetsProps = {
-  presets: Record<string, SeedbotPreset>;
+  presets: Record<string, FlagPreset>;
 };
 
 export const Settings = ({ presets: rawPresets }: PresetsProps) => {

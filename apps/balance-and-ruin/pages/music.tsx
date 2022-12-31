@@ -5,6 +5,7 @@ import { MusicFooter } from "~/components/Footer/Footer";
 import { GenerateJohnnydmadCard } from "~/components/GenerateJohnnydmadCard/GenerateJohnnydmadCard";
 import { Header } from "@ff6wc/ui";
 import { wrapper } from "~/state/store";
+import { AppHeader } from "~/components/AppHeader/AppHeader";
 
 type PageProps = {};
 
@@ -28,7 +29,7 @@ const MusicPage: NextPage<PageProps> = ({}: PageProps) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
+      <AppHeader />
       <div className="flex-grow p-8 dark:bg-slate-800">
         <CardColumn>
           <GenerateJohnnydmadCard />

@@ -1,15 +1,15 @@
-import { cva } from "cva";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
-import { Footer } from "~/components/Footer/Footer";
+import { MusicFooter } from "~/components/Footer/Footer";
 import { CodeBlock, Header } from "@ff6wc/ui";
 import { MusicSeedCard } from "~/components/MusicSeedCard/MusicSeedCard";
 import { SeedData } from "~/components/SeedCard/SeedCard";
 import { Card } from "@ff6wc/ui";
 import { setRawFlags } from "~/state/flagSlice";
+import { AppHeader } from "~/components/AppHeader/AppHeader";
 
 type PathParams = {
   seedId: string;
@@ -69,7 +69,7 @@ export default function SeedId({ seed, seedId }: Props) {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
+      <AppHeader />
       <div className="flex flex-col gap-6 items-center px-12 py-6">
         <Card className="max-w-[1200px]" title={"Log"}>
           <CardColumn>
@@ -79,7 +79,7 @@ export default function SeedId({ seed, seedId }: Props) {
 
         <MusicSeedCard seed={seed} />
       </div>
-      <Footer />
+      <MusicFooter />
     </>
   );
 }

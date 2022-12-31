@@ -1,10 +1,8 @@
 import { Button } from "@ff6wc/ui";
 import { useDispatch, useSelector } from "react-redux";
-import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
+import { setFlag } from "~/state/flagSlice";
 import {
   normalizeObjectives,
-  normalizeObjectivesArr,
-  removeObjective,
   selectObjectiveResultMetadataById,
   selectObjectives,
   setObjectives,

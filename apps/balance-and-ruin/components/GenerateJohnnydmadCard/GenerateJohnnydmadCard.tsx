@@ -2,6 +2,7 @@ import { Button, Card, HelperText, Input, Link } from "@ff6wc/ui";
 import { cx } from "cva";
 import JSZip from "jszip";
 import first from "lodash/first";
+import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import { MdClear, MdFileUpload } from "react-icons/md";
 import useSWRMutation from "swr/mutation";
@@ -24,6 +25,7 @@ export const GenerateJohnnydmadCard = ({
   className,
   ...rest
 }: GenerateJohnnydmadProps) => {
+  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [romName, setRomName] = useState<string | null>(null);
   const [romData, setRomData] = useState<string | null>(null);
@@ -76,6 +78,7 @@ export const GenerateJohnnydmadCard = ({
       link.href = window.URL.createObjectURL(content);
       link.download = `${filename}.zip`;
       link.click();
+      router.push(`/music/seed/${seed_id}`);
     });
   };
 

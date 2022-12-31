@@ -29,7 +29,7 @@ export const AppHeader = (props: AppHeaderProps) => {
     <Header className="WC-header">
       <div className="flex gap-3 flex-wrap justify-center">
         <DiscordButton />
-        <ButtonLink href="/sotw/active">
+        <ButtonLink href="/sotw">
           {showSprite ? (
             <SpriteDrawLoad
               paletteId={palette_id as number}

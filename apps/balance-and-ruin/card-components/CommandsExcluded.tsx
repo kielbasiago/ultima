@@ -2,6 +2,7 @@ import {
   ALL_COMMANDS,
   CommandOption,
   FIGHT,
+  LEAP,
   NONE,
   NONE_OPTION,
   RANDOM,
@@ -18,13 +19,13 @@ import { FlagSelectOption } from "~/components/FlagSelectOption/FlagSelectOption
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 
 const hoistedOptions = [RANDOM, RANDOM_UNIQUE, NONE];
-const nonExcludable = [FIGHT];
+const nonExcludable = [FIGHT, LEAP];
 
 const rawOptions = Object.values(ALL_COMMANDS).filter(
   ({ id }) => !hoistedOptions.includes(id) && !nonExcludable.includes(id)
 );
 
-const options: CommandOption[] = [
+const allOptions: CommandOption[] = [
   NONE_OPTION,
   ...orderBy(rawOptions, ({ label }) => label),
 ];
@@ -33,12 +34,26 @@ type ExcludeSelectProps = {
   flag: string;
 };
 
+const useExcludedCommands = () => {
+  const rec1 = useFlagValueSelector("-rec1");
+  const rec2 = useFlagValueSelector("-rec2");
+  const rec3 = useFlagValueSelector("-rec3");
+  const rec4 = useFlagValueSelector("-rec4");
+  const rec5 = useFlagValueSelector("-rec5");
+  const rec6 = useFlagValueSelector("-rec6");
+  return useMemo(
+    () => [rec1, rec2, rec3, rec4, rec5, rec6],
+    [rec1, rec2, rec3, rec4, rec5, rec6]
+  );
+};
+
 export const ExcludeSelect = ({ flag }: ExcludeSelectProps) => {
+  const excludedValues = useExcludedCommands();
   const dispatch = useDispatch();
   const id = useId();
   const value = useFlagValueSelector<number>(flag);
   const selectedOption = useMemo(
-    () => options.find(({ id }) => id === value) ?? NONE_OPTION,
+    () => allOptions.find(({ id }) => id === value) ?? NONE_OPTION,
     [value]
   );
   const onChange = (val: CommandOption | null) => {
@@ -49,6 +64,11 @@ export const ExcludeSelect = ({ flag }: ExcludeSelectProps) => {
       })
     );
   };
+
+  const options = useMemo(
+    () => allOptions.filter(({ id }) => !excludedValues.includes(id)),
+    [excludedValues]
+  );
 
   return (
     <BaseSelect

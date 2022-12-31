@@ -17,7 +17,7 @@ export const SketchControl = () => {
           flag="-fs"
           invert
           label="Restore Sketch Glitch"
-          helperText="Restore potential game-breaking glitch that occur when sketch misses its target"
+          helperText="Restore potential game-breaking glitch that occurs when Sketch misses its target"
         />
       </CardColumn>
     </Card>

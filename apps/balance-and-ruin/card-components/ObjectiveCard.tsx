@@ -1,6 +1,5 @@
 import { Card } from "@ff6wc/ui";
 import { Divider } from "@ff6wc/ui/Divider/Divider";
-import first from "lodash/first";
 import { useDispatch, useSelector } from "react-redux";
 import { SingleValue } from "react-select";
 import { ObjectiveAddConditionButton } from "~/components/ObjectiveAddConditionButton/ObjectiveAddConditionButton";

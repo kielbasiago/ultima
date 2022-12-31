@@ -117,6 +117,8 @@ we still enforce color-scheme: dark, despite the user preference */
   .ff6wc-select-container * {
     @apply transition-colors duration-75;
     @apply outline-0;
+    @apply font-montserrat;
+    @apply font-normal;
   }
 
   .ff6wc-select-container .ff6wc-select__control {

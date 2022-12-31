@@ -1,7 +1,6 @@
 export * from "./Button/Button";
 export * from "./Card/Card";
 export * from "./CodeBlock/CodeBlock";
-export * from "./FormLabel/FormLabel";
 export * from "./Header/Header";
 export * from "./HelperText/HelperText";
 export * from "./Input/Input";

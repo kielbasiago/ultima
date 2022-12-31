@@ -1,3 +1,5 @@
+const plugin = require('tailwindcss/plugin');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
@@ -52,5 +54,11 @@ module.exports = {
       4: "4px",
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function({ addBase }) {
+      addBase({
+         'html': { fontSize: "20px" },
+       })
+     }),
+  ],
 };

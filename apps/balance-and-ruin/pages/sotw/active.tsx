@@ -35,14 +35,12 @@ const ActiveSOTW: NextPage<PageProps> = ({ sotw }: PageProps) => {
     [latestId, sotw]
   );
 
+  const desc = `${latest.name}\n\nCreated by ${latest.submitter}\n\nDownload at ${latest.seed}`;
   return (
     <div className="flex flex-col h-full items-center">
       <Head>
-        <title>Seed of the Week - FF6WC</title>
-        <meta
-          name="description"
-          content="A Final Fantasy VI open-world randomizer"
-        />
+        <title>FF6WC - Seed of the Week</title>
+        <meta name="description" content={desc} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <AppHeader />

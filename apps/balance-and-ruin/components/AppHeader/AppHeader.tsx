@@ -28,27 +28,32 @@ export const AppHeader = (props: AppHeaderProps) => {
     Number.isFinite(palette_id) &&
     Number.isFinite(pose_id) &&
     Number.isFinite(sprite_id);
+  const disabled = true;
   const buttons = (
-    <Link href="/sotw/active">
-      <Button
-        className={cx(
-          montserrat.className,
-          "inline-flex gap-2 items-center font-montserrat text-2xl font-bold"
-        )}
-        variant="outline"
-      >
-        {showSprite ? (
-          <SpriteDrawLoad
-            paletteId={palette_id as number}
-            poseId={pose_id as number}
-            spriteId={sprite_id as number}
-            scale={2}
-            variant={"half"}
-          />
-        ) : null}
-        Seed of the Week
-      </Button>
-    </Link>
+    // <Link href="/sotw/active" className={disabled ? "select-none" : undefined}>
+    <Button
+      className={cx(
+        montserrat.className,
+        "inline-flex gap-2 items-center font-montserrat text-2xl font-bold"
+      )}
+      disabled={disabled}
+      variant="outline"
+    >
+      {showSprite ? (
+        <SpriteDrawLoad
+          paletteId={palette_id as number}
+          poseId={pose_id as number}
+          spriteId={sprite_id as number}
+          scale={2}
+          variant={"half"}
+        />
+      ) : null}
+      <div className="flex flex-col items-center">
+        <p>Seed of the Week</p>
+        <p className="text-sm">(Coming soon!)</p>
+      </div>
+    </Button>
+    // </Link>
   );
   return <Header buttons={buttons} />;
 };

@@ -35,6 +35,7 @@ import { RawFlagMetadata, setSchema } from "~/state/schemaSlice";
 import { ObjectiveMetadata } from "~/types/objectives";
 import { FlagPreset } from "~/types/preset";
 import { AppHeader } from "~/components/AppHeader/AppHeader";
+import { PageContainer } from "~/components/PageContainer/PageContainer";
 
 type PageProps = {
   objectives: ObjectiveMetadata;
@@ -216,12 +217,17 @@ export const FlagCreatePage = ({ objectives, presets, schema }: PageProps) => {
           </Tab.Group>
         </div>
       </main>
-      <div className="flex p-8 dark:bg-slate-800 justify-center">
-        <CardColumn>
-          <FlagsCard />
-          <GenerateCard />
-        </CardColumn>
-      </div>
+      <PageContainer
+        className="WC-footer dark:bg-slate-800 flex-1 min-w-full"
+        columns={1}
+      >
+        <div className="flex p-8  justify-center">
+          <CardColumn>
+            <FlagsCard />
+            <GenerateCard />
+          </CardColumn>
+        </div>
+      </PageContainer>
       <Footer />
     </>
   );

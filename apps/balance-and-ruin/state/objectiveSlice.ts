@@ -67,10 +67,13 @@ export const normalizeObjectivesArr = (objectives: Objective[]) => {
       const [minReq, maxReq] = requiredConditions;
       const logicalConditions = conditions.filter((z) => z.id !== "0");
 
-      const minRequired = Math.min(minReq ?? 0, logicalConditions.length);
-      const maxRequired = Math.min(
-        maxReq ?? conditions.length,
-        logicalConditions.length
+      const minRequired = Math.max(
+        Math.min(minReq ?? 0, logicalConditions.length),
+        0
+      );
+      const maxRequired = Math.max(
+        Math.min(maxReq ?? conditions.length, logicalConditions.length),
+        0
       );
 
       return {

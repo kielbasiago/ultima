@@ -4,8 +4,10 @@ module.exports = {
     "./components/**/*.{ts,tsx}",
     "./pages/**/*.{ts,tsx}",
     "./styles/*.css",
+    "../../packages/ui/*.{ts,tsx}",
     "../../packages/ui/**/*.{ts,tsx}",
-    "../../packages/ui/*.{ts,tsx}"
+    "../../packages/utils/*.{ts,tsx}",
+    "../../packages/utils/**/*.{ts,tsx}",
   ],
   presets: [
     require('@ff6wc/tailwind-config')

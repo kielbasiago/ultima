@@ -2,8 +2,7 @@ import { Button, Header } from "@ff6wc/ui";
 import SpriteDrawLoad from "~/components/SpriteDrawLoad/SpriteDrawLoad";
 import useSWR from "swr";
 import { cx } from "cva";
-import { montserrat } from "~/utils/fonts";
-import Link from "next/link";
+import { montserrat } from "@ff6wc/utils/fonts";
 
 export type AppHeaderProps = Record<string, unknown>;
 
@@ -55,5 +54,5 @@ export const AppHeader = (props: AppHeaderProps) => {
     </Button>
     // </Link>
   );
-  return <Header buttons={buttons} />;
+  return <Header buttons={buttons} className="WC-header" />;
 };

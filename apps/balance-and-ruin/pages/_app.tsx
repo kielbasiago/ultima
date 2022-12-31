@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import { Schema } from "~/state/schemaSlice";
 import { wrapper } from "~/state/store";
 import "~/styles/globals.css";
-import { roboto } from "~/utils/fonts";
+import { roboto } from "@ff6wc/utils/fonts";
 
 const client = new QueryClient({});
 

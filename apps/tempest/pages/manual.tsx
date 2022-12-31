@@ -7,6 +7,7 @@ import { wrapper } from "~/state/store";
 import { TrackerMode } from "~/types/tracker";
 import { Footer } from "~/components/Footer/Footer";
 import { Header } from "@ff6wc/ui";
+import { TempestHeader } from "~/components/TempestHeader/TempestHeader";
 
 type PageProps = {};
 
@@ -30,7 +31,7 @@ const Manual: NextPage<PageProps> = ({}: PageProps) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
+      <TempestHeader />
       <PageContainer>
         <EmoTracker mode={TrackerMode.MANUAL}>
           <EmoTrackerLayout />

@@ -7,6 +7,7 @@ import { RowSimple } from "~/components/EmoTracker/RowSimple";
 import { PageContainer } from "~/components/PageContainer";
 import { wrapper } from "~/state/store";
 import { TrackerMode } from "~/types/tracker";
+import { TempestHeader } from "~/components/TempestHeader/TempestHeader";
 type PageProps = {};
 
 export const getServerSideProps = wrapper.getServerSideProps(
@@ -29,7 +30,7 @@ const AutoSimple: NextPage<PageProps> = ({}: PageProps) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
+      <TempestHeader />
       <PageContainer>
         <EmoTracker mode={TrackerMode.AUTO}>
           <RowSimple />

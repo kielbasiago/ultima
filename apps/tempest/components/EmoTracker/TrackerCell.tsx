@@ -12,6 +12,7 @@ import { checkToAsset } from "@ff6wc/ff6-types";
 import { getAssetUrl } from "~/utils/getAssetUrl";
 import { cx } from "cva";
 import Image from "next/image";
+import { montserrat } from "~/../../packages/utils/fonts";
 
 type Props = {
   cell: LayoutCell | LayoutNumberCell;
@@ -97,7 +98,14 @@ export function TrackerCell(props: Props): JSX.Element {
     const adornment =
       value === 0 ? null : (
         <div className={"overlay"}>
-          <div className={cx("overlay-content flex", "text-3xl", "font-mono")}>
+          <div
+            className={cx(
+              montserrat.className,
+              "overlay-content flex",
+              "text-xl",
+              "font-mono"
+            )}
+          >
             <span className={cx(className)} style={{ lineHeight: "22px" }}>
               {adornmentValue}
             </span>

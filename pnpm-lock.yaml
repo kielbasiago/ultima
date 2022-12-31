@@ -373,6 +373,7 @@ importers:
 
   packages/utils:
     specifiers:
+      '@next/font': 13.0.5
       '@types/react': 18.0.25
       '@types/react-dom': 18.0.9
       eslint: ^7.23.0
@@ -385,6 +386,7 @@ importers:
       react-dom: ^18.2.0
       typescript: latest
     dependencies:
+      '@next/font': 13.0.5
       '@types/react': 18.0.25
       '@types/react-dom': 18.0.9
       eslint: 7.32.0

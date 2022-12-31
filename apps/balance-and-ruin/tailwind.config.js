@@ -8,7 +8,9 @@ module.exports = {
     "./pages/*.{ts,tsx}",
     "./page-components/*.{ts,tsx}",
     "./styles/*.css",
+    "../../packages/ui/*.{ts,tsx}",
     "../../packages/ui/**/*.{ts,tsx}",
+    "../../packages/utils/*.{ts,tsx}",
     "../../packages/utils/**/*.{ts,tsx}",
   ],
   presets: [

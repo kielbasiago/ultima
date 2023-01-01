@@ -14,11 +14,11 @@ type Props = {
 
 export const SotwPage = ({ head, id, sotw }: Props) => {
   return (
-    <div className="flex flex-col h-full items-center justify-center">
+    <>
       {head}
       <AppHeader />
 
-      <div className="flex flex-col flex-grow gap-4 max-w-[900px] text-center items-center p-4">
+      <main className="flex flex-col flex-grow gap-4 max-w-[900px] text-center items-center p-4">
         <h1 className="text-3xl md:text-5xl">Seed of the Week</h1>
 
         <p className="text-sm md:text-base">
@@ -34,8 +34,8 @@ export const SotwPage = ({ head, id, sotw }: Props) => {
         </p>
 
         <SotwCard sotwId={id} sotw={sotw} />
-      </div>
+      </main>
       <Footer />
-    </div>
+    </>
   );
 };

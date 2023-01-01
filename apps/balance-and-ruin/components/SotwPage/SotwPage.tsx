@@ -22,8 +22,8 @@ export const SotwPage = ({ head, id, sotw }: Props) => {
         <h1 className="text-3xl md:text-5xl">Seed of the Week</h1>
 
         <p className="text-sm md:text-base">
-          Seed of the Week (SotW) is weekly race showcase of flags submitted by
-          community members that changes week-to-week. To submit your own
+          Seed of the Week (SotW) is weekly race and showcase of flags submitted
+          by community members that change week-to-week. To submit your own
           flagset for Seed of the Week, use the&nbsp;
           <Link href={SOTW_SUBMISSION_URL}>form found here</Link>
         </p>

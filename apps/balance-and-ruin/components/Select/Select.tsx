@@ -12,7 +12,7 @@ export type SelectOption = {
 
 type SelectProps = {
   className?: string;
-  containerClassName: string;
+  containerClassName?: string;
   components?: SelectComponentsConfig<SelectOption, false, any>;
   defaultValue?: SelectOption;
   /** When true, pressing arrow key up/down on a closed select option will select the next option. */

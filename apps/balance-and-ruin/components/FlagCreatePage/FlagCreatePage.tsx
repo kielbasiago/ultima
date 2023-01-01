@@ -190,7 +190,7 @@ export const FlagCreatePage = ({ objectives, presets, schema }: PageProps) => {
         <title>FF6WC</title>
         <meta
           name="description"
-          content="A Final Fantasy VI open-world randomizer"
+          content="Final Fantasy VI open-world randomizer"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>

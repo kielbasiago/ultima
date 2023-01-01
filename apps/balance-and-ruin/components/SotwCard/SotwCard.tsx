@@ -15,7 +15,7 @@ export const SotwCard = ({ sotw, sotwId }: Props) => {
         roboto.className
       )}
     >
-      <h2 className="pt-5 px-4 text-2xl font-mono">SotW {sotwId}</h2>
+      <h2 className="px-4 text-2xl font-mono">SotW {sotwId}</h2>
       <h2 className="text-3xl px-4 font-mono font-bold">{sotw.name}</h2>
       <p className="text-sm px-4">Submitted by {sotw.submitter}</p>
       <p className="text-base px-2">{sotw.description}</p>

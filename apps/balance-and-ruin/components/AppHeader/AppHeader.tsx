@@ -30,7 +30,7 @@ export const AppHeader = (props: AppHeaderProps) => {
       <Header className={"flex"}>
         {/* <div className="flex gap-3 flex-wrap justify-center"></div> */}
       </Header>
-      <div className="flex flex-col md:flex-row justify-center items-center gap-4 p-5">
+      <div className="flex flex-wrap justify-center items-center gap-4 p-5">
         <ButtonLink className="w-fit" href="/sotw">
           {showSprite ? (
             <SpriteDrawLoad
@@ -43,7 +43,7 @@ export const AppHeader = (props: AppHeaderProps) => {
           ) : null}
           <div>
             <p className={"hidden md:inline"}>Seed of the Week</p>
-            <p className={"inline md:hidden"}>Seed of the Week</p>
+            <p className={"inline md:hidden"}>Sotw</p>
           </div>
         </ButtonLink>
         <DiscordButton />

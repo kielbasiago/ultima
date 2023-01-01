@@ -102,7 +102,7 @@ export function TrackerCell(props: Props): JSX.Element {
             className={cx(
               montserrat.className,
               "overlay-content flex",
-              "text-xl",
+              "text-sm sm:text-lg",
               "font-mono"
             )}
           >

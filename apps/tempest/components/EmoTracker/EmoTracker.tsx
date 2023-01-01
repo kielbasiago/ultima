@@ -127,7 +127,7 @@ export function Tracker({ children, mode }: Props): JSX.Element {
 
   return (
     <TrackerContext.Provider value={providerData}>
-      <div className="flex flex-col gap-2 relative p-12">
+      <div className="flex flex-col gap-2 relative">
         {children}
         {session.error ? (
           <OverlayMessage message={session.error} />
@@ -137,7 +137,7 @@ export function Tracker({ children, mode }: Props): JSX.Element {
           <OverlayMessage message={`${last(logs.current)}`} />
         ) : null}
       </div>
-      <div className="my-12 gap-4 flex justify-center">
+      <div className="">
         {/* <Button onClick={disconnect}>Disconnect</Button>
         <Button onClick={connect}>Connect</Button> */}
         {mode === "MANUAL" && (

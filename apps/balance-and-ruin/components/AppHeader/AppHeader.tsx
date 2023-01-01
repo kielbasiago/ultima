@@ -42,8 +42,7 @@ export const AppHeader = (props: AppHeaderProps) => {
             />
           ) : null}
           <div>
-            <p className={"hidden md:inline"}>Seed of the Week</p>
-            <p className={"inline md:hidden"}>Sotw</p>
+            <p>Seed of the Week</p>
           </div>
         </ButtonLink>
         <DiscordButton />

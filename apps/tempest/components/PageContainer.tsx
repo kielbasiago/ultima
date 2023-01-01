@@ -4,7 +4,7 @@ export type PageContainerProps = {
 
 export const PageContainer = ({ children }: PageContainerProps) => {
   return (
-    <main className="WC-Page WC-page flex flex-col items-center p-12 pt-0 h-full">
+    <main className="WC-Page WC-page flex flex-col gap-8 items-center px-4 h-full">
       {children}
     </main>
   );

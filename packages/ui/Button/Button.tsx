@@ -63,7 +63,11 @@ export const Button = ({
   return (
     <button
       {...props}
-      className={cx(className, buttonStyles({ disabled, p, variant }))}
+      className={cx(
+        "WC-button",
+        className,
+        buttonStyles({ disabled, p, variant })
+      )}
       disabled={disabled}
     >
       {children}

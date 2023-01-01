@@ -4,6 +4,7 @@ export type SeedOfTheWeek = {
   header_msg_id: string;
   leaderboard_header_id: string;
   name: string;
+  description: string;
   participants_msg_id: string;
   rankings_msg_id: string;
   runners: Record<

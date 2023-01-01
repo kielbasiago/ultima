@@ -48,12 +48,14 @@ type TabLabel = {
 
 export type TabItemProps = VariantProps<typeof tabStyles> & {
   children: React.ReactNode;
+  className?: string;
 };
 
-export const TabLabel = ({ children, selected }: TabItemProps) => {
+export const TabLabel = ({ children, className, selected }: TabItemProps) => {
   return (
     <Tab
       className={tabStyles({
+        className,
         selected,
       })}
     >

@@ -26,10 +26,12 @@ export const AppHeader = (props: AppHeaderProps) => {
     Number.isFinite(pose_id) &&
     Number.isFinite(sprite_id);
   return (
-    <Header className="WC-header">
-      <div className="flex gap-3 flex-wrap justify-center">
-        <DiscordButton />
-        <ButtonLink href="/sotw">
+    <div>
+      <Header className={"flex"}>
+        {/* <div className="flex gap-3 flex-wrap justify-center"></div> */}
+      </Header>
+      <div className="flex flex-col md:flex-row justify-center items-center gap-4 p-5">
+        <ButtonLink className="w-fit" href="/sotw">
           {showSprite ? (
             <SpriteDrawLoad
               paletteId={palette_id as number}
@@ -39,11 +41,13 @@ export const AppHeader = (props: AppHeaderProps) => {
               variant={"half"}
             />
           ) : null}
-          <div className="flex flex-col items-center">
-            <p>Seed of the Week</p>
+          <div>
+            <p className={"hidden md:inline"}>Seed of the Week</p>
+            <p className={"inline md:hidden"}>Seed of the Week</p>
           </div>
         </ButtonLink>
+        <DiscordButton />
       </div>
-    </Header>
+    </div>
   );
 };

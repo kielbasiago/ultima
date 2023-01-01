@@ -6,11 +6,10 @@ import { Deprecated } from "~/components/Deprecated/Deprecated";
 import { PageContainer } from "~/components/PageContainer/PageContainer";
 import { selectSettings } from "~/state/settingsSlice";
 
-export const Accessibility = () => {
+export const Fixes = () => {
   const { showDeprecated } = useSelector(selectSettings);
   return (
     <PageContainer columns={1}>
-      <AccessibilityCard />
       <Deprecated>
         <BugFixes />
         <BossAI />

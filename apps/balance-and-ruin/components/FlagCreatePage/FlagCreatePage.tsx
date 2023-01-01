@@ -5,6 +5,7 @@ import Head from "next/head";
 import React, { useEffect, useMemo, useState } from "react";
 import type { IconType } from "react-icons";
 import {
+  GiBrokenWall,
   GiDrinkMe,
   GiElectric,
   GiGladius,
@@ -16,13 +17,15 @@ import {
 import { HiCog, HiOutlineViewList, HiUserGroup } from "react-icons/hi";
 import { useDispatch } from "react-redux";
 import { FlagsCard } from "~/card-components/Flags";
+import { AppHeader } from "~/components/AppHeader/AppHeader";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { Footer } from "~/components/Footer/Footer";
 import { GenerateCard } from "~/components/GenerateCard/GenerateCard";
-import { Header } from "@ff6wc/ui";
-import { AccessibilityAndFixes } from "~/page-components/Accessibility";
+import { PageContainer } from "~/components/PageContainer/PageContainer";
+import { Accessibility } from "~/page-components/Accessibility";
 import { Battle } from "~/page-components/Battle";
 import { Commands } from "~/page-components/Commands";
+import { Fixes } from "~/page-components/Fixes";
 import { Gameplay } from "~/page-components/Gameplay";
 import { Graphics } from "~/page-components/Graphics";
 import { Items } from "~/page-components/Items";
@@ -34,8 +37,6 @@ import { setObjectiveMetadata } from "~/state/objectiveSlice";
 import { RawFlagMetadata, setSchema } from "~/state/schemaSlice";
 import { ObjectiveMetadata } from "~/types/objectives";
 import { FlagPreset } from "~/types/preset";
-import { AppHeader } from "~/components/AppHeader/AppHeader";
-import { PageContainer } from "~/components/PageContainer/PageContainer";
 
 type PageProps = {
   objectives: ObjectiveMetadata;
@@ -44,6 +45,7 @@ type PageProps = {
 };
 
 type TabItem = {
+  className?: string;
   content: React.ReactNode;
   label: React.ReactNode;
   id: string;
@@ -167,11 +169,21 @@ export const FlagCreatePage = ({ objectives, presets, schema }: PageProps) => {
           label: (
             <TabContainer>
               <TabIcon Icon={GiMagnifyingGlass} />
-              Accessibility & Fixes
+              <span className="whitespace-nowrap">Accessibility</span>
             </TabContainer>
           ),
           id: "accessibility",
-          content: <AccessibilityAndFixes />,
+          content: <Accessibility />,
+        },
+        {
+          label: (
+            <TabContainer>
+              <TabIcon Icon={GiBrokenWall} />
+              <span>Fixes</span>
+            </TabContainer>
+          ),
+          id: "fixes",
+          content: <Fixes />,
         },
       ].filter((z) => !!z) as TabItem[],
     [presets]
@@ -195,13 +207,17 @@ export const FlagCreatePage = ({ objectives, presets, schema }: PageProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <AppHeader />
-      <main className="WC-Page dark:bg-slate-800">
-        <div className={"w-11/12 lg:w-10/12  m-auto"}>
+      <main className="WC-Page WC-page">
+        <div className={""}>
           <Tab.Group onChange={(idx) => setSelected(tabs[idx])}>
-            <div className="flex justify-center items-center">
-              <Tab.List className="p-5">
+            <div className="flex justify-center items-center py-4">
+              <Tab.List className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {tabs.map((tab) => (
-                  <TabLabel key={tab.id} selected={selected?.id === tab.id}>
+                  <TabLabel
+                    className={tab.className}
+                    key={tab.id}
+                    selected={selected?.id === tab.id}
+                  >
                     {tab.label}
                   </TabLabel>
                 ))}
@@ -217,16 +233,11 @@ export const FlagCreatePage = ({ objectives, presets, schema }: PageProps) => {
           </Tab.Group>
         </div>
       </main>
-      <PageContainer
-        className="WC-footer dark:bg-slate-800 flex-1 min-w-full"
-        columns={1}
-      >
-        <div className="flex p-8  justify-center">
-          <CardColumn>
-            <FlagsCard />
-            <GenerateCard />
-          </CardColumn>
-        </div>
+      <PageContainer>
+        <CardColumn>
+          <FlagsCard />
+          <GenerateCard />
+        </CardColumn>
       </PageContainer>
       <Footer />
     </>

@@ -42,25 +42,27 @@ export const Objectives = () => {
   };
 
   return (
-    <div className={"flex flex-col gap-4"}>
-      <Card title="Objectives">
-        <span>
-          <Button
-            disabled={objectives.length >= MAX_OBJECTIVE_COUNT}
-            onClick={onAddObjective}
-            variant="primary"
-          >
-            Add Objective
-          </Button>
-        </span>
-      </Card>
-      <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4">
-        {objectives.map((objective) => (
-          <div key={objective.flag}>
-            <ObjectiveCard key={objective.flag} objective={objective} />
-          </div>
-        ))}
+    <PageContainer>
+      <div className={"flex flex-col gap-4"}>
+        <Card title="Objectives">
+          <span>
+            <Button
+              disabled={objectives.length >= MAX_OBJECTIVE_COUNT}
+              onClick={onAddObjective}
+              variant="primary"
+            >
+              Add Objective
+            </Button>
+          </span>
+        </Card>
+        <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-2 gap-4">
+          {objectives.map((objective) => (
+            <div key={objective.flag}>
+              <ObjectiveCard key={objective.flag} objective={objective} />
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </PageContainer>
   );
 };

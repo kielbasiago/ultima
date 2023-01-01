@@ -14,12 +14,12 @@ export const TempestHeader = (props: AppHeaderProps) => {
   return (
     <div className={montserrat.className}>
       <Header>
-        <div className="flex gap-3">
-          <DiscordButton />
-          <ButtonLink href="/auto">Auto</ButtonLink>
-          <ButtonLink href="/manual">Manual</ButtonLink>
-        </div>
+        <div className="flex gap-3"></div>
       </Header>
+      <div className="flex justify-center gap-4 p-5">
+        <ButtonLink href="/auto">Auto</ButtonLink>
+        <ButtonLink href="/manual">Manual</ButtonLink>
+      </div>
     </div>
   );
 };

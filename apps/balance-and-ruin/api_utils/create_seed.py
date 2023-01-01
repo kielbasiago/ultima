@@ -1,7 +1,7 @@
 from api_utils.get_timestamp import get_timestamp
 
 
-def create_seed(seed_id, description, raw_patch: bytes, log, website_url, filename, flags):
+def create_seed(seed_id, description, raw_patch: bytes, log, website_url, filename, flags, seed_type):
   import base64
   from api_utils.get_db import get_db
   from api_utils.collections import PATCHES, SEEDS, SEED_DOWNLOADS, SPOILER_LOGS
@@ -12,13 +12,15 @@ def create_seed(seed_id, description, raw_patch: bytes, log, website_url, filena
     'seed_id': seed_id,
     'created_at': get_timestamp(),
     'description': description,
-    'flags': flags
+    'flags': flags,
+    'type': seed_type
   })
   
   patches = get_db().get_collection(PATCHES)
   patches.insert_one({
     'seed_id': seed_id,
-    'patch': patch
+    'patch': patch,
+    'type': seed_type
   })
 
   spoiler_logs = get_db().get_collection(SPOILER_LOGS)

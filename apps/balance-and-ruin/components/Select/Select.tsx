@@ -12,6 +12,7 @@ export type SelectOption = {
 
 type SelectProps = {
   className?: string;
+  containerClassName: string;
   components?: SelectComponentsConfig<SelectOption, false, any>;
   defaultValue?: SelectOption;
   /** When true, pressing arrow key up/down on a closed select option will select the next option. */
@@ -53,6 +54,7 @@ const ARROW_UP = "ArrowUp";
 const triggerableKeys = [ARROW_DOWN, ARROW_UP];
 export const Select = ({
   className,
+  containerClassName,
   components = {},
   defaultValue,
   options,
@@ -88,7 +90,7 @@ export const Select = ({
   const selectNextItem = useDebouncedCallback(_selectNextItem, 0);
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className={cx("flex flex-col gap-1", containerClassName)}>
       <BaseSelect
         className={cx(className, "ff6wc-select-container")}
         classNamePrefix={"ff6wc-select"}

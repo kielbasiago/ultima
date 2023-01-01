@@ -189,6 +189,7 @@ const partyComponents = {
 };
 
 const partySelectProps = {
+  containerClassName: "col-span-2 md:col-span-1",
   className: "ff6wc-party-select",
   components: partyComponents,
   defaultValue: noneOption,
@@ -240,7 +241,7 @@ export const StartingParty = () => {
 
   return (
     <Card title={"Starting Party"}>
-      <div className="grid grid-cols-2 gap-4 ">
+      <div className="grid grid-cols-2 gap-4">
         <Select
           {...partySelectProps}
           onChange={onChange("-sc1")}

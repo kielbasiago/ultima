@@ -7,7 +7,7 @@ export const DiscordButton = () => {
   return (
     <Link
       className={buttonStyles({
-        className: "max-w-[500px] inline-flex",
+        className: "max-w-[500px] min-h-[70px] inline-flex",
         variant: "outline",
         p: "default",
       })}

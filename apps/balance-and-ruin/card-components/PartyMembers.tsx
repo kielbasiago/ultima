@@ -32,7 +32,11 @@ export const PartyMembers = () => {
         <Deprecated>
           <FlagSwitch flag={"-eu"} label={"Equipable Umaro"} />
         </Deprecated>
-        <FlagRange flag={"-csrp"} label={"Character Stats"} />
+        <FlagRange
+          flag={"-csrp"}
+          helperText="Each character stat is set to {{.}}% of the original value"
+          label={"Character Stats"}
+        />
       </div>
     </Card>
   );

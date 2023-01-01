@@ -5,9 +5,9 @@ export type FooterProps = {
 export const Footer = (props: FooterProps) => {
   const { messages } = props;
   return (
-    <div className="flex flex-col gap-2 w-full min-h-[75px] justify-center items-center bg-gray-600 text-white text-xs p-4">
+    <div className="flex flex-col  gap-4 w-full justify-center items-center bg-gray-600 text-white text-xs p-3">
       {messages.map((m, idx) => (
-        <p className="px-5" key={idx}>
+        <p className="text-center" key={idx}>
           {m}
         </p>
       ))}

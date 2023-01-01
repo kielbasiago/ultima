@@ -147,9 +147,11 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
     }
   };
 
+  const showDisabledText = !romData;
   return (
     <Card
       {...rest}
+      className="max-w-[1200px]"
       contentClassName={cx("p-0 gap-3", className)}
       title="Generate"
     >
@@ -167,24 +169,27 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
           Once you have selected a valid ROM it will be reused for future visits
         </HelperText>
       </div>
-      <div className="flex min-h-[30px] gap-1 pl-3">
+      <div className="flex gap-4">
+        <div className="flex flex-col">
+          <Button
+            className="w-fit"
+            disabled={hasRomData}
+            onClick={() => inputRef.current?.click()}
+            variant="outline"
+          >
+            <MdFileUpload className={"inline"} /> Upload v1.0 US ROM file..
+          </Button>
+          <Input
+            className="h-fit"
+            disabled
+            ref={inputRef}
+            placeholder="Upload ROM to continue"
+            onChange={() => {}}
+            value={romName}
+          />
+        </div>
         <Button
-          className="flex items-center gap-1"
-          disabled={hasRomData}
-          onClick={() => inputRef.current?.click()}
-          variant="outline"
-        >
-          <MdFileUpload className={"inline"} /> Upload v1.0 US ROM file..
-        </Button>
-        <Input
-          disabled
-          ref={inputRef}
-          placeholder="Upload ROM to continue"
-          onChange={() => {}}
-          value={romName}
-        />
-        <Button
-          className="flex items-center gap-1"
+          className=""
           disabled={!hasRomData}
           onClick={clearRomValues}
           variant="outline"
@@ -216,12 +221,14 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
 
       <div className="flex flex-col gap-2">
         <h2 className={"font-medium text-lg"}>Step 3: Click Generate!</h2>
-        <HelperText>
-          This button will be disabled until a valid ROM is selected
-        </HelperText>
+        {showDisabledText ? (
+          <HelperText>
+            This button will be disabled until a valid ROM is selected
+          </HelperText>
+        ) : null}
       </div>
 
-      <div className="fle flex-col gap-2 pl-3">
+      <div className="pl-3">
         <Button
           disabled={!hasRomData || isMutating}
           onClick={generate}

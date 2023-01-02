@@ -547,50 +547,50 @@ const layout = [
       ),
     ]),
   ],
-  // [
-  //   new LayoutGroup("dragons", "flex-wrap", [
-  //     new LayoutCell(
-  //       "ancientCastleDragon",
-  //       "blueDragon",
-  //       ({ dragons }) => dragons.ancientCastleDragon
-  //     ),
-  //     new LayoutCell(
-  //       "narsheDragon",
-  //       "iceDragon",
-  //       ({ dragons }) => dragons.narsheDragon
-  //     ),
-  //     new LayoutCell(
-  //       "mtZozoDragon",
-  //       "stormDragon",
-  //       ({ dragons }) => dragons.mtZozoDragon
-  //     ),
-  //     new LayoutCell(
-  //       "operaHouseDragon",
-  //       "dirtDragon",
-  //       ({ dragons }) => dragons.operaHouseDragon
-  //     ),
-  //     new LayoutCell(
-  //       "kefkaTowerMidDragon",
-  //       "goldDragon",
-  //       ({ dragons }) => dragons.kefkaTowerMidDragon
-  //     ),
-  //     new LayoutCell(
-  //       "kefkaTowerRightDragon",
-  //       "skullDragon",
-  //       ({ dragons }) => dragons.kefkaTowerRightDragon
-  //     ),
-  //     new LayoutCell(
-  //       "phoenixCaveDragon",
-  //       "redDragon",
-  //       ({ dragons }) => dragons.phoenixCaveDragon
-  //     ),
-  //     new LayoutCell(
-  //       "fanaticsTowerDragon",
-  //       "whiteDragon",
-  //       ({ dragons }) => dragons.fanaticsTowerDragon
-  //     ),
-  //   ]),
-  // ],
+  [
+    new LayoutGroup("dragons", "flex-wrap", [
+      new LayoutCell(
+        "ancientCastleDragon",
+        "ancientCastleDragon",
+        ({ dragons }) => dragons.ancientCastleDragon
+      ),
+      new LayoutCell(
+        "narsheDragon",
+        "narsheDragon",
+        ({ dragons }) => dragons.narsheDragon
+      ),
+      new LayoutCell(
+        "mtZozoDragon",
+        "mtZozoDragon",
+        ({ dragons }) => dragons.mtZozoDragon
+      ),
+      new LayoutCell(
+        "operaHouseDragon",
+        "operaHouseDragon",
+        ({ dragons }) => dragons.operaHouseDragon
+      ),
+      new LayoutCell(
+        "kefkaTowerMidDragon",
+        "kefkaTowerMidDragon",
+        ({ dragons }) => dragons.kefkaTowerMidDragon
+      ),
+      new LayoutCell(
+        "kefkaTowerRightDragon",
+        "kefkaTowerRightDragon",
+        ({ dragons }) => dragons.kefkaTowerRightDragon
+      ),
+      new LayoutCell(
+        "phoenixCaveDragon",
+        "phoenixCaveDragon",
+        ({ dragons }) => dragons.phoenixCaveDragon
+      ),
+      new LayoutCell(
+        "fanaticsTowerDragon",
+        "fanaticsTowerDragon",
+        ({ dragons }) => dragons.fanaticsTowerDragon
+      ),
+    ]),
+  ],
 ];
 
 type Cell = LayoutCell | LayoutNumberCell;

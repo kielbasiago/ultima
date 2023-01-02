@@ -275,7 +275,7 @@ export const EVENT_BIT: Record<FF6Event, CheckBit> = {
   ),
 } as Record<FF6Event, CheckBit>;
 
-export const DRAGON_BIT: Record<FF6Dragon, CheckBit> = {
+export const DRAGON_EVENT_BIT: Partial<Record<FF6Dragon, CheckBit>> = {
   // by location
   ancientCastleDragon: new CheckBit(
     "ancientCastle",
@@ -317,6 +317,9 @@ export const DRAGON_BIT: Record<FF6Dragon, CheckBit> = {
     "Phoenix Cave Dragon",
     event_bits.DEFEATED_PHOENIX_CAVE_DRAGON
   ),
+};
+
+export const DRAGON_BIT: Partial<Record<FF6Dragon, CheckBit>> = {
   // by monster
   iceDragon: new CheckBit("iceDragon", "iceDragon", 143),
   stormDragon: new CheckBit("stormDragon", "stormDragon", 144),

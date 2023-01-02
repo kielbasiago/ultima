@@ -16,10 +16,10 @@ export const TempestHeader = (props: AppHeaderProps) => {
       <Header>
         <div className="flex gap-3"></div>
       </Header>
-      <div className="flex justify-center gap-4 p-5">
+      {/* <div className="flex justify-center gap-4 p-5">
         <ButtonLink href="/auto">Auto</ButtonLink>
         <ButtonLink href="/manual">Manual</ButtonLink>
-      </div>
+      </div> */}
     </div>
   );
 };

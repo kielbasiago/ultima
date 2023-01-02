@@ -1,12 +1,20 @@
 {
   "functions": {
-    "api/**/generate.py": {
-      "includeFiles": "{api,api_utils,johnnydmad,WorldsCollide}/**/*",
+    "api/generate.py": {
+      "includeFiles": "{api,api_utils,WorldsCollide}/**/*",
       "maxDuration": 30,
       "memory": 1024
     },
+    "api/music/generate.py": {
+      "includeFiles": "{api,api_utils,johnnydmad}/**/*",
+      "maxDuration": 30,
+      "memory": 1024
+    },
+    "api/log/[seed_id].py": {
+      "includeFiles": "{api,api_utils}/**/*"
+    },
     "api/**/*.py": {
-      "includeFiles": "{api,api_utils,johnnydmad,WorldsCollide}/**/*"
+      "includeFiles": "{api_utils,WorldsCollide}/**/*"
     }
   }
 }

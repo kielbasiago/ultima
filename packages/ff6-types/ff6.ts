@@ -462,4 +462,13 @@ export const checkToAsset: Record<string, string> = {
   blueDragon: "BlueDragon",
   redDragon: "RedDragon",
   whiteDragon: "WhiteDragon",
+
+  narsheDragon: "IceDragon",
+  mtZozoDragon: "StormDragon",
+  operaHouseDragon: "DirtDragon",
+  kefkaTowerMidDragon: "GoldDragon",
+  kefkaTowerRightDragon: "SkullDragon",
+  ancientCastleDragon: "BlueDragon",
+  phoenixCaveDragon: "RedDragon",
+  fanaticsTowerDragon: "WhiteDragon",
 };

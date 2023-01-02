@@ -5,7 +5,7 @@ import { SnesSession } from "@ff6wc/tracker-core/SnesSession";
 import { getTrackerDefaults, TrackerContext } from "./TrackerProvider";
 import { TrackerMode } from "~/types/tracker";
 import isEqual from "lodash/isEqual";
-import { Button } from "@ff6wc/ui";
+import { Button, CodeBlock } from "@ff6wc/ui";
 import { sleep } from "~/utils/sleep";
 import { useTrackerData } from "~/utils/useTrackerData";
 
@@ -56,6 +56,10 @@ export function Tracker({ children, mode }: Props): JSX.Element {
       setSendRequest(sendRequest + 1);
     });
   };
+
+  /**
+   * creating a new snes session will trigger the useEffect below,
+   */
   const disconnect = async () => {
     await session.disconnect();
     setSession(
@@ -127,7 +131,7 @@ export function Tracker({ children, mode }: Props): JSX.Element {
 
   return (
     <TrackerContext.Provider value={providerData}>
-      <div className="flex flex-col gap-2 relative">
+      <div className="flex flex-col gap-2 relative p-6">
         {children}
         {session.error ? (
           <OverlayMessage message={session.error} />
@@ -138,13 +142,10 @@ export function Tracker({ children, mode }: Props): JSX.Element {
         ) : null}
       </div>
       <div className="">
-        {/* <Button onClick={disconnect}>Disconnect</Button>
-        <Button onClick={connect}>Connect</Button> */}
+        <Button onClick={disconnect}>Reconnect</Button>
         {mode === "MANUAL" && (
           <>
-            <Button variant="outline" onClick={resetTracker}>
-              Reset Tracker
-            </Button>
+            <Button onClick={resetTracker}>Reset Tracker</Button>
           </>
         )}
       </div>

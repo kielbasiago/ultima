@@ -1,8 +1,10 @@
-def get_seed_payload(seed_id, log, patch, filename):
-  import base64
-  return {
-    'patch': base64.b64encode(patch).decode('utf-8'),
-    'log': log,
-    'seed_id': seed_id,
-    'filename': filename
-  }
+def get_seed_payload(seed, log, patch, website_url, filename):
+  seed['url'] = website_url
+  seed['filename'] = filename
+
+  if log:
+    seed['log'] = log
+  if patch:
+    seed['patch'] = patch
+    
+  return seed 

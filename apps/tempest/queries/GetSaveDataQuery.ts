@@ -9,6 +9,7 @@ import {
   CHARACTER_BIT,
   DRAGON_BIT,
   EVENT_BIT,
+  DRAGON_EVENT_BIT,
 } from "@ff6wc/ff6-types";
 import { GetSaveDataResponse } from "~/types/tracker";
 
@@ -94,13 +95,26 @@ export class GetSaveDataQuery extends Query<GetSaveDataResponse> {
       return acc;
     }, {} as Record<FF6Event, boolean>);
 
-    // PARSE DRAGON
+    // PARSE DRAGON EVENTS
+    const dragonEventIds = Object.keys(DRAGON_EVENT_BIT);
+    const dragonEventBits = dragonEventIds.map(
+      (dragon) => DRAGON_EVENT_BIT[dragon as FF6Dragon]
+    );
+    const dragonEvents = dragonEventIds.reduce((acc, dragonEventName, idx) => {
+      const value = dragonEventBits[idx]!;
+      acc[dragonEventName as FF6Dragon] = !!(
+        eventsData[value.byte] & Math.pow(2, value.bit)
+      );
+      return acc;
+    }, {} as Record<FF6Dragon, boolean>);
+
+    // PARSE DRAGON BATTLES
     const dragonIds = Object.keys(DRAGON_BIT);
     const dragonBits = dragonIds.map(
       (dragon) => DRAGON_BIT[dragon as FF6Dragon]
     );
     const dragons = dragonIds.reduce((acc, charName, idx) => {
-      const value = dragonBits[idx];
+      const value = dragonBits[idx]!;
       acc[charName as FF6Dragon] = !!(
         dragonData[value.byte] & Math.pow(2, value.bit)
       );
@@ -126,11 +140,15 @@ export class GetSaveDataQuery extends Query<GetSaveDataResponse> {
     const value = {
       characters,
       events,
-      dragons,
+      dragons: {
+        ...dragons,
+        ...dragonEvents,
+      },
       allFlags: {
         ...characters,
         ...events,
         ...dragons,
+        ...dragonEvents,
       },
 
       characterCount,

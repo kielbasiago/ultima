@@ -5,7 +5,7 @@ type BaseButtonProps = React.DetailedHTMLProps<
   HTMLButtonElement
 >;
 export const buttonStyles = cva(
-  ["text-base", "rounded-none", "transition-all"],
+  ["WC-button", "text-base", "rounded-none", "transition-all"],
   {
     variants: {
       disabled: {

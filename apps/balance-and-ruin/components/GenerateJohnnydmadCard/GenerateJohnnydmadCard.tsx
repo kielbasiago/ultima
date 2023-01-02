@@ -42,6 +42,9 @@ export const GenerateJohnnydmadCard = ({
       const result = await fetch("/api/music/generate", {
         headers: {},
         method: "POST",
+        body: JSON.stringify({
+          key: "ff6wc",
+        }),
       });
 
       if (result.status !== 200) {

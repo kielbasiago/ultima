@@ -156,7 +156,7 @@ export class SnesSession {
       client.onclose = (event) => {
         this.logger.error("client closed", event.code, event);
         this.onClose(event.code, "Client disconnected");
-        this.addLogMessage("Disconnected from SNI");
+        this.addLogMessage("Unable to connect to SNI");
 
         reject(null);
       };

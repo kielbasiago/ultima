@@ -4,6 +4,7 @@ from api_utils.get_seed_payload import get_seed_payload
 from api_utils.get_db import get_db
 import xdelta3
 import json
+import base64
 import os
 import shutil
 import subprocess
@@ -11,14 +12,14 @@ import sys
 import tempfile
 import urllib.request
 from api_utils.create_seed import create_seed
-from api_utils.get_seed_url import get_music_seed_url
 
 class handler(BaseHTTPRequestHandler):
   def do_POST(self):
     with tempfile.TemporaryDirectory() as temp_dir:
-      from WorldsCollide.seed import generate_seed
+      from api_utils.get_seed_filename import get_seed_filename
+      from api_utils.generate_seed import generate_seed
       seed_id = generate_seed()
-      base_filename = f"ff6wc_{seed_id}-tunes"
+      base_filename = get_seed_filename(seed_id, 'johnnydmad')
 
       dir = temp_dir
       in_filename = dir + "/ff6wc.smc"
@@ -41,22 +42,43 @@ class handler(BaseHTTPRequestHandler):
             # print(f'   log_filename: {log_filename}')
             # print('---------------------------------------------------------------------------')
 
-            patch = xdelta3.encode(old.read(), new.read())
+            content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
+            post_data = self.rfile.read(content_length) # <--- Gets the data itself
+            data = json.loads(post_data)
+
+            from api_utils.get_api_key import get_api_key
+            raw_key = data['key']
+            api_key = get_api_key(raw_key)
+            
+            if api_key is None:
+              self.send_response(403)
+              self.send_header('Content-type', 'text/plain')
+              self.end_headers()
+              self.wfile.write(json.dumps({
+                'errors': ['Invalid api key'],
+                'success': False
+              }).encode())
+              return
+
+            raw_patch = xdelta3.encode(old.read(), new.read())
             self.send_response(200)
             self.send_header('Content-type','application/json')
             self.end_headers()
             
+            from api_utils.get_seed_url import get_music_seed_url
+            website_url = get_music_seed_url(seed_id)
             log_bytes = logfile.read()
-            log_header = f"Apply this music to your seed at {get_music_seed_url(seed_id)}\n\n\n"
+            log_header = f"Apply this music to your seed at {website_url}\n\n\n"
             log = log_header + log_bytes.decode('utf-8')
             
-            website_url = get_music_seed_url(seed_id)
             description = "Randomized music patch for FF6 Worlds Collide"
             
-            create_seed(seed_id, description, patch, log, website_url, base_filename, "N/A", "johnnydmad")
-            
-            seed = get_seed_payload(seed_id, log, patch, base_filename)            
+            patch = base64.b64encode(raw_patch).decode('utf-8')
 
+            s = create_seed(seed_id, description, patch, log, website_url, base_filename, "N/A", "johnnydmad", "1.0.0", None, created_by = api_key['name'])
+            del s['_id']
+            
+            seed = get_seed_payload(s, log, patch, website_url=website_url, filename=base_filename)
             self.wfile.write(json.dumps(seed).encode())
 
   def do_GET(self):
@@ -75,7 +97,7 @@ class handler(BaseHTTPRequestHandler):
     jdm_args = ['-fs','53C5F-9FDFF,340000-3FFFFF', '-nmp', '-noprompt', "-p", "default.txt"]
 
     args = ['python', executable, '-i', in_filename, '-o', out_filename, '-so', music_spoiler_filename] + jdm_args
-    
+
     print(f'running command {args}')
 
     return subprocess.Popen(args, cwd = cwd).wait()

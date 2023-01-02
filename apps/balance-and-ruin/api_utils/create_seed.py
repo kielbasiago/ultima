@@ -1,21 +1,24 @@
 from api_utils.get_timestamp import get_timestamp
 
 
-def create_seed(seed_id, description, raw_patch: bytes, log, website_url, filename, flags, seed_type):
+def create_seed(seed_id, description, patch, log, website_url, filename, flags, seed_type, version, hash, created_by):
   import base64
   from api_utils.get_db import get_db
-  from api_utils.collections import PATCHES, SEEDS, SEED_DOWNLOADS, SPOILER_LOGS
+  from api_utils.collections import PATCHES, SEEDS, SPOILER_LOGS
+  from api_utils.Seed import Seed
   
-  patch = base64.b64encode(raw_patch).decode('utf-8')
   seeds = get_db().get_collection(SEEDS)
-  seeds.insert_one({
-    'seed_id': seed_id,
-    'created_at': get_timestamp(),
-    'description': description,
-    'flags': flags,
-    'type': seed_type
-  })
-  
+  s = Seed()
+  s.seed_id = seed_id
+  s.description = description
+  s.flags = flags
+  s.hash = hash
+  s.type = seed_type
+  s.version = version
+  s.created_by = created_by
+  seed = s.to_json()
+  seeds.insert_one(seed)
+
   patches = get_db().get_collection(PATCHES)
   patches.insert_one({
     'seed_id': seed_id,
@@ -29,17 +32,4 @@ def create_seed(seed_id, description, raw_patch: bytes, log, website_url, filena
     'log': log
   })
   
-  seed_downloads = get_db().get_collection(SEED_DOWNLOADS)
-  seed_downloads.insert_one({
-    'seed_id': seed_id,
-    'created_at': get_timestamp()
-  })
-  
-  return  {
-    'flags': flags,
-    'filename': filename,
-    'log': log,
-    'patch': patch,
-    'seed_id': seed_id,
-    'url': website_url
-  }
+  return seed

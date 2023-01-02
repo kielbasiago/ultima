@@ -2,55 +2,100 @@ import { LayoutCell, LayoutGroup } from "~/components/EmoTracker/layout";
 import TrackerCell from "~/components/EmoTracker/TrackerCell";
 import TrackerGroup from "~/components/EmoTracker/TrackerGroup";
 
-const group = new LayoutGroup("dragons", "flex-wrap", [
+const groupByLocation = new LayoutGroup("dragons", "flex-wrap", [
   new LayoutCell(
     "ancientCastleDragon",
-    "blueDragon",
+    "ancientCastleDragon",
     ({ dragons }) => dragons.ancientCastleDragon
   ),
   new LayoutCell(
     "narsheDragon",
-    "iceDragon",
+    "narsheDragon",
     ({ dragons }) => dragons.narsheDragon
   ),
   new LayoutCell(
     "mtZozoDragon",
-    "stormDragon",
+    "mtZozoDragon",
     ({ dragons }) => dragons.mtZozoDragon
   ),
   new LayoutCell(
     "operaHouseDragon",
-    "dirtDragon",
+    "operaHouseDragon",
     ({ dragons }) => dragons.operaHouseDragon
   ),
   new LayoutCell(
     "kefkaTowerMidDragon",
-    "goldDragon",
+    "kefkaTowerMidDragon",
     ({ dragons }) => dragons.kefkaTowerMidDragon
   ),
   new LayoutCell(
     "kefkaTowerRightDragon",
-    "skullDragon",
+    "kefkaTowerRightDragon",
     ({ dragons }) => dragons.kefkaTowerRightDragon
   ),
   new LayoutCell(
     "phoenixCaveDragon",
-    "redDragon",
+    "phoenixCaveDragon",
     ({ dragons }) => dragons.phoenixCaveDragon
   ),
   new LayoutCell(
     "fanaticsTowerDragon",
-    "whiteDragon",
+    "fanaticsTowerDragon",
     ({ dragons }) => dragons.fanaticsTowerDragon
   ),
 ]);
 
-export const RowDragon = () => {
-  const [groupName, _, cells] = group.args;
-  const $cells = cells.map((cell) => {
+const groupByMonster = new LayoutGroup("dragons", "flex-wrap", [
+  new LayoutCell(
+    "blueDragon",
+    "blueDragon",
+    ({ dragons }) => dragons.blueDragon
+  ),
+  new LayoutCell("iceDragon", "iceDragon", ({ dragons }) => dragons.iceDragon),
+  new LayoutCell(
+    "stormDragon",
+    "stormDragon",
+    ({ dragons }) => dragons.stormDragon
+  ),
+  new LayoutCell(
+    "dirtDragon",
+    "dirtDragon",
+    ({ dragons }) => dragons.dirtDragon
+  ),
+  new LayoutCell(
+    "goldDragon",
+    "goldDragon",
+    ({ dragons }) => dragons.goldDragon
+  ),
+  new LayoutCell(
+    "skullDragon",
+    "skullDragon",
+    ({ dragons }) => dragons.skullDragon
+  ),
+  new LayoutCell("redDragon", "redDragon", ({ dragons }) => dragons.redDragon),
+  new LayoutCell(
+    "whiteDragon",
+    "whiteDragon",
+    ({ dragons }) => dragons.whiteDragon
+  ),
+]);
+
+const foo = (val: any[], groupName: string) =>
+  val.map((cell) => {
     const [cellId] = cell.args;
     return <TrackerCell key={`${groupName}-${cellId}`} cell={cell} />;
   });
 
-  return <TrackerGroup group={group}>{$cells}</TrackerGroup>;
+export const RowDragon = () => {
+  const [monsterGroupName, _2, monsterCells] = groupByMonster.args;
+  const [groupName, _, cells] = groupByLocation.args;
+  const $cells = foo(cells, groupName);
+  const $cells2 = foo(monsterCells, monsterGroupName);
+
+  return (
+    <>
+      <TrackerGroup group={groupByLocation}>{$cells}</TrackerGroup>
+      <TrackerGroup group={groupByMonster}>{$cells2}</TrackerGroup>
+    </>
+  );
 };

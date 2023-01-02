@@ -56,7 +56,7 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
     ["/api/generate", flags],
     async (key, { arg }) => {
       const result = await fetch("/api/generate", {
-        body: JSON.stringify({ flags: arg }),
+        body: JSON.stringify({ key: "ff6wc", flags: arg }),
         headers: {},
         method: "POST",
       });

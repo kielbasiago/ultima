@@ -1,6 +1,8 @@
 import { ButtonLink, DiscordButton, Header } from "@ff6wc/ui";
 import useSWR from "swr";
+import { WIKI_URL } from "~/../../packages/utils/constants";
 import SpriteDrawLoad from "~/components/SpriteDrawLoad/SpriteDrawLoad";
+import { HiPencil } from "react-icons/hi";
 
 export type AppHeaderProps = Record<string, unknown>;
 
@@ -46,6 +48,10 @@ export const AppHeader = (props: AppHeaderProps) => {
           </div>
         </ButtonLink>
         <DiscordButton />
+        <ButtonLink className="w-fit min-h-[70px]" href={WIKI_URL}>
+          <HiPencil size="36" />
+          Wiki
+        </ButtonLink>
       </div>
     </div>
   );

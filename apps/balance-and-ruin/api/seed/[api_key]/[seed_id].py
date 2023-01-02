@@ -1,7 +1,7 @@
 from http.server import BaseHTTPRequestHandler
 import os
 from urllib.parse import parse_qs, urlparse
-from api_utils.get_timestamp import get_timestamp
+from api_utils.get_api_key import get_api_key
 
 class handler(BaseHTTPRequestHandler):
   def do_GET(self):
@@ -10,12 +10,14 @@ class handler(BaseHTTPRequestHandler):
 
     qs = parse_qs(urlparse(self.path).query)
 
-    api_key = qs['api_key'][0]
+    raw_key = qs['api_key'][0]
     seed_id = qs['seed_id'][0]
+    
+    api_key = get_api_key(raw_key)
 
-    if api_key != nonce:
+    if api_key is None:
       self.send_response(403)
-      self.send_header('Content-type', 'application.json')
+      self.send_header('Content-type', 'application/json')
       self.end_headers()
       self.wfile.write(json.dumps({
         'errors': ['Invalid api key'],
@@ -40,29 +42,28 @@ class handler(BaseHTTPRequestHandler):
       }).encode())
       return
 
-    from api_utils.collections import PATCHES, SEEDS, SEED_DOWNLOADS, SPOILER_LOGS
+    from api_utils.collections import PATCHES, SEEDS, SPOILER_LOGS
     filter = {'seed_id': seed_id}
-    get_db().get_collection(SEED_DOWNLOADS).insert_one({ 'created_at': get_timestamp(), 'seed_id': seed_id})
-    log = get_db().get_collection(SPOILER_LOGS).find_one(filter)
-    patch = get_db().get_collection(PATCHES).find_one(filter)
-    seed = get_db().get_collection(SEEDS).find_one(filter)
-    website_url = f"{os.getenv('PUBLIC_URL')}/seed/{seed_id}"
-    filename = f"ff6wc_{seed_id}"
+    log = db.get_collection(SPOILER_LOGS).find_one(filter)
+    patch = db.get_collection(PATCHES).find_one(filter)
+    seed = db.get_collection(SEEDS).find_one(filter)
 
-    val = {
-      'flags': seed['flags'],
-      'filename': filename,
-      'log': log['log'],
-      'patch': patch['patch'],
-      'seed_id': seed_id,
-      'url': website_url
-    }
+    del seed['_id']
     
+    from api_utils.get_seed_payload import get_seed_payload
+    from api_utils.get_seed_filename import get_seed_filename
+    from api_utils.get_seed_url import get_seed_url
+    
+    filename = get_seed_filename(seed_id, seed['type'])
+
+    website_url = get_seed_url(seed_id)
+    payload = get_seed_payload(seed, log['log'], patch['patch'], website_url=website_url, filename=filename)
+
     self.send_response(200)
     self.send_header('Content-type','application/json')
     self.end_headers()
     self.wfile.write(json.dumps({
-      'data': val,
+      'data': payload,
       'errors': [],
       'success': True
     }).encode())

@@ -13,6 +13,56 @@ div#__next > div {
   width: 100%;
 }
 
+.card-fancy-gradient {
+  position: relative;
+  /* margin: 200px auto 0; */
+  /* width: 400px; */
+  /* height: 250px; */
+  background: linear-gradient(0deg, #000, #262626);
+}
+.card-fancy-gradient:before,
+.card-fancy-gradient:after {
+  content: '';
+  position: absolute;
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #ffff00, #23d5ab, #002794, #940094, #23a6d5, #fff);
+	background-size: 400% 400%;
+	animation: gradient 15s ease-in-out infinite;
+  z-index: -1;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+}
+
+.card-fancy-gradient:after {
+  filter: blur(13px)
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 150% 0%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+
+@font-face {
+  font-family: ff3;
+  src: url(/final_fantasy_36_font.ttf);
+}
+
+.main-header-text {
+  text-shadow: 2px 2px 2px black;
+}
+
+.main-text {
+  text-shadow: 1px 1px 1px black;
+}
 
 /* If the user prefers dark mode, 
 we of course apply color-scheme: dark, as usual */

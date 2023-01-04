@@ -1,4 +1,4 @@
-import { cx } from "cva";
+import { cva, cx, VariantProps } from "cva";
 import BaseLink from "next/link";
 
 type LinkProps = {
@@ -8,10 +8,32 @@ type LinkProps = {
   target?: "_blank";
 };
 
-export const Link = ({ children, className, href, target }: LinkProps) => {
+const linkStyles = cva([], {
+  variants: {
+    color: {
+      blue: ["text-blue-400"],
+      inherit: ["text-inherit"],
+    },
+  },
+  defaultVariants: {
+    color: "blue",
+  },
+});
+
+export const Link = ({
+  children,
+  className,
+  color,
+  href,
+  target,
+}: LinkProps & VariantProps<typeof linkStyles>) => {
   const t = href.startsWith("https") ? "_blank" : undefined;
   return (
-    <BaseLink className={cx("text-blue-400", className)} href={href} target={t}>
+    <BaseLink
+      className={linkStyles({ color, className })}
+      href={href}
+      target={t}
+    >
       {children}
     </BaseLink>
   );

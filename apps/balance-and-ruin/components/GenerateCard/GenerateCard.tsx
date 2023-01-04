@@ -1,19 +1,21 @@
-import { Button, Card, HelperText, Input } from "@ff6wc/ui";
-import { cx } from "cva";
+import { Button, Card, CodeBlock, HelperText, Input } from "@ff6wc/ui";
+import { cva, cx } from "cva";
 import first from "lodash/first";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { MdClear, MdFileUpload } from "react-icons/md";
 import { useSelector } from "react-redux";
 import useSWRMutation from "swr/mutation";
-import { selectRawFlags } from "~/state/flagSlice";
+import { getFlagValue, selectFlagValues } from "~/state/flagSlice";
 import { base64ToByteArray } from "~/utils/base64ToByteArray";
 import { isValidROM, removeHeader } from "~/utils/romUtils";
 import { XDelta3Decoder } from "~/utils/xdelta3_decoder";
 import JSZip from "jszip";
 import { useRouter } from "next/router";
+import { selectSchema } from "~/state/schemaSlice";
 
 export type FlagsCardProps = {
   className?: string;
+  enableEditing?: boolean;
 };
 
 type GenerateResponse = {
@@ -23,14 +25,38 @@ type GenerateResponse = {
   log: string;
 };
 
-export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
+const useOrderedFlags = () => {
+  const schema = useSelector(selectSchema);
+  const flagValues = useSelector(selectFlagValues);
+  return useMemo(() => {
+    const keys = Object.keys(schema);
+    return keys.reduce((acc, key) => {
+      const additional = getFlagValue(key, flagValues[key]);
+      return `${acc} ${additional}`.trim();
+    }, "");
+  }, [flagValues, schema]);
+};
+
+const textareaStyles = cva([
+  "text-sm",
+  "max-h-[600px] bg-gray-200 dark:bg-gray-900 p-4",
+  "whitespace-normal font-mono break-words box-decoration-clone",
+  "overflow-auto",
+]);
+
+export const GenerateCard = ({
+  className,
+  enableEditing = false,
+  ...rest
+}: FlagsCardProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const flags = useSelector(selectRawFlags);
+  // const flags = useSelector(selectRawFlags);
   const [romData, setRomData] = useState<string | null>(null);
   const [romName, setRomName] = useState("");
   const [romSelectError, setRomSelectError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
+  const flags = useOrderedFlags();
   const router = useRouter();
 
   const hasRomData = Boolean(romData);
@@ -107,6 +133,9 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
     setRomSelectError(null);
   };
 
+  const [editable, setEditable] = useState(false);
+  const textarearef = useRef<HTMLTextAreaElement>(null);
+
   const onRomSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = first(e.target.files);
     const reader = new FileReader();
@@ -155,11 +184,27 @@ export const GenerateCard = ({ className, ...rest }: FlagsCardProps) => {
       contentClassName={cx("p-0 gap-3", className)}
       title="Generate"
     >
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 w-full h-full">
         <h2 className={"font-medium text-base"}>
           Step 1: Select your flags above
         </h2>
-        <span className="text-sm pl-3">{flags}&nbsp;</span>
+        <textarea
+          className={cx(
+            textareaStyles(),
+            "h-full w-full p-4 min-h-[300px] text-xs"
+          )}
+          disabled
+          value={flags}
+        />
+        {!enableEditing || !editable ? null : (
+          <CodeBlock>
+            <textarea
+              className="w-full min-h-"
+              ref={textarearef}
+              value={flags}
+            />
+          </CodeBlock>
+        )}
       </div>
       <div className="flex flex-col gap-2">
         <h2 className={"font-medium text-"}>

@@ -7,9 +7,12 @@ type SettingValue = string | number | string[] | number[] | boolean | null;
 // Type for our state
 export interface SettingsState {
   settings: {
-    /**  */
+    /** Show flags that are - only turn on once they are defaulted properly in WorldsCollide */
     showDeprecated: boolean;
+    /** TODO: Workshop */
     showWorkshop: boolean;
+    /** Hides header, hero image, footer from the view */
+    showLayout: boolean;
   };
 }
 
@@ -18,6 +21,7 @@ const initialState: SettingsState = {
   settings: {
     showDeprecated: true,
     showWorkshop: false,
+    showLayout: false,
   },
 };
 

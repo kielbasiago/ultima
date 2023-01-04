@@ -26,15 +26,21 @@ export interface FlagState {
   rawFlags: string;
 }
 
+export const getFlagValue = (key: string, val: FlagValue | null) => {
+  if ([null, undefined].includes(val as any)) {
+    return "";
+  }
+  if (Array.isArray(val)) {
+    return `${key} ${val.join(" ")}`;
+  }
+  if (typeof val === "boolean") {
+    return val ? `${key}` : "";
+  }
+  return `${key} ${val}`;
+};
 const valuesToString = (flagValues: FlagState["flagValues"]) => {
   return Object.entries(flagValues).reduce((acc, [key, val]) => {
-    if (Array.isArray(val)) {
-      return `${acc} ${key} ${val.join(" ")}`;
-    }
-    if (typeof val === "boolean") {
-      return val ? `${acc} ${key}` : acc;
-    }
-    return `${acc} ${key} ${val}`;
+    return `${acc} ${getFlagValue(key, val)}`.trim();
   }, "");
 };
 

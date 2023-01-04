@@ -16,6 +16,7 @@ export type SeedOfTheWeek = {
     }
   >;
   seed: string;
+  seed_id: string;
   spoiler_splitter_id: string;
   submitter: string;
 };

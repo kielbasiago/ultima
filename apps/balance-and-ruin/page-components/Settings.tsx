@@ -13,8 +13,8 @@ type PresetsProps = {
 export const Settings = ({ presets: rawPresets }: PresetsProps) => {
   const presets = useMemo(() => {
     const options = [
-      rawPresets["ultrosleague"],
-      rawPresets["chuponsdelightnext"],
+      rawPresets["ultros league"],
+      rawPresets["mft"],
       rawPresets["coliseum terra"],
       rawPresets["coliseum locke"],
       rawPresets["coliseum edgar"],
@@ -38,7 +38,7 @@ export const Settings = ({ presets: rawPresets }: PresetsProps) => {
           value: flags,
           helperText: [description, `Created by ${creator}`]
             .filter((z) => !!z)
-            .join(". "),
+            .join(" "),
         };
       }
     );

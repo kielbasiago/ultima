@@ -16,6 +16,7 @@ module.exports = {
         40: "40ms",
       },
       colors: {
+        discord: '#5865f2', 
         transparent: "transparent",
         background: "#F3F3F3", // PLATINUM
         "big-text": "#634064", // ENGLISH VIOLET
@@ -33,11 +34,10 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: "'Montserrat', sans-serif",
         montserrat: "'Montserrat', sans-serif",
         mono: "'Roboto Mono', monospace",
         roboto: "'Roboto', sans-serif",
-        cinzel: "'Cinzel', sans-serif",
+        ff3: "'Final Fantasy 3/6 Font', sand-serif"
       },
       boxShadow: {
         'input-focus': '0 0 0 2px #55cbff',

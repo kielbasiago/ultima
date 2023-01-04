@@ -1,20 +1,24 @@
 {
+  "redirects": [
+    {
+      "source": "/discord",
+      "destination": "https://discord.gg/5MPeng5",
+      "permanent": true
+    },
+    {
+      "source": "/wiki",
+      "destination": "https://wiki.ff6worldscollide.com",
+      "permanent": true
+    }
+  ],
   "functions": {
-    "api/generate.py": {
-      "includeFiles": "{api,api_utils,WorldsCollide}/**/*",
+    "api/**/generate.py": {
+      "includeFiles": "{api,api_utils,johnnydmad,WorldsCollide}/**/*",
       "maxDuration": 30,
       "memory": 1024
-    },
-    "api/music/generate.py": {
-      "includeFiles": "{api,api_utils,johnnydmad}/**/*",
-      "maxDuration": 30,
-      "memory": 1024
-    },
-    "api/log/[seed_id].py": {
-      "includeFiles": "{api,api_utils}/**/*"
     },
     "api/**/*.py": {
-      "includeFiles": "{api_utils,WorldsCollide}/**/*"
+      "includeFiles": "{api,api_utils,johnnydmad,WorldsCollide}/**/*"
     }
   }
 }

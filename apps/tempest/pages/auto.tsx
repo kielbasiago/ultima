@@ -8,7 +8,9 @@ import { Footer } from "~/components/Footer/Footer";
 import { TempestHeader } from "~/components/TempestHeader/TempestHeader";
 import { TempestHead } from "~/components/TempestHead/TempestHead";
 
-type PageProps = {};
+type PageProps = {
+  showLayout?: boolean;
+};
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
@@ -19,17 +21,17 @@ export const getServerSideProps = wrapper.getServerSideProps(
     }
 );
 
-const Auto: NextPage<PageProps> = ({}: PageProps) => {
+const Auto: NextPage<PageProps> = ({ showLayout = true }: PageProps) => {
   return (
     <>
       <TempestHead />
-      <TempestHeader />
-      <PageContainer>
-        <EmoTracker mode={TrackerMode.AUTO}>
+      {showLayout ? <TempestHeader /> : null}
+      <PageContainer gutters={showLayout}>
+        <EmoTracker mode={TrackerMode.AUTO} showButtons={showLayout}>
           <EmoTrackerLayout />
         </EmoTracker>
       </PageContainer>
-      <Footer />
+      {showLayout ? <Footer /> : null}
     </>
   );
 };

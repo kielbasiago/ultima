@@ -208,32 +208,30 @@ export const FlagCreatePage = ({ objectives, presets, schema }: PageProps) => {
       </Head>
       <AppHeader />
       <main className="WC-Page WC-page">
-        <div className={""}>
-          <Tab.Group onChange={(idx) => setSelected(tabs[idx])}>
-            <div className="flex justify-center items-center py-4">
-              <Tab.List className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                {tabs.map((tab) => (
-                  <TabLabel
-                    className={tab.className}
-                    key={tab.id}
-                    selected={selected?.id === tab.id}
-                  >
-                    {tab.label}
-                  </TabLabel>
-                ))}
-              </Tab.List>
-            </div>
-            <Tab.Panels tabIndex={-1}>
-              {tabs.map(({ content, id }) => (
-                <Tab.Panel tabIndex={-1} key={`tab-panel-${id}`}>
-                  {content}
-                </Tab.Panel>
+        <Tab.Group onChange={(idx) => setSelected(tabs[idx])}>
+          <div className="flex justify-center items-center py-4">
+            <Tab.List className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              {tabs.map((tab) => (
+                <TabLabel
+                  className={tab.className}
+                  key={tab.id}
+                  selected={selected?.id === tab.id}
+                >
+                  {tab.label}
+                </TabLabel>
               ))}
-            </Tab.Panels>
-          </Tab.Group>
-        </div>
+            </Tab.List>
+          </div>
+          <Tab.Panels tabIndex={-1}>
+            {tabs.map(({ content, id }) => (
+              <Tab.Panel tabIndex={-1} key={`tab-panel-${id}`}>
+                {content}
+              </Tab.Panel>
+            ))}
+          </Tab.Panels>
+        </Tab.Group>
       </main>
-      <PageContainer>
+      <PageContainer className={"w-full"}>
         <CardColumn>
           <FlagsCard />
           <GenerateCard />

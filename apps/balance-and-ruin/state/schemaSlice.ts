@@ -75,11 +75,6 @@ interface OverridePayload {
   metadata: SchemaOverrides[string];
 }
 
-const combineMetadata = (
-  schema: SchemaState["schema"][string],
-  overrides: SchemaState["overrides"][string]
-) => {};
-
 // Actual Slice
 export const schemaSlice = createSlice({
   name: "schema",
@@ -101,7 +96,6 @@ export const schemaSlice = createSlice({
           );
           step = interpreted ? interpreted % 1 : 1;
         }
-        // const step = item.options?.step ??  % 1
         state.schema[item.flag] = {
           allowedValues: item.allowed_values || [],
           defaultValue: item.default ?? null,
@@ -128,6 +122,7 @@ export const schemaSlice = createSlice({
 
 export const { setSchema, setOverride } = schemaSlice.actions;
 
+export const selectSchema = (state: AppState) => state.schema.schema;
 export const schemaSelector =
   <TKey extends keyof FlagMetadataNode>(flag: string, key: TKey) =>
   (state: AppState): FlagMetadataNode[TKey] => {

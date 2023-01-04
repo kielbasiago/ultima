@@ -1,12 +1,5 @@
-import {
-  Button,
-  ButtonLink,
-  ButtonProps,
-  buttonStyles,
-  DiscordButton,
-  Header,
-} from "@ff6wc/ui";
-import { montserrat, robotoMono } from "@ff6wc/utils/fonts";
+import { Header } from "@ff6wc/ui";
+import { montserrat } from "@ff6wc/utils/fonts";
 
 export type AppHeaderProps = Record<string, unknown>;
 

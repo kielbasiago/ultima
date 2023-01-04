@@ -12,6 +12,7 @@ import { useTrackerData } from "~/utils/useTrackerData";
 type Props = {
   children: React.ReactNode;
   mode: TrackerMode;
+  showButtons?: boolean;
 };
 
 const OverlayMessage = ({ message }: { message: string }) => (
@@ -20,7 +21,7 @@ const OverlayMessage = ({ message }: { message: string }) => (
 
 const trackerDefaults = { ...getTrackerDefaults() };
 
-export function Tracker({ children, mode }: Props): JSX.Element {
+export function Tracker({ children, mode, showButtons }: Props): JSX.Element {
   const id = React.useId();
   const [session, setSession] = React.useState(
     new SnesSession(`ff6wc-autotracker--${id}`).setLogger((...msgs) => {
@@ -141,8 +142,8 @@ export function Tracker({ children, mode }: Props): JSX.Element {
           <OverlayMessage message={`${last(logs.current)}`} />
         ) : null}
       </div>
-      <div className="">
-        <Button onClick={disconnect}>Reconnect</Button>
+      <div className={showButtons ? "" : "hidden"}>
+        {mode === "AUTO" && <Button onClick={disconnect}>Reconnect</Button>}
         {mode === "MANUAL" && (
           <>
             <Button onClick={resetTracker}>Reset Tracker</Button>

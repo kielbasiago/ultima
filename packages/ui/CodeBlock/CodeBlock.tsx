@@ -8,6 +8,13 @@ const codeBlock = cva([
   "overflow-auto",
 ]);
 
-export const CodeBlock = ({ children }: PropsWithChildren) => (
-  <code className={codeBlock()}>{children}</code>
+export type Props = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLElement>,
+  HTMLElement
+>;
+
+export const CodeBlock = ({ children, className, ...rest }: Props) => (
+  <code className={codeBlock({ className })} {...rest}>
+    {children}
+  </code>
 );

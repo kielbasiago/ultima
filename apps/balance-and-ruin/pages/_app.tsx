@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import { Schema } from "~/state/schemaSlice";
 import { wrapper } from "~/state/store";
 import "~/styles/globals.css";
-import { roboto } from "@ff6wc/utils/fonts";
+import { openSans, roboto } from "@ff6wc/utils/fonts";
 
 const client = new QueryClient({});
 
@@ -22,7 +22,7 @@ const App: AppType<Props> = ({ Component, ...rest }: AppProps<Props>) => {
   return (
     <div
       className={cx(
-        roboto.className,
+        openSans.className,
         "text-grey dark:text-white flex flex-col h-full"
       )}
     >

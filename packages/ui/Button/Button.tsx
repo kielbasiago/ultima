@@ -28,6 +28,13 @@ export const buttonStyles = cva(
           "border-blue-300 active:border-blue-500",
           "focus-visible:border-blue-300 focus-visible:outline-2",
         ],
+        discord: [
+          "bg-discord text-white",
+          "hover:bg-blue-800",
+          "active:bg-blue-900",
+          "border-blue-300 active:border-blue-500",
+          "focus-visible:border-blue-300 focus-visible:outline-2",
+        ],
         outline: [
           "text-gray-700",
           "focus-visible:shadow-input-focus focus-visible:border-inputs-focus focus-visible:outline-none",

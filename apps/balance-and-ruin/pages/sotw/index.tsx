@@ -35,7 +35,9 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({}) => {
 };
 
 const ActiveSOTW: NextPage<PageProps> = ({ sotw, sotwId }: PageProps) => {
-  const desc = `${sotw.name}\n\nCreated by ${sotw.submitter}\n\nDownload at ${sotw.seed}`;
+  const desc = `${sotw.name}\n\nCreated by ${sotw.submitter}\n\n${
+    sotw.description ?? ""
+  }`;
   return (
     <SotwPage
       sotw={sotw}

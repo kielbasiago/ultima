@@ -23,7 +23,7 @@ export const SotwPage = ({ head, id, sotw }: Props) => {
       <main
         className={cx(
           openSans.className,
-          "flex flex-col w-full py-4 px-10 h-full text-center items-center"
+          "flex flex-col w-full py-4 px-10 h-fit text-center items-center"
         )}
       >
         <div className="flex flex-col gap-4 max-w-[900px]">

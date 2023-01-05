@@ -12,7 +12,7 @@ import { checkToAsset } from "@ff6wc/ff6-types";
 import { getAssetUrl } from "~/utils/getAssetUrl";
 import { cx } from "cva";
 import Image from "next/image";
-import { montserrat } from "~/../../packages/utils/fonts";
+import { montserrat } from "@ff6wc/utils/fonts";
 
 type Props = {
   cell: LayoutCell | LayoutNumberCell;

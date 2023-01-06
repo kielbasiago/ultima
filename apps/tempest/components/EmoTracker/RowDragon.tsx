@@ -94,7 +94,9 @@ export const RowDragon = () => {
 
   return (
     <>
+      <h2>By Location</h2>
       <TrackerGroup group={groupByLocation}>{$cells}</TrackerGroup>
+      <h2>By Dragon</h2>
       <TrackerGroup group={groupByMonster}>{$cells2}</TrackerGroup>
     </>
   );

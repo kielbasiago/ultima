@@ -1,11 +1,4 @@
-import { ff3Header, openSans } from "@ff6wc/utils/fonts";
-import { cx } from "cva";
-import type { GetStaticPropsContext, NextPage } from "next";
-import { AppLandingGridItem } from "~/components/AppLandingGridItem/AppLandingGridItem";
-import { AppLandingSection } from "~/components/AppLandingSection/AppLandingSection";
-import { Footer } from "~/components/Footer/Footer";
-import { AppNavigation } from "@ff6wc/ui";
-import { SpriteDrawAnimation } from "~/components/SpriteDrawAnimation/SpriteDrawAnimation";
+import type { NextPage } from "next";
 import Create, { getServerSideProps, PageProps } from "./create";
 
 // export async function getStaticProps(context: GetStaticPropsContext) {

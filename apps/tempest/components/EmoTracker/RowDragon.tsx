@@ -4,11 +4,6 @@ import TrackerGroup from "~/components/EmoTracker/TrackerGroup";
 
 const groupByLocation = new LayoutGroup("dragons", "flex-wrap", [
   new LayoutCell(
-    "ancientCastleDragon",
-    "ancientCastleDragon",
-    ({ dragons }) => dragons.ancientCastleDragon
-  ),
-  new LayoutCell(
     "narsheDragon",
     "narsheDragon",
     ({ dragons }) => dragons.narsheDragon
@@ -34,6 +29,11 @@ const groupByLocation = new LayoutGroup("dragons", "flex-wrap", [
     ({ dragons }) => dragons.kefkaTowerRightDragon
   ),
   new LayoutCell(
+    "ancientCastleDragon",
+    "ancientCastleDragon",
+    ({ dragons }) => dragons.ancientCastleDragon
+  ),
+  new LayoutCell(
     "phoenixCaveDragon",
     "phoenixCaveDragon",
     ({ dragons }) => dragons.phoenixCaveDragon
@@ -46,11 +46,6 @@ const groupByLocation = new LayoutGroup("dragons", "flex-wrap", [
 ]);
 
 const groupByMonster = new LayoutGroup("dragons", "flex-wrap", [
-  new LayoutCell(
-    "blueDragon",
-    "blueDragon",
-    ({ dragons }) => dragons.blueDragon
-  ),
   new LayoutCell("iceDragon", "iceDragon", ({ dragons }) => dragons.iceDragon),
   new LayoutCell(
     "stormDragon",
@@ -71,6 +66,11 @@ const groupByMonster = new LayoutGroup("dragons", "flex-wrap", [
     "skullDragon",
     "skullDragon",
     ({ dragons }) => dragons.skullDragon
+  ),
+  new LayoutCell(
+    "blueDragon",
+    "blueDragon",
+    ({ dragons }) => dragons.blueDragon
   ),
   new LayoutCell("redDragon", "redDragon", ({ dragons }) => dragons.redDragon),
   new LayoutCell(

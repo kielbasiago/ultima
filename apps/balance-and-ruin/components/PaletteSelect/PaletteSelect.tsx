@@ -1,8 +1,8 @@
 import { useId } from "react";
 
-import BaseSelect, { components, OptionProps } from "react-select";
-import { FlagSelectOption } from "~/components/FlagSelectOption/FlagSelectOption";
+import { components, OptionProps } from "react-select";
 import { PaletteSwatch } from "~/components/PaletteSwatch/PaletteSwatch";
+import { Select } from "~/components/Select/Select";
 
 export type PaletteSelectOption = {
   readonly value: string;
@@ -39,13 +39,9 @@ const PaletteSelect = ({ options, onChange, value }: SelectProps) => {
 
   return (
     <div className="flex flex-col gap-1 flex-grow">
-      <BaseSelect
-        className="ff6wc-select-container"
-        classNamePrefix="ff6wc-select"
+      <Select
         components={{ Option: PaletteOption }}
-        instanceId={id}
-        getOptionLabel={(option) => option.label}
-        getOptionValue={(option) => option.value}
+        nextOnArrowKeys
         options={options}
         onChange={(val) => {
           onChange(val as PaletteSelectOption);

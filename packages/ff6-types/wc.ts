@@ -319,16 +319,17 @@ export const DRAGON_EVENT_BIT: Partial<Record<FF6Dragon, CheckBit>> = {
   ),
 };
 
+const DRAGON_START_BIT = 144;
 export const DRAGON_BIT: Partial<Record<FF6Dragon, CheckBit>> = {
   // by monster
-  iceDragon: new CheckBit("iceDragon", "iceDragon", 143),
-  stormDragon: new CheckBit("stormDragon", "stormDragon", 144),
-  dirtDragon: new CheckBit("dirtDragon", "dirtDragon", 145),
-  goldDragon: new CheckBit("goldDragon", "goldDragon", 146),
-  skullDragon: new CheckBit("skullDragon", "skullDragon", 147),
-  blueDragon: new CheckBit("blueDragon", "blueDragon", 148),
-  redDragon: new CheckBit("redDragon", "redDragon", 149),
-  whiteDragon: new CheckBit("whiteDragon", "whiteDragon", 150),
+  iceDragon: new CheckBit("iceDragon", "iceDragon", DRAGON_START_BIT),
+  stormDragon: new CheckBit("stormDragon", "stormDragon", DRAGON_START_BIT + 1),
+  dirtDragon: new CheckBit("dirtDragon", "dirtDragon", DRAGON_START_BIT + 2),
+  goldDragon: new CheckBit("goldDragon", "goldDragon", DRAGON_START_BIT + 3),
+  skullDragon: new CheckBit("skullDragon", "skullDragon", DRAGON_START_BIT + 4),
+  blueDragon: new CheckBit("blueDragon", "blueDragon", DRAGON_START_BIT + 5),
+  redDragon: new CheckBit("redDragon", "redDragon", DRAGON_START_BIT + 6),
+  whiteDragon: new CheckBit("whiteDragon", "whiteDragon", DRAGON_START_BIT + 7),
 };
 
 export const characterChecks: Record<FF6Character, Array<FF6Event>> = {

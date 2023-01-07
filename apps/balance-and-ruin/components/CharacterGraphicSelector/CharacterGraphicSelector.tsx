@@ -1,4 +1,5 @@
 import { CHARACTER_POSES } from "@ff6wc/ff6-types";
+import orderBy from "lodash/orderBy";
 import { useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import PortraitDrawLoad from "~/components/PortraitDrawLoad/PortraitDrawLoad";
@@ -75,7 +76,7 @@ export const CharacterGraphicSelector = ({
     .split(".")
     .map((val) => Number.parseInt(val));
 
-  const spriteOptions: SelectOption[] = useMemo(
+  const baseSpriteOptions: SelectOption[] = useMemo(
     () =>
       sprites.map<SelectOption>(({ id, key }) => ({
         label: key,
@@ -84,18 +85,54 @@ export const CharacterGraphicSelector = ({
     [sprites]
   );
 
+  const original = useMemo(
+    () => baseSpriteOptions.slice(0, 24),
+    [baseSpriteOptions]
+  );
+  const others = useMemo(
+    () =>
+      orderBy(
+        baseSpriteOptions.slice(24, baseSpriteOptions.length - 1),
+        (o) => o.label
+      ),
+    [baseSpriteOptions]
+  );
+
+  const spriteOptions = useMemo(
+    () => [...original, ...others],
+    [original, others]
+  );
+
   const spritesById = spriteOptions.reduce((acc, spriteDef) => {
     acc[spriteDef.value] = spriteDef;
     return acc;
   }, {} as Record<string, SelectOption>);
 
-  const portraitOptions: SelectOption[] = useMemo(
+  const basePortraitOptions: SelectOption[] = useMemo(
     () =>
       portraits.map<SelectOption>(({ id, key }) => ({
         label: key,
         value: id.toString(),
       })),
     [portraits]
+  );
+
+  const originalPortraits = useMemo(
+    () => basePortraitOptions.slice(0, 24),
+    [basePortraitOptions]
+  );
+  const otherPortraits = useMemo(
+    () =>
+      orderBy(
+        basePortraitOptions.slice(24, basePortraitOptions.length - 1),
+        (o) => o.label
+      ),
+    [basePortraitOptions]
+  );
+
+  const portraitOptions = useMemo(
+    () => [...originalPortraits, ...otherPortraits],
+    [originalPortraits, otherPortraits]
   );
 
   const portraitsById = portraitOptions.reduce((acc, spriteDef) => {

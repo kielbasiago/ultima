@@ -282,12 +282,47 @@ const expGpScalingOptions: SubflagOption[] = [
   },
 ];
 
+const MAX_ENEMY_LEVEL_TIER = 8;
+const BASE_ENEMY_LEVELS_PER_TIER = 3;
+
 const abilityScalingOptions: SubflagOption[] = [
   {
-    flag: "ase",
+    flag: "-ase",
     defaultValue: 2,
-    helperText: "",
-    label: "",
+    helperText: (val) => {
+      const levelsPerTier = (val as number) + BASE_ENEMY_LEVELS_PER_TIER;
+      const value = levelsPerTier * MAX_ENEMY_LEVEL_TIER;
+      return `Enemy and boss abilities retain element and increase in tier approximately every ${levelsPerTier} levels, reaching the most powerful abilities at level ${value}`;
+    },
+    label: "Element",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        flag="-ase"
+        helperText=""
+        label={children}
+        min={0.5}
+        max={5}
+      />
+    ),
+  },
+  {
+    flag: "-asr",
+    defaultValue: 2,
+    helperText: (val) => {
+      const levelsPerTier = (val as number) + BASE_ENEMY_LEVELS_PER_TIER;
+      const value = levelsPerTier * MAX_ENEMY_LEVEL_TIER;
+      return `Enemy and boss abilities are of random elements and increase in tier approximately every ${levelsPerTier} levels, reaching the most powerful abilities at level ${value}`;
+    },
+    label: "Random",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        flag="-asr"
+        helperText=""
+        label={children}
+        min={0.5}
+        max={5}
+      />
+    ),
   },
 ];
 
@@ -320,6 +355,15 @@ export const Scaling = () => {
             label: "None",
           }}
           options={expGpScalingOptions}
+        />
+
+        <FlagSubflagSelect
+          label="Ability Scaling"
+          nullable={{
+            description: "Enemy and boss abilities are not scaled",
+            label: "None",
+          }}
+          options={abilityScalingOptions}
         />
 
         <FlagSlider flag={"-msl"} label={"Max Scale Level"} />

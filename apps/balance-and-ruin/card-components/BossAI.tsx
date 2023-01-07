@@ -1,6 +1,7 @@
 import { Card, HelperText } from "@ff6wc/ui";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
+import { Divider } from "~/design-components/Divider/Divider";
 
 export const BossAI = () => {
   return (
@@ -10,6 +11,15 @@ export const BossAI = () => {
           Revert balance changes that have been made over time for Worlds
           Collide
         </HelperText>
+
+        <FlagSwitch
+          flag="-bnu"
+          helperText="Bosses that were undead in the original game are now undead"
+          invert
+          label="Restore Undead Bosses"
+        />
+
+        <Divider />
         <FlagSwitch
           flag="-cmd"
           invert
@@ -22,12 +32,6 @@ export const BossAI = () => {
           helperText="Doom gaze will escape during the fight"
           label=" Doom Gaze Escapes"
         />
-
-        {/* <FlagSwitch
-          flag="-bmkl"
-          helperText="Marshal will always accompanied by 2x Lobo"
-          label="Marshal Minions are Lobos"
-        /> */}
 
         <FlagSwitch
           flag="-mmnu"

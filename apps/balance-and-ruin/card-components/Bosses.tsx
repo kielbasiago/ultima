@@ -1,6 +1,7 @@
 import { Card } from "@ff6wc/ui";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { FlagSubflagSelect } from "~/components/FlagSubflagSelect/FlagSubflagSelect";
+import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
 
 const battleOptions = [
   {

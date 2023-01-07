@@ -15,7 +15,7 @@ import { renderDescription } from "~/utils/renderDescription";
 export type SubflagOption = {
   defaultValue: FlagValue;
   flag: string;
-  helperText: string;
+  helperText: string | ((value: FlagValue) => string);
   label: string;
   // if true, it will match flag name + defaultValue to the current selected.
   isStatic?: boolean;
@@ -38,7 +38,13 @@ export const FlagSelectOption = <T extends SubflagOption>({
   ...rest
 }: OptionProps<T, false>) => {
   const { helperText, defaultValue } = data;
-  const description = renderDescription(helperText ?? "", defaultValue);
+
+  let description: React.ReactNode;
+  if (typeof helperText === "function") {
+    description = helperText(defaultValue);
+  } else {
+    description = renderDescription(description, defaultValue);
+  }
   return (
     <components.Option data={data} {...rest}>
       <p className="text-base pt-1 px-2">{children}</p>
@@ -119,10 +125,12 @@ export const FlagSubflagSelect = ({
     [options, defaultSelected, empty, selectedFlag, selectedValue]
   );
 
-  const description = renderDescription(
-    selectedOption.helperText ?? schemaDescription ?? "",
-    selectedValue
-  );
+  let description: React.ReactNode;
+  if (typeof selectedOption.helperText === "function") {
+    description = selectedOption.helperText(selectedValue);
+  } else {
+    description = renderDescription(description, selectedValue);
+  }
 
   const { Renderable } = selectedOption;
 

@@ -22,7 +22,6 @@ export const ButtonLink = ({
           className ?? ""
         } inline-flex flex-row items-center justify-center gap-2 text-lg font-extrabold`,
         disabled: false,
-        p: "default",
         variant,
       })}
       href={href}

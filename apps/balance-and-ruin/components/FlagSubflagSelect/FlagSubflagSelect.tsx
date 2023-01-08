@@ -129,7 +129,7 @@ export const FlagSubflagSelect = ({
   if (typeof selectedOption.helperText === "function") {
     description = selectedOption.helperText(selectedValue);
   } else {
-    description = renderDescription(description, selectedValue);
+    description = renderDescription(selectedOption.helperText, selectedValue);
   }
 
   const { Renderable } = selectedOption;

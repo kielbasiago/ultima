@@ -7,10 +7,7 @@
     "declarationMap": false,
     "importHelpers": true,
     "paths": {
-      "~/design-components": ["../balance-and-ruin/design-components"],
-      "~/*": ["./*"],
-      "@ff6wc/ui": ["../balance-and-ruin/design-components"],
-      "@ff6wc/ui/*": ["../balance-and-ruin/design-components/*"]
+      "~/*": ["./*"]
     }
   }
 }

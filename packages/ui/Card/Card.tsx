@@ -6,6 +6,7 @@ export type CardProps = Omit<
   "title"
 > & {
   contentClassName?: string;
+  prependedComponent?: React.ReactNode;
   title: React.ReactNode | JSX.Element;
   variant?: "default" | "primary";
 };
@@ -48,6 +49,7 @@ export const Card = ({
   children,
   className,
   contentClassName,
+  prependedComponent,
   title,
   variant = "default",
   ...rest
@@ -62,6 +64,7 @@ export const Card = ({
     >
       <div {...rest} className={cx(containerStyles())}>
         <div className={headingStyles({ variant })}>{title}</div>
+        {prependedComponent ? <>{prependedComponent}</> : null}
         <div className={cx(contentStyles(), contentClassName)}>{children}</div>
       </div>
     </div>

@@ -10,14 +10,14 @@ export type FlagTextInputProps = {
   description?: string;
   flag: string;
   label: string;
-  type: "text";
+  placeholder?: string;
 };
 
 export const FlagTextInput = ({
   description: hardDescription,
   flag,
   label,
-  type,
+  placeholder,
 }: FlagTextInputProps) => {
   const ref = useRef<HTMLInputElement>(null);
   const defaultValue = useSelector(selectDefaultValue(flag));
@@ -53,6 +53,7 @@ export const FlagTextInput = ({
           className="w-full"
           onChange={(e) => onChange(e.target.value)}
           ref={ref}
+          placeholder={placeholder}
           type="text"
           value={value}
         />

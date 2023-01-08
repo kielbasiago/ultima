@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { MusicFooter } from "~/components/Footer/Footer";
@@ -49,11 +49,18 @@ export const getServerSideProps: GetServerSideProps<
   };
 };
 
+const FIRST_LINE_REGEX = /^.+\s+/;
+
 export default function SeedId({ seed, seedId }: Props) {
   const dispatch = useDispatch();
-  const { flags, log, patch } = seed;
+  const { flags, log: logWithFlags, patch } = seed;
 
   const title = `FF6WC music seed ${seedId}`;
+
+  const log = useMemo(
+    () => logWithFlags.replace(FIRST_LINE_REGEX, ""),
+    [logWithFlags]
+  );
 
   useEffect(() => {
     dispatch(setRawFlags(flags));

@@ -110,7 +110,10 @@ export const ObjectiveResultSelect = ({
 
   const getOptionLabel = (option: ObjectiveResult) => {
     const label = `${resultsById[option.id]?.name}`;
-    return label === option.group ? "Random" : label;
+    if (label !== option.group) {
+      return label;
+    }
+    return label === "Random" ? "Random" : `Random (${option.group})`;
   };
 
   return (

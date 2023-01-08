@@ -1,7 +1,7 @@
 import { cva } from "cva";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { PropsWithChildren, useEffect } from "react";
+import { PropsWithChildren, useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { Footer } from "~/components/Footer/Footer";
@@ -46,11 +46,19 @@ export const getServerSideProps: GetServerSideProps<
   };
 };
 
+const REMOVE_FLAGS_FROM_LOG_REGEX = /\nFlags.+\n/g;
+
 export default function SeedId({ seed, seedId }: Props) {
   const dispatch = useDispatch();
-  const { flags, log, patch } = seed;
+  const { flags, log: logWithFlags, patch } = seed;
 
   const title = `FF6WC seed ${seedId}`;
+
+  const log = useMemo(
+    // () => logWithFlags,
+    () => logWithFlags.replace(REMOVE_FLAGS_FROM_LOG_REGEX, "\n"),
+    [logWithFlags]
+  );
 
   useEffect(() => {
     dispatch(setRawFlags(flags));

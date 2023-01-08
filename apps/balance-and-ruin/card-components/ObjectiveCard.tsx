@@ -3,6 +3,7 @@ import { Divider } from "@ff6wc/ui/Divider/Divider";
 import { useDispatch, useSelector } from "react-redux";
 import { SingleValue } from "react-select";
 import { ObjectiveAddConditionButton } from "~/components/ObjectiveAddConditionButton/ObjectiveAddConditionButton";
+import { ObjectiveCloneButton } from "~/components/ObjectiveCloneButton/ObjectiveCloneButton";
 import { ObjectiveConditionSelect } from "~/components/ObjectiveConditionSelect/ObjectiveConditionSelect";
 import { ObjectiveConditionsRequired } from "~/components/ObjectiveConditionsRequired/ObjectiveConditionsRequired";
 import { ObjectiveDeleteButton } from "~/components/ObjectiveDeleteButton/ObjectiveDeleteButton";
@@ -91,14 +92,20 @@ export const ObjectiveCard = ({ objective }: ObjectiveCardProps) => {
     <div className={"flex flex-grow items-center justify-between "}>
       <span className="flex items-center gap-4">
         <span>Objective {letter.toUpperCase()}</span>
-        <ObjectiveAddConditionButton objective={objective} />
       </span>
       <ObjectiveDeleteButton objective={objective} />
     </div>
   );
 
+  const actions = (
+    <div className="flex flex-row flex-wrap gap-2 items-center justify-between p-2 bg-zinc-800 ">
+      <ObjectiveAddConditionButton objective={objective} />
+      <ObjectiveCloneButton objective={objective} />
+    </div>
+  );
+
   return (
-    <Card className="" title={title as unknown as any}>
+    <Card prependedComponent={actions} title={title as unknown as any}>
       <ObjectiveResultSelect flag={flag} onChange={onResultChange} />
       {value_range ? (
         <ObjectiveResultValue objective={objective} metadata={resultMetadata} />

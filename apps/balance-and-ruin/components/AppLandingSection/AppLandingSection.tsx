@@ -13,7 +13,7 @@ export const AppLandingSection = ({ children, title }: Props) => {
           className={cx(
             openSans.className,
             "main-header-text",
-            "text-4xl lg:text-6xl"
+            "text-4xl lg:text-6xl p-3"
           )}
         >
           {title}

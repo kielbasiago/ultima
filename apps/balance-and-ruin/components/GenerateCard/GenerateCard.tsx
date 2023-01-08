@@ -180,7 +180,7 @@ export const GenerateCard = ({
   return (
     <Card
       {...rest}
-      className="max-w-[1200px]"
+      className="max-w-[1200px] min-w-[600px]"
       contentClassName={cx("p-0 gap-3", className)}
       title="Generate"
     >

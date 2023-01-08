@@ -36,7 +36,12 @@ export const SettingsCard = () => {
           defaultSelected={OPEN_WORLD}
         />
 
-        <FlagTextInput flag="-s" label="Seed" type="text" />
+        <FlagTextInput
+          flag="-s"
+          description="Games generated with the same seed and flags will be identical. When empty, a random seed will be generated"
+          label="Seed"
+          placeholder="Use Random Seed"
+        />
 
         <FlagSwitch flag="-sl" label="Spoiler Log" />
       </CardColumn>

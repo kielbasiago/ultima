@@ -6,26 +6,25 @@ import {
 } from "~/components/FlagSubflagSelect/FlagSubflagSelect";
 
 const fixedEncounterDescription =
-  "Applies to unavoidable encounters at fixed locations";
+  "Applies to all unavoidable encounters at fixed locations";
 const randomEncounterDescription =
-  "Applies to random encounters except Zone Eater";
-
+  "Applies to all random encounters except Zone Eater";
 const escapableEncounterDescription =
-  "Applies to random and fixed encounters including with warp or smoke";
+  "Applies to both random and fixed encounters";
 
 const randomEncounterOptions: SubflagOption[] = [
   {
     defaultValue: true,
     flag: "-res",
-    helperText: randomEncounterDescription,
+    helperText: `Random encounters are shuffled. ${randomEncounterDescription}`,
     label: "Shuffle",
     isStatic: true,
   },
   {
     defaultValue: 0,
     flag: "-rer",
-    helperText: randomEncounterDescription,
-    label: "Random",
+    helperText: `Random encounters have a {{.}}% chance to be a random boss. ${randomEncounterDescription}`,
+    label: "Random with boss chance",
     Renderable: ({ children }) => (
       <div>
         <div>
@@ -40,7 +39,7 @@ const fixedEncounterOptions: SubflagOption[] = [
   {
     defaultValue: 0,
     flag: "-fer",
-    helperText: fixedEncounterDescription,
+    helperText: `Fixed encounters have a {{.}}% chance to be a random boss. ${fixedEncounterDescription}`,
     label: "Random with boss chance",
     Renderable: ({ children }) => (
       <FlagSlider flag="-fer" helperText="" label={children} />
@@ -52,7 +51,7 @@ const escapableEncounterOptions: SubflagOption[] = [
   {
     defaultValue: 100,
     flag: "-escr",
-    helperText: escapableEncounterDescription,
+    helperText: `Encounters have a {{.}}% chance to be escapable${escapableEncounterDescription}`,
     label: "Random",
     Renderable: ({ children }) => (
       <FlagSlider flag="-escr" helperText="" label={children} />

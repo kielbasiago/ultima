@@ -244,7 +244,10 @@ export const objectiveSlice = createSlice({
     addObjective(
       state,
       action: PayloadAction<
-        Omit<Objective, "conditions" | "requiredConditions" | "result">
+        Omit<Objective, "conditions" | "requiredConditions" | "result"> &
+          Partial<
+            Pick<Objective, "conditions" | "requiredConditions" | "result">
+          >
       >
     ) {
       const objectiveCount = Object.keys(state.objectivesByFlag).length;
@@ -274,39 +277,6 @@ export const objectiveSlice = createSlice({
 
       state.objectives = normalizeObjectives(state.objectivesByFlag);
     },
-    addCondition(
-      state,
-      action: PayloadAction<{
-        flag: string;
-      }>
-    ) {
-      const RANDOM_ID = "1";
-      const objective = { ...state.objectivesByFlag[action.payload.flag] };
-      const conditions = [...objective.conditions];
-
-      if (conditions.length >= MAX_CONDITION_COUNT) {
-        return;
-      }
-
-      const meta = state.metadataById.conditions[RANDOM_ID];
-      const condition: ObjectiveCondition = {
-        id: RANDOM_ID,
-        name: meta.condition_type_name,
-        range: meta.range,
-        values: [`${meta.value_range[0]}`],
-      };
-
-      conditions.push(condition);
-      objective.conditions = conditions;
-      objective.requiredConditions = [
-        objective.requiredConditions[0] + 1,
-        objective.requiredConditions[1] + 1,
-      ];
-
-      state.objectivesByFlag[action.payload.flag] = objective;
-      state.objectives = normalizeObjectives(state.objectivesByFlag);
-    },
-    removeCondition(state, action: PayloadAction<ObjectiveCondition>) {},
   },
   // Special reducer for hydrating the state. Special case for next-redux-wrapper
   extraReducers: {
@@ -320,9 +290,7 @@ export const objectiveSlice = createSlice({
 });
 
 export const {
-  addCondition,
   addObjective,
-  removeCondition,
   removeObjective,
   setObjective,
   setObjectives,

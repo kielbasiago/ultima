@@ -1,7 +1,7 @@
 [submodule "apps/balance-and-ruin/WorldsCollide"]
 	path = apps/balance-and-ruin/WorldsCollide
-	url = https://github.com/kielbasiago/WorldsCollide
-	branch = dev
+	url = https://github.com/ff6wc/WorldsCollide
+	branch = main
 	
 [submodule "apps/balance-and-ruin/johnnydmad"]
 	path = apps/balance-and-ruin/johnnydmad

@@ -4,7 +4,6 @@ import first from "lodash/first";
 import { useEffect, useRef, useState } from "react";
 import { MdClear, MdFileUpload } from "react-icons/md";
 import { useSelector } from "react-redux";
-import useSWRMutation from "swr/mutation";
 import { selectRawFlags } from "~/state/flagSlice";
 import { base64ToByteArray } from "~/utils/base64ToByteArray";
 import { isValidROM, removeHeader } from "~/utils/romUtils";

@@ -4,6 +4,7 @@ export * from "./ButtonLink/ButtonLink";
 export * from "./Card/Card";
 export * from "./CodeBlock/CodeBlock";
 export * from "./DiscordButton/DiscordButton";
+export * from "./Divider/Divider";
 export * from "./Footer/Footer";
 export * from "./Header/Header";
 export * from "./HelperText/HelperText";

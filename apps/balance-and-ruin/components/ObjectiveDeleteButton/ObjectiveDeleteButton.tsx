@@ -45,7 +45,7 @@ export const ObjectiveDeleteButton = ({ objective }: ObjectiveCardProps) => {
   };
 
   return (
-    <Button onClick={deleteObjective} variant="primary">
+    <Button onClick={deleteObjective} size="small" variant="danger">
       Delete
     </Button>
   );

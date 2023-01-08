@@ -11,9 +11,10 @@ export const buttonStyles = cva(
       disabled: {
         true: "opacity-40 cursor-not-allowed",
       },
-      p: {
+      size: {
         default: ["px-4", "py-2"],
-        none: [],
+        small: ["px-2", "py-1", "text-s"],
+        smallest: ["p-0"],
       },
       variant: {
         default: [
@@ -27,6 +28,13 @@ export const buttonStyles = cva(
           "active:bg-blue-900",
           "border-blue-300 active:border-blue-500",
           "focus-visible:border-blue-300 focus-visible:outline-2",
+        ],
+        danger: [
+          "bg-red-700 text-white",
+          "hover:bg-red-800",
+          "active:bg-red-900",
+          "border-red-300 active:border-red-500",
+          "focus-visible:border-red-300 focus-visible:outline-2",
         ],
         discord: [
           "bg-discord text-white",
@@ -49,7 +57,7 @@ export const buttonStyles = cva(
       },
     },
     defaultVariants: {
-      p: "default",
+      size: "default",
       variant: "default",
     },
   }
@@ -63,7 +71,7 @@ export const Button = ({
   children,
   className,
   disabled,
-  p,
+  size,
   variant,
   ...props
 }: ButtonProps & VariantProps<typeof buttonStyles>) => {
@@ -73,7 +81,7 @@ export const Button = ({
       className={cx(
         "WC-button",
         className,
-        buttonStyles({ disabled, p, variant })
+        buttonStyles({ disabled, size, variant })
       )}
       disabled={disabled}
     >

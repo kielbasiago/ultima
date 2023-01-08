@@ -1,7 +1,6 @@
-import { Card, HelperText } from "@ff6wc/ui";
+import { Card, Divider, HelperText } from "@ff6wc/ui";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
-import { Divider } from "~/design-components/Divider/Divider";
 
 export const BossAI = () => {
   return (

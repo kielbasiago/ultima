@@ -15,20 +15,30 @@ const useRandomSprite = () => {
   });
 };
 
-export const SpriteDrawRandom = () => {
+type Props = {
+  spriteId?: number;
+  paletteId?: number;
+  poseId?: number;
+};
+
+export const SpriteDrawRandom = ({ paletteId, poseId, spriteId }: Props) => {
   const { data } = useRandomSprite();
   const { palette_id, pose_id, sprite_id } = data ?? {};
 
+  const sprite = spriteId ?? sprite_id;
+  const palette = paletteId ?? palette_id;
+  const pose = poseId ?? pose_id;
+
   const showSprite =
-    Number.isFinite(palette_id) &&
-    Number.isFinite(pose_id) &&
-    Number.isFinite(sprite_id);
+    Number.isFinite(sprite) &&
+    Number.isFinite(palette) &&
+    Number.isFinite(pose);
 
   return !showSprite ? null : (
     <SpriteDrawLoad
-      paletteId={palette_id as number}
-      poseId={pose_id as number}
-      spriteId={sprite_id as number}
+      paletteId={palette as number}
+      poseId={pose as number}
+      spriteId={sprite as number}
       scale={2}
       variant={"half"}
     />

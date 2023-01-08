@@ -68,7 +68,7 @@ const yNpcOptions: SubflagOption[] = [
     isStatic: true,
   },
   {
-    flag: "-yvxc",
+    flag: "-yvxz",
     defaultValue: true,
     label: "Vanish/X-Zone",
     helperText: "",

@@ -11,7 +11,6 @@ export const DiscordButton = ({}: {}) => {
       className={buttonStyles({
         className: button(),
         variant: "discord",
-        p: "default",
       })}
       href={DISCORD_URL}
       target="_blank"

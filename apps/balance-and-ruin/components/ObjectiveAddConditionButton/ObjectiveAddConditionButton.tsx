@@ -2,14 +2,14 @@ import { Button } from "@ff6wc/ui";
 import { useDispatch, useSelector } from "react-redux";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 import {
-  addCondition,
   MAX_CONDITION_COUNT,
-  normalizeObjectives,
+  selectObjectiveConditionMetadataById,
   selectObjectiveResultMetadataById,
   selectObjectives,
-  setObjectives,
+  setObjective,
 } from "~/state/objectiveSlice";
-import { Objective } from "~/types/objectives";
+import { Objective, ObjectiveCondition } from "~/types/objectives";
+import { objectiveToString } from "~/utils/objectiveToString";
 
 type ObjectiveCardProps = {
   objective: Objective;
@@ -21,28 +21,48 @@ export const ObjectiveAddConditionButton = ({
   const { flag } = objective;
   const dispatch = useDispatch();
   const objectivesByFlag = useSelector(selectObjectives) ?? {};
-  const meta = useSelector(selectObjectiveResultMetadataById);
+  const resultMetadata = useSelector(selectObjectiveResultMetadataById);
+  const conditionMetadata = useSelector(selectObjectiveConditionMetadataById);
   const value = useFlagValueSelector<string>(flag)?.split(".") ?? [];
 
   const addObjectiveCondition = () => {
-    dispatch(
-      addCondition({
-        flag,
-      })
-    );
+    if (objective.conditions.length >= MAX_CONDITION_COUNT) {
+      return;
+    }
+    const RANDOM_ID = "1";
+    const cMetadata = conditionMetadata[RANDOM_ID];
+    const newObjective = { ...objective };
+    const conditions = [...objective.conditions];
+    const newCondition: ObjectiveCondition = {
+      id: RANDOM_ID,
+      name: cMetadata.condition_type_name,
+      range: cMetadata.range,
+      values: [cMetadata.value_range[0]],
+    };
+
+    conditions.push(newCondition);
+    newObjective.conditions = conditions;
+    newObjective.requiredConditions = [
+      objective.requiredConditions[0] + 1,
+      objective.requiredConditions[1] + 1,
+    ];
+
+    dispatch(setObjective(newObjective));
 
     dispatch(
       setFlag({
         flag,
-        value: [...value.concat("1", "r")].join("."),
+        value: objectiveToString(newObjective),
       })
     );
   };
 
   return (
     <Button
+      className="w-fit"
       disabled={objective.conditions.length >= MAX_CONDITION_COUNT}
       onClick={addObjectiveCondition}
+      size="small"
       variant="primary"
     >
       Add Condition

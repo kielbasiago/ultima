@@ -1,5 +1,6 @@
 export type HelperTextProps = {
   children: React.ReactNode;
+  className?: string;
 };
 
 export const HelperText = ({ children }: HelperTextProps) => {

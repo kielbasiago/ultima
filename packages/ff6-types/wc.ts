@@ -365,6 +365,11 @@ export const characterNames = Object.keys(
   characterChecks
 ) as Array<FF6Character>;
 
+/*
+  TERRA, LOCKE, CYAN, SHADOW, EDGAR, SABIN, CELES, STRAGO, RELM, SETZER, MOG, GAU, GOGO, UMARO = range(CHARACTER_COUNT)
+  SOLDIER, IMP, GENERAL_LEO, BANON_DUNCAN, ESPER_TERRA, MERCHANT, GHOST, KEFKA = range(CHARACTER_COUNT, 22)
+
+*/
 export const characterPalettesByKey: Record<FF6Character, number> = {
   terra: 2,
   locke: 1,
@@ -385,3 +390,5 @@ export const characterPalettesByKey: Record<FF6Character, number> = {
 export const characterPalettes = characterNames.map(
   (z) => characterPalettesByKey[z]
 );
+
+export const otherPalettes = [1, 0, 0, 3, 6, 1, 0, 3];

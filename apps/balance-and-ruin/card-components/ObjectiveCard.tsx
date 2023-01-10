@@ -55,9 +55,8 @@ export const ObjectiveCard = ({ objective }: ObjectiveCardProps) => {
     // allow range of values
     if (newMetadata.value_range) {
       const minVal = Number.parseInt(newMetadata.value_range[0].toString());
-      const newResultValue = [minVal, minVal];
-      const newValue = objectiveToString(newObjective, [minVal, minVal]);
-      newObjective.result.value = newResultValue;
+      newObjective.result.value = [minVal, minVal];
+      const newValue = objectiveToString(newObjective);
       dispatch(
         setFlag({
           flag,
@@ -79,11 +78,12 @@ export const ObjectiveCard = ({ objective }: ObjectiveCardProps) => {
   };
 
   const onObjectiveChange = (obj: Objective) => {
+    const ots = objectiveToString;
     dispatch(setObjective(obj));
     dispatch(
       setFlag({
         flag: obj.flag,
-        value: objectiveToString(obj),
+        value: ots(obj),
       })
     );
   };

@@ -42,7 +42,7 @@ const useExcludedCommands = () => {
   const rec5 = useFlagValueSelector("-rec5");
   const rec6 = useFlagValueSelector("-rec6");
   return useMemo(
-    () => [rec1, rec2, rec3, rec4, rec5, rec6],
+    () => [rec1, rec2, rec3, rec4, rec5, rec6].filter((val) => val !== NONE),
     [rec1, rec2, rec3, rec4, rec5, rec6]
   );
 };

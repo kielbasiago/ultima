@@ -40,7 +40,7 @@ export const ObjectiveCloneButton = ({ objective }: ObjectiveCardProps) => {
     dispatch(
       setFlag({
         flag,
-        value: objectiveToString(newObjective, newObjective.result.value),
+        value: objectiveToString(newObjective),
       })
     );
   };

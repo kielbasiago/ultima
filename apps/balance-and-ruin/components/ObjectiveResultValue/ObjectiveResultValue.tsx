@@ -57,7 +57,7 @@ export const ObjectiveResultValue = ({
 
     const newObjective = createObjective(objective, metadata);
     newObjective.result.value = value;
-    const newValue = objectiveToString(newObjective, value);
+    const newValue = objectiveToString(newObjective);
 
     dispatch(
       setFlag({

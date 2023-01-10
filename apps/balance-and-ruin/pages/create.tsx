@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { FlagCreatePage } from "~/components/FlagCreatePage/FlagCreatePage";
+import { setRawFlags } from "~/state/flagSlice";
 import { setObjectiveMetadata } from "~/state/objectiveSlice";
 import { RawFlagMetadata, setSchema } from "~/state/schemaSlice";
 import { wrapper } from "~/state/store";
@@ -37,7 +38,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
       const objectives = await objectivesResponse.json();
 
       await store.dispatch(setObjectiveMetadata(objectives));
-
+      const preset = presets["ultros league"];
+      if (preset) {
+        await store.dispatch(setRawFlags(preset.flags));
+      }
       return {
         props: {
           objectives,

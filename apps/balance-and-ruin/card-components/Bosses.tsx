@@ -95,6 +95,8 @@ export const Bosses = () => {
           label="Dragon Battles"
           options={dragonOptions}
         />
+
+        <FlagSwitch flag="-be" label="Boss Experience" />
       </CardColumn>
     </Card>
   );

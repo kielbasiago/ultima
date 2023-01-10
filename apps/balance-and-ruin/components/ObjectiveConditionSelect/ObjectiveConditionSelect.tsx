@@ -90,13 +90,13 @@ export const ObjectiveConditionSelect = ({
     // if the current selected is "None" and we're selecting another condition, increse required conditions by 1
     if (oldId === 0 && newId > 0) {
       obj.requiredConditions = [
-        Math.min(obj.requiredConditions[0], validConditions) + 1,
-        Math.min(obj.requiredConditions[1], validConditions) + 1,
+        Math.max(Math.min(obj.requiredConditions[0], validConditions) + 1, 0),
+        Math.max(Math.min(obj.requiredConditions[1], validConditions) + 1, 0),
       ];
     } else if (newId === 0 && oldId > 0) {
       obj.requiredConditions = [
-        Math.min(obj.requiredConditions[0], validConditions) - 1,
-        Math.min(obj.requiredConditions[1], validConditions) - 1,
+        Math.max(Math.min(obj.requiredConditions[0], validConditions) - 1, 0),
+        Math.max(Math.min(obj.requiredConditions[1], validConditions) - 1, 0),
       ];
     }
     onChange(obj);

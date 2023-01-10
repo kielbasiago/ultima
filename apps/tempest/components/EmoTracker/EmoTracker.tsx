@@ -21,7 +21,11 @@ const OverlayMessage = ({ message }: { message: string }) => (
 
 const trackerDefaults = { ...getTrackerDefaults() };
 
-export function Tracker({ children, mode, showButtons }: Props): JSX.Element {
+export function Tracker({
+  children,
+  mode,
+  showButtons = true,
+}: Props): JSX.Element {
   const id = React.useId();
   const [session, setSession] = React.useState(
     new SnesSession(`ff6wc-autotracker--${id}`).setLogger((...msgs) => {

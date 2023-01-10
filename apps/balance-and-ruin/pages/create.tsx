@@ -16,26 +16,30 @@ export type PageProps = {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async ({}) => {
+      const protocol =
+        process.env.NODE_ENV === "development" ? "http" : "https";
+
       const presetPromise = fetch(
         "https://storage.googleapis.com/seedbot/user_presets.json"
+      );
+
+      const schemaPromise = fetch(
+        `${protocol}://${process.env.VERCEL_URL}/api/metadata/flag`
+      );
+
+      const objectivesPromise = fetch(
+        `${protocol}://${process.env.VERCEL_URL}/api/metadata/objective`
       );
 
       const presets: Record<string, FlagPreset> = await (
         await presetPromise
       ).json();
 
-      const protocol =
-        process.env.NODE_ENV === "development" ? "http" : "https";
-      const response = await fetch(
-        `${protocol}://${process.env.VERCEL_URL}/api/metadata/flag`
-      );
-      const schema = await response.json();
-      await store.dispatch(setSchema(schema));
+      const schema = await (await schemaPromise).json();
 
-      const objectivesResponse = await fetch(
-        `${protocol}://${process.env.VERCEL_URL}/api/metadata/objective`
-      );
-      const objectives = await objectivesResponse.json();
+      const objectives = await (await objectivesPromise).json();
+
+      await store.dispatch(setSchema(schema));
 
       await store.dispatch(setObjectiveMetadata(objectives));
       const preset = presets["ultros league"];

@@ -31,13 +31,15 @@ type UseTrackerDataProps = {
 
 type DataKey = keyof GetSaveDataResponse;
 
+const disabledWhenManual = ["characterCount", "dragonCount", "checkCount"];
+
 export function useTrackerData(props: UseTrackerDataProps) {
   const { trackerData, mode, setTrackerData } = props;
   const providerData = {
     data: { ...trackerData },
     // increment
     onClick(key: string) {
-      if (mode === TrackerMode.AUTO) {
+      if (mode === TrackerMode.AUTO || disabledWhenManual.includes(key)) {
         return;
       }
 
@@ -81,7 +83,7 @@ export function useTrackerData(props: UseTrackerDataProps) {
 
     // decrement
     onRightClick(key: string) {
-      if (mode === TrackerMode.AUTO) {
+      if (mode === TrackerMode.AUTO || disabledWhenManual.includes(key)) {
         return;
       }
 

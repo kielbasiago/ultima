@@ -214,7 +214,10 @@ const layout = [
       new LayoutNumberCell(
         "characterCount",
         "characterCount",
-        ({ characterCount }) => characterCount,
+        ({ characterCount, characters }) =>
+          characterCount > 0
+            ? characterCount
+            : Object.values({ ...characters }).filter((z) => !!z).length,
         undefined,
         { max: 14 }
       ),
@@ -367,7 +370,10 @@ const layout = [
       new LayoutNumberCell(
         "dragonCount",
         "dragonCount",
-        ({ dragonCount }) => dragonCount,
+        ({ dragonCount, dragons }) =>
+          dragonCount > 0
+            ? dragonCount
+            : Object.values(dragons).filter((z) => !!z).length,
         undefined,
         {
           max: 8,

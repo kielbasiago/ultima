@@ -14,7 +14,7 @@
   "functions": {
     "api/**/generate.py": {
       "includeFiles": "{api,api_utils,johnnydmad,WorldsCollide}/**/*",
-      "maxDuration": 30,
+      "maxDuration": 10,
       "memory": 1024
     },
     "api/**/*.py": {

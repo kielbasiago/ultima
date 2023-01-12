@@ -30,10 +30,10 @@ export const buttonStyles = cva(
           "focus-visible:border-blue-300 focus-visible:outline-2",
         ],
         danger: [
-          "bg-red-700 text-white",
-          "hover:bg-red-800",
-          "active:bg-red-900",
-          "border-red-300 active:border-red-500",
+          "bg-red-600 text-white",
+          "hover:bg-red-700",
+          "active:bg-red-800",
+          "border-red-300 active:border-red-600",
           "focus-visible:border-red-300 focus-visible:outline-2",
         ],
         discord: [
@@ -52,7 +52,7 @@ export const buttonStyles = cva(
           "border-2 border-inputs-border",
           "outline-transparent",
 
-          "dark:bg-transparent dark:border-white-500 dark:text-white dark:bg-black dark:bg-opacity-40",
+          "dark:border-white-500 dark:text-white bg-opacity-100",
         ],
       },
     },

@@ -13,6 +13,10 @@ div#__next > div {
   width: 100%;
 }
 
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
 .card-fancy-gradient {
   position: relative;
   /* margin: 200px auto 0; */
@@ -63,6 +67,11 @@ div#__next > div {
 .main-text {
   text-shadow: 1px 1px 1px black;
 }
+
+.subtle-text {
+  text-shadow: 0px 1px 0px black;
+}
+
 
 /* If the user prefers dark mode, 
 we of course apply color-scheme: dark, as usual */

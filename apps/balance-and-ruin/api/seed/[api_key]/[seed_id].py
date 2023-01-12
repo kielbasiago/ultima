@@ -6,7 +6,6 @@ from api_utils.get_api_key import get_api_key
 class handler(BaseHTTPRequestHandler):
   def do_GET(self):
     import json
-    nonce = 'ff6wc'
 
     qs = parse_qs(urlparse(self.path).query)
 

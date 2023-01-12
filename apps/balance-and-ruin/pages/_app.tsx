@@ -7,7 +7,8 @@ import { Provider } from "react-redux";
 import { Schema } from "~/state/schemaSlice";
 import { wrapper } from "~/state/store";
 import "~/styles/globals.css";
-import { openSans, roboto } from "@ff6wc/utils/fonts";
+import { openSans } from "@ff6wc/utils/fonts";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 const client = new QueryClient({});
 
@@ -19,6 +20,11 @@ const App: AppType<Props> = ({ Component, ...rest }: AppProps<Props>) => {
   const { store, props } = wrapper.useWrappedStore(rest);
 
   useDarkMode();
+
+  if (!process.env.NEXT_PUBLIC_RECAPTCHA_KEY) {
+    console.warn("no recaptcha key found, flag generation may not work");
+  }
+
   return (
     <div
       className={cx(
@@ -28,7 +34,11 @@ const App: AppType<Props> = ({ Component, ...rest }: AppProps<Props>) => {
     >
       <Provider store={store}>
         <QueryClientProvider client={client}>
-          <Component {...props.pageProps} />
+          <GoogleReCaptchaProvider
+            reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY as string}
+          >
+            <Component {...props.pageProps} />
+          </GoogleReCaptchaProvider>
         </QueryClientProvider>
       </Provider>
     </div>

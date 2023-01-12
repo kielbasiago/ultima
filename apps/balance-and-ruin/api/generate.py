@@ -3,6 +3,11 @@ import tempfile
 from api_utils.generate_handler import GenerateHandler
 
 class handler(GenerateHandler):
-  def do_POST(self):
-    sys.path.append("WorldsCollide") 
-    super().do_POST()
+  def include_patch(self):
+    return True
+  
+  def include_log(self): 
+    return False
+
+  def use_protocol(self):
+    return "recaptcha"

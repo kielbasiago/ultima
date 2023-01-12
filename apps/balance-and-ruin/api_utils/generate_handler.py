@@ -20,6 +20,44 @@ class GenerateHandler(BaseHTTPRequestHandler):
   
   def include_log(self):
     return True
+
+  def use_protocol(self):
+    return "recaptcha" or "api_key"
+
+  def get_created_by(self):
+    return ""
+
+  # Return (200, None) if valid, (string, status) if error
+  def validate_recaptcha(self, post_data):
+    recaptcha_token = post_data['reCAPTCHA']
+    secret = os.getenv("RECAPTCHA_SECRET")
+    from urllib import request, parse
+    data = parse.urlencode({
+      "secret": secret,
+      "response": recaptcha_token
+    }).encode()
+    req =  request.Request('https://www.google.com/recaptcha/api/siteverify', data=data)
+    resp = request.urlopen(req)
+
+    raw_response = resp.read()
+    result = json.loads(raw_response)
+    if not result['success']:
+      return (403, 'Invalid recaptcha secret')
+
+    return (200, None)
+  
+  # Return (200, None) if valid, (string, status) if error
+  def validate_api_key(self, post_data):
+      from api_utils.get_api_key import get_api_key
+      raw_key = post_data['key']
+      api_key = get_api_key(raw_key)
+      if api_key is None:
+        return (400, 'Api key is invalid')
+      
+      return (200, None)
+      
+  def created_by(self):
+    return 'Website'
   
   def do_POST(self):
     sys.path.append("WorldsCollide")
@@ -37,20 +75,29 @@ class GenerateHandler(BaseHTTPRequestHandler):
       post_data = self.rfile.read(content_length) # <--- Gets the data itself
       data = json.loads(post_data)
 
-      from api_utils.get_api_key import get_api_key
-      raw_key = data['key']
-      api_key = get_api_key(raw_key)
-      
-      if api_key is None:
+      protocol =  self.use_protocol()
+      print(f'using {protocol} validation protocol')
+      (status, error) = self.validate_api_key(data) if self.use_protocol() == 'api_key' else self.validate_recaptcha(data)
+      print(f"{protocol} returned with status {status}")
+      if protocol == 'api_key' and status == 403:
         self.send_response(403)
-        self.send_header('Content-type', 'text/plain')
+        self.send_header('Content-type', 'application/json')
         self.end_headers()
         self.wfile.write(json.dumps({
           'errors': ['Invalid api key'],
           'success': False
         }).encode())
         return
-        
+      elif status != 200:
+        self.send_response(500)
+        self.send_header('Content-type', 'application/json')
+        self.end_headers()
+        self.wfile.write(json.dumps({
+          'errors': [f'Validation returned with status code {status}: {error}'],
+          'success': False
+        }).encode())
+        return
+
       original_flags = data['flags']
       description = data.get('description')
       flags = original_flags +  f' -url {website_url} -manifest {manifest_filename}'
@@ -78,6 +125,9 @@ class GenerateHandler(BaseHTTPRequestHandler):
           
           include_log = self.include_log()
           include_patch = self.include_patch()
+
+          created_by = self.get_created_by()
+
           raw_seed = create_seed(
             seed_id = seed_id, 
             patch = patch, 
@@ -89,7 +139,7 @@ class GenerateHandler(BaseHTTPRequestHandler):
             description = description,
             version = manifest['version'],
             hash = manifest['hash'],
-            created_by = api_key['name']
+            created_by = created_by
           )
           
           del raw_seed['_id']

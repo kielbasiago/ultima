@@ -49,6 +49,7 @@ importers:
       rc-slider: 10.1.0
       react: 18.2.0
       react-dom: 18.2.0
+      react-google-recaptcha-v3: 1.10.1
       react-icons: 4.6.0
       react-query: 3.39.2
       react-redux: 8.0.5
@@ -79,6 +80,7 @@ importers:
       rc-slider: 10.1.0_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      react-google-recaptcha-v3: 1.10.1_biqbaboplfbrettd7655fr4n2y
       react-query: 3.39.2_biqbaboplfbrettd7655fr4n2y
       react-redux: 8.0.5_cn3ejhfta5lq2dae4xucvtkwvu
       react-select: 5.6.1_o6ujcdmwt6ni5mv4wdf5n6tg3y
@@ -4628,6 +4630,17 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+
+  /react-google-recaptcha-v3/1.10.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-K3AYzSE0SasTn+XvV2tq+6YaxM+zQypk9rbCgG4OVUt7Rh4ze9basIKefoBz9sC0CNslJj9N1uwTTgRMJQbQJQ==}
+    peerDependencies:
+      react: ^16.3 || ^17.0 || ^18.0
+      react-dom: ^17.0 || ^18.0
+    dependencies:
+      hoist-non-react-statics: 3.3.2
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
 
   /react-icons/4.6.0_react@18.2.0:
     resolution: {integrity: sha512-rR/L9m9340yO8yv1QT1QurxWQvWpbNHqVX0fzMln2HEb9TEIrQRGsqiNFQfiv9/JEUbyHmHPlNTB2LWm2Ttz0g==}

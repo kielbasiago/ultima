@@ -1,8 +1,7 @@
 import { ButtonLink, DiscordButton, Header } from "@ff6wc/ui";
 import { HiPencil } from "react-icons/hi";
 import { WIKI_URL } from "~/../../packages/utils/constants";
-import { SpriteDrawRandom } from "~/components/SpriteDrawRandom/SpriteDrawRandom";
-import { SpriteDrawRandomOriginal } from "~/components/SpriteDrawRandomOriginal/SpriteDrawRandomOriginal";
+import { SotwButton } from "~/components/SotwButton/SotwButton";
 
 export type AppHeaderProps = Record<string, unknown>;
 
@@ -13,16 +12,7 @@ export const AppHeader = (props: AppHeaderProps) => {
         {/* <div className="flex gap-3 flex-wrap justify-center"></div> */}
       </Header>
       <div className=".WC-nav flex flex-wrap justify-center items-center gap-4 p-5 bg-zinc-800">
-        <ButtonLink
-          className="w-fit min-h-[70px]"
-          href="/sotw"
-          variant="primary"
-        >
-          <SpriteDrawRandomOriginal />
-          <div>
-            <div>Seed of the Week</div>
-          </div>
-        </ButtonLink>
+        <SotwButton />
         <DiscordButton />
         <ButtonLink
           className="w-fit min-h-[70px]"

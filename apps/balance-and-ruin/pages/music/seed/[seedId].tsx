@@ -4,7 +4,7 @@ import { useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { MusicFooter } from "~/components/Footer/Footer";
-import { CodeBlock, Header } from "@ff6wc/ui";
+import { CodeBlock } from "@ff6wc/ui";
 import { MusicSeedCard } from "~/components/MusicSeedCard/MusicSeedCard";
 import { SeedData } from "~/components/SeedCard/SeedCard";
 import { Card } from "@ff6wc/ui";

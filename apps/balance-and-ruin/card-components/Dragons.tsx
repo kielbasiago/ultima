@@ -1,7 +1,7 @@
 import { Card } from "@ff6wc/ui";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
-import { FlagSelect } from "~/components/FlagSelect/FlagSelect";
 import { FlagSubflagSelect } from "~/components/FlagSubflagSelect/FlagSubflagSelect";
+import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
 
 const battleOptions = [
   {
@@ -73,25 +73,16 @@ const statueOptions = [
   MIX_STATUES,
 ];
 
-export const Bosses = () => {
+export const Dragons = () => {
   return (
     <Card title={"Bosses"}>
       <CardColumn>
         <FlagSubflagSelect
-          nullable={{
-            description: "Boss battles are unchanged",
-            label: "Original",
-          }}
-          label="Boss Battles"
-          options={battleOptions}
+          defaultSelected={SHUFFLE_DRAGONS}
+          label="Dragon Battles"
+          options={dragonOptions}
         />
-        <FlagSubflagSelect
-          defaultSelected={MIX_STATUES}
-          label="Statue Battles"
-          options={statueOptions}
-        />
-
-        <FlagSelect flag="-be" label="Boss Experience" />
+        <FlagSwitch flag="-de" label="Dragon Experience" />
       </CardColumn>
     </Card>
   );

@@ -1,4 +1,28 @@
 {
+  "buildCommand": "cd ../.. && npx turbo run build --filter=balance-and-ruin",
+  "devCommand": "next dev",
+  "installCommand": "pnpm install",
+  "functions": {
+    "api/generate/index.py": {
+      "includeFiles": "{api_utils,WorldsCollide}/**/*",
+      "maxDuration": 10,
+      "memory": 1024
+    },
+    "api/music/generate.py": {
+      "includeFiles": "{api_utils,johnnydmad}/**/*",
+      "maxDuration": 10,
+      "memory": 1024
+    },
+    "api/seed/**/*.py": {
+      "includeFiles": "{api_utils,WorldsCollide}/**/*"
+    },
+    "api/{log,metadata,portrait,sprite}/*.py": {
+      "includeFiles": "{api_utils,WorldsCollide}/**/*"
+    },
+    "api/*.py": {
+      "includeFiles": "{api_utils,WorldsCollide}/**/*"
+    }
+  },
   "redirects": [
     {
       "source": "/discord",
@@ -10,15 +34,5 @@
       "destination": "https://wiki.ff6worldscollide.com",
       "permanent": true
     }
-  ],
-  "functions": {
-    "api/**/generate.py": {
-      "includeFiles": "{api,api_utils,johnnydmad,WorldsCollide}/**/*",
-      "maxDuration": 30,
-      "memory": 1024
-    },
-    "api/**/*.py": {
-      "includeFiles": "{api,api_utils,johnnydmad,WorldsCollide}/**/*"
-    }
-  }
+  ]
 }

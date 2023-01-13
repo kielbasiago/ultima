@@ -1,3 +1,0 @@
-cowpy==1.0.3
-pymongo[srv]
-xdelta3

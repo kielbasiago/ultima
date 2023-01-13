@@ -25,17 +25,6 @@ npm install --global pnpm
 pnpm i
 ```
 
-### Code Changes
-
-- Create a `.env.local` file - This is gitignored but is used to house local development env
-- Set the contents of `.env.local` to:
-
-```
-FF3_INPUT_ROM=ff3.smc # this should be your local 1.0 rom location - Will download rom if specificying url
-FF6WC_INPUT_ROM=ff6wc.smc # this will need to be some wc generated rom  - used for johnnydmad
-VERCEL_URL=http://localhost:3000
-```
-
 ### Running
 
 ```

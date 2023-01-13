@@ -21,6 +21,7 @@ import JSZip from "jszip";
 import { useRouter } from "next/router";
 import { selectSchema } from "~/state/schemaSlice";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import { GenerateUpload } from "~/components/GenerateUpload/GenerateUpload";
 
 export type FlagsCardProps = {
   className?: string;
@@ -243,87 +244,17 @@ export const GenerateCard = ({
         )}
       </div>
       <Divider />
-      <h3>Step 2: Select v1.0 US ROM file by clicking the input below</h3>
-      <div className="pl-3">
-        {!success && !romSelectError && (
-          <div className="text-yellow-500 font-semibold subtle-text tracking-wide">
-            Waiting for ROM upload
-          </div>
-        )}
-        {success && (
-          <div
-            className={"text-green-500 font-semibold subtle-text tracking-wide"}
-          >
-            Valid ROM
-          </div>
-        )}
-        {romSelectError ? (
-          <div
-            className={"text-red-500 font-semibold subtle-text tracking-wider"}
-          >
-            {romSelectError}
-          </div>
-        ) : null}
-      </div>
 
-      <div
-        className={needRomDataStyles({
-          className: "flex gap-4",
-          hasRomData,
-        })}
-      >
-        <div className="flex flex-col gap-2">
-          <HelperText>
-            Once you have selected a valid ROM it will be reused for future
-            visits
-          </HelperText>
-
-          <Button
-            className="w-fit"
-            onClick={() => inputRef.current?.click()}
-            variant="primary"
-          >
-            <MdFileUpload className={"inline"} /> Upload v1.0 US ROM file..
-          </Button>
-        </div>
-        <input
-          className={"hidden"}
-          id="rom_name"
-          ref={inputRef}
-          name="rom"
-          onChange={onRomSelect}
-          type="file"
-        />
-      </div>
-      <div
-        className={needRomDataStyles({
-          className:
-            "flex flex-col items-start md:max-w-[500px] md:flex-row md:items-center gap-4",
-          hasRomData: !hasRomData,
-        })}
-      >
-        <HelperText>
-          A ROM named&nbsp;
-          <strong
-            className="text-sm tracking-widest underline underline-offset-2"
-            title={romName}
-          >
-            {displayRomName}
-          </strong>
-          &nbsp;was previously uploaded and validated. To select another ROM,
-          click Clear ROM
-        </HelperText>
-
-        <Button
-          className="w-fit flex-shrink-0"
-          disabled={!hasRomData}
-          onClick={clearRomValues}
-          size="small"
-          variant="danger"
-        >
-          <MdClear className={"inline"} /> Clear ROM
-        </Button>
-      </div>
+      <GenerateUpload
+        clearRomValues={clearRomValues}
+        hasRomData={hasRomData}
+        romName={romName}
+        shortRomName={displayRomName}
+        error={romSelectError}
+        inputRef={inputRef}
+        onRomSelect={onRomSelect}
+        success={success}
+      />
       <Divider />
 
       <div className="flex flex-col gap-2">

@@ -1,4 +1,4 @@
-import { Button, Card, HelperText, Input } from "@ff6wc/ui";
+import { Button, Card, CodeBlock, Divider, HelperText, Input } from "@ff6wc/ui";
 import { cx } from "cva";
 import first from "lodash/first";
 import { useEffect, useRef, useState } from "react";
@@ -9,6 +9,7 @@ import { base64ToByteArray } from "~/utils/base64ToByteArray";
 import { isValidROM, removeHeader } from "~/utils/romUtils";
 import { XDelta3Decoder } from "~/utils/xdelta3_decoder";
 import JSZip from "jszip";
+import { GenerateUpload } from "~/components/GenerateUpload/GenerateUpload";
 
 export type SeedData = {
   flags: string;
@@ -33,6 +34,13 @@ export const SeedCard = ({ className, seed, ...rest }: SeedCardProps) => {
   const [success, setSuccess] = useState(false);
 
   const hasRomData = Boolean(romData);
+
+  const ext = romName.slice(romName.length - 7, romName.length);
+  const displayRomName = !romName
+    ? ""
+    : romName.length > 20
+    ? romName.slice(0, 8).concat("...", ext)
+    : romName;
 
   useEffect(() => {
     if (!inputRef.current) {
@@ -127,68 +135,25 @@ export const SeedCard = ({ className, seed, ...rest }: SeedCardProps) => {
       title="Generate"
     >
       <div className="flex flex-col gap-2">
-        <h2 className={"font-medium text-base"}>
-          Step 1: Verify the following flags and seed are correct
-        </h2>
-        <span className="text-sm pl-3">{flags}&nbsp;</span>
+        <h3 className={"font-medium text-base"}>
+          Step 1: Verify the following flags and seed above are correct
+        </h3>
       </div>
-      <div className="flex flex-col gap-2">
-        <h2 className={"font-medium text-"}>
-          Step 2: Select v1.0 US ROM file by clicking the input below
-        </h2>
-        <HelperText>
-          Once you have selected a valid ROM it will be reused for future visits
-        </HelperText>
-      </div>
-      <div className="flex min-h-[30px] gap-1 pl-3">
-        <Button
-          className="flex items-center gap-1"
-          disabled={hasRomData}
-          onClick={() => inputRef.current?.click()}
-          variant="outline"
-        >
-          <MdFileUpload className={"inline"} /> Upload v1.0 US ROM file..
-        </Button>
-        <Input
-          disabled
-          ref={inputRef}
-          placeholder="Upload ROM to continue"
-          onChange={() => {}}
-          value={romName}
-        />
-        <Button
-          className="flex items-center gap-1"
-          disabled={!hasRomData}
-          onClick={clearRomValues}
-          variant="outline"
-        >
-          <MdClear className={"inline"} /> Clear ROM
-        </Button>
-        <input
-          className={"hidden"}
-          id="rom_name"
-          ref={inputRef}
-          name="rom"
-          onChange={onRomSelect}
-          type="file"
-        />
-      </div>
-      <div className="pl-3">
-        {!success && !romSelectError && (
-          <div className="text-yellow-500 font-semibold">
-            Waiting for ROM upload
-          </div>
-        )}
-        {success && (
-          <div className={"text-green-500 font-semibold"}>Valid ROM </div>
-        )}
-        {romSelectError ? (
-          <div className={"text-red-500 font-semibold"}>{romSelectError}</div>
-        ) : null}
-      </div>
+      <Divider />
+      <GenerateUpload
+        clearRomValues={clearRomValues}
+        hasRomData={hasRomData}
+        romName={romName}
+        shortRomName={displayRomName}
+        error={romSelectError}
+        inputRef={inputRef}
+        onRomSelect={onRomSelect}
+        success={success}
+      />
+      <Divider />
 
       <div className="flex flex-col gap-2">
-        <h2 className={"font-medium text-lg"}>Step 3: Click Generate!</h2>
+        <h3 className={"font-medium text-lg"}>Step 3: Click Generate!</h3>
         {!romData ? (
           <HelperText>
             This button will be disabled until a valid ROM is selected

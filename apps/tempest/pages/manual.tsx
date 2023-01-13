@@ -6,11 +6,12 @@ import { PageContainer } from "~/components/PageContainer";
 import { wrapper } from "~/state/store";
 import { TrackerMode } from "~/types/tracker";
 import { Footer } from "~/components/Footer/Footer";
-import { Header } from "@ff6wc/ui";
 import { TempestHeader } from "~/components/TempestHeader/TempestHeader";
 import { TempestHead } from "~/components/TempestHead/TempestHead";
 
-type PageProps = {};
+type PageProps = {
+  showLayout?: boolean;
+};
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
@@ -21,17 +22,17 @@ export const getServerSideProps = wrapper.getServerSideProps(
     }
 );
 
-const Manual: NextPage<PageProps> = ({}: PageProps) => {
+const Manual: NextPage<PageProps> = ({ showLayout = true }: PageProps) => {
   return (
     <>
       <TempestHead />
-      <TempestHeader />
-      <PageContainer>
+      {showLayout ? <TempestHeader /> : null}
+      <PageContainer gutters={showLayout}>
         <EmoTracker mode={TrackerMode.MANUAL}>
           <EmoTrackerLayout />
         </EmoTracker>
       </PageContainer>
-      <Footer />
+      {showLayout ? <Footer /> : null}
     </>
   );
 };

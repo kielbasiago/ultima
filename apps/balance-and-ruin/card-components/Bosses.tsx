@@ -85,12 +85,17 @@ export const Bosses = () => {
           label="Boss Battles"
           options={battleOptions}
         />
+
         <FlagSubflagSelect
           defaultSelected={MIX_STATUES}
           label="Statue Battles"
           options={statueOptions}
         />
-
+        <FlagSubflagSelect
+          defaultSelected={MIX_STATUES}
+          label="Dragon Battles"
+          options={statueOptions}
+        />
         <FlagSelect flag="-be" label="Boss Experience" />
       </CardColumn>
     </Card>

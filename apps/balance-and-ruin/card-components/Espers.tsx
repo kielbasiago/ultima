@@ -29,7 +29,7 @@ const spellOptions: SubflagOption[] = [
     flag: "-essrr",
     helperText:
       "Spells are shuffled between espers, but are learned at variable rates",
-    label: "Original (Random Rates)",
+    label: "Shuffle (Random Rates)",
     isStatic: true,
   },
   {

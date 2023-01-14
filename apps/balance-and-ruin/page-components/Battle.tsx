@@ -11,7 +11,6 @@ export const Battle = () => {
     <PageContainer columns={2}>
       <ExperienceMagicPointsGold />
       <Bosses />
-      <Dragons />
       <Scaling />
       <Encounters />
     </PageContainer>

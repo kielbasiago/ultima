@@ -78,7 +78,7 @@ export default function SeedId({ seed, seedId }: Props) {
       </Head>
       <AppHeader />
       <div className="flex flex-col gap-6 items-center px-12 py-6">
-        <Card className="max-w-[1200px]" title={"Log"}>
+        <Card className="max-w-[1260px]" title={"Log"}>
           <CardColumn>
             <CodeBlock>{log}</CodeBlock>
           </CardColumn>

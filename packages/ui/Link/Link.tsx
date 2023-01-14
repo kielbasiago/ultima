@@ -11,7 +11,7 @@ type LinkProps = {
 const linkStyles = cva([], {
   variants: {
     color: {
-      blue: ["text-blue-400"],
+      blue: ["text-blue-300"],
       inherit: ["text-inherit"],
     },
   },

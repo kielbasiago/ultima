@@ -1,6 +1,7 @@
 import { Button, HelperText } from "@ff6wc/ui";
 import { cva } from "cva";
 import { MdClear, MdFileUpload } from "react-icons/md";
+import { BadgeText } from "~/components/BadgeText/BadgeText";
 
 export type GenerateUploadProps = {
   clearRomValues: () => any;
@@ -35,26 +36,12 @@ export const GenerateUpload = ({
   return (
     <>
       <h3>Step 2: Select v1.0 US ROM file by clicking the input below</h3>
-      <div className="pl-3">
+      <div className="">
         {!success && !error && (
-          <div className="text-yellow-500 font-semibold subtle-text tracking-wide">
-            Waiting for ROM upload
-          </div>
+          <BadgeText variant="warning">Waiting for ROM upload</BadgeText>
         )}
-        {success && (
-          <div
-            className={"text-green-500 font-semibold subtle-text tracking-wide"}
-          >
-            Valid ROM
-          </div>
-        )}
-        {error ? (
-          <div
-            className={"text-red-500 font-semibold subtle-text tracking-wider"}
-          >
-            {error}
-          </div>
-        ) : null}
+        {success && <BadgeText variant="success">Valid ROM</BadgeText>}
+        {error ? <BadgeText variant={"danger"}>{error}</BadgeText> : null}
       </div>
 
       <div

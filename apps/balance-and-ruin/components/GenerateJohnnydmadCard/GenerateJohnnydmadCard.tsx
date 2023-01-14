@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import { MdClear, MdFileUpload } from "react-icons/md";
 import useSWRMutation from "swr/mutation";
+import { BadgeText } from "~/components/BadgeText/BadgeText";
 import { ROM_FILE_EXTENSIONS } from "~/constants/romConstants";
 import { base64ToByteArray } from "~/utils/base64ToByteArray";
 import { XDelta3Decoder } from "~/utils/xdelta3_decoder";
@@ -160,9 +161,9 @@ export const GenerateJohnnydmadCard = ({
       }
     >
       <div className="flex flex-col gap-2">
-        <p className="text-red-500 font-semibold p-4 bg-white w-fit">
-          <span>Randomizing music will significantly modify load speeds</span>
-        </p>
+        <BadgeText emphasis variant="danger">
+          Randomizing music will significantly modify load speeds
+        </BadgeText>
 
         <h2 className={"font-medium text-lg"}>
           Step 1:{" "}
@@ -211,6 +212,7 @@ export const GenerateJohnnydmadCard = ({
           type="file"
         />
       </div>
+
       <div className="pl-3">
         {!success && !zipSelectError && (
           <div className="text-yellow-500 font-semibold">

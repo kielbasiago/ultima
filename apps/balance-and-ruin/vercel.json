@@ -1,6 +1,5 @@
 {
   "buildCommand": "cd ../.. && npx turbo run build --filter=balance-and-ruin",
-  "devCommand": "next dev",
   "installCommand": "pnpm install",
   "functions": {
     "api/generate/index.py": {

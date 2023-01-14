@@ -5,7 +5,7 @@ import { KeyboardEvent, useCallback, useId, useRef } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
 export type SelectOption = {
-  readonly helperText?: string;
+  readonly helperText?: React.ReactNode;
   readonly value: string;
   readonly label: string;
 };
@@ -30,7 +30,7 @@ import BaseSelect, {
 } from "react-select";
 
 type FlagSelectOptionData = {
-  helperText?: string;
+  helperText?: React.ReactNode;
   label: string;
   value: string;
 };

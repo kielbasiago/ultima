@@ -7,7 +7,7 @@ type Props = {
 };
 export const AppLandingSection = ({ children, title }: Props) => {
   return (
-    <div className="w-full items-center flex flex-col bg-gray-800">
+    <div className="flex-grow w-full items-center flex flex-col bg-gray-800">
       <span className="w-full text-center bg-gray-600">
         <h2
           className={cx(
@@ -19,7 +19,7 @@ export const AppLandingSection = ({ children, title }: Props) => {
           {title}
         </h2>
       </span>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-[1px] bg-gray-500">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-[1px] bg-gray-500 border-b-1 border-b-gray-500">
         {children}
       </div>
     </div>

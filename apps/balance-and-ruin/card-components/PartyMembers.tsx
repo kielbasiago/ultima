@@ -7,8 +7,8 @@ import { FlagSelectOption } from "~/components/FlagSelect/FlagSelect";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
 
 const [random, randomngu]: FlagSelectOption[] = [
-  { id: "random", label: "Random" },
-  { id: "randomngu", label: "Random (No Gogo/Umaro)" },
+  { value: "random", label: "Random" },
+  { value: "randomngu", label: "Random (No Gogo/Umaro)" },
 ];
 
 const options = [
@@ -17,7 +17,7 @@ const options = [
   ...characterNames.map(
     (id) =>
       ({
-        id,
+        value: id,
         label: startCase(id),
       } as FlagSelectOption)
   ),

@@ -55,7 +55,7 @@ const LABELS = [
 
 const hoistedOptions = [RANDOM, RANDOM_UNIQUE, NONE];
 const commandOptions = Object.values(ALL_COMMANDS).filter(
-  ({ id }) => !hoistedOptions.includes(id)
+  ({ value }) => !hoistedOptions.includes(value)
 );
 
 const constructOptions = (options: CommandOption[]): CommandOption[] => {
@@ -77,22 +77,24 @@ const getOptionsForCharacter = (
   selectedCommands: number[],
   commandIndex: number
 ) => {
-  const characterCommands = options.filter(({ id }) =>
+  const characterCommands = options.filter(({ value: id }) =>
     isSpecificToCharacter(id, commandIndex)
   );
 
-  const uniqueCommands = options.filter(({ id }) =>
+  const uniqueCommands = options.filter(({ value: id }) =>
     uniqueOptionIds.includes(id)
       ? !selectedCommands.includes(id) || selectedCommands[commandIndex] === id
       : false
   );
 
-  const characterCommandIds = characterCommands.map(({ id }) => id);
-  const uniqueCommandIds = characterCommands.map(({ id }) => id);
+  const characterCommandIds = characterCommands.map(({ value: id }) => id);
+  const uniqueCommandIds = characterCommands.map(({ value: id }) => id);
   const excludes = uniq(characterCommandIds.concat(uniqueCommandIds));
 
   const standardOptions = options
-    .filter(({ id }) => !excludes.includes(id) && !alwaysExclude.includes(id))
+    .filter(
+      ({ value: id }) => !excludes.includes(id) && !alwaysExclude.includes(id)
+    )
     .concat();
 
   return standardOptions.concat(uniqueCommands).concat(characterCommands);
@@ -106,7 +108,7 @@ export const CommandsList = () => {
   const rawValues = strToVals(commandValue) ?? [];
 
   const values = rawValues.map((val) => ALL_COMMANDS[Number.parseInt(val)]);
-  const valueIds = values.map(({ id }) => id);
+  const valueIds = values.map(({ value }) => value);
   const setCommands = (value: string) => {
     dispatch(
       setFlag({
@@ -117,8 +119,8 @@ export const CommandsList = () => {
   };
 
   const onChange = (val: CommandOption | null, idx: number) => {
-    const ids = values.map(({ id }) => valToStr(id));
-    ids[idx] = valToStr(val?.id ?? NONE);
+    const ids = values.map(({ value }) => valToStr(value));
+    ids[idx] = valToStr(val?.value ?? NONE);
     const newValue = ids.join("");
     setCommands(newValue);
   };
@@ -130,12 +132,12 @@ export const CommandsList = () => {
   const allRandomized = () => {
     const excludedRandomized = [FIGHT, LEAP];
     const validOptions = commandOptions.filter(
-      ({ id }) => !excludedRandomized.includes(id)
+      ({ value }) => !excludedRandomized.includes(value)
     );
     const randomized = DEFAULT_COMMANDS.map(
       () => sample(validOptions) as CommandOption
     )
-      .map(({ id }) => valToStr(id))
+      .map(({ value }) => valToStr(value))
       .join("");
     setCommands(randomized);
   };
@@ -183,7 +185,9 @@ export const CommandsList = () => {
                 components={{ Option: FlagSelectOption }}
                 instanceId={id}
                 getOptionLabel={(option) => option.label}
-                getOptionValue={(option) => option.id.toString()}
+                getOptionValue={(option: CommandOption) =>
+                  option.value.toString()
+                }
                 options={constructOptions(unsortedOptions)}
                 onChange={(val) => onChange(val, idx)}
                 value={values[idx]}

@@ -12,12 +12,17 @@ import JSZip from "jszip";
 import { GenerateUpload } from "~/components/GenerateUpload/GenerateUpload";
 
 export type SeedData = {
+  created_at: number;
+  created_by: string | null;
+  description: string | null;
   flags: string;
   filename: string;
+  hash: string;
   log: string;
   patch: string;
   seed_id: string;
   url: string;
+  version: string;
 };
 
 export type SeedCardProps = {

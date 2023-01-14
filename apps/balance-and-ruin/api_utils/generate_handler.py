@@ -24,8 +24,15 @@ class GenerateHandler(BaseHTTPRequestHandler):
   def use_protocol(self):
     return "recaptcha" or "api_key"
 
-  def get_created_by(self):
-    return ""
+  def get_created_by(self, post_data):
+    protocol = self.use_protocol()
+    if protocol == 'recaptcha':
+      return "Website"
+    else: 
+      from api_utils.get_api_key import get_api_key
+      raw_key = post_data['key']
+      api_key = get_api_key(raw_key)
+      return api_key['name']
 
   # Return (200, None) if valid, (string, status) if error
   def validate_recaptcha(self, post_data):
@@ -56,9 +63,6 @@ class GenerateHandler(BaseHTTPRequestHandler):
       
       return (200, None)
       
-  def created_by(self):
-    return 'Website'
-  
   def do_POST(self):
     sys.path.append("WorldsCollide")
     with tempfile.TemporaryDirectory() as dir:
@@ -126,7 +130,7 @@ class GenerateHandler(BaseHTTPRequestHandler):
           include_log = self.include_log()
           include_patch = self.include_patch()
 
-          created_by = self.get_created_by()
+          created_by = self.get_created_by(data)
 
           raw_seed = create_seed(
             seed_id = seed_id, 

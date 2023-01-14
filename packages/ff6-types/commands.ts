@@ -65,122 +65,122 @@ export const DEFAULT_COMMANDS: CommandArray = [
 ];
 
 export type CommandOption = {
-  id: number;
   label: string;
+  value: number;
 };
 
-export const RANDOM_OPTION = {
-  id: RANDOM,
+export const RANDOM_OPTION: CommandOption = {
+  value: RANDOM,
   label: "Random",
 };
 
-export const RANDOM_UNIQUE_OPTION = {
-  id: RANDOM_UNIQUE,
+export const RANDOM_UNIQUE_OPTION: CommandOption = {
+  value: RANDOM_UNIQUE,
   label: "Random Unique",
 };
 
-export const NONE_OPTION = {
-  id: NONE,
+export const NONE_OPTION: CommandOption = {
+  value: NONE,
   label: "None",
 };
 
 export const ALL_COMMANDS: Record<
   string | number,
-  { id: number; label: string }
+  { value: number; label: string }
 > = {
   [RANDOM]: RANDOM_OPTION,
   [RANDOM_UNIQUE]: RANDOM_UNIQUE_OPTION,
   [NONE]: NONE_OPTION,
   [BLITZ]: {
-    id: BLITZ,
+    value: BLITZ,
     label: "Blitz",
   },
   [CAPTURE]: {
-    id: CAPTURE,
+    value: CAPTURE,
     label: "Capture",
   },
   [CONTROL]: {
-    id: CONTROL,
+    value: CONTROL,
     label: "Control",
   },
   [DANCE]: {
-    id: DANCE,
+    value: DANCE,
     label: "Dance",
   },
   [FIGHT]: {
-    id: FIGHT,
+    value: FIGHT,
     label: "Fight",
   },
   [GP_RAIN]: {
-    id: GP_RAIN,
+    value: GP_RAIN,
     label: "GP Rain",
   },
   [HEALTH]: {
-    id: HEALTH,
+    value: HEALTH,
     label: "Health",
   },
   [JUMP]: {
-    id: JUMP,
+    value: JUMP,
     label: "Jump",
   },
   [LEAP]: {
-    id: LEAP,
+    value: LEAP,
     label: "Leap",
   },
   [LORE]: {
-    id: LORE,
+    value: LORE,
     label: "Lore",
   },
   [MAGITEK]: {
-    id: MAGITEK,
+    value: MAGITEK,
     label: "Magitek",
   },
   [MORPH]: {
-    id: MORPH,
+    value: MORPH,
     label: "Morph",
   },
   [POSSESS]: {
-    id: POSSESS,
+    value: POSSESS,
     label: "Possess",
   },
   [RAGE]: {
-    id: RAGE,
+    value: RAGE,
     label: "Rage",
   },
   [RUNIC]: {
-    id: RUNIC,
+    value: RUNIC,
     label: "Runic",
   },
   [SKETCH]: {
-    id: SKETCH,
+    value: SKETCH,
     label: "Sketch",
   },
   [SHOCK]: {
-    id: SHOCK,
+    value: SHOCK,
     label: "Shock",
   },
   [SLOT]: {
-    id: SLOT,
+    value: SLOT,
     label: "Slot",
   },
   [STEAL]: {
-    id: STEAL,
+    value: STEAL,
     label: "Steal",
   },
   [SWD_TECH]: {
-    id: SWD_TECH,
+    value: SWD_TECH,
     label: "SwdTech",
   },
   [THROW]: {
-    id: THROW,
+    value: THROW,
     label: "Throw",
   },
   [TOOLS]: {
-    id: TOOLS,
+    value: TOOLS,
     label: "Tools",
   },
   [X_MAGIC]: {
-    id: X_MAGIC,
+    value: X_MAGIC,
     label: "X Magic",
   },
 };

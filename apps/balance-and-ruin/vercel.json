@@ -1,16 +1,16 @@
 {
-  "buildCommand": "cd ../.. && npx turbo run build --filter=balance-and-ruin",
+  "buildCommand": "cd ../.. && npx turbo run build --filter=balance-and-ruin...",
   "installCommand": "pnpm install",
   "functions": {
     "api/generate/index.py": {
       "includeFiles": "{api_utils,WorldsCollide}/**/*",
-      "maxDuration": 10,
+      "maxDuration": 20,
       "memory": 1024
     },
     "api/music/generate.py": {
       "includeFiles": "{api_utils,johnnydmad}/**/*",
-      "maxDuration": 10,
-      "memory": 1024
+      "maxDuration": 30,
+      "memory": 2048
     },
     "api/seed/**/*.py": {
       "includeFiles": "{api_utils,WorldsCollide}/**/*"

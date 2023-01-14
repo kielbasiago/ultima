@@ -1,138 +1,188 @@
-import { NextPage } from "next";
-import Create, { getServerSideProps, PageProps } from "./create";
+import { AppNavigation, Button, ButtonLink, DiscordButton } from "@ff6wc/ui";
+import { ff3Header, openSans } from "@ff6wc/utils/fonts";
+import { cva, cx } from "cva";
+import type { GetStaticPropsContext, NextPage } from "next";
+import { HiPencil } from "react-icons/hi2";
+import { WIKI_URL } from "@ff6wc/utils/constants";
+import { AppLandingGridItem } from "~/components/AppLandingGridItem/AppLandingGridItem";
+import { AppLandingSection } from "~/components/AppLandingSection/AppLandingSection";
+import { HomeFooter } from "~/components/Footer/Footer";
+import { SotwButton } from "~/components/SotwButton/SotwButton";
+import { SpriteDrawAnimation } from "~/components/SpriteDrawAnimation/SpriteDrawAnimation";
+import Head from "next/head";
 
-export { getServerSideProps };
+export async function getStaticProps(context: GetStaticPropsContext) {
+  return {
+    props: {},
+  };
+}
 
-const Home: NextPage<PageProps> = (props) => {
-  return <Create {...props} />;
-};
+const button = cva(["w-fit max-w-[500px] min-h-[70px] inline-flex"]);
 
-export default Home;
+export default function NewLandingPage() {
+  return (
+    <>
+      <Head>
+        <title>FF6WC</title>
+        <meta
+          name="description"
+          content="Final Fantasy VI open-world randomizer"
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
-// import { AppNavigation } from "@ff6wc/ui";
-// import { ff3Header, openSans } from "@ff6wc/utils/fonts";
-// import { cx } from "cva";
-// import type { GetStaticPropsContext, NextPage } from "next";
-// import { AppLandingGridItem } from "~/components/AppLandingGridItem/AppLandingGridItem";
-// import { AppLandingSection } from "~/components/AppLandingSection/AppLandingSection";
-// import { Footer } from "~/components/Footer/Footer";
-// import { SpriteDrawAnimation } from "~/components/SpriteDrawAnimation/SpriteDrawAnimation";
+      <div className="flex flex-col h-screen relative">
+        {/* <AppNavigation /> */}
+        <div className="WC-hero absolute top-0 bottom-0 left-0 right-0 bg-[url('/hero_main.png')] brightness-75 bg-no-repeat bg-cover bg-center z-[-1]"></div>
+        <header
+          className={cx(
+            openSans.className,
+            "relative w-full font-base splash-text py-4 px-8"
+          )}
+        >
+          <div
+            className={cx(
+              "w-full md:max-w-[720px] lg:max-w-[1140px] mx-auto z-10 "
+            )}
+          >
+            <div className="w-fit flex flex-col mt-2 mb-4 items-center">
+              <h1
+                className={cx(
+                  ff3Header.className,
+                  "main-header-text",
+                  "text-7xl lg:text-9xl  tracking-wide uppercase"
+                )}
+              >
+                Worlds Collide
+              </h1>
+              <div className="min-h-[5px] w-full bg-white" />
+              <h2
+                className={cx(
+                  "font-ff3 text-2xl lg:text-4xl main-text",
+                  "text-white"
+                )}
+              >
+                Final Fantasy VI Randomizer
+              </h2>
+            </div>
+            <div
+              className={cx(
+                "main-header-text",
+                "shadow-blue-700",
+                "mb-4 text-sm lg:text-lg"
+              )}
+            >
+              Worlds Collide (WC) is an open-world randomizer for Final Fantasy
+              VI on the SNES. Players begin aboard the airship and can travel
+              freely between the World of Balance and the World of Ruin to
+              discover characters and espers. Once you&apos;ve gathered enough,
+              you can face off against Kefka
+            </div>
+            <div
+              className={cx(
+                "main-text",
+                "shadow-blue-700",
+                "mb-4 text-sm lg:text-lg"
+              )}
+            >
+              Options within WC include options to randomize characters,
+              commands, espers, treasure, shops and more with over 200 flags to
+              customize each playthrough
+            </div>
+          </div>
+        </header>
+        <AppLandingSection title={"How to play"}>
+          <AppLandingGridItem
+            title={
+              <>
+                <SpriteDrawAnimation
+                  delay={150}
+                  spriteId={5}
+                  paletteId={0}
+                  poses={[16, 17]}
+                />
+                <span className="px-4">Discord</span>
+              </>
+            }
+          >
+            <div className="text-center">
+              Join our Discord server to talk with the community and learn about
+              the latest news and events
+            </div>
+            <div>
+              <DiscordButton />
+            </div>
+          </AppLandingGridItem>
+          <AppLandingGridItem
+            title={
+              <>
+                <SpriteDrawAnimation
+                  delay={150}
+                  spriteId={21}
+                  paletteId={3}
+                  poses={[29, 30]}
+                />
+                <span className="px-4">Seed of the Week</span>
+              </>
+            }
+          >
+            <div className="text-center">
+              Play a weekly seed submitted by a community member. You can post
+              your time in the discord and see how you compare to others!
+            </div>
+            <SotwButton />
+          </AppLandingGridItem>
+          <AppLandingGridItem
+            title={
+              <>
+                <SpriteDrawAnimation
+                  delay={300}
+                  spriteId={15}
+                  paletteId={0}
+                  poses={[25, 25, 26]}
+                />
+                <span className="px-4">Wiki</span>
+              </>
+            }
+          >
+            <div className="text-center">
+              Visit the wiki for guides, resources, and how to get the most out
+              of WC
+            </div>
 
-// export async function getStaticProps(context: GetStaticPropsContext) {
-//   return {
-//     props: {},
-//   };
-// }
-// function NewLandingPage() {
-//   return (
-//     <div className="relative">
-//       <AppNavigation />
-//       <div className="WC-hero absolute top-0 bottom-0 left-0 right-0 bg-[url('/hero_main.png')] brightness-75 bg-no-repeat bg-cover bg-center z-[-1]"></div>
-//       <header
-//         className={cx(
-//           openSans.className,
-//           "relative w-full font-base splash-text py-4 px-8"
-//         )}
-//       >
-//         <div
-//           className={cx(
-//             "w-full md:max-w-[720px] lg:max-w-[1140px] mx-auto z-10 "
-//           )}
-//         >
-//           <div className="w-fit flex flex-col mt-2 mb-4 items-center">
-//             <h1
-//               className={cx(
-//                 ff3Header.className,
-//                 "main-header-text",
-//                 "text-7xl lg:text-9xl  tracking-wide uppercase"
-//               )}
-//             >
-//               Worlds Collide
-//             </h1>
-//             <div className="min-h-[5px] w-full bg-white" />
-//             <h2
-//               className={cx(
-//                 "font-ff3 text-2xl lg:text-4xl main-text",
-//                 "text-white"
-//               )}
-//             >
-//               Final Fantasy VI Randomizer
-//             </h2>
-//           </div>
-//           <p
-//             className={cx(
-//               "main-header-text",
-//               "shadow-blue-700",
-//               "mb-4 text-sm lg:text-lg"
-//             )}
-//           >
-//             Worlds Collide (WC) is an open-world randomizer for Final Fantasy VI
-//             on the SNES. Players begin aboard the airship and can travel freely
-//             between the World of Balance and the World of Ruin to discover
-//             characters, espers, and items before facing off against Kefka.
-//           </p>
-//           <p
-//             className={cx(
-//               "main-text",
-//               "shadow-blue-700",
-//               "mb-4 text-sm lg:text-lg"
-//             )}
-//           >
-//             WC complete a full playthrough in one sitting
-//           </p>
+            <ButtonLink
+              className="w-fit min-h-[70px]"
+              href={WIKI_URL}
+              variant="primary"
+            >
+              <HiPencil size="36" />
+              Wiki
+            </ButtonLink>
+          </AppLandingGridItem>
 
-//           {/* <p className="flex gap-4 flex-wrap">
-//             <ButtonLink className="w-fit" href="/sotw" variant="primary">
-//               <SpriteDrawRandom />
-//               <span>Seed of the Week</span>
-//             </ButtonLink>
-//             <DiscordButton variant="primary" />
-//             <ButtonLink
-//               className="w-fit min-h-[70px]"
-//               variant="primary"
-//               href={WIKI_URL}
-//             >
-//               <HiPencil size="36" />
-//               Wiki
-//             </ButtonLink>{" "}
-//           </p> */}
-//         </div>
-//       </header>
-//       <AppLandingSection title={"How It Works"}>
-//         <AppLandingGridItem
-//           title={
-//             <>
-//               <SpriteDrawAnimation
-//                 delay={300}
-//                 spriteId={13}
-//                 paletteId={5}
-//                 poses={[1, 0, 1, 2]}
-//               />
-//               <span className="px-4">Characters</span>
-//             </>
-//           }
-//         >
-//           Gather all 14 of the original cast members to rally against Kefka..
-//           Yes, even Umaro..
-//         </AppLandingGridItem>
-//         <AppLandingGridItem
-//           title={
-//             <>
-//               <SpriteDrawAnimation
-//                 delay={150}
-//                 spriteId={0}
-//                 paletteId={2}
-//                 poses={[16, 17]}
-//               />
-//               <span className="px-4">Magic</span>
-//             </>
-//           }
-//         >
-//           All the magic is randomized, and its thanks to the Empire putting
-//           MiracleGro™ in our drinking water!
-//         </AppLandingGridItem>
-//       </AppLandingSection>
-//       <Footer />
-//     </div>
-//   );
-// }
+          <AppLandingGridItem
+            title={
+              <>
+                <SpriteDrawAnimation
+                  delay={300}
+                  spriteId={0}
+                  paletteId={74}
+                  poses={[1, 0, 1, 2]}
+                />
+                <span className="px-4">Randomizer</span>
+              </>
+            }
+          >
+            <div className="text-center">
+              Generate a random seed and begin to play Worlds Collide
+            </div>
+            <ButtonLink className={button()} href="/create" variant="primary">
+              <div>Customize</div>
+            </ButtonLink>
+          </AppLandingGridItem>
+        </AppLandingSection>
+        <HomeFooter />
+      </div>
+    </>
+  );
+}

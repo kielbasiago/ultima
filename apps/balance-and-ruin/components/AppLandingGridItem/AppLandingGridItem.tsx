@@ -3,11 +3,17 @@ import { cx } from "cva";
 
 type Props = {
   title: React.ReactNode;
+  className?: string;
   children: React.ReactNode;
 };
-export const AppLandingGridItem = ({ children, title }: Props) => {
+export const AppLandingGridItem = ({ children, className, title }: Props) => {
   return (
-    <div className="w-full items-center flex flex-col px-4 py-2 bg-gray-800 mx-auto">
+    <div
+      className={cx(
+        "h-full w-full items-center mb-3 flex flex-col px-4 py-2 bg-gray-800 mx-auto",
+        className
+      )}
+    >
       <h2
         className={cx(
           openSans.className,
@@ -18,7 +24,9 @@ export const AppLandingGridItem = ({ children, title }: Props) => {
       >
         {title}
       </h2>
-      <p className="lg:max-w-[75%]">{children}</p>
+      <div className="h-full flex flex-col items-center justify-between lg:max-w-[75%]">
+        {children}
+      </div>
     </div>
   );
 };

@@ -15,6 +15,7 @@ import {
   GiWizardStaff,
 } from "react-icons/gi";
 import { HiCog, HiOutlineViewList, HiUserGroup } from "react-icons/hi";
+import { HiOutlineWrench } from "react-icons/hi2";
 import { useDispatch } from "react-redux";
 import { FlagsCard } from "~/card-components/Flags";
 import { AppHeader } from "~/components/AppHeader/AppHeader";
@@ -24,6 +25,7 @@ import { GenerateCard } from "~/components/GenerateCard/GenerateCard";
 import { PageContainer } from "~/components/PageContainer/PageContainer";
 import { Accessibility } from "~/page-components/Accessibility";
 import { Battle } from "~/page-components/Battle";
+import { BetaPage } from "~/page-components/BetaPage";
 import { Commands } from "~/page-components/Commands";
 import { Fixes } from "~/page-components/Fixes";
 import { Gameplay } from "~/page-components/Gameplay";
@@ -54,7 +56,16 @@ type TabItem = {
 type WithChildren = { children: React.ReactNode; className?: string };
 const TabContainer = ({ children, className }: WithChildren) => {
   return (
-    <div className={cx("flex items-center gap-2", className)}>{children}</div>
+    <div
+      className={cx(
+        "flex items-center gap-2",
+        "py-1 md:py-2 lg:py-3",
+        "px-3 md:px-4",
+        className
+      )}
+    >
+      {children}
+    </div>
   );
 };
 
@@ -64,9 +75,9 @@ type WithIcon = {
 };
 const TabIcon = ({ className, Icon }: WithIcon) => {
   return (
-    <span className="">
+    <>
       <Icon className={className} size={"1.25rem"} />
-    </span>
+    </>
   );
 };
 
@@ -185,6 +196,18 @@ export const FlagCreatePage = ({ objectives, presets, schema }: PageProps) => {
           id: "fixes",
           content: <Fixes />,
         },
+        process.env.NEXT_PUBLIC_ENABLE_BETA === "true"
+          ? {
+              label: (
+                <TabContainer className="card-fancy-gradient">
+                  <TabIcon Icon={HiOutlineWrench} />
+                  <span>Beta</span>
+                </TabContainer>
+              ),
+              id: "beta",
+              content: <BetaPage />,
+            }
+          : null,
       ].filter((z) => !!z) as TabItem[],
     [presets]
   );
@@ -233,7 +256,6 @@ export const FlagCreatePage = ({ objectives, presets, schema }: PageProps) => {
       </main>
       <PageContainer className={"w-full"}>
         <CardColumn>
-          <FlagsCard />
           <GenerateCard />
         </CardColumn>
       </PageContainer>

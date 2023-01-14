@@ -67,7 +67,7 @@ class handler(BaseHTTPRequestHandler):
             
             from api_utils.get_seed_url import get_music_seed_url
             website_url = get_music_seed_url(seed_id)
-            log_bytes = logfile.read()
+            log_bytes = logfile.read() 
             log_header = f"Apply this music to your seed at {website_url}\n\n\n"
             log = log_header + log_bytes.decode('utf-8')
             

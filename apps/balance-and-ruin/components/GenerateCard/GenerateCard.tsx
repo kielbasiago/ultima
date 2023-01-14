@@ -11,9 +11,9 @@ import { cva, cx } from "cva";
 import first from "lodash/first";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { MdClear, MdFileUpload } from "react-icons/md";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useSWRMutation from "swr/mutation";
-import { getFlagValue, selectFlagValues } from "~/state/flagSlice";
+import { getFlagValue, selectFlagValues, setRawFlags } from "~/state/flagSlice";
 import { base64ToByteArray } from "~/utils/base64ToByteArray";
 import { isValidROM, removeHeader } from "~/utils/romUtils";
 import { XDelta3Decoder } from "~/utils/xdelta3_decoder";
@@ -214,6 +214,14 @@ export const GenerateCard = ({
   };
 
   const showDisabledText = !romData;
+
+  const dispatch = useDispatch();
+  const [inputFlags, setInputFlags] = useState("");
+
+  useEffect(() => {
+    setInputFlags(flags);
+  }, [flags]);
+
   return (
     <Card
       {...rest}
@@ -228,20 +236,12 @@ export const GenerateCard = ({
         <textarea
           className={cx(
             textareaStyles(),
-            "h-full w-full p-4 min-h-[300px] text-xs"
+            "w-full p-4 min-h-[175px] h-fit text-xs"
           )}
-          disabled
-          value={flags}
+          onBlur={(e) => dispatch(setRawFlags(e.target.value))}
+          onChange={(e) => setInputFlags(e.target.value)}
+          value={inputFlags}
         />
-        {!enableEditing || !editable ? null : (
-          <CodeBlock>
-            <textarea
-              className="w-full min-h-"
-              ref={textarearef}
-              value={flags}
-            />
-          </CodeBlock>
-        )}
       </div>
       <Divider />
 

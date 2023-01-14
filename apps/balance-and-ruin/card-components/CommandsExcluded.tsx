@@ -22,7 +22,8 @@ const hoistedOptions = [RANDOM, RANDOM_UNIQUE, NONE];
 const nonExcludable = [FIGHT, LEAP];
 
 const rawOptions = Object.values(ALL_COMMANDS).filter(
-  ({ id }) => !hoistedOptions.includes(id) && !nonExcludable.includes(id)
+  ({ value }) =>
+    !hoistedOptions.includes(value) && !nonExcludable.includes(value)
 );
 
 const allOptions: CommandOption[] = [
@@ -53,20 +54,20 @@ export const ExcludeSelect = ({ flag }: ExcludeSelectProps) => {
   const id = useId();
   const value = useFlagValueSelector<number>(flag);
   const selectedOption = useMemo(
-    () => allOptions.find(({ id }) => id === value) ?? NONE_OPTION,
+    () => allOptions.find(({ value: id }) => id === value) ?? NONE_OPTION,
     [value]
   );
   const onChange = (val: CommandOption | null) => {
     dispatch(
       setFlag({
         flag,
-        value: val?.id ?? null,
+        value: val?.value ?? null,
       })
     );
   };
 
   const options = useMemo(
-    () => allOptions.filter(({ id }) => !excludedValues.includes(id)),
+    () => allOptions.filter(({ value: id }) => !excludedValues.includes(id)),
     [excludedValues]
   );
 
@@ -77,7 +78,7 @@ export const ExcludeSelect = ({ flag }: ExcludeSelectProps) => {
       components={{ Option: FlagSelectOption }}
       instanceId={id}
       getOptionLabel={(option) => option.label}
-      getOptionValue={(option) => option.id.toString()}
+      getOptionValue={(option: CommandOption) => option.value.toString()}
       options={options}
       onChange={(val) => onChange(val)}
       value={selectedOption}

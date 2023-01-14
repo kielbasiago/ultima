@@ -32,3 +32,7 @@ export const MusicFooter = ({}: FooterProps) => {
   );
   return <BaseFooter messages={[primaryText, secondaryText]} />;
 };
+
+export const HomeFooter = () => {
+  return <BaseFooter messages={[secondaryText]} />;
+};

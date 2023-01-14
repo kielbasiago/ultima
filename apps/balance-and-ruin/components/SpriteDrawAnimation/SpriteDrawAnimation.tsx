@@ -1,3 +1,4 @@
+import { cx } from "cva";
 import React, { useEffect } from "react";
 import SpriteDrawLoad from "~/components/SpriteDrawLoad/SpriteDrawLoad";
 
@@ -38,14 +39,16 @@ export const SpriteDrawAnimation = ({
   return (
     <span className={"min-h-[48px]"}>
       {poses.map((poseid, idx) => (
-        <SpriteDrawLoad
-          className={toggle !== idx ? "hidden" : ""}
-          key={poseid}
-          poseId={poseid}
-          spriteId={spriteId}
-          paletteId={paletteId}
-          scale={scale}
-        />
+        <React.Fragment key={idx}>
+          <SpriteDrawLoad
+            className={toggle !== idx ? "hidden" : ""}
+            key={poseid}
+            poseId={poseid}
+            spriteId={spriteId}
+            paletteId={paletteId}
+            scale={scale}
+          />
+        </React.Fragment>
       ))}
     </span>
   );

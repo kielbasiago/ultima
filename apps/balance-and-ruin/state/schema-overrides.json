@@ -104,5 +104,8 @@
   "-mmprp": {
     "min": 0,
     "max": 200
+  },
+  "-sdm": {
+    "defaultValue": 1
   }
 }

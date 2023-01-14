@@ -115,6 +115,11 @@ export const Shops = () => {
             label: "1/2 (Original)",
           }}
         />
+        <FlagSlider
+          flag="-sdm"
+          helperText="{{.}} shops will contain Dried Meat"
+          label="Dried Meat"
+        />
         <FlagSwitch flag="-snbr" label="No Breakable Rods" />
         <FlagSwitch
           flag="-sebr"

@@ -7,7 +7,7 @@ class handler(GenerateHandler):
     return True
   
   def include_log(self): 
-    return False
+    return True
 
   def use_protocol(self):
     return "recaptcha"

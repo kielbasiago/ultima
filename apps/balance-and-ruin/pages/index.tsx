@@ -91,7 +91,7 @@ export default function NewLandingPage() {
             </div>
           </div>
         </header>
-        <AppLandingSection title={"How to play"}>
+        <AppLandingSection title={"Getting Started"}>
           <AppLandingGridItem
             title={
               <>

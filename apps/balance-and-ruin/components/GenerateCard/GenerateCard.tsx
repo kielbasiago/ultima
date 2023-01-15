@@ -6,6 +6,7 @@ import {
   HelperText,
   Input,
   Link,
+  Textarea,
 } from "@ff6wc/ui";
 import { cva, cx } from "cva";
 import first from "lodash/first";
@@ -46,13 +47,6 @@ const useOrderedFlags = () => {
     }, "");
   }, [flagValues, schema]);
 };
-
-const textareaStyles = cva([
-  "text-sm",
-  "max-h-[600px] bg-gray-200 dark:bg-gray-900 p-4",
-  "whitespace-normal font-mono break-words box-decoration-clone",
-  "overflow-auto",
-]);
 
 const needRomDataStyles = cva([], {
   variants: {
@@ -233,11 +227,7 @@ export const GenerateCard = ({
         <h3 className={"font-medium text-base"}>
           Step 1: Select your flags above
         </h3>
-        <textarea
-          className={cx(
-            textareaStyles(),
-            "w-full p-4 min-h-[175px] h-fit text-xs"
-          )}
+        <Textarea
           onBlur={(e) => dispatch(setRawFlags(e.target.value))}
           onChange={(e) => setInputFlags(e.target.value)}
           value={inputFlags}

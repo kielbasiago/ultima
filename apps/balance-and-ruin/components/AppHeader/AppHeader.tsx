@@ -1,6 +1,6 @@
 import { ButtonLink, DiscordButton, Header } from "@ff6wc/ui";
 import { HiPencil } from "react-icons/hi";
-import { WIKI_URL } from "~/../../packages/utils/constants";
+import { WIKI_URL } from "@ff6wc/utils/constants";
 import { SotwButton } from "~/components/SotwButton/SotwButton";
 
 export type AppHeaderProps = Record<string, unknown>;

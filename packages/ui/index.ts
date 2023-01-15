@@ -13,3 +13,4 @@ export * from "./Link/Link";
 export * from "./Slider/Slider";
 export * from "./Switch/Switch";
 export * from "./TabLabel/TabLabel";
+export * from "./Textarea/Textarea";

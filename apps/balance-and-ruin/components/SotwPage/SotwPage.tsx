@@ -1,7 +1,7 @@
 import { DiscordButton, Link } from "@ff6wc/ui";
 import { DISCORD_URL, SOTW_SUBMISSION_URL } from "@ff6wc/utils/constants";
 import { cx } from "cva";
-import { openSans } from "~/../../packages/utils/fonts";
+import { openSans } from "@ff6wc/utils/fonts";
 import { AppHeader } from "~/components/AppHeader/AppHeader";
 import { Footer } from "~/components/Footer/Footer";
 import { SotwCard } from "~/components/SotwCard/SotwCard";

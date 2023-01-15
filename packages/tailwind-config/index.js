@@ -1,4 +1,5 @@
 const plugin = require('tailwindcss/plugin');
+const { fontFamily } = require('tailwindcss/defaultTheme')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -34,10 +35,12 @@ module.exports = {
         },
       },
       fontFamily: {
-        montserrat: "'Montserrat', sans-serif",
-        mono: "'Roboto Mono', monospace",
-        roboto: "'Roboto', sans-serif",
-        ff3: "'Final Fantasy 3/6 Font', sand-serif"
+        montserrat: ['var(--font-montserrat)', ...fontFamily.sans],
+        mono: ['var(--font-mono)', ...fontFamily.mono],
+        open: ['var(--font-open)', ...fontFamily.sans],
+        roboto: ['var(--font-roboto)', ...fontFamily.sans],
+        runic:  ['var(--font-runic)', ...fontFamily.sans],
+        ff3:  ['var(--font-ff3)', ...fontFamily.sans],
       },
       boxShadow: {
         'input-focus': '0 0 0 2px #55cbff',

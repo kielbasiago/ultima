@@ -1,5 +1,5 @@
 import { AppNavigation, Button, ButtonLink, DiscordButton } from "@ff6wc/ui";
-import { ff3Header, openSans } from "@ff6wc/utils/fonts";
+import { ff3Header, ff3Pixel, openSans } from "@ff6wc/utils/fonts";
 import { cva, cx } from "cva";
 import type { GetStaticPropsContext, NextPage } from "next";
 import { HiPencil } from "react-icons/hi2";
@@ -16,6 +16,19 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     props: {},
   };
 }
+
+type SectionHeaderProps = React.PropsWithChildren<{
+  title: React.ReactNode;
+}>;
+
+const SectionHeader = ({ children, title }: SectionHeaderProps) => {
+  return (
+    <div className="flex flex-col items-center justify-center">
+      <span className="px-4">{title}</span>
+      {children}
+    </div>
+  );
+};
 
 const button = cva(["w-fit max-w-[500px] min-h-[70px] inline-flex"]);
 
@@ -36,7 +49,7 @@ export default function NewLandingPage() {
         <div className="WC-hero absolute top-0 bottom-0 left-0 right-0 bg-[url('/hero_main.png')] brightness-75 bg-no-repeat bg-cover bg-center z-[-1]"></div>
         <header
           className={cx(
-            openSans.className,
+            "font-open",
             "relative w-full font-base splash-text py-4 px-8"
           )}
         >
@@ -48,7 +61,7 @@ export default function NewLandingPage() {
             <div className="w-fit flex flex-col mt-2 mb-4 items-center">
               <h1
                 className={cx(
-                  ff3Header.className,
+                  "font-runic",
                   "main-header-text",
                   "text-7xl lg:text-9xl  tracking-wide uppercase"
                 )}
@@ -58,6 +71,7 @@ export default function NewLandingPage() {
               <div className="min-h-[5px] w-full bg-white" />
               <h2
                 className={cx(
+                  ff3Pixel.className,
                   "font-ff3 text-2xl lg:text-4xl main-text",
                   "text-white"
                 )}
@@ -94,15 +108,14 @@ export default function NewLandingPage() {
         <AppLandingSection title={"Getting Started"}>
           <AppLandingGridItem
             title={
-              <>
+              <SectionHeader title="Discord">
                 <SpriteDrawAnimation
                   delay={150}
                   spriteId={5}
                   paletteId={0}
                   poses={[16, 17]}
                 />
-                <span className="px-4">Discord</span>
-              </>
+              </SectionHeader>
             }
           >
             <div className="text-center">
@@ -115,15 +128,14 @@ export default function NewLandingPage() {
           </AppLandingGridItem>
           <AppLandingGridItem
             title={
-              <>
+              <SectionHeader title="Seed of the Week">
                 <SpriteDrawAnimation
                   delay={150}
                   spriteId={21}
                   paletteId={3}
                   poses={[29, 30]}
                 />
-                <span className="px-4">Seed of the Week</span>
-              </>
+              </SectionHeader>
             }
           >
             <div className="text-center">
@@ -134,15 +146,14 @@ export default function NewLandingPage() {
           </AppLandingGridItem>
           <AppLandingGridItem
             title={
-              <>
+              <SectionHeader title="Wiki">
                 <SpriteDrawAnimation
                   delay={300}
                   spriteId={15}
                   paletteId={0}
                   poses={[25, 25, 26]}
                 />
-                <span className="px-4">Wiki</span>
-              </>
+              </SectionHeader>
             }
           >
             <div className="text-center">
@@ -162,15 +173,14 @@ export default function NewLandingPage() {
 
           <AppLandingGridItem
             title={
-              <>
+              <SectionHeader title="Randomizer">
                 <SpriteDrawAnimation
                   delay={300}
                   spriteId={0}
                   paletteId={74}
                   poses={[1, 0, 1, 2]}
                 />
-                <span className="px-4">Randomizer</span>
-              </>
+              </SectionHeader>
             }
           >
             <div className="text-center">

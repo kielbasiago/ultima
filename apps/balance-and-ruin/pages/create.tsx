@@ -13,48 +13,44 @@ export type PageProps = {
   schema: Record<string, RawFlagMetadata>;
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({}) => {
-      const protocol =
-        process.env.NODE_ENV === "development" ? "http" : "https";
+export const getStaticProps = wrapper.getStaticProps((store) => async ({}) => {
+  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
 
-      const presetPromise = fetch(
-        "https://storage.googleapis.com/seedbot/user_presets.json"
-      );
+  const presetPromise = fetch(
+    "https://storage.googleapis.com/seedbot/user_presets.json"
+  );
 
-      const schemaPromise = fetch(
-        `${protocol}://${process.env.VERCEL_URL}/api/metadata/flag`
-      );
+  const schemaPromise = fetch(
+    `${protocol}://${process.env.VERCEL_URL}/api/metadata/flag`
+  );
 
-      const objectivesPromise = fetch(
-        `${protocol}://${process.env.VERCEL_URL}/api/metadata/objective`
-      );
+  const objectivesPromise = fetch(
+    `${protocol}://${process.env.VERCEL_URL}/api/metadata/objective`
+  );
 
-      const presets: Record<string, FlagPreset> = await (
-        await presetPromise
-      ).json();
+  const presets: Record<string, FlagPreset> = await (
+    await presetPromise
+  ).json();
 
-      const schema = await (await schemaPromise).json();
+  const schema = await (await schemaPromise).json();
 
-      const objectives = await (await objectivesPromise).json();
+  const objectives = await (await objectivesPromise).json();
 
-      await store.dispatch(setSchema(schema));
+  await store.dispatch(setSchema(schema));
 
-      await store.dispatch(setObjectiveMetadata(objectives));
-      const preset = presets["ultros league"];
-      if (preset) {
-        await store.dispatch(setRawFlags(preset.flags));
-      }
-      return {
-        props: {
-          objectives,
-          presets,
-          schema,
-        },
-      };
-    }
-);
+  await store.dispatch(setObjectiveMetadata(objectives));
+  const preset = presets["ultros league"];
+  if (preset) {
+    await store.dispatch(setRawFlags(preset.flags));
+  }
+  return {
+    props: {
+      objectives,
+      presets,
+      schema,
+    },
+  };
+});
 
 const Create: NextPage<PageProps> = ({
   objectives,

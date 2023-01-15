@@ -5,7 +5,7 @@ const tabStyles = cva(
   [
     "group relative min-w-0 flex-1",
     "overflow-hidden",
-    "py-3 px-6",
+    "p-2",
     "border-1 border-transparent",
     "outline-1",
     "outline-blue-500",

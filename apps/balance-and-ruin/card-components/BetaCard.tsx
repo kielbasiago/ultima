@@ -96,6 +96,27 @@ const rewardOptions: FlagSelectOption[] = [
     value: "none",
   },
 ];
+
+const checkPresetOptions: FlagSelectOption[] = [
+  {
+    label: "AH is Closed",
+    helperText: "The auction house will only contain items",
+    value: "ah",
+  },
+  {
+    label: "No Free Characters",
+    helperText:
+      "The following events can only reward an esper or item: Collapsing House, Figaro Castle Throne, Gau's Father's House, Kohlingen Inn, Narshe Weapon Shop, Sealed Gate, South Figaro Basement",
+    value: "nfc",
+  },
+  {
+    label: "No Free Characters/Espers",
+    helperText:
+      "The following events only reward an item: Auction House, Collapsing House, Figaro Castle Throne, Gau's Father's House, Kohlingen Inn, Narshe Weapon Shop, Sealed Gate, South Figaro Basement, Tzen Thief",
+    value: "nfce",
+  },
+];
+
 export const BetaCard = () => {
   return (
     <Card title={"Beta"}>
@@ -111,11 +132,20 @@ export const BetaCard = () => {
 
       <CardColumn>
         <FlagSelect
+          flag="-checks"
+          label={<BetaLabel>Check Preset</BetaLabel>}
+          nullable
+          nullableLabel="None"
+          options={checkPresetOptions}
+        />
+
+        <FlagSelect
           flag="-de"
           defaultValue={smart}
           label={<BetaLabel>Dragon Experience</BetaLabel>}
           options={expOptions}
         />
+
         <FlagSelect
           flag="-drewards"
           defaultValue={item}

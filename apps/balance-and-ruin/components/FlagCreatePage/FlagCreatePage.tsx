@@ -60,7 +60,7 @@ const TabContainer = ({ children, className }: WithChildren) => {
       className={cx(
         "flex items-center gap-2",
         "py-1 md:py-2 lg:py-3",
-        "px-3 md:px-4",
+        "px-2 md:px-3",
         className
       )}
     >

@@ -14,10 +14,6 @@ import "~/styles/globals.css";
 export const montserrat = Montserrat();
 export const roboto = Roboto({ weight: ["500", "700", "400"] });
 export const robotoMono = Roboto_Mono({ weight: ["500"] });
-export const ff3Pixel = localFont({
-  src: "../public/final_fantasy_36_font.ttf",
-});
-export const ff3Header = localFont({ src: "../public/runiccondensed.ttf" });
 export const openSans = Open_Sans({ weight: ["300", "400", "500"] });
 
 const client = new QueryClient({});

@@ -167,6 +167,10 @@ export const ALL_COMMANDS: Record<
     value: STEAL,
     label: "Steal",
   },
+  [SUMMON]: {
+    value: SUMMON,
+    label: "Summon",
+  },
   [SWD_TECH]: {
     value: SWD_TECH,
     label: "SwdTech",

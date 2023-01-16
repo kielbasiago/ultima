@@ -43,7 +43,7 @@ const LABELS = [
   "Cyan (SwdTech)",
   "Shadow (Throw)",
   "Edgar (Tools)",
-  "Sabin ( Blitz)",
+  "Sabin (Blitz)",
   "Celes (Runic)",
   "Strago (Lore)",
   "Relm (Sketch)",

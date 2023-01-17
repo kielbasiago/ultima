@@ -170,7 +170,7 @@ class GenerateHandler(BaseHTTPRequestHandler):
 
     red_window_arg = '252828.202222.161616.101010.050606.313131.140606'
 
-    args = ['python', executable, '-i', wc_filename, '-o', new_filename, '-w1', red_window_arg]
+    args = ['python', executable, '-i', wc_filename, '-o', new_filename, "-bs", '6', "-ms", "1", '-w1', red_window_arg]
     print(f'running command {args}')
 
     return subprocess.Popen(args, cwd = cwd).wait()

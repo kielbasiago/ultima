@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "@ff6wc/eslint-config-custom": "workspace:*",
+    "@types/node": "^17.0.12",
     "prettier": "latest",
     "turbo": "latest"
   },

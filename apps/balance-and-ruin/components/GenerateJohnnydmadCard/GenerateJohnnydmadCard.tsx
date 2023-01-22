@@ -8,7 +8,7 @@ import { MdClear, MdFileUpload } from "react-icons/md";
 import useSWRMutation from "swr/mutation";
 import { BadgeText } from "~/components/BadgeText/BadgeText";
 import { ROM_FILE_EXTENSIONS } from "~/constants/romConstants";
-import { base64ToByteArray } from "~/utils/base64ToByteArray";
+import { base64ToByteArray } from "@ff6wc/utils/base64ToByteArray";
 import { XDelta3Decoder } from "~/utils/xdelta3_decoder";
 
 export type GenerateJohnnydmadProps = {

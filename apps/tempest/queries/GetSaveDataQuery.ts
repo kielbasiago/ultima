@@ -26,8 +26,9 @@ export class GetSaveDataQuery extends Query<GetSaveDataResponse> {
   private DRAGON_ADDRESS: number;
   private CHEST_BITS: number;
 
-  constructor() {
-    super();
+  constructor(deviceUri: string) {
+    super(deviceUri);
+
     this.EVENT_WORD_ADDRESS = this.IN_WRAM(0x1fc2);
     this.EVENT_ADDRESS = this.IN_WRAM(0x1e80);
     this.DRAGON_ADDRESS = this.IN_WRAM(0x1dc9);

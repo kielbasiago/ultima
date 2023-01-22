@@ -3,11 +3,9 @@
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
-      "target": "esnext",
-      "lib": ["dom", "dom.iterable", "esnext"],
-      "jsx": "react-jsx",
-      "paths": {
-        "~/*": ["./*"]
-      }
-  },
+    "target": "esnext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "jsx": "react-jsx",
+    "paths": {}
+  }
 }

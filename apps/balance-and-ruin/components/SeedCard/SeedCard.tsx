@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { MdClear, MdFileUpload } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { selectRawFlags } from "~/state/flagSlice";
-import { base64ToByteArray } from "~/utils/base64ToByteArray";
+import { base64ToByteArray } from "@ff6wc/utils/base64ToByteArray";
 import { isValidROM, removeHeader } from "~/utils/romUtils";
 import { XDelta3Decoder } from "~/utils/xdelta3_decoder";
 import JSZip from "jszip";

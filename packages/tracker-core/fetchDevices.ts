@@ -19,7 +19,9 @@ export const fetchDevices = (host: string) => {
         if (status === grpc.Code.OK && message) {
           resolve(message.toObject());
         } else {
-          reject(message);
+          reject(
+            `Error connecting to SNI: ${statusMessage} (${grpc.Code[status]})`
+          );
         }
       },
     });

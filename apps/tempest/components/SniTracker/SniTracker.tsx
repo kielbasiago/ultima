@@ -19,6 +19,7 @@ import {
 } from "~/components/EmoTracker/TrackerProvider";
 import { EmoTrackerLayout } from "~/components/EmoTracker/EmoTrackerLayout";
 import useSWR from "swr";
+import isEqual from "lodash/isEqual";
 
 const trackerDefaults = { ...getTrackerDefaults() };
 
@@ -27,7 +28,7 @@ const useRender = () => {
   const [renderValue, setRenderValue] = useState<number>(0);
   const render = useCallback(() => {
     setRenderValue(val.current + 1);
-  }, []);
+  }, [val]);
   return render;
 };
 
@@ -48,10 +49,15 @@ const Status = {
 
 type Status = keyof typeof Status;
 
-export function SniTracker() {
+export function SniTracker({ simple = false }) {
   const render = useRender();
+
+  const adventureLog = useRef<string[]>([]);
   const log = useRef<string[]>([]);
-  const [data, setData] = useState<GetSaveDataResponse>(trackerDefaults);
+
+  const dataRef = useRef<GetSaveDataResponse>(trackerDefaults);
+  const [data, baseSetTrackerData] =
+    useState<GetSaveDataResponse>(trackerDefaults);
   const [hostname, setHostname] = useState("http://localhost:8190");
 
   const [stream, setStream] = useState<StreamRamResult["stream"] | null>(null);
@@ -59,11 +65,19 @@ export function SniTracker() {
     StreamRamResult["request"] | null
   >(null);
 
+  const setTrackerData = (newData: GetSaveDataResponse) => {
+    dataRef.current = newData;
+    baseSetTrackerData(newData);
+  };
   const providerData = useTrackerData({
     mode: TrackerMode.AUTO,
-    setTrackerData: setData,
+    setTrackerData,
     trackerData: data,
   });
+
+  const pushAdventureLog = useCallback((...msgs: string[]) => {
+    adventureLog.current = adventureLog.current.concat(msgs);
+  }, []);
 
   const pushLog = useCallback((...msgs: string[]) => {
     log.current = log.current.concat(msgs);
@@ -155,10 +169,18 @@ export function SniTracker() {
           }
         }) as Buffer[]
       );
-      pushLog(`${new Date()}: Received tracker data`);
-      setData(responseData);
+
+      if (!isEqual(dataRef.current, responseData)) {
+        // TODO: DOCTORDT
+        // At this point something changed between the previous / new data
+        // Find the changes and then append each row to the adventure log here
+        pushAdventureLog(`[${new Date().toISOString()}] Something has changed`);
+      } else {
+        pushAdventureLog(`[${new Date().toISOString()}] Nothing has changed `);
+      }
+
+      setTrackerData(responseData);
     });
-    pushLog("Sending request for tracker data");
 
     stream.write(ramRequest);
 
@@ -182,9 +204,34 @@ export function SniTracker() {
     status = Status.ACTIVE;
   }
 
+  if (simple) {
+    return (
+      <TrackerContext.Provider value={providerData}>
+        <div className="flex flex-col gap-2 relative p-6">
+          <PageContainer>
+            <div className="flex flex-col relative justify-center gap-2">
+              <EmoTrackerLayout />
+              {devicesError ? (
+                <OverlayMessage messages={[devicesError]} />
+              ) : null}
+              {noDevices ? (
+                <OverlayMessage
+                  messages={[
+                    "No devices found",
+                    "Make sure you have connected your emulator to SNI",
+                  ]}
+                />
+              ) : null}
+            </div>
+          </PageContainer>
+        </div>
+      </TrackerContext.Provider>
+    );
+  }
+
   return (
     <TrackerContext.Provider value={providerData}>
-      <div className="p-8">
+      <div className="flex flex-col gap-2 relative p-6">
         <Card title="Tracker">
           <div className="flex flex-col relative justify-center">
             <EmoTrackerLayout />
@@ -231,6 +278,10 @@ export function SniTracker() {
             options={deviceOptions}
             value={activeOption!}
           />
+        </Card>
+
+        <Card title="Adventure Log">
+          <CodeBlock>{adventureLog.current.join("\n")}</CodeBlock>
         </Card>
 
         <Card title="Log">

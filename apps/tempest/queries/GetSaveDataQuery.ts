@@ -26,6 +26,7 @@ export class GetSaveDataQuery extends Query<GetSaveDataResponse> {
   private DRAGON_ADDRESS: number;
   private CHEST_BITS: number;
   private GAME_CTR_ADDRESS: number;  // DoctorDT
+  private SAVE_CHECK: number;  // DoctorDT
 
   constructor(deviceUri: string) {
     super(deviceUri);

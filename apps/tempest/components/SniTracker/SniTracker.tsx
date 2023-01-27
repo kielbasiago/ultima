@@ -173,10 +173,72 @@ export function SniTracker({ simple = false }) {
       if (!isEqual(dataRef.current, responseData)) {
         // TODO: DOCTORDT
         // At this point something changed between the previous / new data
-        // Find the changes and then append each row to the adventure log here
-        pushAdventureLog(`[${new Date().toISOString()}] Something has changed`);
+		// responseData keys: ...
+		// "characters" (14)
+		// "events" (54)
+		// "dragons" (16), both "iceDragon" and "narsheDragon", e.g.
+		// "allFlags" (84), all of the above
+		// "characterCount": 0,
+		// "esperCount": 0,  <-- track this
+		// "checkCount": 0, 
+		// "dragonCount": 0,
+		// "bossCount": 0,
+		// "gameTime": 0,  <-- useful for new game / reset, maybe?
+		//				currently always 0.  Can't use.  
+		// "chestCount": 0, <-- track this
+		
+        // Find the changes 
+		const diff = {};
+		// Track characters, events, dragons
+		for (const key in responseData.allFlags) {
+			if (responseData.allFlags[key] != dataRef.current.allFlags[key]) {
+				diff[key] = responseData.allFlags[key]
+			}
+		}
+		// Track espers
+		if (responseData.esperCount != dataRef.current.esperCount) {
+			diff['esperCount'] = responseData.esperCount
+		}
+		// Track chests
+		if (responseData.chestCount != dataRef.current.chestCount) {
+			diff['chestCount'] = responseData.chestCount
+		}
+		// Write the log string
+		let thislog = '';
+		let ctr = Object.keys(diff).length;
+		
+		// Catch special cases
+		if (responseData.gameTime == 0 && responseData.characterCount > 0 && dataRef.current.gameTime == 0 && dataRef.current.characterCount == 0) {
+			// Catch NewGame
+			thislog += '*NEW GAME*';
+		} else if (responseData.saveCheck != dataRef.current.saveCheck) {  
+			// Catch save game event
+			thislog += '*SAVE GAME*';
+		} else if (responseData.gameTime > 0 && responseData.characterCount > 0 && dataRef.current.gameTime == 0 && dataRef.current.characterCount == 0) {  
+			// Catch load game
+			thislog += '*LOAD GAME*';
+		} else if (responseData.characterCount == 0 && responseData.gameTime > 0) {  
+			// Catch reset game
+			thislog += '*RESET*';
+		} else {
+			for (const key in diff) {
+				thislog += `${key}: ${diff[key]}`;
+				ctr -= 1;
+				if (ctr > 0) {
+					thislog += '\n\t';
+				}
+			}
+		}
+		// for (const key in diff) {
+		// 	console.log(`${key}: ${diff[key]}`);
+		// }
+		
+		// Append each row to the adventure log here (if not empty)
+		if (thislog) {
+			pushAdventureLog(`[${new Date().toISOString()}] ` + thislog);
+		}
       } else {
-        pushAdventureLog(`[${new Date().toISOString()}] Nothing has changed `);
+        //pushAdventureLog(`[${new Date().toISOString()}] Nothing has changed `);
       }
 
       setTrackerData(responseData);

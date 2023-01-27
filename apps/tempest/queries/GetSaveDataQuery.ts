@@ -25,6 +25,7 @@ export class GetSaveDataQuery extends Query<GetSaveDataResponse> {
   private EVENT_ADDRESS: number;
   private DRAGON_ADDRESS: number;
   private CHEST_BITS: number;
+  private GAME_CTR_ADDRESS: number;  // DoctorDT
 
   constructor(deviceUri: string) {
     super(deviceUri);
@@ -33,6 +34,8 @@ export class GetSaveDataQuery extends Query<GetSaveDataResponse> {
     this.EVENT_ADDRESS = this.IN_WRAM(0x1e80);
     this.DRAGON_ADDRESS = this.IN_WRAM(0x1dc9);
     this.CHEST_BITS = this.IN_WRAM(0x1e40); // 0x1e40 - 0x1e7f
+	this.GAME_CTR_ADDRESS = this.IN_WRAM(0x1860); // DoctorDT
+	this.SAVE_CHECK = this.IN_WRAM(0x1ffe); // DoctorDT
   }
 
   public get queryAddress(): Array<number> {
@@ -41,20 +44,22 @@ export class GetSaveDataQuery extends Query<GetSaveDataResponse> {
       this.EVENT_ADDRESS,
       this.DRAGON_ADDRESS,
       this.CHEST_BITS,
+	  this.GAME_CTR_ADDRESS, // DoctorDT
+	  this.SAVE_CHECK, // DoctorDT
     ];
     return addresses;
   }
 
   public get queryLength(): Array<number> {
-    return [64, 150, 24, 47];
+    return [64, 150, 24, 47, 9, 2]; // DoctorDT
   }
 
   public async onResponse(
     responses: Array<Buffer>
   ): Promise<GetSaveDataResponse> {
-    const [EVENT_WORDS, EVENTS, DRAGONS, CHESTS] = responses;
+    const [EVENT_WORDS, EVENTS, DRAGONS, CHESTS, COUNTERS, SAVECHECK] = responses; // DoctorDT
 
-    const value = this.parseAllData(EVENT_WORDS, EVENTS, DRAGONS, CHESTS);
+    const value = this.parseAllData(EVENT_WORDS, EVENTS, DRAGONS, CHESTS, COUNTERS, SAVECHECK); // DoctorDT
 
     return value;
   }
@@ -63,7 +68,9 @@ export class GetSaveDataQuery extends Query<GetSaveDataResponse> {
     eventWordsData: Buffer,
     eventsData: Buffer,
     dragonData: Buffer,
-    chestData: Buffer
+    chestData: Buffer,
+	counterData: Buffer,  // DoctorDT
+	savecheckData: Buffer  // DoctorDT
   ): GetSaveDataResponse {
     // PARSE EVENT WORD DATA
     const characterCount = eventWordsData[CHARACTERS_AVAILABLE * 2];
@@ -122,6 +129,7 @@ export class GetSaveDataQuery extends Query<GetSaveDataResponse> {
       return acc;
     }, {} as Record<FF6Dragon, boolean>);
 
+	// PARSE CHEST COUNT
     const chestCount = [...chestData].reduce((acc, chestByte) => {
       const bitcount = (byte: number) => {
         let bits = 0;
@@ -137,7 +145,15 @@ export class GetSaveDataQuery extends Query<GetSaveDataResponse> {
       acc += bitcount(chestByte);
       return acc;
     }, 0);
-
+	
+	// PARSE GAME Time
+	const [hr, min, sec] = counterData.slice(3,6);
+	const gameTime = hr * 3600 + min * 60 + sec;
+	
+	// PARSE SAVED GAME CHECKSUM
+	const [check1, check2] = savecheckData;
+	const saveCheck = check1*256 + check2;
+	
     const value = {
       characters,
       events,
@@ -157,7 +173,8 @@ export class GetSaveDataQuery extends Query<GetSaveDataResponse> {
       checkCount,
       dragonCount,
       bossCount,
-      gameTime: 0,
+      gameTime, // DoctorDT
+	  saveCheck, // DoctorDT
       chestCount,
     } as GetSaveDataResponse;
     return value;

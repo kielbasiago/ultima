@@ -5,7 +5,7 @@ import { Devices } from "./sni/sni_pb_service";
 
 export const fetchDevices = (host: string) => {
   return new Promise<DevicesResponse.AsObject>((resolve, reject) => {
-    const debug = process.env.NODE_ENV === "production";
+    const debug = false; //process.env.NODE_ENV !== "production";
     const request = new DevicesRequest();
     const transport = grpc.WebsocketTransport();
 

@@ -40,6 +40,7 @@ export const getTrackerDefaults = () => {
     dragonCount: 0,
     esperCount: 0,
     gameTime: 0,
+	saveCheck: 0,
   } as GetSaveDataResponse;
 
   return defaultData;

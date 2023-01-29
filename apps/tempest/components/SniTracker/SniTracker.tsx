@@ -184,7 +184,7 @@ export function SniTracker({ simple = false }) {
 		// "dragonCount": 0,
 		// "bossCount": 0,
 		// "gameTime": 0,  <-- useful for new game / reset, maybe?
-		//				currently always 0.  Can't use.  
+		// "saveCheck": 0, <-- save checksum, useful for testing SAVE GAME events.
 		// "chestCount": 0, <-- track this
 		
         // Find the changes 
@@ -203,23 +203,42 @@ export function SniTracker({ simple = false }) {
 		if (responseData.chestCount != dataRef.current.chestCount) {
 			diff['chestCount'] = responseData.chestCount
 		}
+		
+		// TESTING: write monster formation 
+		if (responseData.formID != dataRef.current.formID) {
+			diff['formation'] = responseData.formID
+		}
+		// TESTING: write gg bit
+		if (responseData.ggBit != dataRef.current.ggBit) {
+			diff['gg_bit'] = responseData.ggBit
+		}
+		
 		// Write the log string
 		let thislog = '';
 		let ctr = Object.keys(diff).length;
 		
 		// Catch special cases
-		if (responseData.gameTime == 0 && responseData.characterCount > 0 && dataRef.current.gameTime == 0 && dataRef.current.characterCount == 0) {
+		if (dataRef.current.saveCheck == 0) {
+			// Catch initialization
+			//thislog += '*TRACKING STARTED*'
+	    } else if (responseData.gameTime == 0 && responseData.characterCount > 0 && dataRef.current.gameTime == 0 && dataRef.current.characterCount == 0) {
 			// Catch NewGame
 			thislog += '*NEW GAME*';
 		} else if (responseData.saveCheck != dataRef.current.saveCheck) {  
 			// Catch save game event
 			thislog += '*SAVE GAME*';
-		} else if (responseData.gameTime > 0 && responseData.characterCount > 0 && dataRef.current.gameTime == 0 && dataRef.current.characterCount == 0) {  
+		} else if (responseData.gameTime > 0 && responseData.characterCount > 0 && dataRef.current.characterCount == 0) {  
 			// Catch load game
 			thislog += '*LOAD GAME*';
-		} else if (responseData.characterCount == 0 && responseData.gameTime > 0) {  
+		} else if (responseData.characterCount == 0 && responseData.gameTime < 1 && dataRef.current.saveCheck != 0) {  
 			// Catch reset game
 			thislog += '*RESET*';
+		} else if (dataRef.current.onTier > 0 && (responseData.onTier - dataRef.current.onTier) == 1) {  
+			// Catch defeated a tier
+			thislog += 'Defeated Tier ' + dataRef.current.onTier;
+		} else if (responseData.gg == 1 && dataRef.current.gg == 0) {  
+			// Catch beat the game
+			thislog += 'Defeated Kefka - gg!';
 		} else {
 			for (const key in diff) {
 				thislog += `${key}: ${diff[key]}`;

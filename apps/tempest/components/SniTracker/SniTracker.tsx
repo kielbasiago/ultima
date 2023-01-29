@@ -254,7 +254,13 @@ export function SniTracker({ simple = false }) {
 		
 		// Append each row to the adventure log here (if not empty)
 		if (thislog) {
-			pushAdventureLog(`[${new Date().toISOString()}] ` + thislog);
+			const thistime = new Date();
+			//thistime = `[${new Date().toISOString()}] `;
+			if (responseData.gg == 1) {
+				// Adjust timing to match "crackow" instead of dissolve
+				thistime.setSeconds(thistime.getSeconds() - 5);
+			}
+			pushAdventureLog(`[${thistime.toISOString()}] ` + thislog);
 		}
       } else {
         //pushAdventureLog(`[${new Date().toISOString()}] Nothing has changed `);

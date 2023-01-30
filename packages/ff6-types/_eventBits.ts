@@ -195,3 +195,15 @@ export const ENABLE_Y_PARTY_SWITCHING = 0x1ce;
 export const ALWAYS_CLEAR = 0x176; //this event_bit is always clear, used for branching
 
 export const COMPLETED_MOOGLE_DEFENSE = 0x12e;
+// DoctorDT tracker log events
+export const DEFEATED_KT_GUARDIAN = 0x0BC;
+export const DEFEATED_KT_AMBUSH = 0x0BD;
+export const DEFEATED_STATUE_LEFT = 0x072;   // Just a guess... it's not 0x072.
+export const DEFEATED_STATUE_RIGHT = 0x073;
+export const DEFEATED_STATUE_MID = 0x074;  // Note this is different from the event bits document, unsure why.
+export const FINAL_CINEMATIC = 0x2C0;   // Maybe stand in for killing Kefka?  
+// Possible additional bits desired:
+// Jump into KT.  Just do "UNLOCKED_FINAL_KEFKA"?
+// Jump into KT (skip).  Just do "UNLOCKED_KT_SKIP"? 
+// Step on final switches 
+// Defeated Kefka (on "krackow")

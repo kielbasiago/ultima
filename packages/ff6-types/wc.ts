@@ -273,6 +273,52 @@ export const EVENT_BIT: Record<FF6Event, CheckBit> = {
     "Auction House Esper 2",
     event_bits.AUCTION_BOUGHT_ESPER2
   ),
+  // DoctorDT added for tracker log
+  unlockKefka: new CheckBit(
+    "unlockKefka",
+    "Unlocked Final Kefka",
+    event_bits.UNLOCKED_FINAL_KEFKA
+  ),
+  unlockSkip: new CheckBit(
+    "unlockSkip",
+    "Unlocked KT Skip",
+    event_bits.UNLOCKED_KT_SKIP
+  ),
+  ktAmbush: new CheckBit(
+    "ktAmbush",
+    "Defeated KT Ambush",
+    event_bits.DEFEATED_KT_AMBUSH
+  ),
+  ktGuardian: new CheckBit(
+    "ktGuardian",
+    "Defeated KT Guardian",
+    event_bits.DEFEATED_KT_GUARDIAN
+  ),
+  statueLeft: new CheckBit(
+    "statueLeft",
+    "Defeated Left Statue",
+    event_bits.DEFEATED_STATUE_LEFT
+  ),
+  statueRight: new CheckBit(
+    "statueRight",
+    "Defeated Right Statue",
+    event_bits.DEFEATED_STATUE_RIGHT
+  ),
+  statueMid: new CheckBit(
+    "statueMid",
+    "Defeated Middle Statue",
+    event_bits.DEFEATED_STATUE_MID
+  ),
+  switchyard: new CheckBit(
+    "switchyard",
+    "Activated KT Switchyard",
+    event_bits.NORTH_PATH_OPEN_KEFKA_TOWER
+  ),
+  finalCinematic: new CheckBit(
+    "finalCinematic",
+    "Watching Final Cinematic",
+    event_bits.FINAL_CINEMATIC
+  ),
 } as Record<FF6Event, CheckBit>;
 
 export const DRAGON_EVENT_BIT: Partial<Record<FF6Dragon, CheckBit>> = {

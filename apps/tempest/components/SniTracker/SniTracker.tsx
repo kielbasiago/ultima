@@ -173,10 +173,97 @@ export function SniTracker({ simple = false }) {
       if (!isEqual(dataRef.current, responseData)) {
         // TODO: DOCTORDT
         // At this point something changed between the previous / new data
-        // Find the changes and then append each row to the adventure log here
-        pushAdventureLog(`[${new Date().toISOString()}] Something has changed`);
+		// responseData keys: ...
+		// "characters" (14)
+		// "events" (54)
+		// "dragons" (16), both "iceDragon" and "narsheDragon", e.g.
+		// "allFlags" (84), all of the above
+		// "characterCount": 0,
+		// "esperCount": 0,  <-- track this
+		// "checkCount": 0, 
+		// "dragonCount": 0,
+		// "bossCount": 0,
+		// "gameTime": 0,  <-- useful for new game / reset, maybe?
+		// "saveCheck": 0, <-- save checksum, useful for testing SAVE GAME events.
+		// "chestCount": 0, <-- track this
+		
+        // Find the changes 
+		const diff = {};
+		// Track characters, events, dragons
+		for (const key in responseData.allFlags) {
+			if (responseData.allFlags[key] != dataRef.current.allFlags[key]) {
+				diff[key] = responseData.allFlags[key]
+			}
+		}
+		// Track espers
+		if (responseData.esperCount != dataRef.current.esperCount) {
+			diff['esperCount'] = responseData.esperCount
+		}
+		// Track chests
+		if (responseData.chestCount != dataRef.current.chestCount) {
+			diff['chestCount'] = responseData.chestCount
+		}
+		
+		// TESTING: write monster formation 
+		if (responseData.formID != dataRef.current.formID) {
+			diff['formation'] = responseData.formID
+		}
+		// TESTING: write gg bit
+		if (responseData.ggBit != dataRef.current.ggBit) {
+			diff['gg_bit'] = responseData.ggBit
+		}
+		
+		// Write the log string
+		let thislog = '';
+		let ctr = Object.keys(diff).length;
+		
+		// Catch special cases
+		if (dataRef.current.saveCheck == 0) {
+			// Catch initialization
+			//thislog += '*TRACKING STARTED*'
+	    } else if (responseData.gameTime == 0 && responseData.characterCount > 0 && dataRef.current.gameTime == 0 && dataRef.current.characterCount == 0) {
+			// Catch NewGame
+			thislog += '*NEW GAME*';
+		} else if (responseData.saveCheck != dataRef.current.saveCheck) {  
+			// Catch save game event
+			thislog += '*SAVE GAME*';
+		} else if (responseData.gameTime > 0 && responseData.characterCount > 0 && dataRef.current.characterCount == 0) {  
+			// Catch load game
+			thislog += '*LOAD GAME*';
+		} else if (responseData.characterCount == 0 && responseData.gameTime < 1 && dataRef.current.saveCheck != 0) {  
+			// Catch reset game
+			thislog += '*RESET*';
+		} else if (dataRef.current.onTier > 0 && (responseData.onTier - dataRef.current.onTier) == 1) {  
+			// Catch defeated a tier
+			thislog += 'Defeated Tier ' + dataRef.current.onTier;
+		} else if (responseData.gg == 1 && dataRef.current.gg == 0) {  
+			// Catch beat the game
+			thislog += 'Defeated Kefka - gg!';
+		} else {
+			for (const key in diff) {
+				thislog += `${key}: ${diff[key]}`;
+				ctr -= 1;
+				if (ctr > 0) {
+					thislog += '\n\t';
+				}
+			}
+		}
+		// for (const key in diff) {
+		// 	console.log(`${key}: ${diff[key]}`);
+		// }
+		
+		// Append each row to the adventure log here (if not empty)
+		if (thislog) {
+			const thistime = new Date();
+			//thistime = `[${new Date().toISOString()}] `;
+			if (responseData.gg == 1) {
+				// Adjust timing to match "crackow" instead of dissolve
+				thistime.setSeconds(thistime.getSeconds() - 5);
+			}
+			pushAdventureLog(`[${thistime.toISOString()}] ` + thislog);
+		}
       } else {
-        pushAdventureLog(`[${new Date().toISOString()}] Nothing has changed `);
+        //pushAdventureLog(`[${new Date().toISOString()}] Nothing has changed `);
       }
 
       setTrackerData(responseData);

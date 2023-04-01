@@ -102,9 +102,5 @@
   },
   "-sdm": {
     "defaultValue": 1
-  },
-  "-csb": {
-    "min": 1,
-    "max": 256
   }
 }

@@ -114,12 +114,7 @@ class GenerateHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(json.dumps({}).encode())
       else:
-        wc_filename = out_filename
-        if os.getenv("NEXT_PUBLIC_ENABLE_BETA") == "true":
-          wc_filename = dir + f"/{base_filename}-beta.smc"
-          print(out_filename, wc_filename)
-          self._apply_beta_changes(out_filename, wc_filename)
-        with open(in_filename, "rb") as old, open(wc_filename, "rb") as new, open(log_filename, "rb") as logfile, open(manifest_filename, "rb") as manifestfile:
+        with open(in_filename, "rb") as old, open(out_filename, "rb") as new, open(log_filename, "rb") as logfile, open(manifest_filename, "rb") as manifestfile:
           raw_patch = xdelta3.encode(old.read(), new.read())
           self.send_response(200)
           self.send_header('Content-type','application/json')
@@ -163,18 +158,6 @@ class GenerateHandler(BaseHTTPRequestHandler):
 
           self.wfile.write(json.dumps(seed).encode())
 
-  def _apply_beta_changes(self, wc_filename, new_filename):
-    cwd = os.getcwd()  + "/WorldsCollideConfig"
-
-    executable = cwd + "/wc_config.py"
-
-    red_window_arg = '252828.202222.161616.101010.050606.313131.140606'
-
-    args = ['python', executable, '-i', wc_filename, '-o', new_filename, '-w1', red_window_arg]
-    print(f'running command {args}')
-
-    return subprocess.Popen(args, cwd = cwd).wait()
- 
   def _run_worlds_collide(self, in_filename, out_filename, manifest_filename, flags):
     src_file = os.getenv("FF3_INPUT_ROM") or 'ff3.smc'
     

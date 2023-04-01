@@ -92,7 +92,7 @@ export const CharacterGraphicSelector = ({
   const others = useMemo(
     () =>
       orderBy(
-        baseSpriteOptions.slice(24, baseSpriteOptions.length),
+        baseSpriteOptions.slice(24, baseSpriteOptions.length - 1),
         (o) => o.label
       ),
     [baseSpriteOptions]
@@ -124,7 +124,7 @@ export const CharacterGraphicSelector = ({
   const otherPortraits = useMemo(
     () =>
       orderBy(
-        basePortraitOptions.slice(24, basePortraitOptions.length),
+        basePortraitOptions.slice(24, basePortraitOptions.length - 1),
         (o) => o.label
       ),
     [basePortraitOptions]

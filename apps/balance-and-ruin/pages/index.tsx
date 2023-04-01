@@ -1,5 +1,5 @@
 import { AppNavigation, Button, ButtonLink, DiscordButton } from "@ff6wc/ui";
-import { ff3Header, openSans } from "~/pages/_app";
+import { ff3Header, openSans } from "@ff6wc/utils/fonts";
 import { cva, cx } from "cva";
 import type { GetStaticPropsContext, NextPage } from "next";
 import { HiPencil } from "react-icons/hi2";

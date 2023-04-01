@@ -1,4 +1,4 @@
-import { openSans } from "~/pages/_app";
+import { openSans } from "@ff6wc/utils/fonts";
 import { cx } from "cva";
 
 type Props = {

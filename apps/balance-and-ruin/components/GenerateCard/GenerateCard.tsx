@@ -14,7 +14,7 @@ import { MdClear, MdFileUpload } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import useSWRMutation from "swr/mutation";
 import { getFlagValue, selectFlagValues, setRawFlags } from "~/state/flagSlice";
-import { base64ToByteArray } from "@ff6wc/utils/base64ToByteArray";
+import { base64ToByteArray } from "~/utils/base64ToByteArray";
 import { isValidROM, removeHeader } from "~/utils/romUtils";
 import { XDelta3Decoder } from "~/utils/xdelta3_decoder";
 import JSZip from "jszip";

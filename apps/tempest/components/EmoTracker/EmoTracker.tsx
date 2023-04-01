@@ -104,7 +104,7 @@ export function Tracker({
       }
       setTimeout(async () => {
         const dataResult = await session.send(
-          new GetSaveDataQuery("").setLogger((...msgs) => {
+          new GetSaveDataQuery().setLogger((...msgs) => {
             logs.current.push(...msgs);
             setRender(Math.random());
           })

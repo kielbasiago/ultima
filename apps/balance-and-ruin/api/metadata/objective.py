@@ -13,7 +13,6 @@ class handler(BaseHTTPRequestHandler):
     result = ObjectiveMetadataWriter().get_objective_metadata()
     import json
     self.send_response(200)
-    self.send_header("Content-type","application/json")
-    self.send_header("Cache-Control","public, max-age=1800")
+    self.send_header('Content-type','text/plain')
     self.end_headers()
     self.wfile.write(json.dumps(result).encode())

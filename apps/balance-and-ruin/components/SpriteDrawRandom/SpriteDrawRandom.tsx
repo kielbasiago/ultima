@@ -34,9 +34,7 @@ export const SpriteDrawRandom = ({ paletteId, poseId, spriteId }: Props) => {
     Number.isFinite(palette) &&
     Number.isFinite(pose);
 
-  return !showSprite ? (
-    <span className="min-w-[32px] min-h-[48px]"></span>
-  ) : (
+  return !showSprite ? null : (
     <SpriteDrawLoad
       paletteId={palette as number}
       poseId={pose as number}

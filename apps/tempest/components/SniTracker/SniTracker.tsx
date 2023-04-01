@@ -228,7 +228,7 @@ export function SniTracker({ simple = false }) {
           <PageContainer>
             <div className="flex flex-col relative justify-center gap-2">
               <EmoTrackerLayout />
-              {error.length ? <OverlayMessage messages={error} /> : null}
+              {error ? <OverlayMessage messages={error} /> : null}
             </div>
           </PageContainer>
         </div>

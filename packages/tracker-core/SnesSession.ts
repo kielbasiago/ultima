@@ -1,396 +1,229 @@
+import { grpc } from "@improbable-eng/grpc-web";
+import { Query } from "./Query";
 import {
-  AttachToDeviceRequest,
-  DeviceInfoRequest,
-  DeviceInfoResponse,
-  DeviceListRequest,
-  DeviceListResponse,
-  ExternalLogger,
-  GetAddressRequest,
-  PutAddressRequest,
-  RegisterNameRequest,
-} from "./types";
-import { SnesInfo, SnesInfoArray } from "./SnesInfo";
-import { getLogger, Logger, LogLevelDesc } from "loglevel";
-import { RequestSender } from "./RequestSender";
-import Queue from "promise-queue";
-import * as ws from "websocket";
-import { Query, QueryResultType } from "./Query";
-
-type WsClient = ws.w3cwebsocket;
-type WsConnection = ws.connection;
-
-const queue = new Queue(1);
-
-const wsServer = "ws://localhost:8080";
+  AddressSpace,
+  DevicesResponse,
+  MemoryMapping,
+  MultiReadMemoryRequest,
+  MultiReadMemoryResponse,
+  ReadMemoryRequest,
+  SingleReadMemoryRequest,
+  SingleReadMemoryResponse,
+} from "./sni/sni_pb";
+import {
+  DeviceControlClient,
+  DeviceFilesystemClient,
+  DeviceMemory,
+  DeviceMemoryClient,
+  DevicesClient,
+} from "./sni/sni_pb_service";
 
 export class SnesSession {
-  public info: SnesInfo | null;
-
-  public sender: RequestSender | null;
-  protected _attachPromise: Promise<void> | null;
-  protected _connectionPromise: Promise<null> | null;
-  protected _devicePromise: Promise<Array<string>> | null;
-  protected _deviceInfoPromise: Promise<DeviceInfoResponse> | null;
-  protected _deviceList: Array<string>;
-  protected _logger: Logger | null;
-  protected _client!: WsClient | null;
-  public logMessages: Array<string> = [];
   public readonly name: string;
-  protected _externalLogger: ExternalLogger;
-  public error: string | null;
-  private _isConnected = false;
-  constructor(appName: string) {
-    this.name = appName;
-    this.info = null;
-    this.sender = new RequestSender((inc) => {
-      return { ...inc, Space: "SNES" };
+  protected devices: DevicesResponse.AsObject | null;
+  public status: "IDLE" | "ERROR" | "CONNECTING" | "CONNECTED" = "IDLE";
+  protected clients: {
+    DeviceControl: DeviceControlClient;
+    DeviceFilesystem: DeviceFilesystemClient;
+    // DeviceInfo: DeviceInfoClient;
+    DeviceMemory: DeviceMemoryClient;
+    // DeviceNWA: DeviceNWAClient;
+    Devices: DevicesClient;
+  };
+
+  protected initialized: {
+    DeviceControl: boolean;
+    DeviceFilesystem: boolean;
+    DeviceMemory: boolean;
+    Devices: boolean;
+  };
+
+  protected loading: {
+    DeviceControl: boolean;
+    DeviceFilesystem: boolean;
+    DeviceMemory: boolean;
+    Devices: boolean;
+  };
+
+  constructor() {
+    this.name = "ff6wc-tracker";
+    this.status = "IDLE";
+    // this.info = null;
+    // this._connection = null;
+    // this._sender = null;
+    this.devices = null;
+    // this._logger = null;
+
+    // this._connectionPromise = null;
+    // this._devicePromise = null;
+    // this._deviceInfoPromise = null;
+    // this._attachPromise = null;
+    // this._externalLogger = () => {};
+
+    const getName = (suffix: string) => `${this.name}-${suffix}`;
+
+    const hostname = "http://localhost:8190";
+    this.clients = {
+      DeviceControl: new DeviceControlClient(hostname, {}),
+      DeviceFilesystem: new DeviceFilesystemClient(hostname, {}),
+      DeviceMemory: new DeviceMemoryClient(hostname, {}),
+      Devices: new DevicesClient(hostname, {}),
+    };
+
+    this.initialized = {
+      DeviceControl: false,
+      DeviceFilesystem: false,
+      DeviceMemory: false,
+      Devices: false,
+    };
+
+    this.loading = {
+      DeviceControl: false,
+      DeviceFilesystem: false,
+      DeviceMemory: false,
+      Devices: false,
+    };
+  }
+
+  private loadDevices() {
+    return new Promise<DevicesResponse.AsObject>((resolve, reject) => {});
+  }
+
+  public watch<TQuery extends Query<any>>(query: TQuery) {
+    const host = "http://localhost:8190";
+    const client = new DeviceMemoryClient(host, {
+      transport: grpc.WebsocketTransport(),
     });
-    this._logger = null;
-    this._deviceList = [];
-    this._connectionPromise = null;
-    this._devicePromise = null;
-    this._deviceInfoPromise = null;
-    this._attachPromise = null;
-    this._externalLogger = () => {};
-    this.error = null;
-  }
 
-  public get isConnected() {
-    return this._isConnected;
-  }
-
-  public async send<TQuery extends Query<any>>(
-    query: TQuery
-  ): Promise<QueryResultType<TQuery>> {
     const addrs = query.queryAddress;
     const lengths = query.queryLength;
 
-    const pairs = addrs.map((addr, idx) => {
-      const hexAddr = addr.toString(16);
+    const requests = addrs.map((addr, idx) => {
       const length = lengths[idx];
-      return [hexAddr, length] as [string, number];
+      const request = new ReadMemoryRequest();
+      request.setRequestaddress(addr);
+      request.setRequestmemorymapping(MemoryMapping.LOROM);
+      request.setRequestaddressspace(AddressSpace.FXPAKPRO);
+      request.setSize(length);
+      return request;
+    });
+    const multi = new MultiReadMemoryRequest();
+    multi.setUri(this.devices?.devicesList[0].uri!);
+    multi.setRequestsList(requests);
+
+    const stream = client.streamRead();
+    stream.on("data", (val) => {
+      console.log("received", val);
+      debugger;
     });
 
-    if (!this.isConnected) {
-      return query.onResponse([]);
-    }
+    stream.on("status", (msg) => {
+      debugger;
+    });
 
-    this.logger.info("sending", pairs);
-
-    const responses: Array<Buffer> = [];
-    for (let i = 0; i < pairs.length; i++) {
-      const [addr, length] = pairs[i];
-      const result = await this.readRam(addr, length);
-      if (result) {
-        responses.push(result as Buffer);
-      }
-    }
-    return query.onResponse(responses);
+    return {};
+    stream.write(multi);
   }
 
+  // public send<TQuery extends Query<any>>(query: TQuery) {
+  //   return new Promise(async (resolve, reject) => {
+  //     const client = new DeviceMemoryClient(host, {
+  //       transport: grpc.WebsocketTransport(),
+  //     });
+
+  //     const addrs = query.queryAddress;
+  //     const lengths = query.queryLength;
+
+  //     const requests = addrs.map((addr, idx) => {
+  //       const length = lengths[idx];
+  //       const request = new ReadMemoryRequest();
+  //       request.setRequestaddress(addr);
+  //       request.setRequestmemorymapping(MemoryMapping.LOROM);
+  //       request.setRequestaddressspace(AddressSpace.FXPAKPRO);
+  //       request.setSize(length);
+  //       return request;
+  //     });
+  //     const multi = new MultiReadMemoryRequest();
+  //     multi.setUri(this.devices?.devicesList[0].uri!);
+  //     multi.setRequestsList(requests);
+
+  //     const stream = client.streamRead();
+  //     stream.on("data", (val) => {
+  //       console.log("received", val);
+  //       debugger;
+  //     });
+
+  //     stream.on("status", (msg) => {
+  //       debugger;
+  //     });
+
+  //     stream.write(multi);
+
+  //     // const { responsesList } = await this.readRamMulti(multi);
+  //     // const responses = responsesList.map(({ data }) => {
+  //     //   if (typeof data === "string") {
+  //     //     return base64ToByteArray(data);
+  //     //   } else {
+  //     //     return data;
+  //     //   }
+  //     // });
+  //     // resolve(query.onResponse(responses));
+  //   });
+  // }
+
   public async connect() {
-    this.resetState();
-
-    if (!this._client) {
-      this._client = new ws.w3cwebsocket(wsServer);
+    this.status = "CONNECTING";
+    if (!this.devices && !this.initialized.Devices && !this.loading.Devices) {
+      this.loading.Devices = true;
+      const devices = await this.loadDevices();
+      this.devices = devices;
+      this.loading.Devices = false;
+      this.initialized.Devices = true;
     }
 
-    this._isConnected = false;
-    await this._connect(this._client);
-
-    try {
-      this.addLogMessage("Loading device list...");
-      this._deviceList = await this.getDeviceList();
-      this.addLogMessage(
-        `Loaded device list: ${JSON.stringify(this._deviceList)}`
-      );
-
-      if (this._deviceList.length > 1) {
-        this.addLogMessage(
-          "WARNING: Multiple devices found. Will attempt to use the last registered.. If the attach hangs, restarts client and try again."
-        );
-      }
-      this.addLogMessage("Attaching to device");
-      const deviceAttached = await this.attach();
-      this.addLogMessage(`Attached to device '${deviceAttached}'`);
-
-      this.addLogMessage("Registering with SNI");
-      await this.registerName();
-      this.addLogMessage("Registered successfully");
-
-      this.addLogMessage("Loading device info");
-      await this.getDeviceInfo();
-      this.addLogMessage(`Loaded device info ${JSON.stringify(this.info)}`);
-      this._isConnected = true;
-    } catch (err) {
-      const e = err as Error;
-      this.addLogMessage(`ERROR: ${e.message}`);
-      this.error = e.message;
-    }
     return;
   }
 
-  public async disconnect() {
-    if (this._client) {
-      this._client.close(1000, "Tracker disconnecting from SNI");
-    }
-  }
+  public async readRamMulti(request: MultiReadMemoryRequest) {
+    const host = "http://localhost:8190";
 
-  public setLogger(logger: ExternalLogger): this {
-    this._externalLogger = logger;
-    return this;
-  }
-
-  public clearLog() {
-    this.logMessages = [];
-  }
-
-  protected async _connect(client: ws.w3cwebsocket): Promise<null> {
-    this._connectionPromise = new Promise((resolve, reject) => {
-      this.logger.debug("connecting to websocket");
-      client.onopen = async () => {
-        this.logger.debug("connected to websocket");
-        resolve(null);
-      };
-
-      client.onclose = (event) => {
-        this.logger.error("client closed", event.code, event);
-        this.onClose(event.code, "Client disconnected");
-        this.addLogMessage("Unable to connect to SNI");
-
-        reject(null);
-      };
-    });
-
-    return this._connectionPromise;
-  }
-
-  protected addLogMessage(message: string): void {
-    this.logMessages.push(message);
-    this._externalLogger(message);
-    this.logger.debug(message);
-  }
-
-  protected async getDeviceList(): Promise<Array<string>> {
-    if (!this.sender) {
-      return [];
-    }
-
-    if (this._devicePromise) {
-      return this._devicePromise;
-    }
-
-    this._devicePromise = this.sender
-      .sendUtf8<DeviceListRequest, DeviceListResponse>(
-        this._client as ws.w3cwebsocket,
-        {
-          Opcode: "DeviceList",
-          Space: "SNES",
-        }
-      )
-      .then((resp) => {
-        this.logger.debug("Device list: ", resp.Results);
-        return resp;
-      })
-      .then(({ Results }) => Results);
-
-    return this._devicePromise;
-  }
-
-  protected async attach(): Promise<string> {
-    if (!this.sender) {
-      return "";
-    }
-
-    if (this._attachPromise) {
-      return Promise.resolve("");
-    }
-
-    if (!this._deviceList.length) {
-      const msg = "no devices to attach to";
-      this.logger.error(msg);
-      throw new Error(msg);
-    }
-
-    const deviceAttached = [this._deviceList[this._deviceList.length - 1]];
-    this._attachPromise = this.sender.sendNoResponse<AttachToDeviceRequest>(
-      this._client as ws.w3cwebsocket,
-      {
-        Opcode: "Attach",
-        Space: "SNES",
-        Operands: deviceAttached,
-      }
-    );
-
-    await this._attachPromise;
-
-    this.logger.info("Attach successful");
-
-    return deviceAttached[0];
-  }
-
-  protected async registerName(): Promise<void> {
-    if (!this.sender) {
-      throw new Error("No request sender was initialized");
-    }
-
-    await this.sender.sendNoResponse<RegisterNameRequest>(
-      this._client as ws.w3cwebsocket,
-      {
-        Opcode: "Name",
-        Operands: [this.name],
-      }
-    );
-  }
-
-  protected async getDeviceInfo(): Promise<DeviceInfoResponse> {
-    if (!this.sender) {
-      throw new Error("No request sender was initialized");
-    }
-
-    if (this._deviceInfoPromise) {
-      return this._deviceInfoPromise;
-    }
-
-    this._deviceInfoPromise = this.sender.sendUtf8<
-      DeviceInfoRequest,
-      DeviceInfoResponse
-    >(this._client as ws.w3cwebsocket, {
-      Opcode: "Info",
-    });
-
-    this.logger.debug("Sending device info request");
-    const response = await this._deviceInfoPromise;
-
-    this.info = new SnesInfo(response.Results as SnesInfoArray);
-
-    this.logger.info("Received device info", this.info.toJson());
-
-    return this._deviceInfoPromise;
-  }
-
-  /**
-   *
-   * @param addressStart absolute address
-   * @param blockCount
-   * @returns
-   */
-  public async readRam(
-    addressStart: string,
-    blockCount: number
-  ): Promise<Uint8Array> {
-    if (!this.sender) {
-      throw new Error("No request sender was initialized");
-    }
-
-    const addressVal = Number.parseInt(addressStart, 16);
-
-    this.logger.debug(`requesting ${blockCount} bytes of ram at`, addressStart);
-
-    const cb = () =>
-      this.sender?.sendBinary<GetAddressRequest>(
-        this._client as ws.w3cwebsocket,
-        {
-          Opcode: "GetAddress",
-          Operands: [addressVal.toString(16), blockCount.toString(16)],
-        }
-      ) || Promise.reject();
-
-    const result = await queue.add(cb);
-
-    return result;
-  }
-
-  public async writeRom(
-    addressStart: string,
-    blockCount: number,
-    data: ArrayBuffer
-  ): Promise<Uint8Array> {
-    if (!this.sender) {
-      throw new Error("No request sender was initialized");
-    }
-
-    const addressVal = Number.parseInt(addressStart, 16);
-
-    this.logger.info(`Try writing ${blockCount} bytes of ram to`, addressStart);
-
-    const cb1 = () => {
-      this.logger.info("sending put request");
-      return (
-        this.sender?.sendNoResponse<PutAddressRequest>(
-          this._client as ws.w3cwebsocket,
-          {
-            Opcode: "PutAddress",
-            Operands: [addressVal.toString(16), blockCount.toString(16)],
+    return new Promise<MultiReadMemoryResponse.AsObject>((resolve, reject) => {
+      grpc.unary(DeviceMemory.MultiRead, {
+        request,
+        host,
+        transport: grpc.WebsocketTransport(),
+        debug: true,
+        onEnd: (res: any) => {
+          const { status, statusMessage, headers, message, trailers } = res;
+          if (status === grpc.Code.OK && message) {
+            resolve(message.toObject());
+          } else {
+            console.error("error sending multi ram request", res);
+            reject(message);
           }
-        ) || Promise.reject()
-      );
-    };
-
-    const result = await queue.add(cb1).catch((err) => {
-      console.error("ERR", err);
+        },
+      });
     });
-    this.logger.info("result", result);
-    await queue.add(async () => {
-      return this.sender?.sendRawNoResponse(
-        this._client as ws.w3cwebsocket,
-        data
-      );
+  }
+  public async readRam(request: SingleReadMemoryRequest) {
+    const host = "http://localhost:8190";
+
+    return new Promise<SingleReadMemoryResponse.AsObject>((resolve, reject) => {
+      grpc.unary(DeviceMemory.SingleRead, {
+        request,
+        host,
+        transport: grpc.WebsocketTransport(),
+        debug: true,
+        onEnd: (res: any) => {
+          const { status, statusMessage, headers, message, trailers } = res;
+          if (status === grpc.Code.OK && message) {
+            resolve(message.toObject());
+          } else {
+            console.error("error sending single ram request", res);
+            reject(message);
+          }
+        },
+      });
     });
-
-    return new Uint8Array();
-  }
-
-  public toJson() {
-    return {
-      name: this.name,
-      info: this.info?.toJson(),
-    };
-  }
-
-  protected onClose = (err: number, description: string) => {
-    if (err === 1006) {
-      this.error = "Unexpectedly disconnected from SNI";
-    }
-    this.logger.info("connection closed", err, description);
-    this.resetState();
-  };
-
-  protected onPause = () => {
-    this.logger.info("connection paused");
-  };
-
-  protected onPong = () => {
-    this.logger.info("connection pong");
-  };
-
-  protected onPing = () => {
-    this.logger.info("connection ping");
-  };
-
-  protected onResume = () => {
-    this.logger.info("connection resumed");
-  };
-
-  protected get logger(): Logger {
-    if (this._logger) {
-      return this._logger;
-    }
-
-    this._logger = getLogger("SnesSession");
-    this._logger.setLevel("debug");
-    return this._logger;
-  }
-
-  private resetState() {
-    this._isConnected = false;
-    this._connectionPromise = null;
-    this._deviceList = [];
-    this._devicePromise = null;
-    this.info = null;
-    this._deviceInfoPromise = null;
-    this._attachPromise = null;
-
-    this.error = null;
   }
 }

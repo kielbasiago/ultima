@@ -19,7 +19,6 @@ export const streamRam = <TQuery extends Query<any>>(
   const host = "http://localhost:8190";
   const addrs = query.queryAddress;
   const lengths = query.queryLength;
-
   const requests = addrs.map((addr, idx) => {
     const length = lengths[idx];
     const request = new ReadMemoryRequest();
@@ -36,12 +35,8 @@ export const streamRam = <TQuery extends Query<any>>(
 
   const client = new DeviceMemoryClient(host, {
     transport: grpc.WebsocketTransport(),
-    // debug: true,
   });
 
   const stream = client.streamRead();
-  return {
-    request: multiRequest,
-    stream,
-  };
+  return { stream, request: multiRequest };
 };

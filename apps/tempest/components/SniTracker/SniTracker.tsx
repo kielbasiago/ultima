@@ -19,7 +19,6 @@ import {
 } from "~/components/EmoTracker/TrackerProvider";
 import { EmoTrackerLayout } from "~/components/EmoTracker/EmoTrackerLayout";
 import useSWR from "swr";
-import isEqual from "lodash/isEqual";
 
 const trackerDefaults = { ...getTrackerDefaults() };
 
@@ -28,7 +27,7 @@ const useRender = () => {
   const [renderValue, setRenderValue] = useState<number>(0);
   const render = useCallback(() => {
     setRenderValue(val.current + 1);
-  }, [val]);
+  }, []);
   return render;
 };
 
@@ -49,15 +48,10 @@ const Status = {
 
 type Status = keyof typeof Status;
 
-export function SniTracker({ simple = false }) {
+export function SniTracker() {
   const render = useRender();
-
-  const adventureLog = useRef<string[]>([]);
   const log = useRef<string[]>([]);
-
-  const dataRef = useRef<GetSaveDataResponse>(trackerDefaults);
-  const [data, baseSetTrackerData] =
-    useState<GetSaveDataResponse>(trackerDefaults);
+  const [data, setData] = useState<GetSaveDataResponse>(trackerDefaults);
   const [hostname, setHostname] = useState("http://localhost:8190");
 
   const [stream, setStream] = useState<StreamRamResult["stream"] | null>(null);
@@ -65,19 +59,11 @@ export function SniTracker({ simple = false }) {
     StreamRamResult["request"] | null
   >(null);
 
-  const setTrackerData = (newData: GetSaveDataResponse) => {
-    dataRef.current = newData;
-    baseSetTrackerData(newData);
-  };
   const providerData = useTrackerData({
     mode: TrackerMode.AUTO,
-    setTrackerData,
+    setTrackerData: setData,
     trackerData: data,
   });
-
-  const pushAdventureLog = useCallback((...msgs: string[]) => {
-    adventureLog.current = adventureLog.current.concat(msgs);
-  }, []);
 
   const pushLog = useCallback((...msgs: string[]) => {
     log.current = log.current.concat(msgs);
@@ -169,18 +155,10 @@ export function SniTracker({ simple = false }) {
           }
         }) as Buffer[]
       );
-
-      if (!isEqual(dataRef.current, responseData)) {
-        // TODO: DOCTORDT
-        // At this point something changed between the previous / new data
-        // Find the changes and then append each row to the adventure log here
-        pushAdventureLog(`[${new Date().toISOString()}] Something has changed`);
-      } else {
-        pushAdventureLog(`[${new Date().toISOString()}] Nothing has changed `);
-      }
-
-      setTrackerData(responseData);
+      pushLog(`${new Date()}: Received tracker data`);
+      setData(responseData);
     });
+    pushLog("Sending request for tracker data");
 
     stream.write(ramRequest);
 
@@ -204,34 +182,9 @@ export function SniTracker({ simple = false }) {
     status = Status.ACTIVE;
   }
 
-  if (simple) {
-    return (
-      <TrackerContext.Provider value={providerData}>
-        <div className="flex flex-col gap-2 relative p-6">
-          <PageContainer>
-            <div className="flex flex-col relative justify-center gap-2">
-              <EmoTrackerLayout />
-              {devicesError ? (
-                <OverlayMessage messages={[devicesError]} />
-              ) : null}
-              {noDevices ? (
-                <OverlayMessage
-                  messages={[
-                    "No devices found",
-                    "Make sure you have connected your emulator to SNI",
-                  ]}
-                />
-              ) : null}
-            </div>
-          </PageContainer>
-        </div>
-      </TrackerContext.Provider>
-    );
-  }
-
   return (
     <TrackerContext.Provider value={providerData}>
-      <div className="flex flex-col gap-2 relative p-6">
+      <div className="p-8">
         <Card title="Tracker">
           <div className="flex flex-col relative justify-center">
             <EmoTrackerLayout />
@@ -278,10 +231,6 @@ export function SniTracker({ simple = false }) {
             options={deviceOptions}
             value={activeOption!}
           />
-        </Card>
-
-        <Card title="Adventure Log">
-          <CodeBlock>{adventureLog.current.join("\n")}</CodeBlock>
         </Card>
 
         <Card title="Log">

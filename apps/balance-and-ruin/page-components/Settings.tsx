@@ -29,7 +29,6 @@ export const Settings = ({ presets: rawPresets }: PresetsProps) => {
       rawPresets["coliseum mog"],
       rawPresets["coliseum gogo"],
       rawPresets["coliseum umaro"],
-      rawPresets["ultrosleague-bdash"],
     ].filter((z) => !!z);
 
     return options.map<SelectOption>(

@@ -29,6 +29,20 @@ export default function NewLandingPage() {
           content="Final Fantasy VI open-world randomizer"
         />
         <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="preload"
+          href="/runiccondensed.ttf"
+          as="font"
+          crossOrigin=""
+          type="font/ttf"
+        />
+        <link
+          rel="preload"
+          href="/final_fantasy_36_font.ttf"
+          as="font"
+          crossOrigin=""
+          type="font/ttf"
+        />
       </Head>
       <div className="flex flex-col h-screen relative">
         {/* <AppNavigation /> */}

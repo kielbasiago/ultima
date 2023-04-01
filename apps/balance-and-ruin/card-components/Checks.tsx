@@ -3,6 +3,7 @@ import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
 
 export const Checks = () => {
+  return null;
   return (
     <Card title={"Checks"}>
       <CardColumn>

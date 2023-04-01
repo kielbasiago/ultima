@@ -52,8 +52,6 @@ type Status = keyof typeof Status;
 export function SniTracker({ simple = false }) {
   const render = useRender();
 
-  const [error, setError] = useState<string[]>([]);
-
   const adventureLog = useRef<string[]>([]);
   const log = useRef<string[]>([]);
 
@@ -71,7 +69,6 @@ export function SniTracker({ simple = false }) {
     dataRef.current = newData;
     baseSetTrackerData(newData);
   };
-
   const providerData = useTrackerData({
     mode: TrackerMode.AUTO,
     setTrackerData,
@@ -82,70 +79,60 @@ export function SniTracker({ simple = false }) {
     adventureLog.current = adventureLog.current.concat(msgs);
   }, []);
 
-  const pushLog = useCallback(
-    (...msgs: string[]) => {
-      log.current = log.current.concat(msgs);
-      render();
-    },
-    [render]
-  );
+  const pushLog = useCallback((...msgs: string[]) => {
+    log.current = log.current.concat(msgs);
+  }, []);
 
-  const { data: devices, isLoading } = useSWR<
-    DevicesResponse.Device.AsObject[] | null,
-    string[]
-  >(
+  const [activeDevice, setActiveDevice] =
+    useState<DevicesResponse.Device.AsObject | null>(null);
+
+  const hostnameId = useId();
+
+  const [devices, setDevices] = useState<
+    DevicesResponse.Device.AsObject[] | null
+  >(null);
+
+  // setting to null means uninitialized, 0 means no devices active
+  const noDevices = devices?.length === 0;
+
+  const deviceOptions = noDevices
+    ? []
+    : devices?.map<SelectOption>(({ displayname, uri }) => ({
+        label: displayname,
+        value: uri,
+      }))!;
+
+  const activeOption = activeDevice
+    ? deviceOptions.find((z) => z.value === activeDevice.uri)
+    : null;
+
+  const { error: devicesError, isLoading } = useSWR(
     ["devices"],
     async () => {
       pushLog("Loading devices...");
-      const result = await fetchDevices(hostname);
-
-      if (!result?.devicesList.length) {
-        return Promise.reject([
-          "No devices found",
-          "Make sure your emulator/snes is connected to SNI",
-          "This will be rechecked every few seconds so no refresh is required",
-        ]);
-      }
-
+      const result = await fetchDevices(hostname).catch((err) => {
+        pushLog(err);
+        throw err;
+      });
       const devicesList = result.devicesList;
 
+      setDevices(devicesList);
       pushLog(`${devicesList.length} devices found`);
-      if (!devicesList.length) {
-        return [];
-      } else if (devicesList.length) {
-        const newDevice = devicesList.at(0)!;
-        connectStream(newDevice.uri);
-        pushLog(`No active device set, updating to ${newDevice.displayname}`);
-      }
 
-      return devicesList;
+      if (devicesList.length && !activeDevice) {
+        const newDevice = devicesList.at(0)!;
+        setActiveDevice(newDevice);
+        pushLog(`No active device set, updating to ${newDevice.displayname}`);
+        connectStream(newDevice.uri);
+      }
+      render();
     },
     {
-      suspense: false,
       revalidateOnFocus: false,
-      revalidateIfStale: true,
-      revalidateOnReconnect: true,
-      onError(err, key, config) {
-        if (Array.isArray(err)) {
-          setError(err);
-          pushLog(...err);
-        } else {
-          setError([err]);
-          pushLog(err);
-        }
-        setStream(null);
-      },
-      refreshInterval(latestData) {
-        return 5000;
-      },
+      revalidateIfStale: false,
+      revalidateOnReconnect: false,
     }
   );
-
-  const deviceOptions =
-    devices?.map<SelectOption>(({ displayname, uri }) => ({
-      label: displayname,
-      value: uri,
-    })) ?? [];
 
   const connectStream = async (deviceUri: string) => {
     const query = new GetSaveDataQuery(deviceUri);
@@ -160,19 +147,15 @@ export function SniTracker({ simple = false }) {
     }
     stream.on("end", (status) => {
       console.log("connection closes with status", status);
-      setStream(null);
     });
     stream.on("status", ({ code, details, metadata }) => {
       if (code !== 0) {
-        console.error(
+        console.warn(
           "Received non-zero status code: ",
           code,
           details,
           metadata
         );
-        const err = ["Disconnected from SNI", details];
-        setError(err);
-        pushLog(...err);
       }
     });
     stream.on("data", async (response) => {
@@ -191,11 +174,11 @@ export function SniTracker({ simple = false }) {
         // TODO: DOCTORDT
         // At this point something changed between the previous / new data
         // Find the changes and then append each row to the adventure log here
-        // pushAdventureLog(`[${new Date().toISOString()}] Something has changed`);
+        pushAdventureLog(`[${new Date().toISOString()}] Something has changed`);
       } else {
-        // pushAdventureLog(`[${new Date().toISOString()}] Nothing has changed `);
+        pushAdventureLog(`[${new Date().toISOString()}] Nothing has changed `);
       }
-      setError([]);
+
       setTrackerData(responseData);
     });
 
@@ -213,12 +196,12 @@ export function SniTracker({ simple = false }) {
 
   let status: Status = Status.DISCONNECTED;
 
-  if (Boolean(stream)) {
-    status = Status.ACTIVE;
+  if (devicesError) {
+    status = Status.ERROR;
   } else if (isLoading) {
     status = Status.LOADING;
-  } else if (error) {
-    status = Status.ERROR;
+  } else if (data) {
+    status = Status.ACTIVE;
   }
 
   if (simple) {
@@ -228,7 +211,17 @@ export function SniTracker({ simple = false }) {
           <PageContainer>
             <div className="flex flex-col relative justify-center gap-2">
               <EmoTrackerLayout />
-              {error ? <OverlayMessage messages={error} /> : null}
+              {devicesError ? (
+                <OverlayMessage messages={[devicesError]} />
+              ) : null}
+              {noDevices ? (
+                <OverlayMessage
+                  messages={[
+                    "No devices found",
+                    "Make sure you have connected your emulator to SNI",
+                  ]}
+                />
+              ) : null}
             </div>
           </PageContainer>
         </div>
@@ -242,7 +235,15 @@ export function SniTracker({ simple = false }) {
         <Card title="Tracker">
           <div className="flex flex-col relative justify-center">
             <EmoTrackerLayout />
-            {error.length ? <OverlayMessage messages={error} /> : null}
+            {devicesError ? <OverlayMessage messages={[devicesError]} /> : null}
+            {noDevices ? (
+              <OverlayMessage
+                messages={[
+                  "No devices found",
+                  "Make sure you have connected your emulator to SNI",
+                ]}
+              />
+            ) : null}
           </div>
         </Card>
         <Card title="Status">
@@ -252,19 +253,15 @@ export function SniTracker({ simple = false }) {
           {status === Status.LOADING ? (
             <span className="text-yellow-500 text-sm">Loading devices</span>
           ) : null}
-          {status === Status.ERROR
-            ? error?.map((err) => (
-                <span className="text-red-500 text-sm" key={err}>
-                  {err}
-                </span>
-              ))
-            : null}
+          {status === Status.ERROR ? (
+            <span className="text-red-500 text-sm">{devicesError}</span>
+          ) : null}
 
           {status === Status.DISCONNECTED ? (
             <span className="text-zinc-400 text-sm">Waiting for activity</span>
           ) : null}
         </Card>
-        {/* <Card title="Settings">
+        <Card title="Settings">
           <InputLabel htmlFor={hostnameId}>Hostname</InputLabel>
           <Input
             id={hostnameId}
@@ -281,7 +278,7 @@ export function SniTracker({ simple = false }) {
             options={deviceOptions}
             value={activeOption!}
           />
-        </Card> */}
+        </Card>
 
         <Card title="Adventure Log">
           <CodeBlock>{adventureLog.current.join("\n")}</CodeBlock>

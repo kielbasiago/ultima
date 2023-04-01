@@ -34,11 +34,10 @@ module.exports = {
         },
       },
       fontFamily: {
-        montserrat: ['Montserrat', 'sans-serif'],
-        mono: ["'Roboto Mono'", "monospace"],
-        roboto: ["'Roboto'", "sans-serif"],
-        ff3: ["'Final Fantasy 3/6 Font'", "sans-serif"],
-        header: ["'Runic'", "sans-serif"]
+        montserrat: "'Montserrat', sans-serif",
+        mono: "'Roboto Mono', monospace",
+        roboto: "'Roboto', sans-serif",
+        ff3: "'Final Fantasy 3/6 Font', sand-serif"
       },
       boxShadow: {
         'input-focus': '0 0 0 2px #55cbff',

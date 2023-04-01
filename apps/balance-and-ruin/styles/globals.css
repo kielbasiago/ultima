@@ -54,19 +54,11 @@ div#__next > div {
   }
 }
 
-@layer base {
-  @font-face {
-    font-family: "Final Fantasy 3/6 Font";
-    src: url(/final_fantasy_36_font.ttf);
-  }
 
-  @font-face {
-    font-family: "Runic";
-    src: url(/runiccondensed.ttf);
-  }
+@font-face {
+  font-family: ff3;
+  src: url(/final_fantasy_36_font.ttf);
 }
-
-
 
 .main-header-text {
   text-shadow: 2px 2px 2px black;
@@ -184,6 +176,7 @@ we still enforce color-scheme: dark, despite the user preference */
   .ff6wc-select-container * {
     @apply transition-colors duration-75;
     @apply outline-0;
+    @apply font-montserrat;
     @apply font-normal;
   }
 

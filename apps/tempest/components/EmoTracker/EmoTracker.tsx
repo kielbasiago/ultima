@@ -27,7 +27,12 @@ export function Tracker({
   showButtons = true,
 }: Props): JSX.Element {
   const id = React.useId();
-  const [session, setSession] = React.useState(new SnesSession());
+  const [session, setSession] = React.useState(
+    new SnesSession(`ff6wc-autotracker--${id}`).setLogger((...msgs) => {
+      logs.current.push(...msgs);
+      setRender(Math.random());
+    })
+  );
   const [trackerData, setTrackerData] = React.useState(trackerDefaults);
 
   React.useEffect(() => {
@@ -62,7 +67,14 @@ export function Tracker({
    */
   const disconnect = async () => {
     await session.disconnect();
-    setSession(new SnesSession());
+    setSession(
+      new SnesSession(
+        `ff6wc-autotracker--${Math.floor(Math.random() * 100)}`
+      ).setLogger((...msgs) => {
+        logs.current.push(...msgs);
+        setRender(Math.random());
+      })
+    );
   };
 
   // connect to snes

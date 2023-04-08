@@ -23,7 +23,7 @@ export default function NewLandingPage() {
   return (
     <>
       <Head>
-        <title>FF6WC</title>
+        <title>FF6 Worlds Collide</title>
         <meta
           name="description"
           content="Final Fantasy VI open-world randomizer"

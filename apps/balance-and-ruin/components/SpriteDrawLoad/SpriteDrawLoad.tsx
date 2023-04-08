@@ -1,6 +1,9 @@
 import React from "react";
 import useSWRImmutable from "swr/immutable";
-import { SpriteDraw } from "~/components/SpriteDraw/SpriteDraw";
+import {
+  SpriteDraw,
+  SpriteDrawProps,
+} from "~/components/SpriteDraw/SpriteDraw";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -54,7 +57,7 @@ export default function SpriteDrawLoad({
       className={className}
       onClick={onClick}
       rgbBytes={rgbBytes}
-      scale={scale}
+      scale={scale as SpriteDrawProps["scale"]}
       variant={variant}
     />
   );

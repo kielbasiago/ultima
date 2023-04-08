@@ -1,5 +1,5 @@
-import { AppNavigation, Button, ButtonLink, DiscordButton } from "@ff6wc/ui";
-import { ff3Header, openSans } from "@ff6wc/utils/fonts";
+import { ButtonLink, DiscordButton } from "@ff6wc/ui";
+import { openSans } from "~/pages/_app";
 import { cva, cx } from "cva";
 import type { GetStaticPropsContext, NextPage } from "next";
 import { HiPencil } from "react-icons/hi2";
@@ -30,7 +30,6 @@ export default function NewLandingPage() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <div className="flex flex-col h-screen relative">
         {/* <AppNavigation /> */}
         <div className="WC-hero absolute top-0 bottom-0 left-0 right-0 bg-[url('/hero_main.png')] brightness-75 bg-no-repeat bg-cover bg-center z-[-1]"></div>
@@ -48,7 +47,7 @@ export default function NewLandingPage() {
             <div className="w-fit flex flex-col mt-2 mb-4 items-center">
               <h1
                 className={cx(
-                  ff3Header.className,
+                  "font-header",
                   "main-header-text",
                   "text-7xl lg:text-9xl  tracking-wide uppercase"
                 )}

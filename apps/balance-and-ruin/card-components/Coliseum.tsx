@@ -27,7 +27,6 @@ const opponentOptions: SubflagOption[] = [
   {
     defaultValue: 0,
     flag: "-cosr",
-    helperText: "",
     helperText: () => (
       <BetaLabel>
         Coliseum opponents shuffled and then given percent randomized

@@ -1,4 +1,5 @@
 import { Card } from "@ff6wc/ui";
+import { BetaLabel } from "~/components/BetaLabel/BetaLabel";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import {
   FlagSubflagSelect,
@@ -117,6 +118,8 @@ export const MiscCard = () => {
           }}
         />
         <FlagSwitch flag="-ond" label="Original Name Display" />
+
+        <FlagSwitch flag="-npctips" label={<BetaLabel>NPC Tips</BetaLabel>} />
       </CardColumn>
     </Card>
   );

@@ -8,38 +8,64 @@ import {
 } from "~/components/FlagSubflagSelect/FlagSubflagSelect";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
 import { Divider } from "@ff6wc/ui/Divider/Divider";
+import { BetaLabel } from "~/components/BetaLabel/BetaLabel";
 
 const opponentOptions: SubflagOption[] = [
   {
-    defaultValue: true,
-    flag: "-cos",
-    helperText: "",
-    label: "Shuffle",
-    isStatic: true,
+    defaultValue: 100,
+    flag: "-cor",
+    helperText: () => (
+      <BetaLabel>
+        Coliseum opponents original with a given percent randomized
+      </BetaLabel>
+    ),
+    label: "Random",
+    Renderable: ({ children }) => (
+      <FlagSlider flag="-cor" label={children} helperText="" />
+    ),
   },
   {
-    defaultValue: true,
-    flag: "-cor",
+    defaultValue: 0,
+    flag: "-cosr",
     helperText: "",
-    label: "Random",
-    isStatic: true,
+    helperText: () => (
+      <BetaLabel>
+        Coliseum opponents shuffled and then given percent randomized
+      </BetaLabel>
+    ),
+    label: "Shuffle + Random",
+    Renderable: ({ children }) => (
+      <FlagSlider flag="-cosr" label={children} helperText="" />
+    ),
   },
 ];
 
 const rewardOptions: SubflagOption[] = [
   {
-    defaultValue: true,
-    flag: "-crs",
-    helperText: "",
-    label: "Shuffle",
-    isStatic: true,
+    defaultValue: 100,
+    flag: "-crr",
+    helperText: () => (
+      <BetaLabel>
+        Coliseum rewards original with a given percent randomized
+      </BetaLabel>
+    ),
+    label: "Random",
+    Renderable: ({ children }) => (
+      <FlagSlider flag="-crr" label={children} helperText="" />
+    ),
   },
   {
-    defaultValue: true,
-    flag: "-crr",
-    helperText: "",
-    label: "Random",
-    isStatic: true,
+    defaultValue: 0,
+    flag: "-crsr",
+    helperText: () => (
+      <BetaLabel>
+        Coliseum rewards shuffled and then a given percent randomized
+      </BetaLabel>
+    ),
+    label: "Shuffle + Random",
+    Renderable: ({ children }) => (
+      <FlagSlider flag="-crsr" label={children} helperText="" />
+    ),
   },
 ];
 

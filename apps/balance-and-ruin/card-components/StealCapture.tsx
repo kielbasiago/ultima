@@ -5,6 +5,8 @@ import {
   SubflagOption,
 } from "~/components/FlagSubflagSelect/FlagSubflagSelect";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
+import { FlagSlider } from "~/components/FlagSlider/FlagSlider";
+import { BetaLabel } from "~/components/BetaLabel/BetaLabel";
 
 const stealOptions: SubflagOption[] = [
   {
@@ -40,6 +42,12 @@ export const StealCapture = () => {
           flag="-fc"
           helperText="When enabled, multi-steal can give more than one item, and weapon specials can now proc using the Capture command"
           label="Fix Capture Bugs"
+        />
+
+        <FlagSlider
+          flag="-ssd"
+          helperText="Shuffle Items Stolen and Dropped with {{.}} percent randomized"
+          label={<BetaLabel>Shuffle + Randomize Steals & Drops</BetaLabel>}
         />
       </CardColumn>
     </Card>

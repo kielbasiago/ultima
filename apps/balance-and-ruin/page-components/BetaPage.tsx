@@ -6,8 +6,6 @@ import { PageContainer } from "~/components/PageContainer/PageContainer";
 export const BetaPage = () => {
   return (
     <PageContainer columns={1}>
-      <BetaPresets />
-      <BetaCard />
       <WorkshopCard />
     </PageContainer>
   );

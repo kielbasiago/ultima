@@ -10,6 +10,9 @@ import {
   randomEncounterDescription,
 } from "~/constants/randomEncounterConstants";
 
+import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
+import { BetaLabel } from "~/components/BetaLabel/BetaLabel";
+
 const randomEncounterOptions: SubflagOption[] = [
   {
     defaultValue: true,
@@ -84,6 +87,7 @@ export const Encounters = () => {
           label: "Original",
         }}
       />
+      <FlagSwitch flag="-nre" label={<BetaLabel>No Random Encounters</BetaLabel>} />
     </Card>
   );
 };

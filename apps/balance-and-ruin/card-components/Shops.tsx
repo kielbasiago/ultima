@@ -13,6 +13,7 @@ import {
 } from "~/components/FlagSubflagSelect/FlagSubflagSelect";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
 import { Divider } from "@ff6wc/ui/Divider/Divider";
+import { BetaLabel } from "~/components/BetaLabel/BetaLabel";
 
 const inventoryOptions: SubflagOption[] = [
   {
@@ -140,6 +141,7 @@ export const Shops = () => {
         <FlagSwitch flag="-snes" label="No Elemental Shields" />
         <FlagSwitch flag="-snee" label="No Exp. Eggs" />
         <FlagSwitch flag="-snil" label="No Illuminas" />
+        <FlagSwitch flag="-nts" label={<BetaLabel>No Trash Shops</BetaLabel>} />
       </CardColumn>
     </Card>
   );

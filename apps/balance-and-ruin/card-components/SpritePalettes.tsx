@@ -1,4 +1,5 @@
 import { Button, Card } from "@ff6wc/ui";
+import orderBy from "lodash/orderBy";
 import React, { useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
@@ -35,7 +36,7 @@ export const SpritePalettes = ({
     .split(".")
     .map((val) => Number.parseInt(val));
 
-  const paletteOptions: PaletteSelectOption[] = useMemo(
+  const basePaletteOptions: PaletteSelectOption[] = useMemo(
     () =>
       paletteDefs.map<PaletteSelectOption>(({ id, key, palette }) => ({
         label: key,
@@ -43,6 +44,24 @@ export const SpritePalettes = ({
         color: palette,
       })),
     [paletteDefs]
+  );
+
+  const original = useMemo(
+    () => basePaletteOptions.slice(0, 7),
+    [basePaletteOptions]
+  );
+  const others = useMemo(
+    () =>
+      orderBy(
+        basePaletteOptions.slice(7, basePaletteOptions.length),
+        (o) => o.label
+      ),
+    [basePaletteOptions]
+  );
+
+  const paletteOptions = useMemo(
+    () => [...original, ...others],
+    [original, others]
   );
 
   const palettesById = paletteOptions.reduce((acc, spriteDef) => {

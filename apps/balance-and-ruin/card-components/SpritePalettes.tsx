@@ -65,10 +65,19 @@ export const SpritePalettes = ({
       })
     );
   };
+
+  const restoreDefault = () => {
+    dispatch(
+      setFlag({
+        flag: "-cpal",
+        value: defaultPaletteString,
+      })
+    );
+  }
   return (
     <Card title={"Sprite Palettes"}>
       <CardColumn>
-        <div className="flex flex-wrap">
+        <span className="inline-flex gap-2 flex-wrap">
           <Button
             disabled={!paletteDefs.length}
             onClick={randomize}
@@ -76,7 +85,13 @@ export const SpritePalettes = ({
           >
             Randomize Palettes
           </Button>
-        </div>
+          <Button
+            onClick={restoreDefault}
+            variant="primary"
+          >
+            Default
+          </Button>
+        </span>
         {paletteIter.map((_val, idx) => {
           const paletteColors = palettesById[paletteValues[idx]]?.color ?? [];
           return (

@@ -54,6 +54,13 @@ export const OtherSprites = ({
   const dispatch = useDispatch();
   const spriteValue =
     useFlagValueSelector<string>("-cspr") ?? defaultSpriteString;
+
+  const defaultSprites = 
+    defaultSpriteString
+    .split(".")
+    .map((val) => Number.parseInt(val))
+    .slice(14, 14+dudes.length);
+
   const randomize = () => {
     const characterSprites = sampleSize(
       spriteDefs.map(({ id }) => id),
@@ -72,6 +79,20 @@ export const OtherSprites = ({
     );
   };
 
+  const restoreDefault = () => {
+    const sprites =
+      spriteValue?.split(".").map((i) => Number.parseInt(i)) || [];
+
+    sprites?.splice(14, dudes.length, ...defaultSprites);
+
+    dispatch(
+      setFlag({
+        flag: "-cspr",
+        value: sprites.join("."),
+      })
+    );
+  };
+
   return (
     <Card title={"Other Sprites"}>
       <CardColumn>
@@ -82,6 +103,12 @@ export const OtherSprites = ({
             variant="primary"
           >
             Randomize Sprites
+          </Button>
+          <Button
+            onClick={restoreDefault}
+            variant="primary"
+          >
+            Default
           </Button>
         </span>
 

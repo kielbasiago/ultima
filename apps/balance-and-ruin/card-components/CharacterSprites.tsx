@@ -36,6 +36,12 @@ export const CharacterSprites = ({
   const spriteValue =
     useFlagValueSelector<string>("-cspr") ?? defaultSpriteString;
 
+  const defaultSprites = 
+    defaultSpriteString
+    .split(".")
+    .map((val) => Number.parseInt(val))
+    .slice(0, 14);
+
   const randomizeSprites = () => {
     const characterSprites = sampleSize(
       spriteDefs.map(({ id }) => id),
@@ -44,7 +50,6 @@ export const CharacterSprites = ({
 
     const sprites =
       spriteValue?.split(".").map((i) => Number.parseInt(i)) || [];
-
     sprites?.splice(0, 14, ...characterSprites);
     dispatch(
       setFlag({
@@ -72,6 +77,27 @@ export const CharacterSprites = ({
     );
   };
 
+  const restoreDefaultPortraits = () => {
+    dispatch(
+      setFlag({
+        flag: "-cpor",
+        value: defaultPortraitString,
+      })
+    );
+  };
+
+  const restoreDefaultSprites = () => {
+    const sprites =
+      spriteValue?.split(".").map((i) => Number.parseInt(i)) || [];
+    sprites?.splice(0, 14, ...defaultSprites);
+    dispatch(
+      setFlag({
+        flag: "-cspr",
+        value: sprites.join("."),
+      })
+    );
+  };
+
   return (
     <Card title={"Character Sprites"}>
       <CardColumn>
@@ -84,11 +110,25 @@ export const CharacterSprites = ({
             Randomize Portraits
           </Button>
           <Button
+            onClick={restoreDefaultPortraits}
+            variant="primary"
+          >
+            Default
+          </Button>
+        </span>
+        <span className="inline-flex gap-2 flex-wrap">
+          <Button
             disabled={!spriteDefs.length}
             onClick={randomizeSprites}
             variant="primary"
           >
             Randomize Sprites
+          </Button>
+          <Button
+            onClick={restoreDefaultSprites}
+            variant="primary"
+          >
+            Default
           </Button>
         </span>
         {characterNames.map((character, idx) => {

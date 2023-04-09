@@ -12,25 +12,12 @@ type PresetsProps = {
 
 export const Settings = ({ presets: rawPresets }: PresetsProps) => {
   const presets = useMemo(() => {
-    const options = [
-      rawPresets["ultros league"],
-      rawPresets["mft"],
-      rawPresets["coliseum terra"],
-      rawPresets["coliseum locke"],
-      rawPresets["coliseum edgar"],
-      rawPresets["coliseum sabin"],
-      rawPresets["coliseum cyan"],
-      rawPresets["coliseum gau"],
-      rawPresets["coliseum celes"],
-      rawPresets["coliseum setzer"],
-      rawPresets["coliseum strago"],
-      rawPresets["coliseum relm"],
-      rawPresets["coliseum shadow"],
-      rawPresets["coliseum mog"],
-      rawPresets["coliseum gogo"],
-      rawPresets["coliseum umaro"],
-      rawPresets["ultrosleague-bdash"],
-    ].filter((z) => !!z);
+    const options = [];
+    for (const rawPresetName in rawPresets) {
+      if(rawPresets[rawPresetName].official) {
+        options.push(rawPresets[rawPresetName]);
+      }
+    }
 
     return options.map<SelectOption>(
       ({ creator, description, name, flags }) => {

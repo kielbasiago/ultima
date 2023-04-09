@@ -7,4 +7,5 @@ export type FlagPreset = {
   flags: string;
   /** label */
   name: string;
+  official: boolean;
 };

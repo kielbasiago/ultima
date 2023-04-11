@@ -70,7 +70,7 @@ export const Chests = () => {
           }}
         />
         <FlagSwitch flag="-cms" label="MIAB Shuffled" />
-        <FlagSwitch flag="-ntc" label={<BetaLabel>No Trash Chests</BetaLabel>} />
+        <FlagSwitch flag="-ntc" label={<BetaLabel>No Trash Chests (Shuffle + Random chests only)</BetaLabel>} />
       </CardColumn>
     </Card>
   );

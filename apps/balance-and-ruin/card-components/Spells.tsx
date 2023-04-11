@@ -6,6 +6,7 @@ import {
   SubflagOption,
 } from "~/components/FlagSubflagSelect/FlagSubflagSelect";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
+import { BetaLabel } from "~/components/BetaLabel/BetaLabel";
 
 const mpOptions: SubflagOption[] = [
   {
@@ -67,6 +68,17 @@ const rlsOptions: SubflagOption[] = [
     helperText:
       "Support magic spells can no longer be learned from Natural Magic, Espers, Equipment, or Objectives",
     label: "Remove Support Magic",
+    isStatic: true,
+  },
+  {
+    defaultValue: "top",
+    flag: "-rls",
+    helperText: () => (
+      <BetaLabel>
+        Top magic (Level 3 spells, Life 2, Quick, Merton, Pearl, Flare, X-Zone, Stop) can no longer be learned from Natural Magic, Espers, Equipment, or Objectives
+      </BetaLabel>
+    ),
+    label: "Remove Top Magic",
     isStatic: true,
   },
 ];

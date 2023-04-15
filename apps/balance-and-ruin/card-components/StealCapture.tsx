@@ -7,6 +7,7 @@ import {
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
 import { FlagSlider } from "~/components/FlagSlider/FlagSlider";
 import { BetaLabel } from "~/components/BetaLabel/BetaLabel";
+import { FlagRange } from "~/components/FlagRange/FlagRange";
 
 const stealOptions: SubflagOption[] = [
   {
@@ -23,6 +24,22 @@ const stealOptions: SubflagOption[] = [
     helperText: "Steal will always succeed if an enemy has an item",
     Renderable: null,
   },
+];
+
+const stealDropOptions: SubflagOption[] = [
+  {
+    defaultValue: 10,
+    flag: "-ssd",
+    helperText: () => (
+      <BetaLabel>
+        Shuffle Items Stolen and Dropped with given percent randomized
+      </BetaLabel>
+    ),
+    label: "Shuffle + Random",
+    Renderable: ({ children }) => (
+      <FlagSlider flag="-ssd" helperText="" label={children} />
+    ),
+  }
 ];
 
 export const StealCapture = () => {
@@ -44,10 +61,13 @@ export const StealCapture = () => {
           label="Fix Capture Bugs"
         />
 
-        <FlagSlider
-          flag="-ssd"
-          helperText="Shuffle Items Stolen and Dropped with {{.}} percent randomized"
-          label={<BetaLabel>Shuffle + Randomize Steals & Drops</BetaLabel>}
+        <FlagSubflagSelect
+          options={stealDropOptions}
+          nullable={{
+            description: "Steals and Drops are original",
+            label: "Original",
+          }}
+          label="Steals & Drops"
         />
       </CardColumn>
     </Card>

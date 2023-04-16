@@ -1,7 +1,9 @@
-import { Card } from "@ff6wc/ui";
+import { Button, Card } from "@ff6wc/ui";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { FlagSubflagSelect } from "~/components/FlagSubflagSelect/FlagSubflagSelect";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
+import { useDispatch } from "react-redux";
+import { setFlag } from "~/state/flagSlice";
 
 const battleOptions = [
   {
@@ -74,9 +76,55 @@ const statueOptions = [
 ];
 
 export const Bosses = () => {
+  const dispatch = useDispatch();
+
+  const restoreOriginal = () => {
+    // null both Boss battle options to return to Original
+    dispatch(
+      setFlag({
+        flag: "-bbs",
+        value: null,
+      })
+    );
+    dispatch(
+      setFlag({
+        flag: "-bbr",
+        value: null,
+      })
+    );
+    // Dragon location back to original
+    dispatch(
+      setFlag({
+        flag: "-drloc",
+        value: "original",
+      })
+    );
+    // Statue location back to original
+    dispatch(
+      setFlag({
+        flag: "-stloc",
+        value: "original",
+      })
+    );
+    // Marshal Keep Lobos back to true
+    dispatch(
+      setFlag({
+        flag: "-bmkl",
+        value: true,
+      })
+    )
+  }
   return (
     <Card title={"Bosses"}>
       <CardColumn>
+        <span className="inline-flex gap-2 flex-wrap">
+          <Button
+            onClick={restoreOriginal}
+            variant="primary"
+          >
+            All Original
+          </Button>
+        </span>
         <FlagSubflagSelect
           nullable={{
             description: "Boss battles are unchanged",
@@ -95,7 +143,7 @@ export const Bosses = () => {
           label="Dragon Battles"
           options={dragonOptions}
         />
-        <FlagSwitch flag="-be" label="Boss Experience" />
+        <FlagSwitch flag="-bmkl" label="Restore Marshal's Lobos" />
       </CardColumn>
     </Card>
   );

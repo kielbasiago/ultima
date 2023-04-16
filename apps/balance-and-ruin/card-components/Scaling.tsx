@@ -6,6 +6,7 @@ import {
   SubflagOption,
 } from "~/components/FlagSubflagSelect/FlagSubflagSelect";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
+import { BetaLabel } from "~/components/BetaLabel/BetaLabel";
 
 const subflagScalingProps = {
   // we dont need a secondary label. The descriptions will be short and accurate.
@@ -84,6 +85,24 @@ const levelScalingOptions: SubflagOption[] = [
         {...subflagScalingProps}
         helperText=""
         flag="-lsc"
+        label={children}
+      />
+    ),
+  },
+  {
+    defaultValue: 3,
+    flag: "-lsboss",
+    helperText: () => (
+      <BetaLabel>
+        Enemies and bosses gain given levels for each boss defeated
+      </BetaLabel>
+    ),
+    label: "Bosses Defeated",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-lsboss"
         label={children}
       />
     ),
@@ -178,6 +197,24 @@ const hpMpScalingOptions: SubflagOption[] = [
     ),
   },
   {
+    defaultValue: 3,
+    flag: "-hmboss",
+    helperText: () => (
+      <BetaLabel>
+        Enemy and boss hp/mp scales by given value for each boss defeated
+      </BetaLabel>
+    ),
+    label: "Bosses Defeated",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-hmboss"
+        label={children}
+      />
+    ),
+  },
+  {
     defaultValue: 2,
     flag: "-hmt",
     helperText: "Enemy and boss hp/mp scales every {{ . }}x minutes",
@@ -262,6 +299,24 @@ const expGpScalingOptions: SubflagOption[] = [
         {...subflagScalingProps}
         helperText=""
         flag="-xgc"
+        label={children}
+      />
+    ),
+  },
+  {
+    defaultValue: 2,
+    flag: "-xgboss",
+    helperText: () => (
+      <BetaLabel>
+        Enemy and boss exp/gp scales by given value for each boss defeated
+      </BetaLabel>
+    ),
+    label: "Bosses Defeated",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-xgboss"
         label={children}
       />
     ),

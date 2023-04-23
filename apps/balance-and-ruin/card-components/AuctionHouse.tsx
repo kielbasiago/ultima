@@ -2,6 +2,8 @@ import { Card } from "@ff6wc/ui";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { Deprecated } from "~/components/Deprecated/Deprecated";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
+import { FlagSlider } from "~/components/FlagSlider/FlagSlider";
+import { BetaLabel } from "~/components/BetaLabel/BetaLabel";
 
 export const AuctionHouse = () => {
   return (
@@ -17,6 +19,11 @@ export const AuctionHouse = () => {
           />
           <FlagSwitch flag="-adeh" label="Door Hint" />
         </Deprecated>
+        <FlagSlider
+          flag="-ame"
+          helperText="A maximum of {{ . }} espers will be randomized to the Auction House (can be fewer)"
+          label={<BetaLabel>Max Espers</BetaLabel>}
+        />
       </CardColumn>
     </Card>
   );

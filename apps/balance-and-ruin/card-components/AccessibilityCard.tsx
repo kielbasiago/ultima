@@ -1,4 +1,5 @@
 import { Card } from "@ff6wc/ui";
+import { BetaLabel } from "~/components/BetaLabel/BetaLabel";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import {
   FlagSubflagSelect,
@@ -40,6 +41,12 @@ export const AccessibilityCard = () => {
           flag="-wmhc"
           helperText="Makes the world minimap opaque and increases the contrast for better visibility"
           label="High-Contrast World Minimap"
+        />
+
+        <FlagSwitch
+          flag="-ahtc"
+          helperText="Makes healing text blue, to be able to distinguish easier from damage text"
+          label={<BetaLabel>Alternate Healing Text Color</BetaLabel>}
         />
       </CardColumn>
     </Card>

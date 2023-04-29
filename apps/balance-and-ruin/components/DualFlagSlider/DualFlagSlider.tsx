@@ -22,6 +22,8 @@ export type DualFlagSliderProps = {
   flag: string;
   helperText?: React.ReactNode;
   label: React.ReactNode;
+  aText: string;
+  bText: string;
 } & SliderProps<number[]>;
 
 export const DualFlagSlider = ({

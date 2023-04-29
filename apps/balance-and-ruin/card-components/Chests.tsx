@@ -2,6 +2,7 @@ import { Card } from "@ff6wc/ui";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { FlagRange } from "~/components/FlagRange/FlagRange";
 import { FlagSlider } from "~/components/FlagSlider/FlagSlider";
+import { DualFlagSlider } from "~/components/DualFlagSlider/DualFlagSlider";
 import {
   FlagSubflagSelect,
   SubflagOption,
@@ -43,19 +44,6 @@ const contentOptions: SubflagOption[] = [
     label: "Empty",
     isStatic: true,
   },
-  {
-    defaultValue: 0,
-    flag: "-cam",
-    helperText: () => (
-      <BetaLabel>
-        Chest contents are all monster-in-a-boxes and given percent bosses
-      </BetaLabel>
-    ),
-    label: "All MiaB + % boss",
-    Renderable: ({ children }) => (
-      <FlagSlider helperText={""} flag="-cam" label={children} />
-    ),
-  },
 ];
 export const Chests = () => {
   return (
@@ -70,7 +58,12 @@ export const Chests = () => {
           }}
         />
         <FlagSwitch flag="-cms" label="MIAB Shuffled" />
-        <FlagSwitch flag="-ntc" label={<BetaLabel>No Trash Chests (Shuffle + Random chests only)</BetaLabel>} />
+        <DualFlagSlider 
+          flag="-chrm" 
+          label={<BetaLabel>Random Monsters</BetaLabel>}
+          helperText="Chest contents will contain {{a}}% enemies and, of those, {{b}}% bosses"
+          aText="Enemies" 
+          bText="Bosses" />
       </CardColumn>
     </Card>
   );

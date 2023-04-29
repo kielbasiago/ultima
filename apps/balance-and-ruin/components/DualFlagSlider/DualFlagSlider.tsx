@@ -12,6 +12,7 @@ import {
   selectMax,
   selectMin,
   selectStep,
+  FlagValue,
 } from "~/state/schemaSlice";
 import { useNumberScroll } from "~/utils/useNumberScroll";
 import { HelperText } from "@ff6wc/ui";
@@ -25,6 +26,14 @@ export type DualFlagSliderProps = {
   aText: string;
   bText: string;
 } & SliderProps<number[]>;
+
+export const NumberSlider = ({
+  ...rest
+}: SliderProps<number>) => {
+  return (
+  <Slider {...rest} />
+  );
+};
 
 export const DualFlagSlider = ({
   allowedValues: hardAllowed,
@@ -44,7 +53,6 @@ export const DualFlagSlider = ({
 
   const schemaAllowed = useSelector(selectAllowedValues(flag)) ?? [];
   const schemaDescription = useSelector(selectDescription(flag));
-  const schemaDefaultValue = useSelector(selectDefaultValue(flag));
   const schemaMax = useSelector(selectMax(flag));
   const schemaMin = useSelector(selectMin(flag));
   const schemaStep = useSelector(selectStep(flag));
@@ -86,9 +94,26 @@ export const DualFlagSlider = ({
     template: React.ReactNode,
     value: FlagValue
   ) => {
-    return Mustache.render(template, {"a": value?.[0] ?? min, "b": value?.[1] ?? min});
+    if (typeof template !== "string") {
+      return template;
+    }
+    if (Array.isArray(value)) {
+      return Mustache.render(template, {"a": value?.[0] ?? min, "b": value?.[1] ?? min});
+    }
+    return template;
   };
 
+  const onAChange = (
+    val: number
+  ) => {
+    onChange([val, value?.[1] as number ?? min])
+  };
+
+  const onBChange = (
+    val: number
+  ) => { 
+    onChange([value?.[0] ?? min, val])
+  };
   const helperText = renderDescription(description, value ?? defaults);
 
   return (
@@ -129,21 +154,19 @@ export const DualFlagSlider = ({
       </div>
       <div>
         <HelperText>{aText}</HelperText>
-        <Slider
-          {...rest}
+        <NumberSlider
+          onChange={(val) => onAChange(val)}
           defaultValue={value?.[0] ?? min}
-          onChange={(val) => onChange([val, value?.[1] ?? min])}
-          value={value?.[0] ?? (schemaDefaultValue as number) ?? min}
+          value={value?.[0] as number ??  min}
           min={min}
           max={max}
           step={step}
         />
         <HelperText>{bText}</HelperText>
-        <Slider
-          {...rest}
+        <NumberSlider
+          onChange={(val) => onBChange(val)}
           defaultValue={value?.[1] ?? min}
-          onChange={(val) => onChange([value?.[0] ?? min, val])}
-          value={value?.[1] ?? (schemaDefaultValue as number) ?? min}
+          value={value?.[1] as number ?? min}
           min={min}
           max={max}
           step={step}

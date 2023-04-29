@@ -141,7 +141,6 @@ export const Shops = () => {
         <FlagSwitch flag="-snes" label="No Elemental Shields" />
         <FlagSwitch flag="-snee" label="No Exp. Eggs" />
         <FlagSwitch flag="-snil" label="No Illuminas" />
-        <FlagSwitch flag="-nts" label={<BetaLabel>No Trash Shops</BetaLabel>} />
       </CardColumn>
     </Card>
   );

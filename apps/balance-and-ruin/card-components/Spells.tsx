@@ -75,7 +75,7 @@ const rlsOptions: SubflagOption[] = [
     flag: "-rls",
     helperText: () => (
       <BetaLabel>
-        Top magic (Level 3 spells, Life 2, Quick, Merton, Pearl, Flare, X-Zone, Stop) can no longer be learned from Natural Magic, Espers, Equipment, or Objectives
+        Top magic (Level 3 spells, Life 2, Quick, Merton, Pearl, Flare, X-Zone, Stop, Ultima) can no longer be learned from Natural Magic, Espers, Equipment, or Objectives
       </BetaLabel>
     ),
     label: "Remove Top Magic",

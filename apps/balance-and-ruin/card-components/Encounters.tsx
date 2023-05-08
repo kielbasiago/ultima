@@ -87,7 +87,6 @@ export const Encounters = () => {
           label: "Original",
         }}
       />
-      <FlagSwitch flag="-nre" label={<BetaLabel>No Random Encounters</BetaLabel>} />
     </Card>
   );
 };

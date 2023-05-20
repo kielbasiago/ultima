@@ -60,7 +60,7 @@ export const Chests = () => {
         <FlagSwitch flag="-cms" label="MIAB Shuffled" />
         <DualFlagSlider 
           flag="-chrm" 
-          label={<BetaLabel>Random Monsters</BetaLabel>}
+          label="Random Monsters"
           helperText="Chest contents will contain {{a}}% enemies and, of those, {{b}}% bosses"
           aText="Enemies" 
           bText="Bosses" />

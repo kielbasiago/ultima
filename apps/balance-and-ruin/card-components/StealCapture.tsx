@@ -30,11 +30,7 @@ const stealDropOptions: SubflagOption[] = [
   {
     defaultValue: 10,
     flag: "-ssd",
-    helperText: () => (
-      <BetaLabel>
-        Shuffle Items Stolen and Dropped with given percent randomized
-      </BetaLabel>
-    ),
+    helperText: "Shuffle Items Stolen and Dropped with given percent randomized",
     label: "Shuffle + Random",
     Renderable: ({ children }) => (
       <FlagSlider flag="-ssd" helperText="" label={children} />

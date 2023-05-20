@@ -119,7 +119,7 @@ export const MiscCard = () => {
         />
         <FlagSwitch flag="-ond" label="Original Name Display" />
 
-        <FlagSwitch flag="-npctips" label={<BetaLabel>NPC Tips</BetaLabel>} />
+        <FlagSwitch flag="-npctips" label="NPC Tips" />
       </CardColumn>
     </Card>
   );

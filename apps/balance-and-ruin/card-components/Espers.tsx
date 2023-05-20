@@ -164,7 +164,7 @@ export const Espers = () => {
           label="Starting Espers"
         />
         <FlagSwitch flag="-ems" label="Multi Summon" />
-        <FlagSwitch flag="-emi" label={<BetaLabel>Esper Mastery Icon</BetaLabel>} />
+        <FlagSwitch flag="-emi" label="Esper Mastery Icon" />
       </CardColumn>
     </Card>
   );

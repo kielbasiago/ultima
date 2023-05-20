@@ -92,11 +92,7 @@ const levelScalingOptions: SubflagOption[] = [
   {
     defaultValue: 3,
     flag: "-lsbd",
-    helperText: () => (
-      <BetaLabel>
-        Enemies and bosses gain given levels for each boss and dragon defeated
-      </BetaLabel>
-    ),
+    helperText: "Enemies and bosses gain given levels for each boss and dragon defeated",
     label: "Bosses + Dragons Defeated",
     Renderable: ({ children }) => (
       <FlagSlider
@@ -199,11 +195,7 @@ const hpMpScalingOptions: SubflagOption[] = [
   {
     defaultValue: 3,
     flag: "-hmbd",
-    helperText: () => (
-      <BetaLabel>
-        Enemy and boss hp/mp scales by given value for each boss and dragon defeated
-      </BetaLabel>
-    ),
+    helperText: "Enemy and boss hp/mp scales by given value for each boss and dragon defeated",
     label: "Bosses + Dragons Defeated",
     Renderable: ({ children }) => (
       <FlagSlider
@@ -306,11 +298,7 @@ const expGpScalingOptions: SubflagOption[] = [
   {
     defaultValue: 2,
     flag: "-xgbd",
-    helperText: () => (
-      <BetaLabel>
-        Enemy and boss exp/gp scales by given value for each boss and dragon defeated
-      </BetaLabel>
-    ),
+    helperText: "Enemy and boss exp/gp scales by given value for each boss and dragon defeated",
     label: "Bosses + Dragons Defeated",
     Renderable: ({ children }) => (
       <FlagSlider

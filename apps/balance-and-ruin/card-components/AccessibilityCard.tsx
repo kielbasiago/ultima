@@ -46,7 +46,7 @@ export const AccessibilityCard = () => {
         <FlagSwitch
           flag="-ahtc"
           helperText="Makes healing text blue, to be able to distinguish easier from damage text"
-          label={<BetaLabel>Alternate Healing Text Color</BetaLabel>}
+          label="Alternate Healing Text Color"
         />
       </CardColumn>
     </Card>

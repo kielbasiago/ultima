@@ -14,11 +14,7 @@ const opponentOptions: SubflagOption[] = [
   {
     defaultValue: 100,
     flag: "-cor",
-    helperText: () => (
-      <BetaLabel>
-        Coliseum opponents original with a given percent randomized
-      </BetaLabel>
-    ),
+    helperText: "Coliseum opponents original with a given percent randomized",
     label: "Random",
     Renderable: ({ children }) => (
       <FlagSlider flag="-cor" label={children} helperText="" />
@@ -27,11 +23,7 @@ const opponentOptions: SubflagOption[] = [
   {
     defaultValue: 0,
     flag: "-cosr",
-    helperText: () => (
-      <BetaLabel>
-        Coliseum opponents shuffled and then given percent randomized
-      </BetaLabel>
-    ),
+    helperText: "Coliseum opponents shuffled and then given percent randomized",
     label: "Shuffle + Random",
     Renderable: ({ children }) => (
       <FlagSlider flag="-cosr" label={children} helperText="" />
@@ -43,11 +35,7 @@ const rewardOptions: SubflagOption[] = [
   {
     defaultValue: 100,
     flag: "-crr",
-    helperText: () => (
-      <BetaLabel>
-        Coliseum rewards original with a given percent randomized
-      </BetaLabel>
-    ),
+    helperText: "Coliseum rewards original with a given percent randomized",
     label: "Random",
     Renderable: ({ children }) => (
       <FlagSlider flag="-crr" label={children} helperText="" />
@@ -56,11 +44,7 @@ const rewardOptions: SubflagOption[] = [
   {
     defaultValue: 0,
     flag: "-crsr",
-    helperText: () => (
-      <BetaLabel>
-        Coliseum rewards shuffled and then a given percent randomized
-      </BetaLabel>
-    ),
+    helperText: "Coliseum rewards shuffled and then a given percent randomized",
     label: "Shuffle + Random",
     Renderable: ({ children }) => (
       <FlagSlider flag="-crsr" label={children} helperText="" />

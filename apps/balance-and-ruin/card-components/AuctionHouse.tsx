@@ -22,7 +22,7 @@ export const AuctionHouse = () => {
         <FlagSlider
           flag="-ame"
           helperText="A maximum of {{ . }} espers will be randomized to the Auction House (can be fewer)"
-          label={<BetaLabel>Max Espers</BetaLabel>}
+          label="Max Espers"
         />
       </CardColumn>
     </Card>

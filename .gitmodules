@@ -1,8 +1,3 @@
-[submodule "apps/balance-and-ruin/WorldsCollide"]
-	path = apps/balance-and-ruin/WorldsCollide
-	url = https://github.com/ff6wc/WorldsCollide
-	branch = main
-	
 [submodule "apps/balance-and-ruin/johnnydmad"]
 	path = apps/balance-and-ruin/johnnydmad
 	url = https://github.com/kielbasiago/johnnydmad
@@ -12,3 +7,6 @@
 	path = apps/balance-and-ruin/WorldsCollideConfig
 	url = https://github.com/HansGR/FF6WC_customize_config
 	branch = main
+[submodule "apps/balance-and-ruin/WorldsCollide"]
+	path = apps/balance-and-ruin/WorldsCollide
+	url = https://github.com/ff6wc/WorldsCollide.git

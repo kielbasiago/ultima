@@ -13,6 +13,7 @@ import {
 } from "~/components/FlagSubflagSelect/FlagSubflagSelect";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
 import { Divider } from "@ff6wc/ui/Divider/Divider";
+import { BetaLabel } from "~/components/BetaLabel/BetaLabel";
 
 const inventoryOptions: SubflagOption[] = [
   {

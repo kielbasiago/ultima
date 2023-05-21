@@ -31,6 +31,7 @@ export const ExperienceMagicPointsGold = () => {
           invert
           label="Split Party Exp"
         />
+        <FlagSwitch flag="-be" label="Boss Experience" />
       </CardColumn>
     </Card>
   );

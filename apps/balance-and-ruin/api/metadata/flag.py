@@ -14,7 +14,7 @@ class handler(BaseHTTPRequestHandler):
           with open(out_filename, "rb") as metadata:
               import json
               self.send_response(200)
-              self.send_header('Content-type','application/json') 
+              self.send_header('Content-type','application/json')
               self.end_headers()
               result1 = json.load(metadata)
               self.wfile.write(json.dumps(result1).encode())

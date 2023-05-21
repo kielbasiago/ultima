@@ -6,6 +6,7 @@ import {
   SubflagOption,
 } from "~/components/FlagSubflagSelect/FlagSubflagSelect";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
+import { BetaLabel } from "~/components/BetaLabel/BetaLabel";
 
 const subflagScalingProps = {
   // we dont need a secondary label. The descriptions will be short and accurate.
@@ -84,6 +85,20 @@ const levelScalingOptions: SubflagOption[] = [
         {...subflagScalingProps}
         helperText=""
         flag="-lsc"
+        label={children}
+      />
+    ),
+  },
+  {
+    defaultValue: 3,
+    flag: "-lsbd",
+    helperText: "Enemies and bosses gain given levels for each boss and dragon defeated",
+    label: "Bosses + Dragons Defeated",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-lsbd"
         label={children}
       />
     ),
@@ -178,6 +193,20 @@ const hpMpScalingOptions: SubflagOption[] = [
     ),
   },
   {
+    defaultValue: 3,
+    flag: "-hmbd",
+    helperText: "Enemy and boss hp/mp scales by given value for each boss and dragon defeated",
+    label: "Bosses + Dragons Defeated",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-hmbd"
+        label={children}
+      />
+    ),
+  },
+  {
     defaultValue: 2,
     flag: "-hmt",
     helperText: "Enemy and boss hp/mp scales every {{ . }}x minutes",
@@ -262,6 +291,20 @@ const expGpScalingOptions: SubflagOption[] = [
         {...subflagScalingProps}
         helperText=""
         flag="-xgc"
+        label={children}
+      />
+    ),
+  },
+  {
+    defaultValue: 2,
+    flag: "-xgbd",
+    helperText: "Enemy and boss exp/gp scales by given value for each boss and dragon defeated",
+    label: "Bosses + Dragons Defeated",
+    Renderable: ({ children }) => (
+      <FlagSlider
+        {...subflagScalingProps}
+        helperText=""
+        flag="-xgbd"
         label={children}
       />
     ),

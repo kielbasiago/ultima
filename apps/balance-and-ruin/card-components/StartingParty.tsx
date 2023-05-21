@@ -270,13 +270,6 @@ export const StartingParty = () => {
           value={sc4Option}
         />
       </div>
-      <Divider />
-
-      <FlagSlider
-        flag="-stl"
-        helperText="Starting party begins the game at level {{ . }}"
-        label="Starting Party Level"
-      />
     </Card>
   );
 };

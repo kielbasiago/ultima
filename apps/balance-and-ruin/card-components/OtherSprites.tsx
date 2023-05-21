@@ -4,7 +4,11 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { CharacterGraphicSelector } from "~/components/CharacterGraphicSelector/CharacterGraphicSelector";
-import { defaultSpriteString } from "~/constants/graphicConstants";
+import { 
+  defaultPortraitString,
+  defaultSpriteString,
+  defaultSpritePaletteString, 
+} from "~/constants/graphicConstants";
 import { Divider } from "@ff6wc/ui/Divider/Divider";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 
@@ -52,8 +56,34 @@ export const OtherSprites = ({
   sprites: spriteDefs = [],
 }: CharacterSpritesProps) => {
   const dispatch = useDispatch();
+
+  const portraitValues =
+    useFlagValueSelector<string>("-cpor") ?? defaultPortraitString;
+
   const spriteValue =
     useFlagValueSelector<string>("-cspr") ?? defaultSpriteString;
+
+  const spritePaletteValues =
+    useFlagValueSelector<string>("-cspp") ?? defaultSpritePaletteString;
+
+  const defaultPortraits = 
+    defaultPortraitString
+      .split(".")
+      .map((val) => Number.parseInt(val))
+      .slice(14, 15); // just IMP
+
+  const defaultSprites = 
+    defaultSpriteString
+    .split(".")
+    .map((val) => Number.parseInt(val))
+    .slice(14, 14+dudes.length);
+
+  const defaultSpritePalettes = 
+    defaultSpritePaletteString
+    .split(".")
+    .map((val) => Number.parseInt(val))
+    .slice(14, 14+dudes.length);
+
   const randomize = () => {
     const characterSprites = sampleSize(
       spriteDefs.map(({ id }) => id),
@@ -72,6 +102,42 @@ export const OtherSprites = ({
     );
   };
 
+  const restoreDefault = () => {
+    const sprites =
+      spriteValue?.split(".").map((i) => Number.parseInt(i)) || [];
+
+    sprites?.splice(14, dudes.length, ...defaultSprites);
+
+    dispatch(
+      setFlag({
+        flag: "-cspr",
+        value: sprites.join("."),
+      })
+    );
+
+    const portraits = 
+      portraitValues?.split(".").map((i) => Number.parseInt(i)) || [];
+
+    portraits?.splice(14, 1, ...defaultPortraits);
+    dispatch(
+      setFlag({
+        flag: "-cpor",
+        value: portraits.join("."),
+      })
+    );
+
+    const spritePalettes = 
+      spritePaletteValues?.split(".").map((i) => Number.parseInt(i)) || [];
+
+    spritePalettes?.splice(14, dudes.length, ...defaultSpritePalettes);
+    dispatch(
+      setFlag({
+        flag: "-cspp",
+        value: spritePalettes.join("."),
+      })
+    );
+  };
+
   return (
     <Card title={"Other Sprites"}>
       <CardColumn>
@@ -82,6 +148,12 @@ export const OtherSprites = ({
             variant="primary"
           >
             Randomize Sprites
+          </Button>
+          <Button
+            onClick={restoreDefault}
+            variant="primary"
+          >
+            Default
           </Button>
         </span>
 

@@ -4,7 +4,7 @@ const styles = cva(["text-xs  whitespace-pre-wrap"], {
   variants: {
     variant: {
       success: ["text-green-600 dark:text-green-400"],
-      default: ["text-slate-500 dark:text-gray-200"],
+      default: ["text-slate-500 dark:text-gray-300"],
     },
     size: {
       default: ["text-xs"],

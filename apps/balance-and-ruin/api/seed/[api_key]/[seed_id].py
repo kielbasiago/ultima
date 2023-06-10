@@ -47,8 +47,8 @@ class handler(BaseHTTPRequestHandler):
     filter = {'seed_id': seed_id}
     log = db.get_collection(SPOILER_LOGS).find_one(filter)
     try:
-      s3_obj = s3.Object(S3_PATCHES, seed_id)
-      patch = s3_obj.get()['Body'].read().decode('utf-8')
+      s3_obj = s3.get_object(Bucket=S3_PATCHES, Key=seed_id)
+      patch = s3_obj['Body'].read().decode('utf-8')
     except ClientError as e:
       #fallback -- get it from the mongodb instead
       patch = db.get_collection(PATCHES).find_one(filter)['patch']

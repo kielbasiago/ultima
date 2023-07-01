@@ -1,6 +1,6 @@
 
 import os
-from api_utils.collections import API_KEYS, PATCHES, PRESETS, SEED_DOWNLOADS, SEEDS, SPOILER_LOGS, S3_PATCHES
+from api_utils.collections import API_KEYS, PATCHES, PRESETS, SEED_DOWNLOADS, SEEDS, SPOILER_LOGS
 from pymongo import MongoClient
 import boto3
 from botocore.exceptions import ClientError
@@ -38,8 +38,9 @@ def get_db():
 def get_s3():
   def migration(s3):
     bucket_names = s3.list_buckets()
-    if PATCHES not in bucket_names:
-      patches = s3.create_bucket(Bucket=S3_PATCHES)
+    patch_bucket = os.environ.get('PATCH_BUCKET')
+    if patch_bucket not in bucket_names:
+      patches = s3.create_bucket(Bucket=patch_bucket)
   s3 = boto3.client('s3')
   migration(s3)
   return s3

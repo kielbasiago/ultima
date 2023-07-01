@@ -43,11 +43,11 @@ class handler(BaseHTTPRequestHandler):
       }).encode())
       return
 
-    from api_utils.collections import PATCHES, SEEDS, SPOILER_LOGS, S3_PATCHES
+    from api_utils.collections import PATCHES, SEEDS, SPOILER_LOGS
     filter = {'seed_id': seed_id}
     log = db.get_collection(SPOILER_LOGS).find_one(filter)
     try:
-      s3_obj = s3.get_object(Bucket=S3_PATCHES, Key=seed_id)
+      s3_obj = s3.get_object(Bucket=os.environ.get('PATCH_BUCKET'), Key=seed_id)
       patch = s3_obj['Body'].read().decode('utf-8')
     except ClientError as e:
       #fallback -- get it from the mongodb instead

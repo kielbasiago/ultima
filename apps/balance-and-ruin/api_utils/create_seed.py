@@ -19,13 +19,6 @@ def create_seed(seed_id, description, patch, log, website_url, filename, flags, 
   seed = s.to_json()
   seeds.insert_one(seed)
 
-  patch_obj = {
-    'seed_id': seed_id,
-    'patch': patch,
-    'type': seed_type
-  }
-  patches = get_db().get_collection(PATCHES)
-  patches.insert_one(patch_obj)
 
   s3 = get_s3()
   s3.put_object(Bucket=os.environ.get('PATCH_BUCKET'), Key=seed_id, Body=patch)

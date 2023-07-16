@@ -14,8 +14,8 @@ class handler(BaseHTTPRequestHandler):
     data = json.loads(post_data)
     key = data['key']
 
-    api_key = SeedStorage.get_api_key()
-    log = SeedStorage.get_spoiler_log()
+    api_key = SeedStorage.get_api_key(key)
+    log = SeedStorage.get_spoiler_log(seed_id)
 
     if api_key is None:
       self.send_response(403)

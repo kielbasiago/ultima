@@ -40,7 +40,6 @@ class handler(BaseHTTPRequestHandler):
     from api_utils.collections import PATCHES, SEEDS, SPOILER_LOGS
     log = SeedStorage.get_spoiler_log(seed_id)
     patch = SeedStorage.get_patch(seed_id)
-    seed = SeedStorage.get_seed(seed_id)
     
     from api_utils.get_seed_payload import get_seed_payload
     from api_utils.get_seed_filename import get_seed_filename

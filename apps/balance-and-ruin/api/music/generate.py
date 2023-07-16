@@ -1,7 +1,6 @@
 from http.server import BaseHTTPRequestHandler
 
 from api_utils.get_seed_payload import get_seed_payload
-from api_utils.get_db import get_db
 import xdelta3
 import json
 import base64

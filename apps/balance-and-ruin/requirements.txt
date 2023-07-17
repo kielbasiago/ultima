@@ -1,3 +1,4 @@
 pymongo
 xdelta3
 boto3
+psycopg2

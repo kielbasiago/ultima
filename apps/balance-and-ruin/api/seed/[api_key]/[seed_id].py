@@ -37,7 +37,6 @@ class handler(BaseHTTPRequestHandler):
       }).encode())
       return
 
-    from api_utils.collections import PATCHES, SEEDS, SPOILER_LOGS
     log = SeedStorage.get_spoiler_log(seed_id)
     patch = SeedStorage.get_patch(seed_id)
     

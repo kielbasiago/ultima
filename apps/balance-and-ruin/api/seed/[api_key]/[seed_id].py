@@ -2,7 +2,7 @@ from http.server import BaseHTTPRequestHandler
 import os
 from urllib.parse import parse_qs, urlparse
 from api_utils.get_api_key import get_api_key
-from botocore.exceptions import ClientError
+
 
 class handler(BaseHTTPRequestHandler):
   def do_GET(self):
@@ -23,15 +23,9 @@ class handler(BaseHTTPRequestHandler):
         'errors': ['Invalid api key'],
         'success': False
       }).encode())
-      
-    from api_utils.get_db import get_db, get_s3
-    db = get_db()
-    s3 = get_s3()
-    seeds = db.get_collection('seeds')
-
-    seed = seeds.find_one({
-      'seed_id': seed_id
-    })
+  
+    from api_utils.seed_storage import SeedStorage
+    seed = SeedStorage.get_seed(seed_id)
 
     if not seed:
       self.send_response(404)
@@ -43,18 +37,8 @@ class handler(BaseHTTPRequestHandler):
       }).encode())
       return
 
-    from api_utils.collections import PATCHES, SEEDS, SPOILER_LOGS
-    filter = {'seed_id': seed_id}
-    log = db.get_collection(SPOILER_LOGS).find_one(filter)
-    try:
-      s3_obj = s3.get_object(Bucket=os.environ.get('PATCH_BUCKET'), Key=seed_id)
-      patch = s3_obj['Body'].read().decode('utf-8')
-    except ClientError as e:
-      #fallback -- get it from the mongodb instead
-      patch = db.get_collection(PATCHES).find_one(filter)['patch']
-    seed = db.get_collection(SEEDS).find_one(filter)
-
-    del seed['_id']
+    log = SeedStorage.get_spoiler_log(seed_id)
+    patch = SeedStorage.get_patch(seed_id)
     
     from api_utils.get_seed_payload import get_seed_payload
     from api_utils.get_seed_filename import get_seed_filename

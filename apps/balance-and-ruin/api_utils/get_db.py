@@ -1,6 +1,6 @@
 
 import os
-from api_utils.collections import API_KEYS, PATCHES, PRESETS, SEED_DOWNLOADS, SEEDS, SPOILER_LOGS
+from api_utils.collections import API_KEYS, PRESETS, SEED_DOWNLOADS, SEEDS, SPOILER_LOGS
 from pymongo import MongoClient
 import boto3
 from botocore.exceptions import ClientError
@@ -14,9 +14,6 @@ def get_db():
       
     if API_KEYS not in collection_names:
       api_keys = database.create_collection(API_KEYS)
-    
-    if PATCHES not in collection_names:
-      patches = database.create_collection(PATCHES) 
       
     if PRESETS not in collection_names:
       presets = database.create_collection(PRESETS)

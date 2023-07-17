@@ -1,4 +1,4 @@
-import os, psycopg2
+import os
 from api_utils.Seed import Seed
 from api_utils.get_db import get_db, get_s3
 from api_utils.collections import SEEDS, SPOILER_LOGS, API_KEYS
@@ -6,6 +6,7 @@ from botocore.exceptions import ClientError
 
 class SeedStorage(object):
 
+    USE_PSQL = False
     @staticmethod
     def get_seeds_table(): 
         return os.environ.get('PSQL_SEEDS_TABLE')
@@ -28,44 +29,45 @@ class SeedStorage(object):
 
     @staticmethod
     def create():
-        # create the storage if they don't exist
-        commands = (f"""
-            CREATE TABLE IF NOT EXISTS {SeedStorage.get_seeds_table()} (
-                seed_id VARCHAR(32) PRIMARY KEY,
-                description TEXT,
-                flags TEXT,
-                hash VARCHAR(255),
-                type VARCHAR(16),
-                version VARCHAR(16),
-                created_by VARCHAR(255)
-            )
-            """,
-            f"""
-            CREATE TABLE IF NOT EXISTS {SeedStorage.get_logs_table()} (
-                seed_id VARCHAR(32) PRIMARY KEY,
-                log TEXT
-            )
-            """,
-            f"""
-            CREATE TABLE IF NOT EXISTS {SeedStorage.get_keys_table()} (
-                key VARCHAR(255) PRIMARY KEY,
-                name VARCHAR(255) NOT NULL
-            )
-            """)
-        
-        try:
-            conn = psycopg2.connect(SeedStorage.get_psql_url())
-            cur = conn.cursor()
-            # create table one by one
-            for command in commands:
-                cur.execute(command)
-            cur.close()
-            conn.commit()
-        finally:
-            if cur is not None:
+        if SeedStorage.USE_PSQL:
+            # create the storage if they don't exist
+            commands = (f"""
+                CREATE TABLE IF NOT EXISTS {SeedStorage.get_seeds_table()} (
+                    seed_id VARCHAR(32) PRIMARY KEY,
+                    description TEXT,
+                    flags TEXT,
+                    hash VARCHAR(255),
+                    type VARCHAR(16),
+                    version VARCHAR(16),
+                    created_by VARCHAR(255)
+                )
+                """,
+                f"""
+                CREATE TABLE IF NOT EXISTS {SeedStorage.get_logs_table()} (
+                    seed_id VARCHAR(32) PRIMARY KEY,
+                    log TEXT
+                )
+                """,
+                f"""
+                CREATE TABLE IF NOT EXISTS {SeedStorage.get_keys_table()} (
+                    key VARCHAR(255) PRIMARY KEY,
+                    name VARCHAR(255) NOT NULL
+                )
+                """)
+            
+            try:
+                conn = psycopg2.connect(SeedStorage.get_psql_url())
+                cur = conn.cursor()
+                # create table one by one
+                for command in commands:
+                    cur.execute(command)
                 cur.close()
-            if conn is not None:
-                conn.close()
+                conn.commit()
+            finally:
+                if cur is not None:
+                    cur.close()
+                if conn is not None:
+                    conn.close()
 
     @staticmethod
     def create_seed(seed: Seed, patch, spoiler_log):
@@ -85,25 +87,26 @@ class SeedStorage(object):
         })
 
         # store the seed and its spoiler log in postgres
-        seed_sql = f""" 
-            INSERT INTO {SeedStorage.get_seeds_table()}(seed_id, description, flags, hash, type, version, created_by) 
-            VALUES(%s, %s, %s, %s, %s, %s, %s);"""
-        log_sql = f""" 
-	        INSERT INTO {SeedStorage.get_logs_table()}(seed_id, log) 
-	        VALUES(%s, %s);"""
+        if SeedStorage.USE_PSQL:
+            seed_sql = f""" 
+                INSERT INTO {SeedStorage.get_seeds_table()}(seed_id, description, flags, hash, type, version, created_by) 
+                VALUES(%s, %s, %s, %s, %s, %s, %s);"""
+            log_sql = f""" 
+                INSERT INTO {SeedStorage.get_logs_table()}(seed_id, log) 
+                VALUES(%s, %s);"""
 
-        try:
-            conn = psycopg2.connect(SeedStorage.get_psql_url())
-            cur = conn.cursor()
-            cur.execute(seed_sql, (seed.seed_id, seed.description, seed.flags, seed.hash, seed.type, seed.version, seed.created_by))
-            cur.execute(log_sql, (seed.seed_id, spoiler_log))
-            cur.close()
-            conn.commit()
-        finally:
-            if cur is not None:
+            try:
+                conn = psycopg2.connect(SeedStorage.get_psql_url())
+                cur = conn.cursor()
+                cur.execute(seed_sql, (seed.seed_id, seed.description, seed.flags, seed.hash, seed.type, seed.version, seed.created_by))
+                cur.execute(log_sql, (seed.seed_id, spoiler_log))
                 cur.close()
-            if conn is not None:
-                conn.close()
+                conn.commit()
+            finally:
+                if cur is not None:
+                    cur.close()
+                if conn is not None:
+                    conn.close()
 
         # store the patch in the S3 bucket
         s3 = get_s3()
@@ -116,32 +119,34 @@ class SeedStorage(object):
         ''' get the api key from the database -- return None if it doesn't exist '''
         SeedStorage.create()
 
-        # get from psql
-        sql = f""" 
-            SELECT key, name FROM {SeedStorage.get_keys_table()} 
-            WHERE key = %s;"""
+        api_key = None
+        if SeedStorage.USE_PSQL:
+            # get from psql
+            sql = f""" 
+                SELECT key, name FROM {SeedStorage.get_keys_table()} 
+                WHERE key = %s;"""
 
-        try:
-            conn = psycopg2.connect(SeedStorage.get_psql_url())
-            cur = conn.cursor()
-            cur.execute(sql, (key, ))
-            values = cur.fetchone()
-            cur.close()
-            conn.commit()
-
-            # put in dictionary format expected by users
-            if values is not None:
-                api_key = {}
-                api_key['key'] = values[0]
-                api_key['name'] = values[1]
-        except (Exception, psycopg2.Error) as error:
-            print(f"Error with {sql} for key {key}", error)
-            api_key = None
-        finally:
-            if cur is not None:
+            try:
+                conn = psycopg2.connect(SeedStorage.get_psql_url())
+                cur = conn.cursor()
+                cur.execute(sql, (key, ))
+                values = cur.fetchone()
                 cur.close()
-            if conn is not None:
-                conn.close()
+                conn.commit()
+
+                # put in dictionary format expected by users
+                if values is not None:
+                    api_key = {}
+                    api_key['key'] = values[0]
+                    api_key['name'] = values[1]
+            except (Exception, psycopg2.Error) as error:
+                print(f"Error with {sql} for key {key}", error)
+                api_key = None
+            finally:
+                if cur is not None:
+                    cur.close()
+                if conn is not None:
+                    conn.close()
 
         if api_key is None:
             # get from mongo db as fallback
@@ -153,32 +158,34 @@ class SeedStorage(object):
         ''' get the spoiler log from the database -- return None if it doesn't exist '''
         SeedStorage.create()
 
-        # get from psql
-        sql = f""" 
-            SELECT seed_id, log FROM {SeedStorage.get_logs_table()} 
-            WHERE seed_id = %s;"""
+        log = None
+        if SeedStorage.USE_PSQL:
+            # get from psql
+            sql = f""" 
+                SELECT seed_id, log FROM {SeedStorage.get_logs_table()} 
+                WHERE seed_id = %s;"""
 
-        try:
-            conn = psycopg2.connect(SeedStorage.get_psql_url())
-            cur = conn.cursor()
-            cur.execute(sql, (seed_id, ))
-            values = cur.fetchone()
-            cur.close()
-            conn.commit()
-
-            # put in dictionary format expected by users
-            if values is not None:
-                log = {}
-                log['seed_id'] = values[0]
-                log['log'] = values[1]
-        except (Exception, psycopg2.Error) as error:
-            print(f"Error with {sql} for seed_id {seed_id}", error)
-            log = None
-        finally:
-            if cur is not None:
+            try:
+                conn = psycopg2.connect(SeedStorage.get_psql_url())
+                cur = conn.cursor()
+                cur.execute(sql, (seed_id, ))
+                values = cur.fetchone()
                 cur.close()
-            if conn is not None:
-                conn.close()
+                conn.commit()
+
+                # put in dictionary format expected by users
+                if values is not None:
+                    log = {}
+                    log['seed_id'] = values[0]
+                    log['log'] = values[1]
+            except (Exception, psycopg2.Error) as error:
+                print(f"Error with {sql} for seed_id {seed_id}", error)
+                log = None
+            finally:
+                if cur is not None:
+                    cur.close()
+                if conn is not None:
+                    conn.close()
 
         # get from mongo db as fallback
         if log is None:
@@ -204,38 +211,40 @@ class SeedStorage(object):
         ''' get the seed info for the given seed id -- return None if it doesn't exist '''
         SeedStorage.create()
  
-        # get from psql
-        sql = f""" 
-            SELECT seed_id, description, flags, hash, type, version, created_by FROM {SeedStorage.get_seeds_table()} 
-            WHERE seed_id = %s;"""
+        seed_json = None
+        if SeedStorage.USE_PSQL:
+            # get from psql
+            sql = f""" 
+                SELECT seed_id, description, flags, hash, type, version, created_by FROM {SeedStorage.get_seeds_table()} 
+                WHERE seed_id = %s;"""
 
-        try:
-            conn = psycopg2.connect(SeedStorage.get_psql_url())
-            cur = conn.cursor()
-            cur.execute(sql, (seed_id, ))
-            seed_values = cur.fetchone()
-            cur.close()
-            conn.commit()
-
-            if seed_values is not None:
-                temp_seed = Seed()
-                temp_seed.seed_id = seed_values[0]
-                temp_seed.description = seed_values[1]
-                temp_seed.flags = seed_values[2]
-                temp_seed.hash = seed_values[3]
-                temp_seed.type = seed_values[4]
-                temp_seed.version = seed_values[5]
-                temp_seed.created_by = seed_values[6]
-                seed_json = temp_seed.to_json()
-
-        except (Exception, psycopg2.Error) as error:
-            print(f"Error with {sql} for seed_id {seed_id}", error)
-            seed_json = None
-        finally:
-            if cur is not None:
+            try:
+                conn = psycopg2.connect(SeedStorage.get_psql_url())
+                cur = conn.cursor()
+                cur.execute(sql, (seed_id, ))
+                seed_values = cur.fetchone()
                 cur.close()
-            if conn is not None:
-                conn.close()
+                conn.commit()
+
+                if seed_values is not None:
+                    temp_seed = Seed()
+                    temp_seed.seed_id = seed_values[0]
+                    temp_seed.description = seed_values[1]
+                    temp_seed.flags = seed_values[2]
+                    temp_seed.hash = seed_values[3]
+                    temp_seed.type = seed_values[4]
+                    temp_seed.version = seed_values[5]
+                    temp_seed.created_by = seed_values[6]
+                    seed_json = temp_seed.to_json()
+
+            except (Exception, psycopg2.Error) as error:
+                print(f"Error with {sql} for seed_id {seed_id}", error)
+                seed_json = None
+            finally:
+                if cur is not None:
+                    cur.close()
+                if conn is not None:
+                    conn.close()
 
         if seed_json is None:
             # get from mongodb as fallback

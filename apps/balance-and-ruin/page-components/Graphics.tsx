@@ -10,7 +10,7 @@ import { OtherSprites } from "~/card-components/OtherSprites";
 
 export const Graphics = () => {
   const { data } = useSWR<CharacterSpritesProps>(["/api/sprites"], async () => {
-    const response = await fetch("/api/sprites");
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/sprites`);
     const result = await response.json();
     return result as CharacterSpritesProps;
   });

@@ -110,7 +110,7 @@ export const GenerateCard = ({
     ["/api/generate", flags],
     async (key, { arg }) => {
       const { flags, reCAPTCHA } = arg;
-      const result = await fetch("/api/generate", {
+      const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/generate`, {
         body: JSON.stringify({ reCAPTCHA, flags }),
         headers: {},
         method: "POST",

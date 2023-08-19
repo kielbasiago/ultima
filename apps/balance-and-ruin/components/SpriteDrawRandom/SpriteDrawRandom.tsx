@@ -9,7 +9,7 @@ type RandomPayload = {
 
 const useRandomSprite = () => {
   return useSWR<RandomPayload>(["/api/sprite/random"], async () => {
-    const response = await fetch("/api/sprite/random");
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/sprite/random`);
     const data = await response.json();
     return data;
   });

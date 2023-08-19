@@ -19,7 +19,7 @@ export default function PortraitDrawLoad({
   scale = 2,
 }: PortraitDrawLoadProps) {
   const { data, error } = useSWRImmutable<LoadSpriteResponse>(
-    `/api/portrait/${portraitId}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/portrait/${portraitId}`,
     fetcher
   );
 

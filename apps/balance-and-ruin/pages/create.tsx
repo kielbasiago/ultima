@@ -16,19 +16,17 @@ export type PageProps = {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async ({}) => {
-      const protocol =
-        process.env.NODE_ENV === "development" ? "http" : "https";
 
       const presetPromise = fetch(
         "https://storage.googleapis.com/seedbot/user_presets.json"
       );
 
       const schemaPromise = fetch(
-        `${protocol}://${process.env.VERCEL_URL}/api/metadata/flag`
+        `${process.env.NEXT_PUBLIC_API_URL}/api/metadata/flag`
       );
 
       const objectivesPromise = fetch(
-        `${protocol}://${process.env.VERCEL_URL}/api/metadata/objective`
+        `${process.env.NEXT_PUBLIC_API_URL}/api/metadata/objective`
       );
 
       const presets: Record<string, FlagPreset> = await (

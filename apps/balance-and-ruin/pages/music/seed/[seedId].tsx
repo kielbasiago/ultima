@@ -30,11 +30,9 @@ export const getServerSideProps: GetServerSideProps<
   Props,
   PathParams
 > = async ({ params, res }) => {
-  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-
   res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
   const { seedId } = params as PathParams;
-  const url = `${protocol}://${process.env.VERCEL_URL}/api/seed/ff6wc/${seedId}`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/api/seed/ff6wc/${seedId}`;
   const response = await fetch(url);
   const { data: seed, errors, success }: SeedResponse = await response.json();
 

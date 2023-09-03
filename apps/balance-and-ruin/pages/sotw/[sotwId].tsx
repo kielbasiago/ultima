@@ -1,41 +1,39 @@
-import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import { SotwPage } from "~/components/SotwPage/SotwPage";
-import { SeedOfTheWeek } from "~/types/sotw";
-import { fetchSotwById } from "~/utils/sotwUtils";
+import { useEffect, useState } from "react";
 
-type PageProps = {
-  sotwId: string;
-  sotw: SeedOfTheWeek;
-};
+const SotwId = () => {
+  const [sotw, setSotw] = useState(null)
+  const [sotwId, setSotwId] = useState("")
 
-export const getServerSideProps: GetServerSideProps<PageProps> = async ({
-  params,
-}) => {
-  const { sotwId } = (params || {}) as Record<string, string>;
-  const sotw = await fetchSotwById(sotwId);
-  return {
-    props: {
-      sotw,
-      sotwId,
-    },
-  };
-};
+  useEffect(() => {
+    // get the last part of the URL
+    //ref: https://github.com/vercel/next.js/discussions/12661#discussioncomment-98117
+    const sotwIdParam = window.location.href.split('/').pop()!; 
+    setSotwId(sotwIdParam)
 
-const SotwId: NextPage<PageProps> = ({ sotw, sotwId }: PageProps) => {
-  const { name, submitter, description } = sotw;
-  const desc = `${name}\nCreated by ${submitter}\n\n${description ?? ""}`;
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/sotws`)
+      .then(res => res.json())
+      .then(sotws => {
+        const requestedSotw = sotws[sotwIdParam];
+        setSotw(requestedSotw)
+      })
+  }, [])
 
   const head = (
     <Head>
       <Head>
         <title>FF6WC - Seed of the Week</title>
-        <meta name="description" content={desc} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
     </Head>
   );
-  return <SotwPage head={head} id={sotwId} sotw={sotw} />;
+
+  if(sotw) {
+    return <SotwPage head={head} id={sotwId} sotw={sotw} />;
+  } else {
+    return "Loading..."
+  }
 };
 
 export default SotwId;

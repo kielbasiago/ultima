@@ -5,21 +5,22 @@ import { Footer } from "~/components/Footer/Footer";
 import { CodeBlock } from "@ff6wc/ui";
 import { SeedCard, SeedData } from "~/components/SeedCard/SeedCard";
 import { Card } from "@ff6wc/ui";
-import { setRawFlags } from "~/state/flagSlice";
 import { AppHeader } from "~/components/AppHeader/AppHeader";
 
 const REMOVE_FLAGS_FROM_LOG_REGEX = /\nFlags.+\n/g;
 
 const SeedId = () => {
   const [seed, setSeed] = useState(null)
-  const [logWithFlags, setLogWithFlags] = useState(null)
+  const [logWithFlags, setLogWithFlags] = useState("")
   const [seedId, setSeedId] = useState("")
   const title = `FF6WC seed ${seedId}`
 
   useEffect(() => {
-    const last = window.location.href.split('/').pop()!; //ref: https://github.com/vercel/next.js/discussions/12661#discussioncomment-98117
-    setSeedId(last)
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/seed/ff6wc/${last}`;
+    // get the last part of the URL
+    //ref: https://github.com/vercel/next.js/discussions/12661#discussioncomment-98117
+    const seedIdParam = window.location.href.split('/').pop()!; 
+    setSeedId(seedIdParam)
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/seed/ff6wc/${seedIdParam}`
     fetch(url)
       .then((res) => res.json())
       .then(({data: seed, errors}) => {
@@ -43,7 +44,7 @@ const SeedId = () => {
       <div className="flex flex-col gap-6 items-center px-12 py-6">
         <Card className="max-w-[1260px]" title={"Log"}>
           <CardColumn>
-            <CodeBlock>{logWithFlags && logWithFlags || "Loading..."}</CodeBlock>
+            <CodeBlock>{logWithFlags ?? "Loading..."}</CodeBlock>
           </CardColumn>
         </Card>
 

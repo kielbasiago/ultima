@@ -7,11 +7,12 @@ import { Footer } from "~/components/Footer/Footer";
 import { SotwCard } from "~/components/SotwCard/SotwCard";
 import { SeedOfTheWeek } from "~/types/sotw";
 
+type Nullable<T> = T | null;
 type Props = {
   children?: React.ReactNode;
   head: React.ReactNode;
   id: string;
-  sotw: SeedOfTheWeek;
+  sotw: Nullable<SeedOfTheWeek>;
 };
 
 export const SotwPage = ({ head, id, sotw }: Props) => {

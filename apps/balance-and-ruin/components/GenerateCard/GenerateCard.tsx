@@ -157,7 +157,7 @@ export const GenerateCard = ({
       link.href = window.URL.createObjectURL(content);
       link.download = `${filename}.zip`;
       link.click();
-      router.push(`/seed/${seed_id}`);
+      router.push(`/seed/?id=${seed_id}`);
     });
   };
 

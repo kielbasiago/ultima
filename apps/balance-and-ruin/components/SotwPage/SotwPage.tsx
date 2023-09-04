@@ -40,11 +40,12 @@ export const SotwPage = ({ head, id, sotw }: Props) => {
             Join the&nbsp;<Link href={DISCORD_URL}>Discord server</Link>&nbsp;to
             join the community and submit your times for SotW!
           </p>
-
-          <SotwCard sotwId={id} sotw={sotw} />
+          { sotw && <SotwCard sotwId={id} sotw={sotw} /> }
         </div>
       </main>
       <Footer />
     </>
   );
 };
+
+//          

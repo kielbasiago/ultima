@@ -8,7 +8,12 @@ export default function Custom404() {
 
   useEffect( () => {
     const url = window.location.href.split('/')
-    url.pop(); //remove the trailing slash
+    //remove the trailing slash (replaced by an empty string with the split) if it exists
+    const maybeEmpty = url.pop(); 
+    if(maybeEmpty) { 
+      //it's not an empty string -- readd it
+      url.push(maybeEmpty)
+    }
     const lastParam=url.pop();
     const secondToLastParam =url.pop();
 

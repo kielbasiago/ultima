@@ -9,8 +9,7 @@ import { TempestHead } from "~/components/TempestHead/TempestHead";
 
 
 
-const Auto = () => {
-  const [showLayout, setShowLayout] = useState(true)
+const Auto = ({showLayout = true}) => {
   return (
     <>
       <TempestHead />

@@ -8,8 +8,7 @@ import { TempestHeader } from "~/components/TempestHeader/TempestHeader";
 import { TempestHead } from "~/components/TempestHead/TempestHead";
 
 
-const Manual = () => {
-  const [showLayout, setShowLayout] = useState(true)
+const Manual = ({showLayout = true}) => {
   return (
     <>
       <TempestHead />

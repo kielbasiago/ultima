@@ -10,7 +10,7 @@ import {
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
 import { Divider } from "@ff6wc/ui/Divider/Divider";
 
-const [random]: FlagSelectOption[] = [{ id: "random", label: "Random" }];
+const [random]: FlagSelectOption[] = [{ value: "random", label: "Random" }];
 
 const excluded = ["gogo", "umaro"];
 const naturalMagicCharacters = characterNames.filter(
@@ -22,7 +22,7 @@ const options: FlagSelectOption[] = [
   ...naturalMagicCharacters.map(
     (id) =>
       ({
-        id,
+        value: id,
         label: startCase(id),
       } as FlagSelectOption)
   ),

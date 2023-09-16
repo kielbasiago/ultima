@@ -14,6 +14,7 @@ import {
   defaultPaletteString,
   defaultPortraitString,
   defaultSpriteString,
+  defaultSpritePaletteString,
 } from "~/constants/graphicConstants";
 import { CharacterNameInput } from "~/components/CharacterNameInput/CharacterNameInput";
 
@@ -36,6 +37,27 @@ export const CharacterSprites = ({
   const spriteValue =
     useFlagValueSelector<string>("-cspr") ?? defaultSpriteString;
 
+  const spritePaletteValues =
+    useFlagValueSelector<string>("-cspp") ?? defaultSpritePaletteString;
+
+  const defaultPortraits = 
+    defaultPortraitString
+      .split(".")
+      .map((val) => Number.parseInt(val))
+      .slice(0, 14);
+
+  const defaultSprites = 
+    defaultSpriteString
+    .split(".")
+    .map((val) => Number.parseInt(val))
+    .slice(0, 14);
+
+  const defaultSpritePalettes = 
+    defaultSpritePaletteString
+    .split(".")
+    .map((val) => Number.parseInt(val))
+    .slice(0, 14);
+
   const randomizeSprites = () => {
     const characterSprites = sampleSize(
       spriteDefs.map(({ id }) => id),
@@ -44,7 +66,6 @@ export const CharacterSprites = ({
 
     const sprites =
       spriteValue?.split(".").map((i) => Number.parseInt(i)) || [];
-
     sprites?.splice(0, 14, ...characterSprites);
     dispatch(
       setFlag({
@@ -72,6 +93,49 @@ export const CharacterSprites = ({
     );
   };
 
+  const restoreDefault = () => {
+    //default sprites
+    const sprites =
+      spriteValue?.split(".").map((i) => Number.parseInt(i)) || [];
+    sprites?.splice(0, 14, ...defaultSprites);
+    dispatch(
+      setFlag({
+        flag: "-cspr",
+        value: sprites.join("."),
+      })
+    );
+
+    //default portraits
+    const portraits = 
+      portraitValues?.split(".").map((i) => Number.parseInt(i)) || [];
+    portraits?.splice(0, 14, ...defaultPortraits);
+    dispatch(
+      setFlag({
+        flag: "-cpor",
+        value: portraits.join("."),
+      })
+    );
+
+    //default sprite palettes
+    const spritePalettes = 
+      spritePaletteValues?.split(".").map((i) => Number.parseInt(i)) || [];
+      spritePalettes?.splice(0, 14, ...defaultSpritePalettes);
+    dispatch(
+      setFlag({
+        flag: "-cspp",
+        value: spritePalettes.join("."),
+      })
+    );
+
+    //default names
+    dispatch(
+      setFlag({
+        flag: "-name",
+        value: defaultCharacterNameString,
+      })
+    );
+  };
+
   return (
     <Card title={"Character Sprites"}>
       <CardColumn>
@@ -89,6 +153,12 @@ export const CharacterSprites = ({
             variant="primary"
           >
             Randomize Sprites
+          </Button>
+          <Button
+            onClick={restoreDefault}
+            variant="primary"
+          >
+            Default
           </Button>
         </span>
         {characterNames.map((character, idx) => {

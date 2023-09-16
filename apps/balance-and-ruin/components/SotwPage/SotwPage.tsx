@@ -7,11 +7,12 @@ import { Footer } from "~/components/Footer/Footer";
 import { SotwCard } from "~/components/SotwCard/SotwCard";
 import { SeedOfTheWeek } from "~/types/sotw";
 
+type Nullable<T> = T | null;
 type Props = {
   children?: React.ReactNode;
   head: React.ReactNode;
   id: string;
-  sotw: SeedOfTheWeek;
+  sotw: Nullable<SeedOfTheWeek>;
 };
 
 export const SotwPage = ({ head, id, sotw }: Props) => {
@@ -40,11 +41,12 @@ export const SotwPage = ({ head, id, sotw }: Props) => {
             Join the&nbsp;<Link href={DISCORD_URL}>Discord server</Link>&nbsp;to
             join the community and submit your times for SotW!
           </p>
-
-          <SotwCard sotwId={id} sotw={sotw} />
+          { sotw && <SotwCard sotwId={id} sotw={sotw} /> }
         </div>
       </main>
       <Footer />
     </>
   );
 };
+
+//          

@@ -1,6 +1,4 @@
 import { cva, VariantProps } from "cva";
-import { times } from "lodash";
-import { GetServerSideProps } from "next";
 import BaseSlider, { SliderProps as BaseSliderProps } from "rc-slider";
 
 export type SliderProps<T extends number | number[]> = BaseSliderProps<T> & {
@@ -15,12 +13,6 @@ const styles = cva([], {
   },
   defaultVariants: {},
 });
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  return {
-    props: {},
-  };
-};
 
 export const Slider = <T extends number | number[]>({
   onChange,

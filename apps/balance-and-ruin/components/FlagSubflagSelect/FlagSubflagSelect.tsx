@@ -15,7 +15,7 @@ import { renderDescription } from "~/utils/renderDescription";
 export type SubflagOption = {
   defaultValue: FlagValue;
   flag: string;
-  helperText: string | ((value: FlagValue) => string);
+  helperText: string | ((value: FlagValue) => React.ReactNode);
   label: string;
   // if true, it will match flag name + defaultValue to the current selected.
   isStatic?: boolean;
@@ -23,7 +23,7 @@ export type SubflagOption = {
 };
 
 export type FlagSubflagSelectProps = {
-  label: string;
+  label: React.ReactNode;
   options: SubflagOption[];
   nullable?: {
     description: string;
@@ -43,7 +43,7 @@ export const FlagSelectOption = <T extends SubflagOption>({
   if (typeof helperText === "function") {
     description = helperText(defaultValue);
   } else {
-    description = renderDescription(description, defaultValue);
+    description = renderDescription(helperText, defaultValue ?? "x");
   }
   return (
     <components.Option data={data} {...rest}>

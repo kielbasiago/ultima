@@ -1,0 +1,4 @@
+*/__pycache__
+*/.turbo
+.vscode/*
+*/node_modules/*

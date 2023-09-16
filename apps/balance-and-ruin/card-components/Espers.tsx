@@ -1,4 +1,5 @@
 import { Card } from "@ff6wc/ui";
+import { BetaLabel } from "~/components/BetaLabel/BetaLabel";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { FlagRange } from "~/components/FlagRange/FlagRange";
 import { FlagSlider } from "~/components/FlagSlider/FlagSlider";
@@ -29,7 +30,7 @@ const spellOptions: SubflagOption[] = [
     flag: "-essrr",
     helperText:
       "Spells are shuffled between espers, but are learned at variable rates",
-    label: "Original (Random Rates)",
+    label: "Shuffle (Random Rates)",
     isStatic: true,
   },
   {
@@ -163,6 +164,7 @@ export const Espers = () => {
           label="Starting Espers"
         />
         <FlagSwitch flag="-ems" label="Multi Summon" />
+        <FlagSwitch flag="-emi" label="Esper Mastery Icon" />
       </CardColumn>
     </Card>
   );

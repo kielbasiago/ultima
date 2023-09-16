@@ -10,11 +10,11 @@ import { InputLabel } from "~/components/InputLabel/InputLabel";
 import { selectDefaultValue, selectDescription } from "~/state/schemaSlice";
 
 export type FlagSwitchProps = {
-  helperText?: string;
+  helperText?: React.ReactNode;
   flag: string;
   /** Invert logic so when true, set to false, and vice versa. If value undefined, default to true. */
   invert?: boolean;
-  label: string;
+  label: React.ReactNode;
 };
 
 export const FlagSwitch = ({

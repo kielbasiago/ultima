@@ -9,7 +9,7 @@ type RandomPayload = {
 
 const useRandomSprite = () => {
   return useSWR<RandomPayload>(["/api/sprite/random"], async () => {
-    const response = await fetch("/api/sprite/random");
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/sprite/random`);
     const data = await response.json();
     return data;
   });
@@ -34,7 +34,9 @@ export const SpriteDrawRandom = ({ paletteId, poseId, spriteId }: Props) => {
     Number.isFinite(palette) &&
     Number.isFinite(pose);
 
-  return !showSprite ? null : (
+  return !showSprite ? (
+    <span className="min-w-[32px] min-h-[48px]"></span>
+  ) : (
     <SpriteDrawLoad
       paletteId={palette as number}
       poseId={pose as number}

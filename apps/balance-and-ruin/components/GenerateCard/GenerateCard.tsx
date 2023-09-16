@@ -1,17 +1,27 @@
-import { Button, Card, CodeBlock, HelperText, Input } from "@ff6wc/ui";
+import {
+  Button,
+  Card,
+  CodeBlock,
+  Divider,
+  HelperText,
+  Input,
+  Link,
+} from "@ff6wc/ui";
 import { cva, cx } from "cva";
 import first from "lodash/first";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { MdClear, MdFileUpload } from "react-icons/md";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useSWRMutation from "swr/mutation";
-import { getFlagValue, selectFlagValues } from "~/state/flagSlice";
+import { getFlagValue, selectFlagValues, setRawFlags } from "~/state/flagSlice";
 import { base64ToByteArray } from "~/utils/base64ToByteArray";
 import { isValidROM, removeHeader } from "~/utils/romUtils";
 import { XDelta3Decoder } from "~/utils/xdelta3_decoder";
 import JSZip from "jszip";
 import { useRouter } from "next/router";
 import { selectSchema } from "~/state/schemaSlice";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import { GenerateUpload } from "~/components/GenerateUpload/GenerateUpload";
 
 export type FlagsCardProps = {
   className?: string;
@@ -44,6 +54,15 @@ const textareaStyles = cva([
   "overflow-auto",
 ]);
 
+const needRomDataStyles = cva([], {
+  variants: {
+    hasRomData: {
+      true: ["hidden"],
+      false: ["block"],
+    },
+  },
+});
+
 export const GenerateCard = ({
   className,
   enableEditing = false,
@@ -56,8 +75,17 @@ export const GenerateCard = ({
   const [romSelectError, setRomSelectError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
+  const ext = romName.slice(romName.length - 7, romName.length);
+  const displayRomName = !romName
+    ? ""
+    : romName.length > 20
+    ? romName.slice(0, 8).concat("...", ext)
+    : romName;
+
   const flags = useOrderedFlags();
   const router = useRouter();
+
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const hasRomData = Boolean(romData);
 
@@ -81,8 +109,9 @@ export const GenerateCard = ({
   const { error, trigger, isMutating } = useSWRMutation(
     ["/api/generate", flags],
     async (key, { arg }) => {
-      const result = await fetch("/api/generate", {
-        body: JSON.stringify({ key: "ff6wc", flags: arg }),
+      const { flags, reCAPTCHA } = arg;
+      const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/generate`, {
+        body: JSON.stringify({ reCAPTCHA, flags }),
         headers: {},
         method: "POST",
       });
@@ -100,9 +129,17 @@ export const GenerateCard = ({
     if (isMutating) {
       return;
     }
-    const generateResult = await trigger(flags);
+
+    let reCAPTCHA: string | null = null;
+    if (!executeRecaptcha) {
+      console.warn("recaptcha not available");
+    } else {
+      reCAPTCHA = await executeRecaptcha("generate_seed");
+    }
+
+    const generateResult = await trigger({ flags, reCAPTCHA });
     if (!generateResult) {
-      throw new Error("There was an error generating the rom");
+      throw new Error("There was an error generating the ROM");
     }
     const { filename, patch, seed_id, log } = generateResult;
     const rom = romData as string;
@@ -120,7 +157,7 @@ export const GenerateCard = ({
       link.href = window.URL.createObjectURL(content);
       link.download = `${filename}.zip`;
       link.click();
-      router.push(`/seed/${seed_id}`);
+      router.push(`/seed/?id=${seed_id}`);
     });
   };
 
@@ -177,95 +214,51 @@ export const GenerateCard = ({
   };
 
   const showDisabledText = !romData;
+
+  const dispatch = useDispatch();
+  const [inputFlags, setInputFlags] = useState("");
+
+  useEffect(() => {
+    setInputFlags(flags);
+  }, [flags]);
+
   return (
     <Card
       {...rest}
-      className="max-w-[1200px]"
+      className="max-w-[1260px]"
       contentClassName={cx("p-0 gap-3", className)}
       title="Generate"
     >
       <div className="flex flex-col gap-2 w-full h-full">
-        <h2 className={"font-medium text-base"}>
+        <h3 className={"font-medium text-base"}>
           Step 1: Select your flags above
-        </h2>
+        </h3>
         <textarea
           className={cx(
             textareaStyles(),
-            "h-full w-full p-4 min-h-[300px] text-xs"
+            "w-full p-4 min-h-[175px] h-fit text-xs"
           )}
-          disabled
-          value={flags}
-        />
-        {!enableEditing || !editable ? null : (
-          <CodeBlock>
-            <textarea
-              className="w-full min-h-"
-              ref={textarearef}
-              value={flags}
-            />
-          </CodeBlock>
-        )}
-      </div>
-      <div className="flex flex-col gap-2">
-        <h2 className={"font-medium text-"}>
-          Step 2: Select v1.0 US ROM file by clicking the input below
-        </h2>
-        <HelperText>
-          Once you have selected a valid ROM it will be reused for future visits
-        </HelperText>
-      </div>
-      <div className="flex gap-4">
-        <div className="flex flex-col">
-          <Button
-            className="w-fit"
-            disabled={hasRomData}
-            onClick={() => inputRef.current?.click()}
-            variant="outline"
-          >
-            <MdFileUpload className={"inline"} /> Upload v1.0 US ROM file..
-          </Button>
-          <Input
-            className="h-fit"
-            disabled
-            ref={inputRef}
-            placeholder="Upload ROM to continue"
-            onChange={() => {}}
-            value={romName}
-          />
-        </div>
-        <Button
-          className=""
-          disabled={!hasRomData}
-          onClick={clearRomValues}
-          variant="outline"
-        >
-          <MdClear className={"inline"} /> Clear ROM
-        </Button>
-        <input
-          className={"hidden"}
-          id="rom_name"
-          ref={inputRef}
-          name="rom"
-          onChange={onRomSelect}
-          type="file"
+          onBlur={(e) => dispatch(setRawFlags(e.target.value))}
+          onChange={(e) => setInputFlags(e.target.value)}
+          value={inputFlags}
         />
       </div>
-      <div className="pl-3">
-        {!success && !romSelectError && (
-          <div className="text-yellow-500 font-semibold">
-            Waiting for ROM upload
-          </div>
-        )}
-        {success && (
-          <div className={"text-green-500 font-semibold"}>Valid ROM </div>
-        )}
-        {romSelectError ? (
-          <div className={"text-red-500 font-semibold"}>{romSelectError}</div>
-        ) : null}
-      </div>
+      <Divider />
+
+      <GenerateUpload
+        clearRomValues={clearRomValues}
+        hasRomData={hasRomData}
+        romName={romName}
+        shortRomName={displayRomName}
+        error={romSelectError}
+        inputRef={inputRef}
+        onRomSelect={onRomSelect}
+        success={success}
+      />
+      <Divider />
 
       <div className="flex flex-col gap-2">
-        <h2 className={"font-medium text-lg"}>Step 3: Click Generate!</h2>
+        <h3 className={"font-medium text-lg"}>Step 3: Click Generate!</h3>
         {showDisabledText ? (
           <HelperText>
             This button will be disabled until a valid ROM is selected
@@ -273,8 +266,9 @@ export const GenerateCard = ({
         ) : null}
       </div>
 
-      <div className="pl-3">
+      <div className="pl-3 flex flex-col gap-4">
         <Button
+          className={"w-fit p-8 text-xl"}
           disabled={!hasRomData || isMutating}
           onClick={generate}
           variant="primary"

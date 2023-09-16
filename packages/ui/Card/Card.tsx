@@ -29,14 +29,14 @@ const contentStyles = cva([
   "flex flex-col gap-4",
   "mb-6",
   "px-4 py-3",
-  "bg-panel-background dark:bg-gray-500",
+  "bg-panel-background dark:bg-gray-600",
   " border-panel-border",
 ]);
 
 const headingStyles = cva(["px-4 py-2", "font-medium"], {
   variants: {
     variant: {
-      default: ["bg-panel-header-background dark:bg-gray-600"],
+      default: ["bg-panel-header-background dark:bg-gray-700"],
       primary: ["bg-blue-700", "text-white "],
     },
   },

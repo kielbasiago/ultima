@@ -2,11 +2,13 @@ import { Card } from "@ff6wc/ui";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { FlagRange } from "~/components/FlagRange/FlagRange";
 import { FlagSlider } from "~/components/FlagSlider/FlagSlider";
+import { DualFlagSlider } from "~/components/DualFlagSlider/DualFlagSlider";
 import {
   FlagSubflagSelect,
   SubflagOption,
 } from "~/components/FlagSubflagSelect/FlagSubflagSelect";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
+import { BetaLabel } from "~/components/BetaLabel/BetaLabel";
 
 const contentOptions: SubflagOption[] = [
   {
@@ -56,6 +58,12 @@ export const Chests = () => {
           }}
         />
         <FlagSwitch flag="-cms" label="MIAB Shuffled" />
+        <DualFlagSlider 
+          flag="-chrm" 
+          label="Random Monsters"
+          helperText="Chest contents will contain {{a}}% enemies and, of those, {{b}}% bosses"
+          aText="Enemies" 
+          bText="Bosses" />
       </CardColumn>
     </Card>
   );

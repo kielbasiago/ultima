@@ -1,27 +1,30 @@
+import { HelperText } from "@ff6wc/ui";
 import startCase from "lodash/startCase";
 import { useId, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import BaseSelect, { components, OptionProps } from "react-select";
 import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
 import { FlagSelectOption } from "~/components/FlagSelectOption/FlagSelectOption";
-import { InputLabel } from "~/components/InputLabel/InputLabel";
+import { Select, SelectOption } from "~/components/Select/Select";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
-import { selectAllowedValues, selectDescription } from "~/state/schemaSlice";
+import {
+  FlagValue,
+  selectAllowedValues,
+  selectDescription,
+} from "~/state/schemaSlice";
+import { renderDescription } from "~/utils/renderDescription";
 
-export type FlagSelectOption = {
-  readonly id: string;
-  readonly label: string;
-  helperText?: string;
+export type BaseFlagSelectOption = {
+  label: string;
+  helperText?: React.ReactNode;
+  defaultValue?: FlagValue;
 };
 
-const EMPTY_ID = "none";
+export type FlagSelectOption = BaseFlagSelectOption & SelectOption;
 
-const empty = {
-  id: EMPTY_ID,
-  label: "None",
-};
+const EMPTY_ID = "empty";
 
 type FlagSelectProps = {
+  defaultValue?: FlagSelectOption;
   /** key used to interact with redux stores */
   flag: string;
   label?: React.ReactNode;
@@ -29,10 +32,12 @@ type FlagSelectProps = {
   nullable?: boolean;
   /** Label of the option when value is null  */
   nullableLabel?: string;
+  nullableHelperText?: string;
   options?: FlagSelectOption[];
 };
 
 export const FlagSelect = ({
+  defaultValue,
   flag,
   label,
   options: optionOverrides,
@@ -40,7 +45,8 @@ export const FlagSelect = ({
   nullableLabel,
 }: FlagSelectProps) => {
   const dispatch = useDispatch();
-  const flagValue = useFlagValueSelector<string | null>(flag) ?? empty.id;
+  const flagValue =
+    useFlagValueSelector<string | null>(flag) ?? (nullable ? EMPTY_ID : null);
 
   const allowedValues = useSelector(selectAllowedValues(flag));
   const description = useSelector(selectDescription(flag));
@@ -52,7 +58,7 @@ export const FlagSelect = ({
       : (allowedValues || []).map(
           (val) =>
             ({
-              id: val,
+              value: val,
               label: startCase(val as string),
               isDisabled: false,
             } as FlagSelectOption)
@@ -60,7 +66,7 @@ export const FlagSelect = ({
 
     if (nullable) {
       newOptions.unshift({
-        id: EMPTY_ID,
+        value: EMPTY_ID,
         label: nullableLabel ?? "None",
       });
     }
@@ -68,10 +74,10 @@ export const FlagSelect = ({
     return newOptions;
   }, [nullable, nullableLabel, optionOverrides, allowedValues]);
 
-  const value = options.find((option) => option.id === flagValue);
+  const value = options.find((option) => option.value === flagValue);
 
   const onChange = (option: FlagSelectOption | null) => {
-    if (option?.id === EMPTY_ID) {
+    if (option?.value === EMPTY_ID) {
       // value of null will remove it from the flags list
       dispatch(
         setFlag({
@@ -85,26 +91,34 @@ export const FlagSelect = ({
     dispatch(
       setFlag({
         flag,
-        value: option?.id ?? null,
+        value: option?.value ?? null,
       })
     );
   };
+
+  const selectedOption = value ?? defaultValue;
+  let valueDescription: React.ReactNode;
+  if (typeof selectedOption?.helperText === "function") {
+    // valueDescription = selectedOption.helperText(selectedOption.value);
+  } else {
+    valueDescription = renderDescription(
+      selectedOption?.helperText,
+      selectedOption?.value ?? null
+    );
+  }
 
   return (
     <div className="flex flex-col gap-1">
       <FlagLabel flag={flag} helperText={description} label={label} />
 
-      <BaseSelect
-        className="ff6wc-select-container"
-        classNamePrefix="ff6wc-select"
+      <Select
         components={{ Option: FlagSelectOption }}
-        instanceId={id}
-        getOptionLabel={(option) => option.label}
-        getOptionValue={(option) => option.id}
         options={options}
         onChange={onChange}
-        value={value}
+        value={value ?? (defaultValue as FlagSelectOption)}
       />
+
+      <HelperText>{valueDescription}</HelperText>
     </div>
   );
 };

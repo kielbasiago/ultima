@@ -1,4 +1,6 @@
 {
+  "buildCommand": "cd ../.. && npx turbo run build --filter=balance-and-ruin...",
+  "installCommand": "pnpm install",
   "redirects": [
     {
       "source": "/discord",
@@ -10,15 +12,4 @@
       "destination": "https://wiki.ff6worldscollide.com",
       "permanent": true
     }
-  ],
-  "functions": {
-    "api/**/generate.py": {
-      "includeFiles": "{api,api_utils,johnnydmad,WorldsCollide}/**/*",
-      "maxDuration": 10,
-      "memory": 1024
-    },
-    "api/**/*.py": {
-      "includeFiles": "{api,api_utils,johnnydmad,WorldsCollide}/**/*"
-    }
-  }
 }

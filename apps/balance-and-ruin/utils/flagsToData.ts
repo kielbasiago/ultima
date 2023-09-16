@@ -1,6 +1,6 @@
 import { FlagValue } from "~/state/schemaSlice";
 
-const SPECIAL_FLAG_REGEX = /^-(com|cspr|cpal|cpor|cspp|name)$/;
+const SPECIAL_FLAG_REGEX = /^-(com|cspr|cpal|cpor|cspp|name|rls)$/;
 const OBJECTIVE_REGEX = /^(-o[a-z])$/;
 
 var foo = "-oa 45.-61.45.2.2.2.7.7.4.10.10 -ob 30.8.8.1.1.11.8";

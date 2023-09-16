@@ -4,10 +4,9 @@
     "build": {
       "env": [
         "NODE_ENV",
-        "VERCEL_URL",
-        "FF3_INPUT_ROM",
-        "FF6WC_INPUT_ROM",
-        "NEXT_PUBLIC_SHOW_OBJECTIVES"
+        "NEXT_PUBLIC_RECAPTCHA_KEY",
+        "NEXT_PUBLIC_ENABLE_BETA",
+        "NEXT_PUBLIC_API_URL"
       ],
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**"]

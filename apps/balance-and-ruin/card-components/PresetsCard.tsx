@@ -32,7 +32,7 @@ export const PresetsCard = ({ presets }: PresetsCardProps) => {
           }}
           value={selected}
         />
-        <HelperText>Presets used for ongoing tournaments</HelperText>
+        <HelperText>Presets used for recent tournaments</HelperText>
       </div>
 
       {/* <div className="flex flex-col gap-1">

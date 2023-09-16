@@ -4,13 +4,14 @@ import {
   FlagSubflagSelect,
   SubflagOption,
 } from "~/components/FlagSubflagSelect/FlagSubflagSelect";
+import {
+  escapableEncounterDescription,
+  fixedEncounterDescription,
+  randomEncounterDescription,
+} from "~/constants/randomEncounterConstants";
 
-const fixedEncounterDescription =
-  "Applies to all unavoidable encounters at fixed locations";
-const randomEncounterDescription =
-  "Applies to all random encounters except Zone Eater";
-const escapableEncounterDescription =
-  "Applies to both random and fixed encounters";
+import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
+import { BetaLabel } from "~/components/BetaLabel/BetaLabel";
 
 const randomEncounterOptions: SubflagOption[] = [
   {

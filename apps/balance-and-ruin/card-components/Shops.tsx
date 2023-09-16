@@ -13,6 +13,7 @@ import {
 } from "~/components/FlagSubflagSelect/FlagSubflagSelect";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
 import { Divider } from "@ff6wc/ui/Divider/Divider";
+import { BetaLabel } from "~/components/BetaLabel/BetaLabel";
 
 const inventoryOptions: SubflagOption[] = [
   {
@@ -114,6 +115,11 @@ export const Shops = () => {
             description: "Items sell for 1/2 their price",
             label: "1/2 (Original)",
           }}
+        />
+        <FlagSlider
+          flag="-sdm"
+          helperText="{{.}} shops will contain Dried Meat"
+          label="Dried Meat"
         />
         <FlagSwitch flag="-snbr" label="No Breakable Rods" />
         <FlagSwitch

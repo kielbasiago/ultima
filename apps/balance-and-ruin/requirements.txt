@@ -1,4 +1,3 @@
-cowpy==1.0.3
-ips.py
-pymongo[srv]
+pymongo
 xdelta3
+boto3

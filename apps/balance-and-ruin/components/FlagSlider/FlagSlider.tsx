@@ -93,7 +93,7 @@ export const FlagSlider = ({
             onChange={(e) => setValue(parseValue(e.target.value))}
             ref={ref}
             type="number"
-            value={value ?? min}
+            value={value ?? (schemaDefaultValue as number) ?? min}
           />
         </div>
       </div>

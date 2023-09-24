@@ -44,6 +44,7 @@ type PageProps = {
   objectives: ObjectiveMetadata;
   presets: Record<string, FlagPreset>;
   schema: Record<string, RawFlagMetadata>;
+  version: Record<string, "">;
 };
 
 type TabItem = {
@@ -81,7 +82,7 @@ const TabIcon = ({ className, Icon }: WithIcon) => {
   );
 };
 
-export const FlagCreatePage = ({ objectives, presets, schema }: PageProps) => {
+export const FlagCreatePage = ({ objectives, presets, schema, version }: PageProps) => {
   const tabs: TabItem[] = useMemo(
     () =>
       [
@@ -231,6 +232,7 @@ export const FlagCreatePage = ({ objectives, presets, schema }: PageProps) => {
       </Head>
       <AppHeader />
       <main className="WC-Page WC-page">
+        <div className="flex justify-center items-center py-4">Version: {version}</div>
         <Tab.Group onChange={(idx) => setSelected(tabs[idx])}>
           <div className="flex justify-center items-center py-4">
             <Tab.List className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

@@ -14,7 +14,7 @@ const spellOptions: SubflagOption[] = [
     defaultValue: true,
     flag: "-esrr",
     helperText:
-      "Spells taught are unchanged, but are learned at variable rates",
+      "(DEPRECATED) Original esper spells with random learn rates",
     label: "Original (Random Rates)",
     isStatic: true,
   },
@@ -29,7 +29,7 @@ const spellOptions: SubflagOption[] = [
     defaultValue: true,
     flag: "-essrr",
     helperText:
-      "Spells are shuffled between espers, but are learned at variable rates",
+      "(DEPRECATED) Esper spells shuffled with random learn rates",
     label: "Shuffle (Random Rates)",
     isStatic: true,
   },
@@ -44,13 +44,31 @@ const spellOptions: SubflagOption[] = [
   {
     defaultValue: [1, 4],
     flag: "-esr",
-    helperText: "Each esper teaches {{ . }} spells",
+    helperText: "Each esper teaches {{ . }} spells (randomized)",
     label: "Random",
     Renderable: ({ children }) => (
       <FlagRange helperText="" flag="-esr" label={children} />
     ),
   },
 ];
+
+const learnRateOptions: SubflagOption[] = [
+  {
+    defaultValue: true,
+    flag: "-elr",
+    helperText:
+      "Esper learn rates randomized",
+    label: "Random",
+    isStatic: true,
+  },
+  {
+    defaultValue: true,
+    flag: "-elrt",
+    helperText: "Esper learn rates randomized by tier",
+    label: "Random Tiered",
+    isStatic: true,
+  },
+]
 
 const bonusOptions: SubflagOption[] = [
   {
@@ -131,6 +149,14 @@ export const Espers = () => {
           label="Spells"
           nullable={{
             description: "Esper spells are unchanged",
+            label: "Original",
+          }}
+        />
+        <FlagSubflagSelect
+          options={learnRateOptions}
+          label={<BetaLabel>Learn Rates</BetaLabel>}
+          nullable={{
+            description: "Esper learn rates are unchanged",
             label: "Original",
           }}
         />

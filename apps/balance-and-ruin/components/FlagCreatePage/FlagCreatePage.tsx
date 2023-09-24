@@ -44,7 +44,7 @@ type PageProps = {
   objectives: ObjectiveMetadata;
   presets: Record<string, FlagPreset>;
   schema: Record<string, RawFlagMetadata>;
-  version: Record<string, "">;
+  version: string;
 };
 
 type TabItem = {

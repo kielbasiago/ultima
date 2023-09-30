@@ -17,18 +17,41 @@ const STANDARD_IR = {
 }
 
 const irOptions: SubflagOption[] = [
+  {
+    defaultValue: "none",
+    flag: "-ir",
+    helperText: () => (
+      <BetaLabel>
+        No Item Rewards are possible!
+      </BetaLabel>
+    ),
+    label: "None",
+    isStatic: true,
+  },
   STANDARD_IR,
+  {
+    defaultValue: "stronger",
+    flag: "-ir",
+    helperText: () => (
+      <BetaLabel>
+        Possible High Tier Item Rewards: ValiantKnife, Illumina, Ragnarok, Atma Weapon, Aura Lance, Fixed Dice, Flame Shld, Ice Shld, Thunder Shld, Paladin Shld, Force Shld, Minerva, BehemothSuit, Snow Muffler, Genji Glove, Offering, Dragon Horn, Exp. Egg
+      </BetaLabel>
+    ),
+    label: "Stronger",
+    isStatic: true,
+  },
   {
     defaultValue: "premium",
     flag: "-ir",
     helperText: () => (
       <BetaLabel>
-        Possible Item Rewards: ValiantKnife, Illumina, Ragnarok, Atma Weapon, Fixed Dice, Flame Shld, Ice Shld, Thunder Shld, Paladin Shld, Minerva, Genji Glove, Offering, Exp. Egg
+        Possible High Tier Item Rewards: ValiantKnife, Illumina, Ragnarok, Atma Weapon, Fixed Dice, Flame Shld, Ice Shld, Thunder Shld, Paladin Shld, Minerva, Genji Glove, Offering, Exp. Egg
       </BetaLabel>
     ),
     label: "Premium",
     isStatic: true,
   },
+
 ];
 
 export const Checks = () => {

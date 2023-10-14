@@ -21,9 +21,9 @@ const irOptions: SubflagOption[] = [
     defaultValue: "none",
     flag: "-ir",
     helperText: () => (
-      <BetaLabel>
+      <>
         No Item Rewards are possible!
-      </BetaLabel>
+      </>
     ),
     label: "None",
     isStatic: true,
@@ -33,9 +33,9 @@ const irOptions: SubflagOption[] = [
     defaultValue: "stronger",
     flag: "-ir",
     helperText: () => (
-      <BetaLabel>
+      <>
         Possible High Tier Item Rewards: ValiantKnife, Illumina, Ragnarok, Atma Weapon, Aura Lance, Fixed Dice, Flame Shld, Ice Shld, Thunder Shld, Paladin Shld, Force Shld, Minerva, BehemothSuit, Snow Muffler, Genji Glove, Offering, Dragon Horn, Exp. Egg
-      </BetaLabel>
+      </>
     ),
     label: "Stronger",
     isStatic: true,
@@ -44,9 +44,9 @@ const irOptions: SubflagOption[] = [
     defaultValue: "premium",
     flag: "-ir",
     helperText: () => (
-      <BetaLabel>
+      <>
         Possible High Tier Item Rewards: ValiantKnife, Illumina, Ragnarok, Atma Weapon, Fixed Dice, Flame Shld, Ice Shld, Thunder Shld, Paladin Shld, Minerva, Genji Glove, Offering, Exp. Egg
-      </BetaLabel>
+      </>
     ),
     label: "Premium",
     isStatic: true,
@@ -63,12 +63,12 @@ export const Checks = () => {
           label="No Free Characters/Espers"
           helperText={
             <span>
-              Remove character/esper rewards from: Auction House, Collapsing House, Figaro Castle Throne, Gau's Father's House, Kohlingen Inn, Narshe Weapon Shop, Sealed Gate, South Figaro Basement, <BetaLabel>Mt. Zozo, and Lone Wolf</BetaLabel>
+              Remove character/esper rewards from: Auction House, Collapsing House, Figaro Castle Throne, Gau's Father's House, Kohlingen Inn, Narshe Weapon Shop, Sealed Gate, South Figaro Basement, Mt. Zozo, and Lone Wolf
             </span>
           } />
         <FlagSubflagSelect
           defaultSelected={STANDARD_IR}
-          label={<BetaLabel>Item Rewards</BetaLabel>}
+          label={<>Item Rewards</>}
           options={irOptions}
         />
       </CardColumn>

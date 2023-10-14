@@ -154,7 +154,7 @@ export const Espers = () => {
         />
         <FlagSubflagSelect
           options={learnRateOptions}
-          label={<BetaLabel>Learn Rates</BetaLabel>}
+          label={<>Learn Rates</>}
           nullable={{
             description: "Esper learn rates are unchanged",
             label: "Original",

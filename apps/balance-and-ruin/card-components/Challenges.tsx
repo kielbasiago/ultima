@@ -14,7 +14,7 @@ export const Challenges = () => {
           helperText="Allow Phunbaba 3 to be shuffled and randomized (Otherwise he will only appear in Mobliz WOR)"
           label="Add Phunbaba 3 to Boss Pool"
         />
-        <FlagSwitch flag="-nosaves" label={<BetaLabel>Ironmog Mode</BetaLabel>} />
+        <FlagSwitch flag="-nosaves" label="Ironmog Mode" />
       </CardColumn>
     </Card>
   );

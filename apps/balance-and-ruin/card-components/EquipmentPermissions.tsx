@@ -53,9 +53,9 @@ const equipableOptions: SubflagOption[] = [
     defaultValue: true,
     flag: "-ietr",
     helperText: () => (
-      <BetaLabel>
+      <>
         Equipment is categorized by tier and chance of being equipable by a character is chosen at random. Higher tier equipment is less likely to be equipable
-      </BetaLabel>
+      </>
     ),
     label: "Tiered Random",
     isStatic: true,
@@ -106,9 +106,9 @@ const equipableRelicOptions: SubflagOption[] = [
     defaultValue: true,
     flag: "-iertr",
     helperText: () => (
-      <BetaLabel>
+      <>
         Relics are categorized by tier and chance of being equipable by a character is chosen at random. Higher tier relics are less likely to be equipable.
-      </BetaLabel>
+      </>
     ),
     label: "Tiered Random",
     isStatic: true,

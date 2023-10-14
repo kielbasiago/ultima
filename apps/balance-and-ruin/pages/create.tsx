@@ -19,6 +19,7 @@ const Create = () => {
   const [objectives, setObjectives] = useState(null)
   const [presets, setPresets] = useState(null)
   const [schema, setSchemaLocal] = useState(null)
+  const [version, setVersion] = useState(null)
   
 
   useEffect(() => {
@@ -29,6 +30,7 @@ const Create = () => {
       .then((res) => res.json())
       .then((data) => {
         setPresets(data)
+        // TODO: figure out why this isn't having the desired effect -- it's defaulting to the startingFlags in flagSlice.ts -- a race condition?
         const preset = data["ultros league"];
         if (preset) {
           store.dispatch(setRawFlags(preset.flags));
@@ -48,10 +50,17 @@ const Create = () => {
         setObjectives(data)
         store.dispatch(setObjectiveMetadata(data))
       })
+
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/wc`)
+      .then((res) => res.json())
+      .then((data) => {
+        const fetchedVersion = data["version"]
+        setVersion(fetchedVersion)
+      })
   }, [])
 
-  if(objectives && presets && schema) {
-    return(<FlagCreatePage objectives={objectives} presets={presets} schema={schema} />)
+  if(objectives && presets && schema && version) {
+    return(<FlagCreatePage objectives={objectives} presets={presets} schema={schema} version={version}/>)
   } else {
     return(<p>Loading...</p>)
   }

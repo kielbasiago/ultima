@@ -26,7 +26,7 @@ const SeedId = () => {
         .then(({data: seed, errors}) => {
           if(seed) {
             setSeed(seed)
-            setLogWithFlags(seed.log.replace(REMOVE_FLAGS_FROM_LOG_REGEX, "\n"))
+            setLogWithFlags(seed.log)
           } else {
             setLogWithFlags(`Error retrieving seed: ${errors}`)
           }

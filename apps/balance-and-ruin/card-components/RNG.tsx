@@ -7,10 +7,6 @@ export const RNG = () => {
   return (
     <Card title={"RNG"}>
       <CardColumn>
-        <Deprecated>
-          <FlagSwitch flag="-rr" label="Random RNG" />
-        </Deprecated>
-        <FlagSwitch flag="-rc" label="Random Zozo Clock" />
       </CardColumn>
     </Card>
   );

@@ -21,7 +21,8 @@ type WsConnection = ws.connection;
 
 const queue = new Queue(1);
 
-const wsServer = "ws://localhost:8080";
+const wsServer1 = "ws://localhost:23074";
+const wsServer2 = "ws://localhost:8080";
 
 export class SnesSession {
   public info: SnesInfo | null;
@@ -51,7 +52,7 @@ export class SnesSession {
     this._devicePromise = null;
     this._deviceInfoPromise = null;
     this._attachPromise = null;
-    this._externalLogger = () => {};
+    this._externalLogger = () => { };
     this.error = null;
   }
 
@@ -92,7 +93,11 @@ export class SnesSession {
     this.resetState();
 
     if (!this._client) {
-      this._client = new ws.w3cwebsocket(wsServer);
+      this._client = new ws.w3cwebsocket(wsServer1);
+    }
+
+    if (!this._client) {
+      this._client = new ws.w3cwebsocket(wsServer2);
     }
 
     this._isConnected = false;

@@ -21,7 +21,8 @@ type WsConnection = ws.connection;
 
 const queue = new Queue(1);
 
-const wsServer = "ws://localhost:8080";
+const wsServer = "ws://localhost:23074";
+const wsServerLegacyPort = "ws://localhost:8080";
 
 export class SnesSession {
   public info: SnesInfo | null;
@@ -51,7 +52,7 @@ export class SnesSession {
     this._devicePromise = null;
     this._deviceInfoPromise = null;
     this._attachPromise = null;
-    this._externalLogger = () => {};
+    this._externalLogger = () => { };
     this.error = null;
   }
 
@@ -91,8 +92,13 @@ export class SnesSession {
   public async connect() {
     this.resetState();
 
+    // SNI changed the port it listens on. Check current and legacy ports
     if (!this._client) {
       this._client = new ws.w3cwebsocket(wsServer);
+    }
+
+    if (!this._client) {
+      this._client = new ws.w3cwebsocket(wsServerLegacyPort);
     }
 
     this._isConnected = false;

@@ -21,7 +21,8 @@ type WsConnection = ws.connection;
 
 const queue = new Queue(1);
 
-const wsServer = "ws://localhost:8080";
+const wsServer = "ws://localhost:23074";
+const wsServerLegacyPort = "ws://localhost:8080";
 
 export class SnesSession {
   public info: SnesInfo | null;
@@ -96,7 +97,14 @@ export class SnesSession {
     }
 
     this._isConnected = false;
-    await this._connect(this._client);
+    try {
+      await this._connect(this._client);
+    } catch(err) {
+      console.error("connect error -- retrying with old port", err);
+
+      this._client = new ws.w3cwebsocket(wsServerLegacyPort);
+      await this._connect(this._client);
+    }
 
     try {
       this.addLogMessage("Loading device list...");

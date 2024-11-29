@@ -32,7 +32,7 @@ export default function SpriteDrawLoad({
   variant = "full",
 }: SpriteDrawLoadProps) {
   const { data, error } = useSWRImmutable<LoadSpriteResponse>(
-    `/api/sprite/${spriteId}/${paletteId}/${poseId}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/sprite/${spriteId}/${paletteId}/${poseId}`,
     fetcher
   );
 

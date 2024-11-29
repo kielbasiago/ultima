@@ -9,18 +9,7 @@ import { TempestHeader } from "~/components/TempestHeader/TempestHeader";
 import { TempestHead } from "~/components/TempestHead/TempestHead";
 import { RowDragon } from "~/components/EmoTracker/RowDragon";
 
-type PageProps = {};
-
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({}) => {
-      return {
-        props: {},
-      };
-    }
-);
-
-const Dragons: NextPage<PageProps> = ({}: PageProps) => {
+const Dragons = () => {
   return (
     <>
       <TempestHead />

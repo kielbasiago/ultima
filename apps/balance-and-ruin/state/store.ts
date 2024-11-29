@@ -6,7 +6,7 @@ import { schemaSlice } from "~/state/schemaSlice";
 import { settingsSlice } from "~/state/settingsSlice";
 import { objectiveSlice } from "~/state/objectiveSlice";
 
-const makeStore = () =>
+export const makeStore = () =>
   configureStore({
     reducer: {
       [authSlice.name]: authSlice.reducer,

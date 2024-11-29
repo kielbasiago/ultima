@@ -1,24 +1,12 @@
-import type { NextPage } from "next";
 import Head from "next/head";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { MusicFooter } from "~/components/Footer/Footer";
 import { GenerateJohnnydmadCard } from "~/components/GenerateJohnnydmadCard/GenerateJohnnydmadCard";
-import { Header } from "@ff6wc/ui";
-import { wrapper } from "~/state/store";
 import { AppHeader } from "~/components/AppHeader/AppHeader";
 
 type PageProps = {};
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({}) => {
-      return {
-        props: {},
-      };
-    }
-);
-
-const MusicPage: NextPage<PageProps> = ({}: PageProps) => {
+const MusicPage = () => {
   return (
     <>
       <Head>

@@ -7,11 +7,12 @@ import { Footer } from "~/components/Footer/Footer";
 import { SotwCard } from "~/components/SotwCard/SotwCard";
 import { SeedOfTheWeek } from "~/types/sotw";
 
+type Nullable<T> = T | null;
 type Props = {
   children?: React.ReactNode;
   head: React.ReactNode;
   id: string;
-  sotw: SeedOfTheWeek;
+  sotw: Nullable<SeedOfTheWeek>;
 };
 
 export const SotwPage = ({ head, id, sotw }: Props) => {
@@ -31,20 +32,19 @@ export const SotwPage = ({ head, id, sotw }: Props) => {
 
           <p className="text-sm md:text-base">
             Seed of the Week (SotW) is a casual weekly race and used as a
-            showcase of different flagsets submitted by the by community. To
-            submit your own flagset for Seed of the Week, use the&nbsp;
-            <Link href={SOTW_SUBMISSION_URL}>form found here</Link>
+            showcase of different flagsets submitted by the by community.
           </p>
 
           <p className="text-sm md:text-base">
             Join the&nbsp;<Link href={DISCORD_URL}>Discord server</Link>&nbsp;to
-            join the community and submit your times for SotW!
+            play alongside the community and to submit your own ideas for the Seed of The Week!
           </p>
-
-          <SotwCard sotwId={id} sotw={sotw} />
+          { sotw && <SotwCard sotwId={id} sotw={sotw} /> }
         </div>
       </main>
       <Footer />
     </>
   );
 };
+
+//          

@@ -19,7 +19,7 @@ export const SotwCard = ({ sotw, sotwId }: Props) => {
       <p className="text-sm px-4">Submitted by {sotw.submitter}</p>
       <p className="text-base px-2">{sotw.description}</p>
 
-      <Link href={seed_id ? `/seed/${seed_id}` : seed}>
+      <Link href={seed_id ? `/seed/?id=${seed_id}` : seed}>
         <Button
           className="w-fit uppercase font-mono font-semibold"
           variant="primary"

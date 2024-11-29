@@ -1,9 +1,10 @@
 import type { NextPage } from "next";
+import { useEffect, useState } from "react";
 import { FlagCreatePage } from "~/components/FlagCreatePage/FlagCreatePage";
 import { setRawFlags } from "~/state/flagSlice";
 import { setObjectiveMetadata } from "~/state/objectiveSlice";
 import { RawFlagMetadata, setSchema } from "~/state/schemaSlice";
-import { wrapper } from "~/state/store";
+import { makeStore } from "~/state/store";
 import { ObjectiveMetadata } from "~/types/objectives";
 import { FlagPreset } from "~/types/preset";
 
@@ -13,57 +14,56 @@ export type PageProps = {
   schema: Record<string, RawFlagMetadata>;
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({}) => {
-      const protocol =
-        process.env.NODE_ENV === "development" ? "http" : "https";
+const Create = () => {
 
-      const presetPromise = fetch(
-        "https://storage.googleapis.com/seedbot/user_presets.json"
-      );
+  const [objectives, setObjectives] = useState(null)
+  const [presets, setPresets] = useState(null)
+  const [schema, setSchemaLocal] = useState(null)
+  const [version, setVersion] = useState(null)
+  
 
-      const schemaPromise = fetch(
-        `${protocol}://${process.env.VERCEL_URL}/api/metadata/flag`
-      );
+  useEffect(() => {
+    const store = makeStore()
 
-      const objectivesPromise = fetch(
-        `${protocol}://${process.env.VERCEL_URL}/api/metadata/objective`
-      );
+    // fetch presets
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/presets`)
+      .then((res) => res.json())
+      .then((data) => {
+        setPresets(data)
+        // TODO: figure out why this isn't having the desired effect -- it's defaulting to the startingFlags in flagSlice.ts -- a race condition?
+        const preset = data["ultros league"];
+        if (preset) {
+          store.dispatch(setRawFlags(preset.flags));
+        }
+      })
+    
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/metadata/flag`)
+      .then((res) => res.json())
+      .then((data) => {
+        setSchemaLocal(data)
+        store.dispatch(setSchema(data))
+      })
 
-      const presets: Record<string, FlagPreset> = await (
-        await presetPromise
-      ).json();
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/metadata/objective`)
+      .then((res) => res.json())
+      .then((data) => {
+        setObjectives(data)
+        store.dispatch(setObjectiveMetadata(data))
+      })
 
-      const schema = await (await schemaPromise).json();
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/wc`)
+      .then((res) => res.json())
+      .then((data) => {
+        const fetchedVersion = data["version"]
+        setVersion(fetchedVersion)
+      })
+  }, [])
 
-      const objectives = await (await objectivesPromise).json();
-
-      await store.dispatch(setSchema(schema));
-
-      await store.dispatch(setObjectiveMetadata(objectives));
-      const preset = presets["ultros league"];
-      if (preset) {
-        await store.dispatch(setRawFlags(preset.flags));
-      }
-      return {
-        props: {
-          objectives,
-          presets,
-          schema,
-        },
-      };
-    }
-);
-
-const Create: NextPage<PageProps> = ({
-  objectives,
-  presets,
-  schema,
-}: PageProps) => {
-  return (
-    <FlagCreatePage objectives={objectives} presets={presets} schema={schema} />
-  );
+  if(objectives && presets && schema && version) {
+    return(<FlagCreatePage objectives={objectives} presets={presets} schema={schema} version={version}/>)
+  } else {
+    return(<p>Loading...</p>)
+  }
 };
 
 export default Create;

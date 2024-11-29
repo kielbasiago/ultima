@@ -1,7 +1,7 @@
 import { Card } from "@ff6wc/ui";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
-import { Divider } from "@ff6wc/ui/Divider/Divider";
+import { BetaLabel } from "~/components/BetaLabel/BetaLabel";
 
 export const Challenges = () => {
   return (
@@ -14,6 +14,7 @@ export const Challenges = () => {
           helperText="Allow Phunbaba 3 to be shuffled and randomized (Otherwise he will only appear in Mobliz WOR)"
           label="Add Phunbaba 3 to Boss Pool"
         />
+        <FlagSwitch flag="-nosaves" label="Ironmog Mode" />
       </CardColumn>
     </Card>
   );

@@ -11,16 +11,7 @@ import { TempestHeader } from "~/components/TempestHeader/TempestHeader";
 import { TempestHead } from "~/components/TempestHead/TempestHead";
 type PageProps = {};
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({}) => {
-      return {
-        props: {},
-      };
-    }
-);
-
-const AutoSimple: NextPage<PageProps> = ({}: PageProps) => {
+const AutoSimple = () => {
   return (
     <>
       <TempestHead />

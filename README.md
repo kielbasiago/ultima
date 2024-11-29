@@ -16,3 +16,13 @@ Web UI for the FF6WC tracker, powered by Next.js and Vercel
 
 - [AtmaTek](https://github.com/AtmaTek) for creating FF6 Worlds Collide
 - [emberling](https://github.com/emberling) for assistance with johnnydmad and creating amazing music along with all the other contributors - [Go take a listen to the tracks in johnnydmad!](https://emberling.github.io/core/)
+
+
+
+
+# Testing
+
+cd apps/balance-and-ruin
+pnpm export
+cd out
+python -m http.server
